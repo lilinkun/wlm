@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="titlebar">
+        <attr name="img_left" format="reference" />
+        <attr name="img_right" format="reference" />
+        <attr name="text_title" format="string" />
+        <attr name="title_color" format="color" />
+        <attr name="right_color" format="color"/>
+        <attr name="text_left" format="string" />
+        <attr name="left_TextSize" format="float"/>
+        <attr name="text_right" format="string" />
+        <attr name="text_color" format="color" />
+        <attr name="left_visibility" format="boolean"/>
+        <attr name="text_size" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="register_layout">
+
+        <attr name="is_register" format="boolean"/>
+
+    </declare-styleable>
+
+
+
+    <declare-styleable name="round">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="Custom_Round_Image_View">
+        <attr name="radius" format="dimension"/>
+        <attr name="left_top_radius" format="dimension"/>
+        <attr name="right_top_radius" format="dimension"/>
+        <attr name="right_bottom_radius" format="dimension"/>
+        <attr name="left_bottom_radius" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="BannerView">
+        <attr name="dotIndicatorFocus" format="color|reference"/>
+        <attr name="dotIndicatorNormal" format="color|reference"/>
+        <attr name="dotSize" format="dimension"/>
+        <attr name="dotDistance" format="dimension"/>
+        <attr name="dotGravity" format="enum">
+
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="left" value="-1"/>
+        </attr>
+        <attr name="bottomColor" format="color|reference"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="DotIndicatorView">
+
+        <attr name="shape" format="enum">
+            <enum name="rect" value="1"/>
+            <enum name="circle" value="2"/>
+        </attr>
+
+    </declare-styleable>
+
+
+    <declare-styleable name="FlowLayout">
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="maxLine" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="TagFlowLayout">
+        <attr name="max_select" format="integer"></attr>
+        <attr name="tag_gravity">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="SlideDetailsLayout">
+        <!-- float value for indicate the moment of switch panel-->
+        <attr name="percent" format="float"/>
+        <!-- how long the animation keep-->
+        <attr name="duration" format="integer"/>
+        <!-- default panel to show after init-->
+        <attr name="default_panel" format="enum">
+            <enum name="front" value="0"/>
+            <enum name="behind" value="1"/>
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsTabTextClickColor" format="color" />
+        <attr name="pstsTabTextUnclickColor" format="color" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomSort">
+        <attr name="textcolor" format="color"/>
+        <attr name="textnormalcolor" format="color"/>
+        <attr name="up_arrow" format="reference"/>
+        <attr name="down_arrow" format="reference"/>
+
+    </declare-styleable>
+
+</resources>

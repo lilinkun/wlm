@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.wlm.wlm.ui.CusPtrClassicFrameLayout
+        android:id="@+id/mPtrframe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_layout_search"
+        android:background="@color/setting_title_color"
+        lzy:ptr_duration_to_close="3000"
+        lzy:ptr_duration_to_close_header="2000"
+        lzy:ptr_keep_header_when_refresh="true"
+        lzy:ptr_pull_to_fresh="false"
+        lzy:ptr_ratio_of_header_height_to_refresh="1.2"
+        lzy:ptr_resistance="1.7">
+    <com.wlm.wlm.ui.TranslucentScrollView
+        android:id="@+id/tsv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="-1dp"
+                android:background="@mipmap/ic_home_orange_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.xw.banner.Banner
+                    android:id="@+id/bannerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    lzy:indicator_width="8dp"
+                    lzy:indicator_height="8dp"
+                    lzy:indicator_drawable_selected="@mipmap/ic_round_red"
+                    lzy:indicator_drawable_unselected="@mipmap/ic_round_gray"
+                    lzy:page_margin="20dp"/>
+
+                <com.wlm.wlm.ui.MyGridView
+                    android:id="@+id/gv_goods_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_15"
+                    android:paddingRight="@dimen/margin_15"
+                    android:paddingTop="@dimen/margin_20"
+                    android:numColumns="4"
+                    android:background="@color/white"
+                    android:verticalSpacing="@dimen/margin_10"
+                    android:visibility="gone">
+                </com.wlm.wlm.ui.MyGridView>
+
+                <include
+                    layout="@layout/layout_home_type"/>
+
+                <ImageView
+                    android:id="@+id/iv_vip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:scaleType="fitXY"
+                    android:background="@color/menu_item_bg"
+                    android:src="@mipmap/ic_home_vip"/>
+
+                <include
+                    layout="@layout/layout_self_commodities"/>
+
+                <include
+                    layout="@layout/layout_brand_recommendation"/>
+
+                <include
+                    layout="@layout/layout_hot_commodities"/>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </com.wlm.wlm.ui.TranslucentScrollView>
+
+    </com.wlm.wlm.ui.CusPtrClassicFrameLayout>
+
+    <include
+        android:id="@+id/title_layout_search"
+        layout="@layout/title_layout_search" />
+</RelativeLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/integral_bg"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_20">
+            <ImageView
+                android:id="@+id/iv_head_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_back_white"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_integral_title"/>
+
+    </RelativeLayout>
+
+
+    <com.wlm.wlm.ui.PagerSlidingTabStrip
+        android:id="@+id/tab_strip"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:pstsTabTextClickColor="@color/white"
+        app:pstsTabTextUnclickColor="@color/psts_unclick_text_bg"
+        app:pstsUnderlineColor="@color/white">
+
+    </com.wlm.wlm.ui.PagerSlidingTabStrip>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_integral_search"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:src="@mipmap/ic_search_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积雪草奇迹软膜面膜"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:textSize="@dimen/textsize15"
+            />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/layout_integral"/>
+
+
+</LinearLayout>

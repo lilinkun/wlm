@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/head_title_bg"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:background="@drawable/shape_info_pop"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_systemphoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_10"
+                android:textSize="@dimen/textsize18"
+                android:textColor="@color/login_title_text"
+                android:text="@string/system_photo"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_bg"/>
+
+
+            <TextView
+                android:id="@+id/tv_takephoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_10"
+                android:textColor="@color/login_title_text"
+                android:textSize="@dimen/textsize18"
+                android:text="@string/take_photo"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_pop_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize18"
+            android:background="@drawable/shape_info_pop"
+            android:text="取消"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

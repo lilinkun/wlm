@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/text_question"
+        android:orientation="vertical">
+
+        <com.wlm.wlm.ui.CustomTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            lzy:img_left="@mipmap/ic_back_white"
+            lzy:text_color="@color/white"
+            lzy:text_title="店铺"
+            lzy:title_color="@color/transparent">
+
+        </com.wlm.wlm.ui.CustomTitleBar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:orientation="horizontal">
+
+
+                <com.wlm.wlm.ui.CustomRoundAngleImageView
+                    android:id="@+id/iv_store_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    lzy:radius="5dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_30"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_store_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textsize16" />
+
+                    <TextView
+                        android:id="@+id/tv_store_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textsize13" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/setting_title_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="店铺介绍"
+                android:textColor="@color/pop_text_bg"
+                android:textSize="@dimen/textsize17" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="本店商品均属正品，假一罚十信誉保证。"
+            android:textSize="@dimen/textsize15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="欢迎广大顾客前来放心选购，我们将竭诚为您服务！"
+            android:textSize="@dimen/textsize15" />
+    </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gv_hot_commodities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_5"
+            android:nestedScrollingEnabled="false"
+            android:padding="@dimen/margin_10"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

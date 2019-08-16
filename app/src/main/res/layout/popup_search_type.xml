@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/head_title_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_20"
+        android:paddingBottom="75dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_home_self"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_self_goods"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:textSize="@dimen/textsize16"
+        android:background="@drawable/search_text_bg_select"
+        android:textColor="@color/white"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_20"
+        android:paddingRight="@dimen/margin_20"/>
+
+    <TextView
+        android:id="@+id/tv_home_tb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_tb"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:textSize="@dimen/textsize16"
+        android:textColor="@drawable/orderlist_choose_text"
+        android:background="@drawable/orderlist_choose"
+        android:paddingLeft="@dimen/margin_20"
+        android:paddingRight="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"/>
+
+    <TextView
+        android:id="@+id/tv_home_jd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_jd"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:textSize="@dimen/textsize16"
+        android:textColor="@drawable/orderlist_choose_text"
+        android:background="@drawable/orderlist_choose"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_20"
+        android:paddingRight="@dimen/margin_20"/>
+    </LinearLayout>
+</LinearLayout>

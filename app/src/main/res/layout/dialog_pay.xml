@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize17"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/pop_text_bg"
+        android:text="请输入支付密码"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg"
+        android:layout_marginTop="@dimen/margin_10"/>
+
+    <TextView
+        android:id="@+id/tv_pay_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/setting_title_color"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textSize="@dimen/textsize18"/>
+    
+    <EditText
+        android:id="@+id/et_pay_psd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_20"
+        android:paddingTop="@dimen/padding_10"
+        android:paddingBottom="@dimen/padding_10"
+        android:paddingLeft="@dimen/margin_20"
+        android:inputType="textPassword"
+        android:background="@drawable/pay_dialog"
+        android:textColorHint="@color/list_divider"
+        android:textSize="@dimen/textsize16"
+        android:hint="输入您的支付密码"/>
+
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:textColor="@color/white"
+        android:background="@drawable/text_shape_commit"
+        android:text="@string/modify_sure" />
+
+
+</LinearLayout>

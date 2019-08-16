@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/margin_10"
+    android:background="@drawable/shape_hot_goods"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_7">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dip">
+
+        <com.wlm.wlm.ui.CustomRoundAngleImageView
+            android:id="@+id/iv_goods_pic"
+            android:layout_width="match_parent"
+            android:layout_height="180.0dip"
+            android:scaleType="fitXY"
+            lzy:left_top_radius="5dp"
+            lzy:right_top_radius="5dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="@mipmap/ic_home_turn_yellow"
+            android:gravity="center"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="可抵扣"/>
+            <TextView
+                android:id="@+id/tv_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="元"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_goods_title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:ellipsize="end"
+        android:maxLines="2" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_5"
+        android:layout_marginTop="@dimen/margin_10">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/ll_buy_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_buy_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13"
+                    android:textColor="@color/list_divider"
+                    android:textSize="@dimen/textsize12" />
+
+                <TextView
+                    android:id="@+id/tv_buy_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人购买"
+                    android:textColor="@color/list_divider"
+                    android:textSize="@dimen/textsize12" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/tv_goods_type_price"
+                android:text="123"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:textSize="@dimen/textsize18"
+                android:textColor="@color/goods_red" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

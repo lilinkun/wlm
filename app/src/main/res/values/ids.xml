@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="menu">false</item>
+    <item type="id" name="menu_bottom">false</item>
+    <item type="id" name="main_fragment">false</item>
+    <item name="menu_bottom_1" type="id">false</item>
+    <item name="image_1" type="id">false</item>
+    <item name="text_1" type="id">false</item>
+    <item name="menu_bottom_2" type="id">false</item>
+    <item name="image_2" type="id">false</item>
+    <item name="text_2" type="id">false</item>
+    <item name="menu_bottom_3" type="id">false</item>
+    <item name="image_3" type="id">false</item>
+    <item name="text_3" type="id">false</item>
+
+</resources>

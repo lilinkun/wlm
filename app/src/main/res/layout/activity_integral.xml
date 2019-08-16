@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:img_left="@mipmap/ic_back"></com.wlm.wlm.ui.CustomTitleBar>
+
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/comm_bg" />
+
+    <!-- <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_25">
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:textColor="@color/login_title_text"
+            android:textSize="24sp"
+            android:text="asdasd"/>
+
+        <TextView
+            android:id="@+id/tv_pay_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@+id/tv_balance"
+            android:text="asdasd"/>
+    </RelativeLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:textColor="@color/login_title_text"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/tv_pay_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_15"
+            android:textSize="@dimen/textsize18"
+            android:layout_alignBottom="@+id/tv_balance"
+            android:textColor="@color/login_title_text"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_25"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:background="@color/comm_bg" />
+
+        <TextView
+            android:id="@+id/tv_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分明细"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@color/comm_bg" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_15">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

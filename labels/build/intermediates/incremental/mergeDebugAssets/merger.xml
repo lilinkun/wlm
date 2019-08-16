@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\chrome\wlm\labels\src\main\assets"/><source path="D:\chrome\wlm\labels\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\chrome\wlm\labels\src\debug\assets"/></dataSet></merger>

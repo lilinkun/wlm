@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ll_address"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/transparent">
+
+    </ImageView>
+
+
+    <com.wlm.wlm.adressselectorlib.AddressSelector
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_address"
+        android:layout_alignParentBottom="true">
+
+    </com.wlm.wlm.adressselectorlib.AddressSelector>
+
+</RelativeLayout>

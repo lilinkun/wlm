@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="@dimen/margin_30"
+        android:layout_marginRight="@dimen/margin_30">
+
+        <LinearLayout
+            android:id="@+id/ll_input_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_register_head"/>
+
+            <EditText
+                android:id="@+id/et_input_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._"
+                android:textColorHint="@color/register_text_hint_bg"
+                android:hint="@string/register_input_account"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_account"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <LinearLayout
+            android:id="@+id/ll_input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_register_name"/>
+
+            <EditText
+                android:id="@+id/et_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:textColorHint="@color/register_text_hint_bg"
+                android:hint="@string/register_input_name"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_name"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_register_vcode"/>
+
+            <EditText
+                android:id="@+id/et_input_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:inputType="phone"
+                android:textColorHint="@color/register_text_hint_bg"
+                android:hint="@string/register_input_phone"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_phone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/ic_vcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_register_vc"/>
+
+            <TextView
+                android:id="@+id/tv_send_vcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/register_vcode_bg"
+                android:text="@string/register_send_vcoed"/>
+
+            <EditText
+                android:id="@+id/et_input_vcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_toRightOf="@+id/ic_vcode"
+                android:layout_toLeftOf="@+id/tv_send_vcode"
+                android:layout_centerVertical="true"
+                android:inputType="number"
+                android:textColorHint="@color/register_text_hint_bg"
+                android:hint="@string/register_input_vcode"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line_vcode"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/iv_input_psd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_register_psw"/>
+
+            <EditText
+                android:id="@+id/et_input_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_toLeftOf="@+id/ic_input_psd"
+                android:layout_toRightOf="@+id/iv_input_psd"
+                android:inputType="textPassword"
+                android:layout_centerVertical="true"
+                android:textColorHint="@color/register_text_hint_bg"
+                android:hint="@string/register_input_pwd"/>
+
+            <ImageView
+                android:id="@+id/ic_input_psd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/margin_15"
+                android:paddingLeft="@dimen/margin_10"
+                android:src="@mipmap/ic_close_psd"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line_psd"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+
+        <Button
+            android:id="@+id/btn_over"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:background="@drawable/login_btn_click"
+            android:textSize="@dimen/btn_register_text_size"
+            android:layout_marginTop="@dimen/margin_50"/>
+
+        <LinearLayout
+            android:id="@+id/ll_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_tip"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_protocol"
+                android:textColor="@color/register_vcode_bg"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

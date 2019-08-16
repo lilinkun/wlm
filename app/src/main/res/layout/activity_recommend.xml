@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
+
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:text_title="@string/me_recommend"
+        lzy:title_color="@color/setting_title_color"
+        lzy:text_color="@color/white"
+        lzy:img_left="@mipmap/ic_back_white"
+        ></com.wlm.wlm.ui.CustomTitleBar>
+
+    <LinearLayout
+        android:id="@+id/recommend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlebar"
+        android:layout_marginTop="20.0dip"
+        android:orientation="vertical"
+        android:padding="15.0dip">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:gravity="center"
+            android:text="@string/recommend_message"
+            android:textColor="#ff333333"
+            android:textSize="@dimen/textsize15" />
+
+        <EditText
+            android:id="@+id/recommend_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5.0dip"
+            android:background="@drawable/edit_shape_input"
+            android:paddingBottom="15.0dip"
+            android:textColor="#ff676767"
+            android:text="@string/recommend_info"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="@dimen/textsize15" />
+
+        <TextView
+            android:id="@+id/recommend_commit"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:layout_marginTop="40.0dip"
+            android:background="@drawable/text_selector_commit"
+            android:gravity="center"
+            android:text="@string/recommending"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize18" />
+    </LinearLayout>
+</RelativeLayout>

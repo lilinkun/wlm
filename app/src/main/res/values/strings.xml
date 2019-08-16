@@ -1,0 +1,212 @@
+<resources>
+    <string name="app_name">唯乐美</string>
+    <string name="bottom_text_1">首页</string>
+    <string name="bottom_text_2">购物车</string>
+    <string name="bottom_text_4">我的</string>
+    
+    <!--注册,修改密码-->
+    <string name="register">注册</string>
+    <string name="register_tip">点击"注册"表示您已同意</string>
+    <string name="register_protocol">《用户协议》</string>
+    <string name="register_input_vcode">请输入验证码</string>
+    <string name="register_input_pwd">请输入密码</string>
+    <string name="register_send_vcoed">获取验证码</string>
+    <string name="register_input_account">请输入帐号，暂不识别中文</string>
+    <string name="register_input_name">请输入您的真实姓名</string>
+    <string name="register_input_phone">请输入手机号码</string>
+    <string name="prompt_phone_number_invalid">输入的手机号码无效，请输入正确的手机号码！</string>
+    <string name="prompt_account_invalid">请输入账号名</string>
+    <string name="prompt_account_length_invalid">请输入六位或以上的账号</string>
+    <string name="prompt_name_invalid">请输入真实姓名</string>
+    <string name="register_vcode_invalid">验证码不正确</string>
+    <string name="register_psd_invalid">请输入密码</string>
+    <string name="register_psd_length_invalid">请输入六位或以上的密码</string>
+    <string name="modify_psw">修改密码</string>
+    <string name="modify_sure">确定</string>
+    <string name="exit">取消</string>
+    <string name="modify_new_pwd">请设置新密码</string>
+    <string name="login_loading">正在登录中...</string>
+    <string name="prompt_login_name_not_empty">用户名不能为空，请输入用户名！</string>
+    <string name="prompt_login_name_not_allow">用户名必须2-15个字符</string>
+    <string name="prompt_login_passwrod_not_empty">密码不能为空，请输入密码！</string>
+
+    <string name="mobile_num">400</string>
+
+    <string name="psd_limit">请设置六位以上密码</string>
+    <string name="psd_sure">请确认密码</string>
+    
+    <string name="input_search_word">请输入需要查询的物品</string>
+
+    <!--首页-->
+    <string name="homepage_good_thing_list">分类</string>
+    <string name="homepage_good_thing_list_search">搜索</string>
+    <string name="hide_popuwindow">收起分类</string>
+    <string name="clother_host">人气</string>
+    <string name="moren">默认排序</string>
+    <string name="clother_nestest">抵扣金额</string>
+    <string name="clother_price">价格</string>
+    <string name="clother_top">销量</string>
+    <string name="good_thing_for_you">好宝贝 等你搜</string>
+    <string name="brand_recommendation">品牌推荐</string>
+    <string name="self_recommendation">商城</string>
+    <string name="hot_commodities">热门商品</string>
+    <string name="home_self_goods">自营</string>
+    <string name="home_tb">淘宝</string>
+    <string name="home_jd">京东</string>
+    <string name="home_tm">天猫</string>
+
+    <!--登录-->
+    <string name="login">登录</string>
+    <string name="login_account">账号</string>
+    <string name="login_psw">密码</string>
+    <string name="login_input_phone">请输入帐号</string>
+    <string name="login_input_psw">请输入密码</string>
+    <string name="login_forget_psw">忘记密码</string>
+    <string name="login_register">立刻注册</string>
+
+    <!--设置-->
+    <string name="setting">设置</string>
+    <string name="setting_info">个人信息</string>
+    <string name="setting_modify_psd">修改密码</string>
+    <string name="setting_update">在线升级</string>
+    <string name="setting_delete_cache">清除缓存</string>
+    <string name="setting_exit_login">退出登录</string>
+    
+    <!--我的-->
+    <string name="me_balance">余额</string>
+    <string name="me_integral">积分</string>
+    <string name="me_order">我的订单</string>
+    <string name="me_coupon">我的地址</string>
+    <string name="me_collection">我的收藏</string>
+    <string name="me_record">浏览记录</string>
+    <string name="me_money">充值金额</string>
+    <string name="me_recommend">推荐好友</string>
+    <string name="me_problem">常见问题</string>
+    <string name="me_opinion">意见反馈</string>
+    <string name="me_customer_service">客服热线</string>
+    <string name="me_about">关于我们</string>
+    
+    <!--个人信息-->
+    <string name="personal_over">完成</string>
+    <string name="personal_head_face">头像</string>
+    <string name="personal_nickname">昵称</string>
+    <string name="personal_phone">手机</string>
+    <string name="take_photo">拍摄</string>
+    <string name="system_photo">从相册选择</string>
+
+    <!--搜索-->
+    <string name="search_hint">抢大额神券</string>
+    <string name="search_history">搜索历史</string>
+    <string name="search_recommond">推荐搜索</string>
+    
+    <!--充值-->
+    <string name="recharge_account">充值</string>
+    <string name="recharge_sum">充值金额</string>
+
+    <!--意见反馈-->
+    <string name="opinion_detailed">详细描述 (必填，150字以内)</string>
+    <string name="opinion_input_detailed">请输入详细描述</string>
+
+    <!--推荐好友-->
+    <string name="recommend_info">我正在使用【绿韵宝】,方便又便宜!话费还能当现金在淘宝天猫进行购物抵扣，免费试用,真不错你也装上吧</string>
+    <string name="recommending">现在推荐</string>
+    <string name="recommend_message">短信内容</string>
+
+    <!--优惠券-->
+    <string name="coupon">优惠券</string>
+    <string name="original_price">原价:</string>
+    <string name="voucher_price">券后价</string>
+
+
+    <!--我的昵称-->
+    <string name="my_nickname">我的昵称</string>
+    <string name="input_nickname">输入昵称</string>
+    <string name="nickname_save">保存</string>
+
+
+    <string name="look_picthre_ditel">查看图文详情</string>
+    <string name="go_Tb">去淘宝购买</string>
+    <string name="go_Tm">去天猫购买</string>
+    <string name="go_Jd">去京东购买</string>
+    <string name="price_tm">天猫价</string>
+    <string name="price_tb">淘宝价</string>
+    <string name="price_jd">京东价</string>
+    <string name="price_duih">领取购买</string>
+    
+    <string name="go_receive">立即领取</string>
+
+    <string name="mynick_isempty">昵称不能为空</string>
+
+
+    <!--历史纪录-->
+    <string name="record_delete">清除记录</string>
+    <string name="collect_manager">管理</string>
+    
+    
+    <!--自营商品-->
+    <string name="goods_format">规格</string>
+    <string name="goods_address">配送</string>
+    <string name="goods_freight">运费</string>
+    <string name="goods_detail">宝贝详情</string>
+    <string name="goods_buy_now">立刻购买</string>
+    <string name="goods_add_address">添加地址</string>
+    <string name="add_goods_address">添加收货地址</string>
+    <string name="goods_add_shoppingcar">加入购物车</string>
+    <string name="goods_collect">已收藏</string>
+    <string name="goods_uncollect">收藏</string>
+    <string name="goods_delete">删除</string>
+    <string name="goods_shop">商铺</string>
+    <string name="shop_name">店铺</string>
+    <string name="goods_recommend">为你推荐</string>
+
+    <!--积分兑换商城-->
+    <string name="integral_slogan">所做的一切都是为了你的美</string>
+
+
+    <!--购物车-->
+    <string name="shopping_car">购物车</string>
+    <string name="shopping_edit">编辑</string>
+    <string name="actionBar_edit">编辑</string>
+    <string name="all">全选</string>
+    <string name="order_total">实付 :</string>
+    <string name="choose_pay">选择支付方式</string>
+    <string name="pay_zfb">支付宝支付</string>
+    <string name="pay_wx">微信支付</string>
+    <string name="pay_self">余额支付：¥</string>
+    <string name="goods_price">商品价格</string>
+    <string name="use_integral">可用积分</string>
+    <string name="uses_integral">使用积分</string>
+    <string name="postage">邮费</string>
+    <string name="total_payable">应付总额</string>
+    <string name="getpay">提交订单</string>
+    <string name="empty_tip">购物车空空如也，快去挑件好货！</string>
+    <string name="go_shopping">前去逛逛</string>
+
+
+    <!--收货地址-->
+    <string name="goods_consignee">收货人</string>
+    <string name="goods_consignee_name">收货人:</string>
+    <string name="goods_order_freight">运费:</string>
+    <string name="goods_phone">手机号</string>
+    <string name="goods_local_address">所在地区</string>
+    <string name="goods_detail_address">详细地址</string>
+    <string name="input_detail_address">请填写详细地址</string>
+    <string name="input_address_phone">请填写手机号码</string>
+    <string name="input_address_consignee">请填写收货人</string>
+    <string name="input_length_limit">收货人长度必须大于2</string>
+    
+    <!--订单-->
+    <string name="order_exit">取消订单</string>
+    <string name="go_pay">去付款</string>
+    <string name="no_order_tip">还没有相关的订单呢</string>
+    <string name="right_now_pay">立即支付</string>
+    <string name="membership">会员特惠</string>
+
+    <string name="recommend_goods">推荐商品</string>
+
+
+    <string name="app_tip">提示</string>
+    <!-- WXPayEntryActivity -->
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+</resources>

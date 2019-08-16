@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:text_title="修改支付密码"
+        lzy:img_left="@mipmap/ic_back"
+        ></com.wlm.wlm.ui.CustomTitleBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/white"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/margin_10"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/pop_text_bg"
+                android:text="手机号"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="@dimen/padding_10"
+                android:background="@null"/>
+            </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/margin_10"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/pop_text_bg"
+                android:text="验证码"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+            <EditText
+                android:id="@+id/ev_vcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/tv_send_vcode"
+                android:layout_weight="3"
+                android:paddingLeft="@dimen/padding_10"
+                android:background="@null"/>
+
+            <TextView
+                android:id="@+id/tv_send_vcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/register_vcode_bg"
+                android:text="@string/register_send_vcoed"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/margin_10"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/pop_text_bg"
+                android:text="新密码"/>
+
+            <EditText
+                android:id="@+id/ev_new_psd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="@dimen/padding_10"
+                android:inputType="textPassword"
+                android:hint="@string/psd_limit"
+                android:background="@null"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/margin_10"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/pop_text_bg"
+                android:text="确认密码"/>
+
+            <EditText
+                android:id="@+id/ev_sure_psd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="@dimen/padding_10"
+                android:inputType="textPassword"
+                android:hint="@string/psd_sure"
+                android:background="@null"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_modify_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_30"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:padding="@dimen/margin_10"
+        android:text="@string/modify_sure"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/textsize18"
+        android:background="@drawable/text_shape_commit"/>
+
+</LinearLayout>

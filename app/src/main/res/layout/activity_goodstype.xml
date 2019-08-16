@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:img_left="@mipmap/ic_back_white"
+        lzy:text_color="@color/white"
+        lzy:text_title="@string/homepage_good_thing_list"
+        lzy:img_right="@mipmap/ic_search_bg"
+        lzy:title_color="@color/setting_title_color"></com.wlm.wlm.ui.CustomTitleBar>
+
+    <com.wlm.wlm.ui.PagerSlidingTabStrip
+        android:id="@+id/tab_strip"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"></com.wlm.wlm.ui.PagerSlidingTabStrip>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/register_text_hint_bg"/>
+    <LinearLayout
+        android:id="@+id/lin_tag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1.0dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/tx_pople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10.0dip"
+                android:text="@string/clother_host"
+                android:textColor="@color/main_app_color"
+                android:textSize="@dimen/textsize14" />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_below="@+id/tx_pople"
+                android:visibility="gone"
+                android:background="@color/main_app_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/tx_top"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10.0dip"
+                android:text="@string/clother_top"
+                android:textColor="@color/goods_coupon_text"
+                android:textSize="@dimen/textsize14" />
+
+            <View
+                android:id="@+id/view_2"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_below="@+id/tx_top"
+                android:background="@color/main_app_color"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <RelativeLayout
+                android:id="@+id/rel_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tx_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="10.0dip"
+                    android:paddingTop="10.0dip"
+                    android:text="@string/clother_price"
+                    android:textColor="@color/goods_coupon_text"
+                    android:textSize="@dimen/textsize14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@+id/tx_price"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="6.0dip"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/j_1" />
+
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_width="6.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_3"
+                        android:src="@mipmap/j_2" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_3"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_below="@+id/rel_price"
+                android:background="@color/main_app_color"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_offer"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <RelativeLayout
+                android:id="@+id/rel_good_offer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tx_newest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="10.0dip"
+                    android:paddingTop="10.0dip"
+                    android:text="@string/clother_nestest"
+                    android:textColor="@color/goods_coupon_text"
+                    android:textSize="@dimen/textsize14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@+id/tx_newest"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/img1_offer"
+                        android:layout_width="6.0dip"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/j_1" />
+
+                    <ImageView
+                        android:id="@+id/img2_offer"
+                        android:layout_width="6.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_3"
+                        android:src="@mipmap/j_2" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_4"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_below="@+id/rel_good_offer"
+                android:background="@color/main_app_color"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/register_text_hint_bg"/>
+
+    <com.wlm.wlm.ui.MotionViewPager
+        android:id="@+id/vp_motion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.wlm.wlm.ui.MotionViewPager>
+
+
+</LinearLayout>

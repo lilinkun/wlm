@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rel_rool"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
+
+    <com.wlm.wlm.ui.TranslucentScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50.0dip"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_big_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="340.0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/iv_goods_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:src="@mipmap/ic_goods_back" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="10.0dip">
+
+
+                <ImageView
+                    android:id="@+id/img_small_icon"
+                    android:layout_width="18.0dip"
+                    android:layout_height="18.0dip" />
+
+                <TextView
+                    android:id="@+id/tx_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@+id/img_small_icon"
+                    android:includeFontPadding="false"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/textsize16" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="10.0dip">
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/flag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="¥ "
+                        android:textColor="@color/setting_red_color"
+                        android:textSize="@dimen/textsize18" />
+
+                    <TextView
+                        android:id="@+id/tx_pay_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="--"
+                        android:textColor="@color/setting_red_color"
+                        android:textSize="@dimen/textsize22" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_pay_money"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tx_after_quan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="天猫价"
+                        android:textColor="@color/goods_coupon_text"
+                        android:textSize="@dimen/textsize14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="¥ "
+                        android:textColor="@color/goods_coupon_text"
+                        android:textSize="@dimen/textsize16" />
+
+                    <TextView
+                        android:id="@+id/tx_tb_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/goods_coupon_text"
+                        android:textSize="@dimen/textsize16" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_goods_volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="269人已购买" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="15.0dip">
+
+                <TextView
+                    android:id="@+id/tx_msg_about"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/me_goods_title_text"
+                    android:textSize="@dimen/textsize14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="70.0dip"
+                android:layout_margin="10.0dip"
+                android:background="@mipmap/ic_rechange_coupon"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="14">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/quan_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:singleLine="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize14" />
+
+                        <TextView
+                            android:id="@+id/expiry_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/quan_number"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5.0dip"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize14" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:id="@+id/tx_TB"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:gravity="center"
+                        android:text="@string/go_receive"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textsize14" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="10.0dip"
+                android:background="@color/layout_gray_bg" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_more_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tx_more_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="12.0dip"
+                        android:text="@string/look_picthre_ditel"
+                        android:textColor="@color/goods_black"
+                        android:textSize="@dimen/textsize15" />
+
+                    <ImageView
+                        android:id="@+id/iv_up_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_toRightOf="@+id/tx_more_picture"
+                        android:src="@mipmap/ic_pic_detail_unselect" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_small_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_more_picture"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:paddingLeft="@dimen/padding_10"
+                    android:paddingRight="@dimen/padding_10"
+                    android:background="@color/white"
+                    android:visibility="gone"></android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="10.0dip"
+                android:background="@color/layout_gray_bg" />
+
+            <LinearLayout
+                android:id="@+id/lin_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <WebView
+                    android:id="@+id/web"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10.0dip"
+                android:text="精品推荐"
+                android:textSize="@dimen/textsize14" />
+
+
+            <com.wlm.wlm.ui.CommendRecyclerView
+                android:id="@+id/rv_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tx_more_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/white"
+                android:visibility="gone"></com.wlm.wlm.ui.CommendRecyclerView>
+
+            <com.wlm.wlm.ui.MyGridView
+                android:id="@+id/myGridview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/line_bg"
+                android:horizontalSpacing="5.0dip"
+                android:listSelector="@null"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:verticalSpacing="5.0dip" />
+        </LinearLayout>
+    </com.wlm.wlm.ui.TranslucentScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tx_quan_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:textColor="@color/line_bg"
+            android:textSize="@dimen/textsize14"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/img_collect"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1.0"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/img_iscollect"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_centerHorizontal="true"
+                android:padding="3.0dip"
+                android:src="@mipmap/ic_collection" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_go_TB"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="2.0"
+            android:background="@color/setting_red_color">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tx_ord_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize16" />
+
+                <TextView
+                    android:id="@+id/tx_go_TB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tx_ord_price"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/go_Tb"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize14" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_tikey"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="3.6"
+            android:background="@color/setting_title_color">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tx_quan_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize16" />
+
+                <TextView
+                    android:id="@+id/tx_tikey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tx_quan_price"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/price_duih"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize14" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

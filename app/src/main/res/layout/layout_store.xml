@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/shape_integral_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:textSize="@dimen/textsize18"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:textColor="@color/setting_title_color"
+            android:text="@string/integral_slogan"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingRight="@dimen/padding_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_store_free_shipping"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textSize="@dimen/textsize10"
+                android:textColor="@color/store_text_bg"
+                android:text="全场包邮"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_store_quality_goods"
+                android:layout_marginLeft="31dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textSize="@dimen/textsize10"
+                android:textColor="@color/store_text_bg"
+                android:text="正品保障"/>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_store_pay"
+                android:layout_marginLeft="31dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textSize="@dimen/textsize10"
+                android:textColor="@color/store_text_bg"
+                android:text="买贵包赔"/>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_store_no_reason"
+                android:layout_marginLeft="31dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textSize="@dimen/textsize10"
+                android:textColor="@color/store_text_bg"
+                android:text="七天无理由"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="9dp"
+            android:background="#f7a77d"/>
+
+
+        <com.wlm.wlm.ui.CustomSortLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textcolor="@color/setting_title_color"
+            app:textnormalcolor="@color/list_divider"
+            app:up_arrow="@mipmap/ic_store_dot_up"
+            app:down_arrow="@mipmap/ic_store_dot_down">
+
+        </com.wlm.wlm.ui.CustomSortLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

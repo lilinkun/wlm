@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ll_integral"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize15"
+            android:ellipsize="end"
+            android:lines="1"
+            />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize12"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_integral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red_text"
+            android:textSize="@dimen/textsize15"
+            />
+        
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总额:"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize12"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ll_left"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/comm_bg"/>
+
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/line_bg"/>
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/store_checkBox"
+            android:visibility="visible"
+            android:gravity="center"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:button="@null"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+        
+        <TextView
+            android:textColor="@color/pop_text_bg"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/ic_shop"
+            android:textSize="16sp"
+            android:text="小马的店铺"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/store_checkBox"
+            android:id="@+id/store_name"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</LinearLayout>

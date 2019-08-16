@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_5">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        lzy:cardBackgroundColor="@android:color/white"
+        lzy:cardCornerRadius="10dp"
+        lzy:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.wlm.wlm.ui.CustomRoundAngleImageView
+                android:id="@+id/iv_goods_pic"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#ffffffff"
+                android:scaleType="fitXY"
+                lzy:left_top_radius="5dp"
+                lzy:right_top_radius="5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:id="@+id/tv_self_goods_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/pop_text_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_self_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textsize15"
+                        android:textColor="@color/red_price" />
+
+
+                    <TextView
+                        android:id="@+id/tv_goods_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:textSize="@dimen/textsize12"
+                        android:textColor="@color/list_divider" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="人购买"
+                        android:textSize="@dimen/textsize12"
+                        android:textColor="@color/list_divider" />
+                </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/hot_red"
+                        android:visibility="gone"
+                        android:textSize="@dimen/textsize10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@drawable/shape_intergal_text"/>
+                    
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

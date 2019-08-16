@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line_bg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:img_left="@mipmap/ic_back"
+        lzy:text_right="@string/nickname_save"
+        lzy:right_color="@color/login_title_text"
+        lzy:text_title="@string/add_goods_address"></com.wlm.wlm.ui.CustomTitleBar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_weight="1"
+            android:textColor="@color/login_title_text"
+            android:text="@string/goods_consignee" />
+
+        <EditText
+            android:id="@+id/et_address_consignee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@null"
+            android:maxLength="15"
+            android:hint="最少2个,最多15个"
+            android:textColor="@color/login_title_text"
+            android:padding="@dimen/margin_15"
+            android:textSize="@dimen/textsize16" />
+    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_weight="1"
+            android:textColor="@color/login_title_text"
+            android:text="@string/goods_phone" />
+
+        <EditText
+            android:id="@+id/et_address_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@null"
+            android:inputType="phone"
+            android:hint="@string/register_input_phone"
+            android:textColor="@color/login_title_text"
+            android:padding="@dimen/margin_15"
+            android:maxLength="11"
+            android:textSize="@dimen/textsize16" />
+    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+    <LinearLayout
+        android:id="@+id/ll_province"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_weight="1"
+            android:textColor="@color/login_title_text"
+            android:text="@string/goods_local_address" />
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5">
+
+            <TextView
+                android:id="@+id/tv_local_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_25"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/login_title_text"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@mipmap/ic_right_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+    <LinearLayout
+        android:id="@+id/ll_address_details"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_weight="1"
+            android:textColor="@color/login_title_text"
+            android:text="@string/goods_detail_address" />
+
+        <EditText
+            android:id="@+id/et_address_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@null"
+            android:textColor="@color/login_title_text"
+            android:hint="请输入收件人的详细地址"
+            android:padding="@dimen/margin_15"
+            android:textSize="@dimen/textsize16" />
+    </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/ll_add_address"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_20"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_weight="1"
+            android:textColor="@color/login_title_text"
+            android:text="设为默认地址" />
+
+
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="3">
+
+            <Switch
+                android:id="@+id/switch_turn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:textOn=""
+                android:textOff=""
+                android:switchMinWidth="45dp"
+                android:thumb="@android:color/transparent"
+                android:track="@drawable/switch_custom_track_selector"
+                android:layout_marginRight="@dimen/margin_10" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/im_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/transparent_"/>
+</RelativeLayout>

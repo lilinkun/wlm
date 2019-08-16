@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line_bg"
+    android:orientation="vertical">
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lzy:text_title="@string/me_opinion"
+        lzy:title_color="@color/white"
+        lzy:img_left="@mipmap/ic_back"
+        ></com.wlm.wlm.ui.CustomTitleBar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opinion_detailed"
+        android:textColor="@color/login_title_text"
+        android:textSize="@dimen/textsize16"
+        android:maxLength="150"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_15"/>
+
+    <EditText
+        android:id="@+id/et_opinion"
+        android:layout_width="match_parent"
+        android:layout_height="200.0dip"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:layout_marginTop="20.0dip"
+        android:gravity="top"
+        android:hint="@string/opinion_input_detailed"
+        android:textColorHint="@color/login_title_text"
+        android:textSize="@dimen/textsize16"
+        android:maxLength="150"
+        android:background="@color/white"
+        android:paddingLeft="10.0dip"
+        android:paddingRight="10.0dip"
+        android:paddingTop="10.0dip" />
+
+
+    <TextView
+        android:id="@+id/btn_commit"
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="60.0dip"
+        android:background="@drawable/text_selector_commit"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="18.0sp" />
+
+</LinearLayout>
