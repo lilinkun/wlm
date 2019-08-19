@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.Category1Activity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
+import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
@@ -161,7 +162,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip,R.id.iv_home_advertisement2})
+    @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip,R.id.iv_home_advertisement2,R.id.ll_groupon})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -211,6 +212,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 case R.id.iv_home_advertisement2:
 
                     UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
+
+                    break;
+
+                case R.id.ll_groupon:
+
+                    UiHelper.launcher(getActivity(), GrouponActivity.class);
+
 
                     break;
 

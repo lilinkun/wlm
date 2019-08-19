@@ -80,6 +80,7 @@
         <activity android:name=".activity.VipActivity" />
         <activity android:name=".activity.IntegralStoreActivity"/>
         <activity android:name=".activity.ManufactureStoreActivity" />
+        <activity android:name=".activity.GrouponActivity" />
 
         <service android:name="com.trycath.myupdateapklibrary.service.DownloadFileService" />
 

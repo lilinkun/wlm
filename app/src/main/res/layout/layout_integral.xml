@@ -100,7 +100,7 @@
         <com.wlm.wlm.ui.CustomSortLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textcolor="@color/integral_bg"
+            app:textcolor="#6300ff"
             app:textnormalcolor="@color/list_divider"
             app:up_arrow="@mipmap/ic_integral_dot_up"
             app:down_arrow="@mipmap/ic_integral_dot_down">

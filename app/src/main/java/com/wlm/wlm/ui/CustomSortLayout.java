@@ -57,7 +57,7 @@ public class CustomSortLayout extends LinearLayout implements View.OnClickListen
 
         TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.CustomSort);
         textcolor = a.getColor(R.styleable.CustomSort_textcolor,getResources().getColor(R.color.main_app_color));
-        textnormalcolor = a.getColor(R.styleable.CustomSort_textnormalcolor,getResources().getColor(R.color.list_divider));
+        textnormalcolor = a.getColor(R.styleable.CustomSort_textnormalcolor,getResources().getColor(R.color.text_question));
         arrow_up = a.getResourceId(R.styleable.CustomSort_up_arrow,R.mipmap.ic_store_dot_up);
         arrow_down = a.getResourceId(R.styleable.CustomSort_down_arrow,R.mipmap.ic_store_dot_down);
 
