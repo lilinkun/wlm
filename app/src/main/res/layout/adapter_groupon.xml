@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:lzy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/member_item"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_10">
+    android:orientation="horizontal">
 
     <View
         android:layout_width="match_parent"
@@ -14,16 +13,15 @@
 
     <RelativeLayout
         android:id="@+id/rl_goods_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
+        android:layout_width="132dp"
+        android:layout_height="132dp">
 
         <com.wlm.wlm.ui.CustomRoundAngleImageView
             android:id="@+id/iv_goods_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_width="132dp"
+            android:layout_height="132dp"
             android:scaleType="fitXY"
+            android:src="@mipmap/ic_groupon_pic"
             lzy:radius="10dp" />
 
         <ImageView
@@ -37,10 +35,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="132dp"
         android:layout_alignTop="@+id/rl_goods_pic"
+        android:layout_alignBottom="@+id/rl_goods_pic"
         android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_10"
         android:layout_toRightOf="@+id/rl_goods_pic"
         android:orientation="vertical">
 
@@ -49,24 +47,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_5"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/me_goods_title_text"
-            android:textSize="@dimen/textsize14" />
+            android:text="养肤好水 安润奈肌断食水500ml 修护屏障"
+            android:textColor="@color/pop_text_bg"
+            android:textSize="@dimen/textsize12" />
 
         <TextView
-            android:id="@+id/tv_endTime"
+            android:id="@+id/tv_grounon_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_3"
-            android:textColor="@color/me_goods_text_red_bg"
-            android:textSize="13sp" />
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@drawable/shape_groupon_info"
+            android:textColor="@color/groupon_text"
+            android:text="3人团,6折优惠"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="后截止"
+                android:textSize="@dimen/textsize11"
+                android:textColor="@color/grey_color2"/>
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -77,42 +100,47 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:textColor="@color/me_goods_text_red_bg"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/textsize12"
+                    android:text="￥"/>
 
 
                 <TextView
-                    android:id="@+id/tv_integral"
+                    android:id="@+id/tv_groupon_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_intergal_text"
-                    android:layout_below="@+id/tv_goods_price"
-                    android:textColor="@color/hot_red"
-                    android:textSize="@dimen/textsize10" />
+                    android:textColor="@color/me_goods_text_red_bg"
+                    android:textSize="@dimen/textsize15"
+                    android:text="60"/>
 
 
                 <com.wlm.wlm.ui.MyTextView
-                    android:id="@+id/tx_goods_msg"
+                    android:id="@+id/tv_groupon_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dip"
+                    android:layout_marginLeft="10dp"
                     android:includeFontPadding="false"
                     android:textColor="@color/list_divider"
-                    android:textSize="@dimen/textsize13" />
+                    android:textSize="@dimen/textsize13"
+                    android:text="￥90"
+                    />
 
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_rush_buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:id="@+id/tv_grouponing"
+                android:layout_width="79dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin_15"
                 android:background="@drawable/text_panic_select"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:gravity="center"
+                android:textSize="@dimen/textsize15"
+                android:text="立即开团"/>
         </RelativeLayout>
-
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

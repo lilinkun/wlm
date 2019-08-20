@@ -39,9 +39,11 @@
     <color name="home_text_bg">#FF3D21</color>
     <color name="search_edittext_bg">#CCCCCC</color>
     <color name="me_goods_title_text">#2D2D2D</color>
-    <color name="me_goods_text_red_bg">#F30000</color>
+    <color name="me_goods_text_red_bg">#e4393c</color>
     <color name="home_hot_adapter_bg">#F1F2F6</color>
     <color name="home_hot_adapter_red_bg">#FA430C</color>
+
+    <color name="groupon_text">#f85306</color>
 
     <color name="hot_integral">#ffd1d2</color>
     <color name="hot_red">#F4575A</color>

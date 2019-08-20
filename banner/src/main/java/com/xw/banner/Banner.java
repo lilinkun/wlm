@@ -452,6 +452,10 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
         viewPager.setFocusable(true);
         viewPager.setCurrentItem(1);
         if (mPageMargin != 0) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(viewPager.getLayoutParams());
+            layoutParams.setMargins(20,0,20,0);
+            viewPager.setLayoutParams(layoutParams);
+
             viewPager.setPageMargin(mPageMargin);
         }
         if (gravity != -1) {
@@ -536,6 +540,10 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
+
+            ViewGroup.LayoutParams custom_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
             container.addView(imageViews.get(position));
             View view = imageViews.get(position);
 

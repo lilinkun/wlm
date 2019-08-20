@@ -46,6 +46,7 @@ import com.wlm.wlm.ui.MyGridView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
+import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
@@ -53,7 +54,6 @@ import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
-import com.xw.banner.loader.ImageLoaderInterface;
 
 import java.util.ArrayList;
 
@@ -129,7 +129,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        api.registerApp("wx3686dfb825618610");
 
         boolean includeEdge = false;
-        mHotGridView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing));
+        mHotGridView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
         mHotGridView.setLayoutManager(gridLayoutManager);
 //        mBanner.setImageLoader(new PicassoImageLoader());
 //        mBanner.setImages();
@@ -424,21 +424,5 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
-    private class CustomRoundedImageLoader implements ImageLoaderInterface {
-
-        @Override
-        public void displayImage(Context context, Object path, View imageView) {
-//            Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashpic()).error(R.mipmap.ic_family_girl).into((ImageView)imageView);
-            ((ImageView)imageView).setImageResource(R.mipmap.ic_banner_test);
-
-        }
-
-        @Override
-        public ImageView createImageView(Context context) {
-            CustomRoundAngleImageView roundedImg = new CustomRoundAngleImageView(context);
-
-            return roundedImg;
-        }
-    }
 
 }

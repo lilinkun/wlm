@@ -46,12 +46,11 @@
                     android:id="@+id/bannerView"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
-                    app:indicator_width="8dp"
-                    app:indicator_height="8dp"
-                    app:indicator_drawable_selected="@mipmap/ic_round_red"
-                    app:indicator_drawable_unselected="@mipmap/ic_round_gray"
+                    app:indicator_width="10dp"
+                    app:indicator_height="10dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
+                    app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
                     app:page_margin="20dp"/>
 
                 <com.wlm.wlm.ui.MyGridView
