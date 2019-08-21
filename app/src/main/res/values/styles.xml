@@ -19,7 +19,7 @@
     </style>
 
     <style name="headtop_styles">
-        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingRight">5dp</item>
         <item name="windowNoTitle">true</item><!-- 无标题 -->

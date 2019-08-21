@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:background="@color/setting_title_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_20">
+            <ImageView
+                android:id="@+id/iv_head_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_back_white"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_headtop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_headtop"
+            android:layout_centerInParent="true"
+            android:text="拼团详情"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_head_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:src="@mipmap/ic_groupon_share" />
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="132dp"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10">
+
+        <include
+            layout="@layout/adapter_groupon"/>
+
+        </LinearLayout>
+
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/margin_10">
+
+            <LinearLayout
+                android:id="@+id/ll_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/iv_rule_right"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_centerVertical="true">
+            <TextView
+                android:layout_width="55dp"
+                android:layout_height="20dp"
+                android:textSize="@dimen/textsize12"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@drawable/shape_groupon_detail_rule"
+                android:text="拼团规则"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="团长佣金获得规则为35%-40%-25%-10%..."/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_rule_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_right_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_centerVertical="true"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/shape_groupon_btn"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize18"
+            android:text="邀请好友参团"/>
+        
+        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginTop="@dimen/margin_20">
+
+        <com.wlm.wlm.ui.RoundImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:src="@mipmap/ic_head"/>
+
+         <TextView
+             android:layout_width="29dp"
+             android:layout_height="12dp"
+             android:text="团长"
+             android:textSize="@dimen/textsize9"
+             android:layout_centerHorizontal="true"
+             android:layout_alignParentBottom="true"
+             android:textColor="@color/white"
+             android:gravity="center"
+             android:background="@drawable/shape_groupon_sir"/>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="49"
+            android:textSize="@dimen/textsize15"
+            android:textColor="@color/black_333333"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="位好友正在助力"
+            android:textSize="@dimen/textsize12"
+            android:textColor="@color/black_333333"/>
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_groupon_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -59,17 +59,47 @@
                     <RelativeLayout
                         android:id="@+id/rl_rush"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/rush_color"
-                        android:visibility="gone">
+                        android:layout_height="49dp"
+                        android:background="@drawable/shape_groupon_goods_tetail"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/margin_20">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:padding="@dimen/padding_10"
-                            android:text="限时抢购"
-                            android:textColor="@color/white" />
+                            android:layout_alignParentStart="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize17"
+                            android:text="￥"/>
+
+
+                        <TextView
+                            android:id="@+id/tv_groupon_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize35"
+                            android:text="60"/>
+
+
+                        <com.wlm.wlm.ui.MyTextView
+                            android:id="@+id/tv_groupon_old_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:includeFontPadding="false"
+                            android:textColor="#f8f8f8"
+                            android:textSize="@dimen/textsize14"
+                            android:text="￥90"
+                            />
+
+                        </LinearLayout>
 
 
                         <LinearLayout
@@ -84,9 +114,9 @@
                                 android:id="@+id/tv_distance_ends"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="距结束仅剩"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
+                                android:text="距结束"
+                                android:textColor="#ffeae9"
+                                android:textSize="@dimen/textsize12" />
 
 
                             <cn.iwgang.countdownview.CountdownView

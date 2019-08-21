@@ -2,16 +2,18 @@ package com.wlm.wlm.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.transform.BannerTransform;
-import com.wlm.wlm.ui.FullyLinearLayoutManager;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -20,17 +22,19 @@ import com.xw.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 拼团
  * Created by LG on 2019/8/19.
  */
-public class GrouponActivity extends BaseActivity implements OnBannerListener {
+public class GrouponActivity extends BaseActivity implements OnBannerListener, GrouponAdapter.OnItemClickListener {
 
     @BindView(R.id.bannerView)
     Banner banner;
     @BindView(R.id.rv_groupon)
     RecyclerView rv_groupon;
+
 
     @Override
     public int getLayoutId() {
@@ -54,6 +58,7 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener {
 
         rv_groupon.setAdapter(grouponAdapter);
 
+        grouponAdapter.setItemClickListener(this);
     }
 
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
@@ -97,5 +102,21 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener {
 
     }
 
+    @OnClick({R.id.ll_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.ll_back:
 
+                finish();
+
+                break;
+
+        }
+    }
+
+
+    @Override
+    public void onItemClick(int position) {
+        UiHelper.launcher(this,GoodsDetailActivity.class);
+    }
 }

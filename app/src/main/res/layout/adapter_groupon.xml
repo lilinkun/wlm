@@ -50,7 +50,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="养肤好水 安润奈肌断食水500ml 修护屏障"
+            android:text="养肤好水 安润奈肌断食水500ml 修护屏障 修护毛孔 发酵AHA原液"
             android:textColor="@color/pop_text_bg"
             android:textSize="@dimen/textsize12" />
 
@@ -138,7 +138,7 @@
                 android:layout_marginBottom="@dimen/margin_5"
                 android:gravity="center"
                 android:textSize="@dimen/textsize15"
-                android:text="立即开团"/>
+                android:text="@string/groupon_now"/>
         </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

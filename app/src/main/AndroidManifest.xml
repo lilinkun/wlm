@@ -72,7 +72,6 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.IntegralActivity" />
         <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.RushBuyActivity" />
 
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:theme="@android:style/Theme.Translucent"
@@ -81,6 +80,8 @@
         <activity android:name=".activity.IntegralStoreActivity"/>
         <activity android:name=".activity.ManufactureStoreActivity" />
         <activity android:name=".activity.GrouponActivity" />
+        <activity android:name=".activity.GoodsDetailActivity" />
+        <activity android:name=".activity.GrouponDetailActivity"/>
 
         <service android:name="com.trycath.myupdateapklibrary.service.DownloadFileService" />
 

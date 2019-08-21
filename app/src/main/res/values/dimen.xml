@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textsize9">9.0sp</dimen>
     <dimen name="textsize10">10.0sp</dimen>
     <dimen name="textsize11">11.0sp</dimen>
     <dimen name="textsize12">12.0sp</dimen>
@@ -13,10 +14,11 @@
     <dimen name="textsize20">20.0sp</dimen>
     <dimen name="textsize21">21.0sp</dimen>
     <dimen name="textsize22">22.0sp</dimen>
+    <dimen name="textsize35">35.0sp</dimen>
     <dimen name="textsize_common">14.4dp</dimen>
 
 
-    <dimen name="text_size_headtop">20sp</dimen>
+    <dimen name="text_size_headtop">18sp</dimen>
 
     <dimen name="padding_7">7dp</dimen>
     <dimen name="padding_10">10dp</dimen>

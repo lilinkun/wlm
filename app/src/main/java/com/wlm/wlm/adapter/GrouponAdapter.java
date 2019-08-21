@@ -14,9 +14,10 @@ import com.wlm.wlm.ui.MyTextView;
  * 拼团adapter
  * Created by LG on 2019/8/20.
  */
-public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHolder> {
+public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHolder> implements View.OnClickListener {
 
     private Context context;
+    private OnItemClickListener mItemClickListener;
 
     public GrouponAdapter(Context context) {
         this.context = context;
@@ -30,6 +31,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
         ViewHolder viewHolder = new ViewHolder(v);
 
+        v.setOnClickListener(this);
 
         return viewHolder;
     }
@@ -37,6 +39,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        holder.itemView.setTag(position);
         holder.tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
     }
@@ -46,6 +49,16 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         return 8;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (mItemClickListener!=null){
+            mItemClickListener.onItemClick((Integer) v.getTag());
+        }
+    }
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -58,4 +71,10 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             tv_groupon_old_price = itemView.findViewById(R.id.tv_groupon_old_price);
         }
     }
+
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
 }
