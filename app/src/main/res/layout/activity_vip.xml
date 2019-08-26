@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_back"
@@ -36,7 +32,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/ll_vip_bottom"
             android:layout_marginBottom="@dimen/margin_50">
 
             <LinearLayout
@@ -98,19 +93,6 @@
                         android:layout_marginRight="@dimen/margin_11"
                         android:scaleType="fitXY"/>
 
-                    <Button
-                        android:layout_width="110dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/margin_20"
-                        android:background="@drawable/shape_vip_button"
-                        android:text="立即续费"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize18"
-                        android:scaleType="fitXY"/>
-
-
 
                 </RelativeLayout>
 
@@ -136,135 +118,36 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_vip_bar"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize18"
-                    android:textColor="@color/vip_text_bg"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="唯乐美VIP权益"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="会员权益"/>
+
+                    
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_vip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_10"
-        android:paddingRight="@dimen/padding_10">
 
-        <TableRow>
-
-            <ImageView
-                android:id="@+id/iv_vip1"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginRight="2.5dp"
-                android:src="@mipmap/ic_vip_1"/>
-
-
-            <ImageView
-                android:id="@+id/iv_vip2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="2.5dp"
-                android:src="@mipmap/ic_vip_2"/>
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_marginTop="@dimen/margin_5">
-
-            <ImageView
-                android:id="@+id/iv_vip3"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginRight="2.5dp"
-                android:layout_marginLeft="2.5dp"
-                android:src="@mipmap/ic_vip_3"/>
-
-            <ImageView
-                android:id="@+id/iv_vip4"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="2.5dp"
-                android:src="@mipmap/ic_vip_4"/>
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_marginTop="@dimen/margin_5">
-
-            <ImageView
-                android:id="@+id/iv_vip5"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_marginRight="2.5dp"
-                android:src="@mipmap/ic_vip_5"/>
-
-            <ImageView
-                android:id="@+id/iv_vip6"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2.5dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_vip_6"/>
-
-
-        </TableRow>
-
-
-
-
-
-    </TableLayout>
-
-            </LinearLayout>
         </ScrollView>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_vip_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/shape_vip_layout">
 
-        <TextView
-            android:id="@+id/tv_opening_vip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize18"
-            android:textColor="@color/white"
-            android:text="立即开通"/>
 
-    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
