@@ -9,6 +9,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.VipAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
+import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.Eyes;
 
 import butterknife.BindView;
@@ -34,6 +35,13 @@ public class VipActivity extends BaseActivity {
 
         FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this,3);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        int spanCount = 2; // 2 columns
+        int spacing = 0; // 50px
+
+        boolean includeEdge = false;
+        rv_vip.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+
 
         rv_vip.setLayoutManager(gridLayoutManager);
 

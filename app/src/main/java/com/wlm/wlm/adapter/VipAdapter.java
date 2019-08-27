@@ -38,6 +38,9 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
 
         holder.textView.setText(VipEnum.getVipByValue(position).getStatusMsg());
         holder.imageView.setImageResource(VipEnum.getVipByValue(position).getDrawId());
+        if (VipEnum.getVipByValue(position).isVisible()) {
+            holder.sangImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -49,11 +52,14 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
 
         ImageView imageView;
         TextView textView;
+        ImageView sangImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_adapter_vip);
             textView = itemView.findViewById(R.id.tv_adapter_vip);
+            sangImageView = itemView.findViewById(R.id.iv_triangle);
+
         }
     }
 }

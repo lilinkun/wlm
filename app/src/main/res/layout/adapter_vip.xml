@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center">
+    android:layout_marginTop="@dimen/margin_15">
 
+    <LinearLayout
+        android:id="@+id/ll_vip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        >
     <ImageView
         android:id="@+id/iv_adapter_vip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:id="@+id/tv_adapter_vip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_7"
+        android:textSize="@dimen/textsize12"
+        android:textColor="@color/grey_color2"
+        android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_triangle"
+        android:layout_width="26dp"
+        android:layout_height="12dp"
+        android:visibility="invisible"
+        android:src="@mipmap/ic_vip_triangle"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ll_vip"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="-1dp"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
