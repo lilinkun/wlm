@@ -117,6 +117,6 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener, G
 
     @Override
     public void onItemClick(int position) {
-        UiHelper.launcher(this,GoodsDetailActivity.class);
+        UiHelper.launcher(this,GrouponGoodsDetailActivity.class);
     }
 }

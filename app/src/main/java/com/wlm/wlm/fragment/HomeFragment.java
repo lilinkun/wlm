@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.Category1Activity;
+import com.wlm.wlm.activity.GoodsDetailActivity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
@@ -415,13 +416,15 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void OnBannerClick(int position) {
         FlashBean flashBean = homeHeadBean.getFlash_list().get(position);
-        if (flashBean.getUrl() != null && flashBean.getUrl().length() > 0  && PhoneFormatCheckUtils.isNumeric(flashBean.getUrl())){
-            if (Integer.valueOf(flashBean.getUrl()) > 0){
-                Bundle bundle = new Bundle();
-                bundle.putString("goodsid",flashBean.getUrl());
-                UiHelper.launcherBundle(getActivity(),SelfGoodsDetailActivity.class,bundle);
-            }
-        }
+//        if (flashBean.getUrl() != null && flashBean.getUrl().length() > 0  && PhoneFormatCheckUtils.isNumeric(flashBean.getUrl())){
+//            if (Integer.valueOf(flashBean.getUrl()) > 0){
+//                Bundle bundle = new Bundle();
+//                bundle.putString("goodsid",flashBean.getUrl());
+//                UiHelper.launcherBundle(getActivity(),SelfGoodsDetailActivity.class,bundle);
+//            }
+//        }
+
+        UiHelper.launcher(getActivity(), GoodsDetailActivity.class);
     }
 
 

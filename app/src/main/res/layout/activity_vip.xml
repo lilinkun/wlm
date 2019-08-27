@@ -150,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:background="@color/line_bg">
+                    android:background="@drawable/shape_vip_layout">
 
 
                     <TextView
@@ -162,8 +162,10 @@
                         android:gravity="center"/>
 
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_vip_goods"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/margin_10"/>
 
 
                 </LinearLayout>

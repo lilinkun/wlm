@@ -83,6 +83,7 @@
         <activity android:name=".activity.GoodsDetailActivity" />
 
         <activity android:name=".activity.GrouponDetailActivity"/>
+        <activity android:name=".activity.GrouponGoodsDetailActivity"/>
 
         <service android:name="com.trycath.myupdateapklibrary.service.DownloadFileService" />
 

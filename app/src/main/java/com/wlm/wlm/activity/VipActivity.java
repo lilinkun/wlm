@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.adapter.VipAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
@@ -22,6 +23,8 @@ public class VipActivity extends BaseActivity {
 
     @BindView(R.id.rv_vip)
     RecyclerView rv_vip;
+    @BindView(R.id.rv_vip_goods)
+    RecyclerView rv_vip_goods;
 
     @Override
     public int getLayoutId() {
@@ -48,6 +51,18 @@ public class VipActivity extends BaseActivity {
         VipAdapter vipAdapter = new VipAdapter(this);
 
         rv_vip.setAdapter(vipAdapter);
+
+
+        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        rv_vip_goods.setLayoutManager(layoutManager);
+
+
+//        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,)
+
+
+
     }
 
     @OnClick({R.id.ll_back})

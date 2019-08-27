@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_15">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_vip"
@@ -37,7 +36,7 @@
         android:src="@mipmap/ic_vip_triangle"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/ll_vip"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="-1dp"
         android:layout_alignParentBottom="true"
         />

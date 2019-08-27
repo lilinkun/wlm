@@ -2,21 +2,14 @@ package com.wlm.wlm.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.interf.OnScrollChangedListener;
-import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.MyTextView;
-import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -29,40 +22,28 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by LG on 2019/8/21.
+ * Created by LG on 2019/8/27.
  */
-
-public class GoodsDetailActivity extends BaseActivity implements OnBannerListener, OnScrollChangedListener {
+public class GrouponGoodsDetailActivity extends BaseActivity implements OnBannerListener {
 
     @BindView(R.id.banner_good_pic)
     Banner mBanner;
     @BindView(R.id.tv_groupon_old_price)
     MyTextView tv_groupon_old_price;
-    @BindView(R.id.tv_no_delivery)
-    View tv_no_delivery;
-    @BindView(R.id.rv_goods_detail)
-    RecyclerView rv_goods_detail;
-    @BindView(R.id.toolbar1)
-    Toolbar toolbar;
-    @BindView(R.id.tsv_home)
-    TranslucentScrollView tsv_home;
+
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_goods_details;
+        return R.layout.activity_groupon_goods_details;
     }
 
     @Override
     public void initEventAndData() {
         Eyes.translucentStatusBar(this);
 
-        tsv_home.init(this);
-
         ArrayList<String> strings = new ArrayList<>();
         strings.add("adssasd");
         strings.add("afsdf");
-
-        toolbar.setAlpha(0);
 
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -70,7 +51,7 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器，图片加载器在下方
-        mBanner.setImageLoader(new MyLoader());
+        mBanner.setImageLoader(new GrouponGoodsDetailActivity.MyLoader());
         //设置图片网址或地址的集合
         mBanner.setImages(strings);
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
@@ -88,35 +69,10 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
                 .setOnBannerListener(this)
                 //必须最后调用的方法，启动轮播图。
                 .start();
-
-        ViewTreeObserver addOn = tv_no_delivery.getViewTreeObserver();
-
-        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-
-        rv_goods_detail.setLayoutManager(layoutManager);
-
-
     }
 
     @Override
     public void OnBannerClick(int position) {
-
-    }
-
-    @Override
-    public void onScrollChanged(ScrollView scrollView, int x, int y, int oldx, int oldy) {
-        //Y轴偏移量
-        float scrollY = scrollView.getScrollY();
-
-        //变化率
-        float headerBarOffsetY = 250;//Toolbar与header高度的差值
-        float offset = 1 - Math.max((headerBarOffsetY - scrollY) / headerBarOffsetY, 0f);
-        toolbar.setAlpha(offset);
-    }
-
-    @Override
-    public void loadMore() {
 
     }
 
@@ -131,18 +87,18 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         }
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_no_delivery})
+    @OnClick({R.id.ll_back,R.id.tv_right_now_groupon})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
                 finish();
                 break;
 
-            case R.id.ll_no_delivery:
+            case R.id.tv_right_now_groupon:
 
+                UiHelper.launcher(this,GrouponGoodsDetailActivity.class);
 
                 break;
-
         }
     }
 }

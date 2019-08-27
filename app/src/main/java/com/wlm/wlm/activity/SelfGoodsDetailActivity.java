@@ -66,7 +66,7 @@ import cn.iwgang.countdownview.CountdownView;
  * Created by LG on 2018/12/8.
  */
 
-public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, ISlideCallback, RecordAdapter.OnItemClickListener, SelfGoodsAdapter.OnItemClickListener {
+public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, ISlideCallback, RecordAdapter.OnItemClickListener, SelfGoodsAdapter.OnItemClickListener, View.OnScrollChangeListener {
 
     @BindView(R.id.tv_goods_name)
     TextView mGoodsNameTv;
@@ -167,6 +167,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         boolean includeEdge = false;
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(fullyGridLayoutManager);
+
+        translucentScrollView.setOnScrollChangeListener(this);
 
     }
 
@@ -480,6 +482,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                 ActivityUtil.removeOldActivity();
             }
         }
+    }
+
+    @Override
+    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
     }
 
     //自定义的图片加载器
