@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
 /**
  *
  */
-public class CountdownView extends TextView implements CountdownTime.OnCountdownTimeListener{
+public class CountdownView1 extends TextView implements CountdownTime.OnCountdownTimeListener{
     /**
      * 当前控件绑定的倒计时实践对象id，由于重用，RecyclerView滚动的时候，
      * 会复用view，导致里面显示的时间其实是不一样的
@@ -26,17 +26,17 @@ public class CountdownView extends TextView implements CountdownTime.OnCountdown
     private Paint textPaint;
     private int type=0;
 
-    public CountdownView(Context context) {
+    public CountdownView1(Context context) {
         super(context);
         init();
     }
 
-    public CountdownView(Context context, AttributeSet attrs) {
+    public CountdownView1(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CountdownView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CountdownView1(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -129,7 +129,7 @@ public class CountdownView extends TextView implements CountdownTime.OnCountdown
             if(countdownTime != null)
                 countdownTime.setSeconds(0);
         }else{
-            WeakReference<CountdownView> weakReference = new WeakReference<>(this);
+            WeakReference<CountdownView1> weakReference = new WeakReference<>(this);
             countdownTime = manager.addTime(time,id,weakReference.get());
         }
         postInvalidate();

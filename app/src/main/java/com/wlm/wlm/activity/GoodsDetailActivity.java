@@ -8,11 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.interf.OnScrollChangedListener;
+import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.TranslucentScrollView;
@@ -39,13 +43,15 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
     @BindView(R.id.tv_groupon_old_price)
     MyTextView tv_groupon_old_price;
     @BindView(R.id.tv_no_delivery)
-    View tv_no_delivery;
+    TextView tv_no_delivery;
     @BindView(R.id.rv_goods_detail)
     RecyclerView rv_goods_detail;
-    @BindView(R.id.toolbar1)
-    Toolbar toolbar;
+    @BindView(R.id.titlebar)
+    LinearLayout toolbar;
     @BindView(R.id.tsv_home)
     TranslucentScrollView tsv_home;
+
+    private boolean isOpen = false;
 
     @Override
     public int getLayoutId() {
@@ -54,7 +60,7 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(this);
+        Eyes.translucentStatusBar(this,false);
 
         tsv_home.init(this);
 
@@ -131,15 +137,31 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         }
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_no_delivery})
+    @OnClick({R.id.ll_back,R.id.rl_no_delivery,R.id.ll_title_back})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
                 finish();
                 break;
 
-            case R.id.ll_no_delivery:
+            case R.id.rl_no_delivery:
 
+                if (isOpen){
+                    isOpen = !isOpen;
+                    tv_no_delivery.setMaxLines(1);
+                }else {
+                    isOpen = !isOpen;
+                    tv_no_delivery.setMaxLines(10);
+                }
+
+
+
+                break;
+
+
+            case R.id.ll_title_back:
+
+                finish();
 
                 break;
 

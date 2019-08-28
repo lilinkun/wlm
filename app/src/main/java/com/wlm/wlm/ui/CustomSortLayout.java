@@ -3,6 +3,7 @@ package com.wlm.wlm.ui;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -85,6 +87,19 @@ public class CustomSortLayout extends LinearLayout implements View.OnClickListen
         img3 = view.findViewById(R.id.img3);
         img4 = view.findViewById(R.id.img4);
 
+        int spanCount1 = 5; // 2 columns
+        int spacing1 = 20; // 50px
+
+        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount1, spacing1,0));
+
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(context,null,LayoutInflater.from(context));
+
+        recyclerView.setAdapter(tbHotGoodsAdapter);
 
         addView(view);
 

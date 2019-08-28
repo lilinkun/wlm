@@ -59,4 +59,10 @@ public class UiHelper {
         activity.startActivity(intent);
     }
 
+    public static void launcher(Context activity, Class<?> targetActivity) {
+        Intent intent = new Intent();
+        intent.setClass(activity, targetActivity);
+        activity.startActivity(intent);
+    }
+
 }

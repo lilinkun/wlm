@@ -2,11 +2,16 @@ package com.wlm.wlm.activity;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
 
 import butterknife.BindView;
@@ -39,6 +44,10 @@ public class ManufactureStoreActivity extends BaseActivity {
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.store_bg));
         pagerSlidingTabStrip.setTitles(strs, 0, handler);
+
+        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
     }
 
     @OnClick({R.id.ll_back})

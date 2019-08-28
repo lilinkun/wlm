@@ -118,7 +118,7 @@
                                 android:textSize="@dimen/textsize12" />
 
 
-                            <cn.iwgang.countdownview.CountdownView
+                            <com.wlm.wlm.ui.CountdownView
                                 android:id="@+id/tv_rush_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -140,14 +140,6 @@
                                 lzy:suffixMinute="分"
                                 lzy:suffixSecond="秒"/>
 
-                            <!--<com.wlm.wlm.ui.countdowndemo.CountdownView
-                                android:id="@+id/tv_rush_time"
-                                android:layout_width="110dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_10"
-                                android:gravity="right"
-                                android:text="120:10:00"
-                                android:textColor="@color/white" />-->
 
                         </LinearLayout>
 

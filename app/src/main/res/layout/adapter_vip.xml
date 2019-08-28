@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/ll_vip"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="-1dp"
+        android:layout_marginBottom="-2dp"
         android:layout_alignParentBottom="true"
         />
 

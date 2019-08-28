@@ -234,7 +234,7 @@
                                 android:layout_marginLeft="@dimen/margin_4"
                                 android:textSize="@dimen/textsize10"
                                 android:textColor="@color/store_text_bg"
-                                android:text="全场包邮"/>
+                                android:text="分享赚钱"/>
 
                         </LinearLayout>
 
@@ -245,14 +245,16 @@
                             />
 
                         <RelativeLayout
+                            android:id="@+id/rl_no_delivery"
                             android:layout_width="match_parent"
-                            android:layout_height="44dp">
+                            android:layout_height="wrap_content">
 
                             <LinearLayout
                                 android:id="@+id/ll_no_delivery"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical">
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:gravity="center_vertical"
+                                android:layout_marginRight="@dimen/margin_10">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -261,24 +263,38 @@
                                     android:textSize="@dimen/textsize13"
                                     android:layout_marginLeft="@dimen/margin_10"/>
 
-                                <TextView
-                                    android:id="@+id/tv_no_delivery"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_13"
-                                    android:text="台湾省、澳门特别行政区、香港特别行政区"
-                                    android:textSize="@dimen/textsize13"
-                                    android:textColor="@color/black_333333"/>
                             </LinearLayout>
 
+
+                            <TextView
+                                android:id="@+id/tv_no_delivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_13"
+                                android:layout_marginRight="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_14"
+                                android:text="台湾省、澳门特别行政区、香港特别行政区、西藏藏族自治区、广西壮族自治区、内蒙古自治区"
+                                android:textSize="@dimen/textsize13"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:layout_toRightOf="@+id/ll_no_delivery"
+                                android:layout_toLeftOf="@+id/ll_right"
+                                android:textColor="@color/black_333333"/>
+
+                            <LinearLayout
+                                android:id="@+id/ll_right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:gravity="center_vertical"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="@dimen/margin_15"
+                                >
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="@dimen/margin_15"
                                 android:src="@mipmap/ic_right_arrow"
                                 />
+                            </LinearLayout>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -300,6 +316,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
                             android:src="@mipmap/ic_groupon_pic"/>
 
                     </LinearLayout>
@@ -308,20 +325,64 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_goods_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="wrap_content"
                         />
 
                 </LinearLayout>
 
             </com.wlm.wlm.ui.TranslucentScrollView>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar1"
-                android:background="#0019be"
+            <LinearLayout
+                android:id="@+id/titlebar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize">
+                android:layout_height="70dp"
+                android:background="@color/white">
 
-            </android.support.v7.widget.Toolbar>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_25">
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/margin_15"
+                        android:paddingRight="@dimen/margin_20">
+                        <ImageView
+                            android:id="@+id/iv_head_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/ic_back"/>
+                    </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品详情"
+                    android:textSize="@dimen/text_size_headtop"
+                    android:textColor="@color/black_333333"
+                    android:layout_centerInParent="true"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_shared"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_15">
+                        <ImageView
+                            android:id="@+id/iv_head_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/ic_title_shared"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
 
 
         </RelativeLayout>

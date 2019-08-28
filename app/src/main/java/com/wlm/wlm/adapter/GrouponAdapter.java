@@ -6,9 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.GrouponDetailActivity;
 import com.wlm.wlm.ui.MyTextView;
+import com.wlm.wlm.util.UiHelper;
 
 /**
  * 拼团adapter
@@ -42,6 +45,12 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         holder.itemView.setTag(position);
         holder.tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+        holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiHelper.launcher(context, GrouponDetailActivity.class);
+            }
+        });
     }
 
     @Override
@@ -63,12 +72,14 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder{
 
         MyTextView tv_groupon_old_price;
+        TextView tv_grouponing;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             tv_groupon_old_price = itemView.findViewById(R.id.tv_groupon_old_price);
+            tv_grouponing = itemView.findViewById(R.id.tv_grouponing);
         }
     }
 

@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY"
+                android:src="@mipmap/ic_goods_pic"
                 lzy:left_top_radius="5dp"
                 lzy:right_top_radius="5dp"
                 lzy:right_bottom_radius="0dp"

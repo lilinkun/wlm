@@ -56,21 +56,24 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.itemView.setTag(position);
 
-        homeBean = hotHomeBeans.get(position);
+        if (hotHomeBeans != null) {
 
-        holder.goodsTitleNameTv.setText(homeBean.getGoods_name());
+            homeBean = hotHomeBeans.get(position);
 
-        holder.goodsPriceTv.setText("" + homeBean.getShop_price());
-        holder.goodsBuyCountTv.setText(homeBean.getUse_number() + "");
+            holder.goodsTitleNameTv.setText(homeBean.getGoods_name());
 
-        if (homeBean.getGoods_img() != null && !homeBean.getGoods_img().isEmpty()) {
-            Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoods_img()).into(holder.goodsPicImg);
+            holder.goodsPriceTv.setText("" + homeBean.getShop_price());
+            holder.goodsBuyCountTv.setText(homeBean.getUse_number() + "");
+
+            if (homeBean.getGoods_img() != null && !homeBean.getGoods_img().isEmpty()) {
+                Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoods_img()).into(holder.goodsPicImg);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return hotHomeBeans.size();
+        return hotHomeBeans != null ? hotHomeBeans.size() : 8;
     }
 
     @Override

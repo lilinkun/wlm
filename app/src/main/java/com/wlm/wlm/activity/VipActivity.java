@@ -11,6 +11,7 @@ import com.wlm.wlm.adapter.VipAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
 
 import butterknife.BindView;
@@ -52,16 +53,20 @@ public class VipActivity extends BaseActivity {
 
         rv_vip.setAdapter(vipAdapter);
 
+        int spanCount1 = 5; // 2 columns
+        int spacing1 = 20; // 50px
+//        api.registerApp("wx3686dfb825618610");
 
         FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         rv_vip_goods.setLayoutManager(layoutManager);
 
+        rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount1, spacing1,0));
 
-//        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,)
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,null,getLayoutInflater());
 
-
+        rv_vip_goods.setAdapter(tbHotGoodsAdapter);
 
     }
 

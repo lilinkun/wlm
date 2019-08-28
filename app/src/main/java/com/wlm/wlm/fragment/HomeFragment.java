@@ -121,7 +121,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         gridView.setOnItemClickListener(this);
 
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 

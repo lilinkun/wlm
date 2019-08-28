@@ -96,7 +96,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
             case R.id.tv_right_now_groupon:
 
-                UiHelper.launcher(this,GrouponGoodsDetailActivity.class);
+                UiHelper.launcher(this,GrouponDetailActivity.class);
 
                 break;
         }

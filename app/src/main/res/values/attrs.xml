@@ -108,4 +108,45 @@
 
     </declare-styleable>
 
+    <declare-styleable name="CountdownView1">
+        <attr format="boolean" name="isHideTimeBackground"/>
+        <attr format="boolean" name="isShowTimeBgDivisionLine"/>
+        <attr format="color" name="timeBgDivisionLineColor"/>
+        <attr format="dimension" name="timeBgDivisionLineSize"/>
+        <attr format="color" name="timeBgColor"/>
+        <attr format="dimension" name="timeBgSize"/>
+        <attr format="dimension" name="timeBgRadius"/>
+        <attr format="boolean" name="isTimeTextBold"/>
+        <attr format="dimension" name="timeTextSize"/>
+        <attr format="color" name="timeTextColor"/>
+        <attr format="boolean" name="isShowDay"/>
+        <attr format="boolean" name="isShowHour"/>
+        <attr format="boolean" name="isShowMinute"/>
+        <attr format="boolean" name="isShowSecond"/>
+        <attr format="boolean" name="isShowMillisecond"/>
+        <attr format="boolean" name="isSuffixTextBold"/>
+        <attr format="dimension" name="suffixTextSize"/>
+        <attr format="color" name="suffixTextColor"/>
+        <attr format="string" name="suffix"/>
+        <attr format="string" name="suffixDay"/>
+        <attr format="string" name="suffixHour"/>
+        <attr format="string" name="suffixMinute"/>
+        <attr format="string" name="suffixSecond"/>
+        <attr format="string" name="suffixMillisecond"/>
+        <attr name="suffixGravity"><enum name="top" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="bottom" value="2"/>
+        </attr>
+        <attr format="dimension" name="suffixLRMargin"/>
+        <attr format="dimension" name="suffixDayLeftMargin"/>
+        <attr format="dimension" name="suffixDayRightMargin"/>
+        <attr format="dimension" name="suffixHourLeftMargin"/>
+        <attr format="dimension" name="suffixHourRightMargin"/>
+        <attr format="dimension" name="suffixMinuteLeftMargin"/>
+        <attr format="dimension" name="suffixMinuteRightMargin"/>
+        <attr format="dimension" name="suffixSecondLeftMargin"/>
+        <attr format="dimension" name="suffixSecondRightMargin"/>
+        <attr format="dimension" name="suffixMillisecondLeftMargin"/>
+    </declare-styleable>
+
 </resources>
