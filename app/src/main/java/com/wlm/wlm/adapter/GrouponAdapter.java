@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GrouponDetailActivity;
+import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.util.UiHelper;
 
@@ -45,6 +46,8 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         holder.itemView.setTag(position);
         holder.tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+        holder.tv_rush_time.start(1572310800);
+
         holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +76,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
         MyTextView tv_groupon_old_price;
         TextView tv_grouponing;
+        CountdownView tv_rush_time;
 
 
         public ViewHolder(View itemView) {
@@ -80,6 +84,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
             tv_groupon_old_price = itemView.findViewById(R.id.tv_groupon_old_price);
             tv_grouponing = itemView.findViewById(R.id.tv_grouponing);
+            tv_rush_time = itemView.findViewById(R.id.tv_rush_time);
         }
     }
 

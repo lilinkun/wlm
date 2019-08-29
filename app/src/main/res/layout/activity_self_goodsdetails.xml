@@ -60,6 +60,7 @@
                         android:id="@+id/rl_rush"
                         android:layout_width="match_parent"
                         android:layout_height="49dp"
+                        android:visibility="gone"
                         android:background="@drawable/shape_groupon_goods_tetail"
                         >
 
@@ -76,7 +77,7 @@
                             android:layout_alignParentStart="true"
                             android:textColor="@color/white"
                             android:textSize="@dimen/textsize17"
-                            android:text="￥"/>
+                            android:text="¥"/>
 
 
                         <TextView
@@ -96,7 +97,7 @@
                             android:includeFontPadding="false"
                             android:textColor="#f8f8f8"
                             android:textSize="@dimen/textsize14"
-                            android:text="￥90"
+                            android:text="¥90"
                             />
 
                         </LinearLayout>

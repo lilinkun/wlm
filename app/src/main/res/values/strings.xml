@@ -178,7 +178,7 @@
     <string name="choose_pay">选择支付方式</string>
     <string name="pay_zfb">支付宝支付</string>
     <string name="pay_wx">微信支付</string>
-    <string name="pay_self">余额支付：¥</string>
+    <string name="pay_self">余额支付</string>
     <string name="goods_price">商品价格</string>
     <string name="use_integral">可用积分</string>
     <string name="uses_integral">使用积分</string>
@@ -207,6 +207,7 @@
     <string name="no_order_tip">还没有相关的订单呢</string>
     <string name="right_now_pay">立即支付</string>
     <string name="membership">会员特惠</string>
+    <string name="pay_choose">选择支付方式</string>
 
     <string name="recommend_goods">推荐商品</string>
 

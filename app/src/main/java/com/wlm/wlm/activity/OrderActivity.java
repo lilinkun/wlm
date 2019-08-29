@@ -5,23 +5,27 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MyExtendableListViewAdapter;
 import com.wlm.wlm.adapter.OrderListAdapter;
+import com.wlm.wlm.adressselectorlib.AddressPickerView;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SureOrderContract;
@@ -144,7 +148,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
     }
 
-    @OnClick({R.id.ll_back,R.id.rl_address,R.id.rl_zfb,R.id.rl_wx,R.id.rl_self,R.id.tv_place_order})
+    @OnClick({R.id.ll_back,R.id.rl_address,R.id.rl_zfb,R.id.rl_wx,R.id.rl_self,R.id.tv_place_order,R.id.rl_pay_layout})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
@@ -208,6 +212,28 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
 //                        }
                 }
+                break;
+
+            case R.id.rl_pay_layout:
+
+                final PopupWindow popupWindow = new PopupWindow(this);
+                View rootView = LayoutInflater.from(this).inflate(R.layout.popup_order, null, false);
+
+
+                popupWindow.setContentView(rootView);
+                popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+                popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.setFocusable(true);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
+                popupWindow.showAsDropDown(tv_place_order,0,0);
+
                 break;
         }
     }

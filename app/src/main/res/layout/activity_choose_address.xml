@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="150dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -54,7 +54,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="65dp"
+                android:textSize="@dimen/textsize16"
+                android:textColor="@color/address_bg"
                 android:text="您还没有收货地址哦，请添加一个" />
 
         </LinearLayout>
@@ -70,12 +72,12 @@
             <TextView
                 android:id="@+id/tv_add_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_margin="@dimen/margin_15"
                 android:background="@drawable/tv_bg_click"
                 android:gravity="center"
-                android:padding="@dimen/margin_15"
                 android:text="@string/goods_add_address"
+                android:textSize="@dimen/textsize18"
                 android:textColor="@color/white" />
         </LinearLayout>
     </RelativeLayout>

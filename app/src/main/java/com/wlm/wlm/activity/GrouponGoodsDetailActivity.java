@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
@@ -30,6 +31,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     Banner mBanner;
     @BindView(R.id.tv_groupon_old_price)
     MyTextView tv_groupon_old_price;
+    @BindView(R.id.tv_rush_time)
+    CountdownView tv_rush_time;
 
 
     @Override
@@ -39,7 +42,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(this);
+        Eyes.translucentStatusBar(this,false);
 
         ArrayList<String> strings = new ArrayList<>();
         strings.add("adssasd");
@@ -69,6 +72,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
                 .setOnBannerListener(this)
                 //必须最后调用的方法，启动轮播图。
                 .start();
+
+        tv_rush_time.start(1572310800);
     }
 
     @Override

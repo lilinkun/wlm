@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="main_bg">#fff5f5f5</color>
     <color name="line_bg">#F2F2F2</color>
+    <color name="new_bg">#F4F4F4</color>
+    <color name="address_bg">#a4a4a4</color>
     <color name="line_color1">#ffc3c3c3</color>
     <!--<color name="main_app_color">#ffff8836</color>-->
     <color name="main_app_color">#FC377D</color>

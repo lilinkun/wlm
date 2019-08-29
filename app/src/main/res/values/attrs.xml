@@ -9,6 +9,7 @@
         <attr name="right_color" format="color"/>
         <attr name="text_left" format="string" />
         <attr name="left_TextSize" format="float"/>
+        <attr name="right_TextSize" format="dimension"/>
         <attr name="text_right" format="string" />
         <attr name="text_color" format="color" />
         <attr name="left_visibility" format="boolean"/>
@@ -133,7 +134,8 @@
         <attr format="string" name="suffixMinute"/>
         <attr format="string" name="suffixSecond"/>
         <attr format="string" name="suffixMillisecond"/>
-        <attr name="suffixGravity"><enum name="top" value="0"/>
+        <attr name="suffixGravity">
+            <enum name="top" value="0"/>
             <enum name="center" value="1"/>
             <enum name="bottom" value="2"/>
         </attr>

@@ -68,7 +68,7 @@ public class ChooseAddressAdapter extends RecyclerView.Adapter<ChooseAddressAdap
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context).setMessage("确认要删除").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setMessage("删除确认").setMessage("您确定要删除改地址嘛？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onDeleteAddress.delete(addressBeans.get(position).getAddress_id());

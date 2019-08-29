@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/line_bg"
@@ -15,10 +15,10 @@
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        lzy:img_left="@mipmap/ic_back"
-        lzy:text_right="@string/nickname_save"
-        lzy:right_color="@color/login_title_text"
-        lzy:text_title="@string/add_goods_address"></com.wlm.wlm.ui.CustomTitleBar>
+        app:img_left="@mipmap/ic_back"
+        app:text_right="@string/nickname_save"
+        app:right_color="@color/black_333333"
+        app:text_title="@string/add_goods_address"></com.wlm.wlm.ui.CustomTitleBar>
 
         <View
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -35,8 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
+            android:textSize="@dimen/textsize14"
             android:layout_weight="1"
-            android:textColor="@color/login_title_text"
+            android:textColor="@color/list_divider"
             android:text="@string/goods_consignee" />
 
         <EditText
@@ -47,9 +48,8 @@
             android:background="@null"
             android:maxLength="15"
             android:hint="最少2个,最多15个"
-            android:textColor="@color/login_title_text"
-            android:padding="@dimen/margin_15"
-            android:textSize="@dimen/textsize16" />
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14" />
     </LinearLayout>
 
         <View
@@ -58,7 +58,7 @@
             android:background="@color/line_bg"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -67,7 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_weight="1"
-            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize14"
+            android:textColor="@color/list_divider"
             android:text="@string/goods_phone" />
 
         <EditText
@@ -78,10 +79,9 @@
             android:background="@null"
             android:inputType="phone"
             android:hint="@string/register_input_phone"
-            android:textColor="@color/login_title_text"
-            android:padding="@dimen/margin_15"
+            android:textColor="@color/black_333333"
             android:maxLength="11"
-            android:textSize="@dimen/textsize16" />
+            android:textSize="@dimen/textsize14" />
     </LinearLayout>
 
         <View
@@ -91,7 +91,7 @@
     <LinearLayout
         android:id="@+id/ll_province"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -100,7 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_weight="1"
-            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize14"
+            android:textColor="@color/list_divider"
             android:text="@string/goods_local_address" />
 
 
@@ -116,7 +117,7 @@
                 android:paddingLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_25"
                 android:textSize="@dimen/textsize16"
-                android:textColor="@color/login_title_text"
+                android:textColor="@color/black_333333"
                 android:layout_centerVertical="true"/>
 
             <ImageView
@@ -136,7 +137,7 @@
     <LinearLayout
         android:id="@+id/ll_address_details"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -145,7 +146,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_weight="1"
-            android:textColor="@color/login_title_text"
+            android:textSize="@dimen/textsize14"
+            android:textColor="@color/list_divider"
             android:text="@string/goods_detail_address" />
 
         <EditText
@@ -154,10 +156,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3.5"
             android:background="@null"
-            android:textColor="@color/login_title_text"
+            android:textColor="@color/black_333333"
             android:hint="请输入收件人的详细地址"
-            android:padding="@dimen/margin_15"
-            android:textSize="@dimen/textsize16" />
+            android:textSize="@dimen/textsize14"/>
     </LinearLayout>
 
 
@@ -170,7 +171,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:layout_below="@+id/ll_add_address"
         android:background="@color/white"
@@ -182,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_weight="1"
-            android:textColor="@color/login_title_text"
+            android:textColor="@color/black_333333"
             android:text="设为默认地址" />
 
 
@@ -193,16 +194,17 @@
 
             <Switch
                 android:id="@+id/switch_turn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="44dp"
+                android:layout_height="24dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:textOn=""
                 android:textOff=""
-                android:switchMinWidth="45dp"
-                android:thumb="@android:color/transparent"
-                android:track="@drawable/switch_custom_track_selector"
+                android:switchMinWidth="43dp"
+                android:thumbTextPadding="1dp"
+                android:thumb="@drawable/shape_switch_thumb"
+                android:track="@drawable/shape_switch_track_selector"
                 android:layout_marginRight="@dimen/margin_10" />
         </RelativeLayout>
     </LinearLayout>

@@ -44,6 +44,7 @@ public class CustomTitleBar extends LinearLayout implements View.OnClickListener
         iv_back.setImageDrawable(a.getDrawable(R.styleable.titlebar_img_left));
         tv_head_right.setText(a.getString(R.styleable.titlebar_text_right));
         tv_head_right.setTextColor(a.getColor(R.styleable.titlebar_right_color,getResources().getColor(R.color.white)));
+        tv_head_right.setTextSize(a.getDimension(R.styleable.titlebar_right_TextSize,15));
         iv_head_right.setImageDrawable(a.getDrawable(R.styleable.titlebar_img_right));
     }
 

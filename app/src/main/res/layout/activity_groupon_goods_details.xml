@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_goods"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,7 +37,7 @@
                             android:id="@+id/banner_good_pic"
                             android:layout_width="match_parent"
                             android:layout_height="380dp"
-                            lzy:image_scale_type="fit_xy"/>
+                            app:image_scale_type="fit_xy"/>
 
                         <LinearLayout
                             android:id="@+id/ll_back"
@@ -124,21 +124,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_5"
                                 android:layout_marginRight="@dimen/margin_5"
-                                lzy:isHideTimeBackground="true"
-                                lzy:isShowDay="true"
-                                lzy:isShowHour="true"
-                                lzy:isShowMinute="true"
-                                lzy:isShowSecond="true"
-                                lzy:timeTextColor="#ffffff"
-                                lzy:timeTextSize="14sp"
-                                lzy:isTimeTextBold="true"
-                                lzy:suffixGravity="bottom"
-                                lzy:suffixTextColor="#ffffff"
-                                lzy:suffixTextSize="12sp"
-                                lzy:suffixDay="天"
-                                lzy:suffixHour="时"
-                                lzy:suffixMinute="分"
-                                lzy:suffixSecond="秒"/>
+                                app:isHideTimeBackground="false"
+                                app:timeBgColor="#ffeae9"
+                                app:timeBgSize="@dimen/textsize16"
+                                app:timeBgRadius="3dp"
+                                app:isShowDay="true"
+                                app:isShowHour="true"
+                                app:isShowMinute="true"
+                                app:isShowSecond="true"
+                                app:timeTextColor="#eb1f1f"
+                                app:timeTextSize="11sp"
+                                app:isTimeTextBold="true"
+                                app:suffixGravity="center"
+                                app:suffixTextColor="#ffeae9"
+                                app:suffixTextSize="13sp"
+                                app:suffixDay=":"
+                                app:suffixHour=":"
+                                app:suffixMinute=":"
+                                app:suffixSecond=""/>
 
 
                         </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/member_item"
@@ -22,7 +22,7 @@
             android:layout_height="132dp"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_groupon_pic"
-            lzy:radius="10dp" />
+            app:radius="10dp" />
 
         <ImageView
             android:id="@+id/iv_sell_out"
@@ -69,6 +69,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
             android:orientation="horizontal">
+
+            <com.wlm.wlm.ui.CountdownView
+                android:id="@+id/tv_rush_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_5"
+                app:isHideTimeBackground="false"
+                app:timeBgColor="@color/groupon_text"
+                app:timeBgSize="@dimen/textsize16"
+                app:timeBgRadius="2dp"
+                app:isShowDay="true"
+                app:isShowHour="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:timeTextColor="#ffffff"
+                app:timeTextSize="11sp"
+                app:isTimeTextBold="true"
+                app:suffixGravity="center"
+                app:suffixTextColor="@color/groupon_text"
+                app:suffixTextSize="11sp"
+                app:suffixDay=":"
+                app:suffixHour=":"
+                app:suffixMinute=":"
+                app:suffixSecond=""/>
 
             <TextView
                 android:layout_width="wrap_content"
