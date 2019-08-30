@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_15"
+        android:background="@color/line_bg"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_grounon_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_divider"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="服务"
+            android:textSize="@dimen/textsize13" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_store_free_shipping"
+            android:layout_marginLeft="@dimen/margin_13"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:textSize="@dimen/textsize10"
+            android:textColor="@color/store_text_bg"
+            android:text="全场包邮"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_store_quality_goods"
+            android:layout_marginLeft="@dimen/margin_13"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:textSize="@dimen/textsize10"
+            android:textColor="@color/store_text_bg"
+            android:text="正品保障"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_13"
+            android:src="@mipmap/ic_shared_small"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:textSize="@dimen/textsize10"
+            android:textColor="@color/store_text_bg"
+            android:text="分享赚钱"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_no_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_no_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/margin_10">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不配送区域"
+                android:textColor="@color/list_divider"
+                android:textSize="@dimen/textsize13"
+                android:layout_marginLeft="@dimen/margin_10"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_no_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_13"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_14"
+            android:text="台湾省、澳门特别行政区、香港特别行政区、西藏藏族自治区、广西壮族自治区、内蒙古自治区"
+            android:textSize="@dimen/textsize13"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toRightOf="@+id/ll_no_delivery"
+            android:layout_toLeftOf="@+id/ll_right"
+            android:textColor="@color/black_333333"/>
+
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_15"
+            >
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_right_arrow"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

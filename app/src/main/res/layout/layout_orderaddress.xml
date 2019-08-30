@@ -33,21 +33,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/pop_text_bg"
-                android:text="@string/goods_consignee_name"/>
+                android:textColor="@color/black_333333"
+                />
 
             <TextView
                 android:id="@+id/tv_consignee_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/pop_text_bg"
+                android:textColor="@color/black_333333"
                 android:layout_marginLeft="@dimen/margin_10"/>
 
             <TextView
                 android:id="@+id/tv_consignee_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/pop_text_bg"
+                android:textColor="@color/black_333333"
                 android:layout_marginLeft="@dimen/margin_10"/>
 
         </LinearLayout>

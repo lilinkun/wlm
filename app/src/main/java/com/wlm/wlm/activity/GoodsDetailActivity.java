@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,10 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.interf.OnScrollChangedListener;
-import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
+import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.Eyes;
@@ -50,6 +51,14 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
     LinearLayout toolbar;
     @BindView(R.id.tsv_home)
     TranslucentScrollView tsv_home;
+    @BindView(R.id.wv_goods_detail)
+    WebView wv_goods_detail;
+    @BindView(R.id.iv_turn_top)
+    ImageView iv_turn_top;
+    @BindView(R.id.iv_more)
+    ImageView iv_more;
+    @BindView(R.id.rl_goods)
+    RelativeLayout rl_goods;
 
     private boolean isOpen = false;
 
@@ -94,15 +103,25 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
                 .setOnBannerListener(this)
                 //必须最后调用的方法，启动轮播图。
                 .start();
-
-        ViewTreeObserver addOn = tv_no_delivery.getViewTreeObserver();
-
+        int spanCount = 2; // 2 columns
+        int spacing = 20; // 50px
         FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        boolean includeEdge = false;
+        rv_goods_detail.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,null,getLayoutInflater());
 
         rv_goods_detail.setLayoutManager(layoutManager);
+        rv_goods_detail.setAdapter(tbHotGoodsAdapter);
 
-
+        wv_goods_detail.getSettings().setJavaScriptEnabled(true);
+        wv_goods_detail.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
+                return false;
+            }
+        });
+        wv_goods_detail.loadUrl("http://manage.boos999.com/goods/mobiledetail/1316");
     }
 
     @Override
@@ -119,6 +138,17 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         float headerBarOffsetY = 250;//Toolbar与header高度的差值
         float offset = 1 - Math.max((headerBarOffsetY - scrollY) / headerBarOffsetY, 0f);
         toolbar.setAlpha(offset);
+
+        if (wv_goods_detail.getTop() <= (int)scrollY){
+            if (iv_turn_top != null && !iv_turn_top.isShown()) {
+                iv_turn_top.setVisibility(View.VISIBLE);
+            }
+        }else if (wv_goods_detail.getTop() > (int)scrollY){
+            if (iv_turn_top != null && iv_turn_top.isShown()) {
+                iv_turn_top.setVisibility(View.GONE);
+            }
+        }
+
     }
 
     @Override
@@ -137,7 +167,7 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         }
     }
 
-    @OnClick({R.id.ll_back,R.id.rl_no_delivery,R.id.ll_title_back})
+    @OnClick({R.id.ll_back,R.id.rl_no_delivery,R.id.ll_title_back,R.id.iv_turn_top})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
@@ -149,11 +179,12 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
                 if (isOpen){
                     isOpen = !isOpen;
                     tv_no_delivery.setMaxLines(1);
+                    iv_more.setRotation(0);
                 }else {
                     isOpen = !isOpen;
                     tv_no_delivery.setMaxLines(10);
+                    iv_more.setRotation(90);
                 }
-
 
 
                 break;
@@ -162,6 +193,12 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
             case R.id.ll_title_back:
 
                 finish();
+
+                break;
+
+            case R.id.iv_turn_top:
+
+                tsv_home.scrollTo(0,0);
 
                 break;
 

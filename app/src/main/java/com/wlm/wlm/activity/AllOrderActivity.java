@@ -4,12 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.OrderAdapter;
@@ -39,13 +36,7 @@ import com.wlm.wlm.presenter.AllOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.LzyydUtil;
-import com.wlm.wlm.util.MessageEvent;
-import com.wlm.wlm.util.UToast;
-import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

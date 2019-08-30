@@ -9,13 +9,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10">
+        android:layout_height="44dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/goods_price"/>
 
 
@@ -24,7 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
             android:text="¥0"/>
 
     </RelativeLayout>
@@ -36,13 +41,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10">
+        android:layout_height="44dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/uses_integral"/>
 
 
@@ -51,7 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
             android:text="0"/>
 
     </RelativeLayout>
@@ -63,13 +73,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10">
+        android:layout_height="44dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/postage"/>
 
         <LinearLayout
@@ -77,19 +89,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:orientation="horizontal"
+            android:layout_centerVertical="true"
             android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/pop_text_bg"
+                android:textColor="@color/black_333333"
+                android:textSize="@dimen/textsize14"
                 android:text="+¥"/>
 
         <TextView
             android:id="@+id/tv_fare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_marginRight="@dimen/margin_10"
             android:text="0"/>
         </LinearLayout>
     </RelativeLayout>
@@ -101,13 +117,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10">
+        android:layout_height="44dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pop_text_bg"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/total_payable"/>
 
 
@@ -117,6 +136,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/setting_title_color"
+            android:textSize="@dimen/textsize14"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
             android:text="¥0"/>
 
     </RelativeLayout>

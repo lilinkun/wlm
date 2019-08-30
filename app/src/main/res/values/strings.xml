@@ -208,6 +208,8 @@
     <string name="right_now_pay">立即支付</string>
     <string name="membership">会员特惠</string>
     <string name="pay_choose">选择支付方式</string>
+    <string name="pay_invoice">发票</string>
+    <string name="order_remarks">备注</string>
 
     <string name="recommend_goods">推荐商品</string>
 

@@ -7,15 +7,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.wlm.wlm.slide.SlideDetailsLayout
-        android:id="@+id/slidedetails"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_bottom">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_bottom">
 
             <com.wlm.wlm.ui.TranslucentScrollView
                 android:id="@+id/tsv_home"
@@ -282,6 +277,11 @@
                             android:textColor="@color/pop_text_bg" />
                     </LinearLayout>
 
+
+                    <include
+                        layout="@layout/goods_layout_common"/>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -334,6 +334,7 @@
                             android:id="@+id/rl_goods_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:padding="@dimen/margin_15">
 
 
@@ -390,6 +391,21 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:textColor="@color/pop_text_bg"
+                        android:textSize="@dimen/textsize15"
+                        android:gravity="center"
+                        android:text="商品详情" />
+
+                    <WebView
+                        android:id="@+id/wv_goods_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></WebView>
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -423,37 +439,49 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"></com.wlm.wlm.ui.CommendRecyclerView>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_15"
-                            android:text="上拉察看图文详情" />
-                    </LinearLayout>
                 </LinearLayout>
 
             </com.wlm.wlm.ui.TranslucentScrollView>
 
+            <LinearLayout
+                android:id="@+id/titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white">
 
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_25">
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/margin_15"
+                        android:paddingRight="@dimen/margin_20">
+                        <ImageView
+                            android:id="@+id/iv_head_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/ic_back"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商品详情"
+                        android:textSize="@dimen/text_size_headtop"
+                        android:textColor="@color/black_333333"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
 
-        <WebView
-            android:id="@+id/wv_goods_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
 
-    </com.wlm.wlm.slide.SlideDetailsLayout>
-
-
-    <!--<com.wlm.wlm.ui.CustomTitleBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        lzy:title_color="@color/transparent"></com.wlm.wlm.ui.CustomTitleBar>-->
 
     <LinearLayout
         android:id="@+id/ll_bottom"
@@ -547,6 +575,17 @@
         </RelativeLayout>
     </LinearLayout>
 
+
+    <ImageView
+        android:id="@+id/iv_turn_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_10"
+        android:layout_above="@+id/ll_bottom"
+        android:layout_marginBottom="@dimen/margin_50"
+        android:visibility="gone"
+        android:src="@mipmap/ic_turn_top"/>
 
     <ImageView
         android:id="@+id/iv_bg"

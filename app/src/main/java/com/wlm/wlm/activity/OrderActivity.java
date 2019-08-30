@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +40,10 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
+import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.SureOrderPresenter;
+import com.wlm.wlm.ui.OrderPopupLayout;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.LzyydUtil;
@@ -55,20 +59,15 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.iwgang.countdownview.CountdownView;
 
 /**
  * Created by LG on 2018/12/13.
  */
 
-public class OrderActivity extends BaseActivity implements SureOrderContract, OrderListAdapter.OnDataGetFare, IWxResultListener {
+public class OrderActivity extends BaseActivity implements SureOrderContract, OrderListAdapter.OnDataGetFare, IWxResultListener, IOrderChoosePayTypeListener {
     @BindView(R.id.rv_order)
     RecyclerView recyclerView;
-    @BindView(R.id.check_zfb)
-    CheckBox check_zfb;
-    @BindView(R.id.check_wx)
-    CheckBox check_wx;
-    @BindView(R.id.check_self)
-    CheckBox check_self;
     @BindView(R.id.tv_consignee_name)
     TextView tv_consignee_name;
     @BindView(R.id.tv_consignee_phone)
@@ -93,8 +92,13 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     TextView tv_total_price;
     @BindView(R.id.tv_place_order)
     TextView tv_place_order;
+    @BindView(R.id.iv_pay_type)
+    ImageView iv_pay_type;
+    @BindView(R.id.tv_pay_type)
+    TextView  tv_pay_type;
 
     SureOrderPresenter sureOrderPresenter = new SureOrderPresenter();
+
     OrderListAdapter orderListAdapter ;
     private AddressBean addressBean;
     private Dialog dialog;
@@ -110,9 +114,11 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     private String attr_id="";
     private double getTotal_amount = 0;
     String orderid;
+    public static int pay_type_position = 1;
 
     private final int address_result = 0x123;
     private boolean isWxPay = false;
+    private OrderPopupLayout rootView = null;
 
     @Override
     public int getLayoutId() {
@@ -126,6 +132,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         sureOrderPresenter.attachView(this);
         sureOrderPresenter.onCreate(this);
 
+        rootView = new OrderPopupLayout(this);
         WXPayEntryActivity.setPayListener(this);
         if (getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("type")==0) {
             GoodsChooseBean goodsChooseBean = (GoodsChooseBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("goodsChooseBean");
@@ -161,46 +168,13 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
                 }
                 break;
 
-            case R.id.rl_zfb:
-
-                if (!isWxPay) {
-                    check_zfb.setChecked(true);
-                    check_wx.setChecked(false);
-                    check_self.setChecked(false);
-                }
-                break;
-
-            case R.id.rl_wx:
-
-                if (!isWxPay) {
-                    if (total != 0) {
-                        check_wx.setChecked(true);
-                        check_zfb.setChecked(false);
-                        check_self.setChecked(false);
-                    }
-                }
-                break;
-
-            case R.id.rl_self:
-
-                if (!isWxPay) {
-                    check_self.setChecked(true);
-                    check_wx.setChecked(false);
-                    check_zfb.setChecked(false);
-                }
-                break;
-
             case R.id.tv_place_order:
 
                     if (addressBean == null) {
                         dialog.show();
                     } else {
                         int point = Integer.valueOf(tv_use_point.getText().toString()) * -1;
-//                        if (check_wx.isChecked()) {
-//                            toast("你瞅我干啥，暂时不能微信支付类");
-//                            sureOrderPresenter.setWxPay(order);
-//                        } else if (check_self.isChecked()) {
-//                            tv_place_order.setClickable(false);
+
 
                         if (!isWxPay) {
                             sureOrderPresenter.sureOrder(goodsids, attr_id, num, isFare + "",
@@ -216,23 +190,8 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
             case R.id.rl_pay_layout:
 
-                final PopupWindow popupWindow = new PopupWindow(this);
-                View rootView = LayoutInflater.from(this).inflate(R.layout.popup_order, null, false);
-
-
-                popupWindow.setContentView(rootView);
-                popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-                popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                popupWindow.setFocusable(true);
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-
-                    }
-                });
-                popupWindow.showAsDropDown(tv_place_order,0,0);
+                rootView.setListener(this);
+                rootView.showAsDropDown(tv_place_order,0,0);
 
                 break;
         }
@@ -293,11 +252,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         tv_total.setText("¥" + total);
         tv_total_price.setText("¥" + total);
         if (buyBean.getUsermodel().getAmount() > total){
-            check_self.setChecked(true);
-            check_wx.setChecked(false);
-        }else {
-            check_self.setChecked(false);
-            check_wx.setChecked(true);
+
         }
     }
 
@@ -325,11 +280,12 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         if (collectDeleteBean.getStatus() == 0){
 
             orderid = collectDeleteBean.getMessage();
-            if (check_wx.isChecked()){
+            if (pay_type_position == 1){
                 isWxPay = true;
                 tv_place_order.setText("正在提交");
                 sureOrderPresenter.setWxPay(orderid,total+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(this));
             }else {
+                isWxPay = false;
                 View view = LayoutInflater.from(this).inflate(R.layout.dialog_pay, null);
 
                 payDialog = new Dialog(this);
@@ -484,13 +440,9 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         BigDecimal b = new BigDecimal(total);
         total = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         tv_total.setText("¥" + total);
-        tv_total_price.setText("¥" + total);
+        tv_total_price.setText("" + total);
         if (buyBean.getUsermodel().getAmount() >= total){
-            check_self.setChecked(true);
-            check_wx.setChecked(false);
         }else {
-            check_self.setChecked(false);
-            check_wx.setChecked(true);
         }
     }
 
@@ -518,4 +470,16 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         finish();
     }
 
+    @Override
+    public void chooseType(int type) {
+        if (type == 1){
+            iv_pay_type.setImageResource(R.mipmap.ic_order_wx);
+            tv_pay_type.setText(getString(R.string.pay_wx));
+            pay_type_position=1;
+        }else if (type == 2){
+            iv_pay_type.setImageResource(R.mipmap.ic_order_self);
+            tv_pay_type.setText(getString(R.string.pay_self));
+            pay_type_position=2;
+        }
+    }
 }

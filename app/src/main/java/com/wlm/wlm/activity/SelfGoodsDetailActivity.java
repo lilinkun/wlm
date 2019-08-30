@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,6 +34,7 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.interf.ISlideCallback;
+import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
 import com.wlm.wlm.slide.SlideDetailsLayout;
 import com.wlm.wlm.ui.CommendRecyclerView;
@@ -66,7 +68,7 @@ import cn.iwgang.countdownview.CountdownView;
  * Created by LG on 2018/12/8.
  */
 
-public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, ISlideCallback, RecordAdapter.OnItemClickListener, SelfGoodsAdapter.OnItemClickListener, View.OnScrollChangeListener {
+public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, RecordAdapter.OnItemClickListener, SelfGoodsAdapter.OnItemClickListener, OnScrollChangedListener {
 
     @BindView(R.id.tv_goods_name)
     TextView mGoodsNameTv;
@@ -88,8 +90,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     CommendRecyclerView recyclerView;
     @BindView(R.id.wv_goods_detail)
     WebView webView;
-    @BindView(R.id.slidedetails)
-    SlideDetailsLayout mSlideDetailsLayout;
     @BindView(R.id.tv_freight)
     TextView tv_freight;
     @BindView(R.id.rl_goods_format)
@@ -114,6 +114,10 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout ll_bottom;
     @BindView(R.id.tv_integral_pv)
     TextView tv_integral_pv;
+    @BindView(R.id.titlebar)
+    LinearLayout toolbar;
+    @BindView(R.id.iv_turn_top)
+    ImageView iv_turn_top;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -168,12 +172,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(fullyGridLayoutManager);
 
-        translucentScrollView.setOnScrollChangeListener(this);
+        translucentScrollView.init(this);
 
     }
 
 
-    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_collect, R.id.ll_shop, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase})
+    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_collect, R.id.ll_shop, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,R.id.iv_turn_top})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -247,6 +251,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                             popupWindow.showAtLocation(relativeLayout, Gravity.CENTER | Gravity.CENTER, 0, 0);
                         }
                     }
+                    break;
+
+                case R.id.iv_turn_top:
+
+                    translucentScrollView.scrollTo(0,0);
+
                     break;
             }
         }
@@ -457,16 +467,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
 
     @Override
-    public void openDetails(boolean smooth) {
-        mSlideDetailsLayout.smoothOpen(smooth);
-    }
-
-    @Override
-    public void closeDetails(boolean smooth) {
-        mSlideDetailsLayout.smoothClose(smooth);
-    }
-
-    @Override
     public void onItemClick(int position) {
 //        Intent intent = new Intent(SelfGoodsDetailActivity.this,SelfGoodsDetailActivity.class);
 //        intent.putExtra("data",mPage++);
@@ -485,7 +485,28 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+    public void onScrollChanged(ScrollView scrollView, int x, int y, int oldx, int oldy) {
+        //Y轴偏移量
+        float scrollY = scrollView.getScrollY();
+
+        //变化率
+        float headerBarOffsetY = 250;//Toolbar与header高度的差值
+        float offset = 1 - Math.max((headerBarOffsetY - scrollY) / headerBarOffsetY, 0f);
+        toolbar.setAlpha(offset);
+
+        if (webView.getTop() <= (int)scrollY){
+            if (iv_turn_top != null && !iv_turn_top.isShown()) {
+                iv_turn_top.setVisibility(View.VISIBLE);
+            }
+        }else if (webView.getTop() > (int)scrollY){
+            if (iv_turn_top != null && iv_turn_top.isShown()) {
+                iv_turn_top.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void loadMore() {
 
     }
 
