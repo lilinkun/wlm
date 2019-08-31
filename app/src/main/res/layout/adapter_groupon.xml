@@ -144,7 +144,7 @@
                     android:layout_marginLeft="10dp"
                     android:includeFontPadding="false"
                     android:textColor="@color/list_divider"
-                    android:textSize="@dimen/textsize13"
+                    android:textSize="@dimen/textsize11"
                     android:text="￥90"
                     />
 

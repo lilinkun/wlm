@@ -38,8 +38,8 @@
                         android:id="@+id/tv_goods_pop_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥ 61.4"
-                        android:textColor="@color/setting_title_color" />
+                        android:textSize="@dimen/textsize20"
+                        android:textColor="@color/groupon_text" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -50,12 +50,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/textsize13"
+                            android:textColor="@color/list_divider"
                             android:text="库存: "/>
 
                         <TextView
                             android:id="@+id/tv_stock"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textsize13"
+                            android:textColor="@color/list_divider" />
 
                     </LinearLayout>
 
@@ -69,12 +73,16 @@
                         android:id="@+id/tv_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/textsize13"
+                        android:textColor="@color/black_333333"
                         android:text="选择 " />
 
                         <TextView
                             android:id="@+id/tv_choose"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textsize13"
+                            android:textColor="@color/black_333333"/>
 
                     <TextView
                         android:id="@+id/tv_choose_size"
@@ -116,22 +124,15 @@
                 android:id="@+id/tv_spec1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_14"
+                android:textColor="@color/black_333333"
                 android:text="颜色分类" />
 
-            <!-- <FrameLayout
-                 android:id="@+id/fl_goods_detail"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:padding = "5dp"
-                 lzy:max_select="1">
-
-             </FrameLayout>-->
             <com.donkingliang.labels.LabelsView
                 android:id="@+id/fl_goods_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_15"
                 android:minHeight="25dp"
                 android:padding="5dp"
                 lzy:labelBackground="@drawable/label_bg"
@@ -140,7 +141,7 @@
                 lzy:labelTextPaddingLeft="10dp"
                 lzy:labelTextPaddingRight="10dp"
                 lzy:labelTextPaddingTop="5dp"
-                lzy:labelTextSize="14sp"
+                lzy:labelTextSize="12sp"
                 lzy:lineMargin="10dp"
                 lzy:maxSelect="0"
                 lzy:selectType="SINGLE"
@@ -166,21 +167,15 @@
                 android:id="@+id/tv_spec2"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_14"
+                android:textColor="@color/black_333333"
                 android:text="尺寸" />
 
-            <!--<com.wlm.wlm.ui.FlowLayout
-                android:id="@+id/fl_goods_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding = "5dp">
-
-            </com.wlm.wlm.ui.FlowLayout>-->
             <com.donkingliang.labels.LabelsView
                 android:id="@+id/fl_goods_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_15"
                 android:minHeight="25dp"
                 android:padding="5dp"
                 lzy:labelBackground="@drawable/label_bg"
@@ -189,7 +184,7 @@
                 lzy:labelTextPaddingLeft="10dp"
                 lzy:labelTextPaddingRight="10dp"
                 lzy:labelTextPaddingTop="5dp"
-                lzy:labelTextSize="14sp"
+                lzy:labelTextSize="12sp"
                 lzy:lineMargin="10dp"
                 lzy:maxSelect="0"
                 lzy:selectType="SINGLE"
@@ -269,7 +264,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
+            android:layout_marginTop="44dp"
             android:orientation="horizontal">
 
             <TextView

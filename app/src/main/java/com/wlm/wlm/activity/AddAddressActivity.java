@@ -135,6 +135,11 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
                             mZipCode = zipCode;
                             popupWindow.dismiss();
                         }
+
+                        @Override
+                        public void onExit() {
+                            popupWindow.dismiss();
+                        }
                     });
                     popupWindow.setContentView(rootView);
                     popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);

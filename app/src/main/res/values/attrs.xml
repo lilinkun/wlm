@@ -101,11 +101,12 @@
 
     </declare-styleable>
 
-    <declare-styleable name="CustomSort">
-        <attr name="textcolor" format="color"/>
-        <attr name="textnormalcolor" format="color"/>
+    <declare-styleable name="TopLayout">
         <attr name="up_arrow" format="reference"/>
         <attr name="down_arrow" format="reference"/>
+        <attr name="textcolor" format="color"/>
+        <attr name="textnormalcolor" format="color"/>
+        <attr name="type" format="integer"/>
 
     </declare-styleable>
 

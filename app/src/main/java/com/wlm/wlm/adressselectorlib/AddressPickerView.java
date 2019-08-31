@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,9 +36,9 @@ import java.util.List;
 
 public class AddressPickerView extends RelativeLayout implements View.OnClickListener,AddressPickerContract{
     // recyclerView 选中Item 的颜色
-    private int defaultSelectedColor = Color.parseColor("#50AA00");
+    private int defaultSelectedColor = Color.parseColor("#999999");
     // recyclerView 未选中Item 的颜色
-    private int defaultUnSelectedColor = Color.parseColor("#262626");
+    private int defaultUnSelectedColor = Color.parseColor("#999999");
     // 确定字体不可以点击时候的颜色
     private int defaultSureUnClickColor = Color.parseColor("#7F7F7F");
     // 确定字体可以点击时候的颜色
@@ -68,7 +69,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
     public static final int TYPE_AREA = 3;
 
     private OnAddressPickerSureListener mOnAddressPickerSureListener;
-    private TextView mTvSure; //确定
+    private ImageView mTvSure; //确定
     private AddressPickerPresenter addAddressPresenter = new AddressPickerPresenter();
 
     public AddressPickerView(Context context) {
@@ -101,7 +102,6 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
         View rootView = inflate(mContext, R.layout.address_picker_view, this);
         // 确定
         mTvSure = rootView.findViewById(R.id.tvSure);
-        mTvSure.setTextColor(defaultSureUnClickColor);
         mTvSure.setOnClickListener(this);
         // tablayout初始化
         mTabLayout = (TabLayout) rootView.findViewById(R.id.tlTabLayout);
@@ -174,7 +174,9 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tvSure) {
-            sure();
+            if (mOnAddressPickerSureListener != null) {
+                mOnAddressPickerSureListener.onExit();
+            }
         }
     }
 
@@ -240,6 +242,8 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                     mRvList.smoothScrollToPosition(mSelectCityPosition);
                     break;
                 case 2:
+                    mRvData.clear();
+                    mAdapter.notifyDataSetChanged();
                     // 点到区的时候要判断有没有选择省份与城市
                     if (mAreaAddressBean != null && mAreaAddressBean.size() > 0) {
                         mRvData.addAll(mAreaAddressBean);
@@ -313,6 +317,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
             final int tabSelectPosition = mTabLayout.getSelectedTabPosition();
             holder.mTitle.setText(mRvData.get(position).getRegion_name());
             holder.mTitle.setTextColor(defaultUnSelectedColor);
+            holder.mTitle.setTextSize(14);
             // 设置选中效果的颜色
             switch (tabSelectPosition) {
                 case 0:
@@ -359,8 +364,6 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                             mTabLayout.getTabAt(0).setText(mSelectProvice.getRegion_name());
                             // 跳到下一个选择
                             mTabLayout.getTabAt(1).select();
-                            // 灰掉确定按钮
-                            mTvSure.setTextColor(defaultSureUnClickColor);
                             mSelectProvicePosition = position;
                             break;
                         case 1:
@@ -375,8 +378,6 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                             mTabLayout.getTabAt(1).setText(mSelectCity.getRegion_name());
                             // 跳到下一个选择
                             mTabLayout.getTabAt(2).select();
-                            // 灰掉确定按钮
-                            mTvSure.setTextColor(defaultSureUnClickColor);
                             mSelectCityPosition = position;
                             break;
                         case 2:
@@ -384,9 +385,9 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                             // 没了，选完了，这个时候可以点确定了
                             mTabLayout.getTabAt(2).setText(mSelectDistrict.getRegion_name());
                             notifyDataSetChanged();
-                            // 确定按钮变亮
-                            mTvSure.setTextColor(defaultSureCanClickColor);
                             mSelectDistrictPosition = position;
+
+                            sure();
                             break;
                     }
                 }
@@ -415,6 +416,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
      */
     public interface OnAddressPickerSureListener {
         void onSureClick(String address, String provinceCode, String cityCode, String districtCode, String zipCode);
+        void onExit();
     }
 
     public void setOnAddressPickerSure(OnAddressPickerSureListener listener) {

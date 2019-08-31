@@ -33,7 +33,7 @@
 
     <!--设置tabLayout字体大小-->
     <style name="MyCustomTabTextAppearance">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 

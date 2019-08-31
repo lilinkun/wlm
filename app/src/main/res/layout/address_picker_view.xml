@@ -3,46 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/shape_integral_layout"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="配送至"
+                android:textColor="@color/black_333333"
+                android:textSize="@dimen/textsize15"/>
+
+            <ImageView
+                android:id="@+id/tvSure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_15"
+                android:src="@mipmap/ic_address_delete"
+                />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            >
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tlTabLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="#262626"
+                app:tabSelectedTextColor="@color/black_333333"
+                app:tabIndicatorColor="@color/groupon_text"
+                app:tabIndicatorHeight="1dp"
                 app:tabTextAppearance="@style/MyCustomTabTextAppearance"
-                app:tabTextColor="#262626">
+                app:tabTextColor="@color/black_333333">
 
             </android.support.design.widget.TabLayout>
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/tvSure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="13dp"
-            android:text="@string/modify_sure"
-            android:textSize="14sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#DDDDDD" />
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
 
 
     <android.support.v7.widget.RecyclerView

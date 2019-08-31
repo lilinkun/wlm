@@ -20,10 +20,6 @@ import butterknife.OnClick;
  */
 public class IntegralStoreActivity extends BaseActivity {
 
-    @BindView(R.id.tab_strip)
-    PagerSlidingTabStrip pagerSlidingTabStrip;
-
-    String[] strs = {"精选","护肤套装", "防晒脱毛", "彩妆香水", "面部精华", "男士服饰", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
     private int position = 0;
 
     private Handler handler = new Handler(){
@@ -46,7 +42,6 @@ public class IntegralStoreActivity extends BaseActivity {
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.integral_bg));
-        pagerSlidingTabStrip.setTitles(strs, 0, handler);
     }
 
     @OnClick({R.id.ll_back})

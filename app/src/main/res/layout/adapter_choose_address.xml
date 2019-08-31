@@ -43,7 +43,7 @@
         android:layout_marginLeft="@dimen/margin_15"
         android:layout_marginRight="@dimen/margin_15"
         android:textColor="@color/list_divider"
-        android:textSize="@dimen/textsize12"
+        android:textSize="@dimen/textsize13"
         android:maxLines="2"/>
 
     <View
@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_333333"
                 android:layout_marginLeft="@dimen/margin_13"
+                android:textSize="@dimen/textsize13"
                 android:text="编辑"/>
 
             <TextView
@@ -98,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_25"
                 android:textColor="@color/black_333333"
+                android:textSize="@dimen/textsize13"
                 android:text="删除"/>
 
         </LinearLayout>

@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/black_333333"
+            android:textColor="@color/setting_title_color"
             android:textSize="@dimen/textsize14"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_10"
@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black_333333"
+                android:textColor="@color/setting_title_color"
                 android:textSize="@dimen/textsize14"
                 android:text="+¥"/>
 
@@ -103,7 +103,7 @@
             android:id="@+id/tv_fare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_333333"
+            android:textColor="@color/setting_title_color"
             android:textSize="@dimen/textsize14"
             android:layout_marginRight="@dimen/margin_10"
             android:text="0"/>

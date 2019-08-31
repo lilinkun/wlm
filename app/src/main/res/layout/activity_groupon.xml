@@ -60,7 +60,7 @@
         app:page_margin="20dp"/>
 
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -193,7 +193,17 @@
     </LinearLayout>
 
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+        <com.wlm.wlm.ui.TopLinearlayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textcolor="@color/setting_title_color"
+            app:textnormalcolor="@color/list_divider"
+            app:up_arrow="@mipmap/ic_store_dot_up"
+            app:down_arrow="@mipmap/ic_store_dot_down"
+            app:type="2"
+            />
 
 
     </android.support.design.widget.AppBarLayout>

@@ -53,16 +53,15 @@ public class VipActivity extends BaseActivity {
 
         rv_vip.setAdapter(vipAdapter);
 
-        int spanCount1 = 5; // 2 columns
-        int spacing1 = 20; // 50px
-//        api.registerApp("wx3686dfb825618610");
 
         FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
+        int spanCount1 = 5; // 2 columns
+        int spacing1 = 20; // 50px
         rv_vip_goods.setLayoutManager(layoutManager);
 
-        rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount1, spacing1,0));
+        rv_vip_goods.addItemDecoration(new GridSpacingItemDecoration(spanCount1, spacing1,false));
 
         TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,null,getLayoutInflater());
 

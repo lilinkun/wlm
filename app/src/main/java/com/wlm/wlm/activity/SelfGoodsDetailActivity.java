@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -72,8 +73,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
     @BindView(R.id.tv_goods_name)
     TextView mGoodsNameTv;
-    @BindView(R.id.tv_goods_price)
-    TextView mGoodsPrice;
+    @BindView(R.id.tv_groupon_price)
+    TextView tv_groupon_price;
     @BindView(R.id.img_good_pic)
     Banner mBanner;
     @BindView(R.id.rl_goods)
@@ -100,14 +101,10 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     RelativeLayout rl_add_cart;
     @BindView(R.id.rl_rush)
     RelativeLayout rl_rush;
-    @BindView(R.id.tv_rush_time)
-    CountdownView tv_rush_time;
     @BindView(R.id.rl_rush_org)
     RelativeLayout rl_rush_org;
-    @BindView(R.id.tv_org_price)
-    TextView tv_org_price;
-    @BindView(R.id.tv_distance_ends)
-    TextView tv_distance_ends;
+    @BindView(R.id.tv_groupon_old_price)
+    TextView tv_groupon_old_price;
     @BindView(R.id.tv_integral)
     TextView tv_integral;
     @BindView(R.id.ll_bottom)
@@ -118,6 +115,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout toolbar;
     @BindView(R.id.iv_turn_top)
     ImageView iv_turn_top;
+    @BindView(R.id.iv_more)
+    ImageView iv_more;
+    @BindView(R.id.tv_no_delivery)
+    TextView tv_no_delivery;
+    @BindView(R.id.tv_number)
+    TextView tv_number;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -137,6 +140,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     private SelfGoodsAdapter selfGoodsAdapter = null;
     private String goodsid;
     private String sysTime;
+    private boolean isOpen = false;
 
     @Override
     public int getLayoutId() {
@@ -146,7 +150,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(this);
+        Eyes.translucentStatusBar(this,false);
+
+        toolbar.setAlpha(0);
 
         selfGoodsDetailPresenter.attachView(this);
         selfGoodsDetailPresenter.onCreate(this);
@@ -177,7 +183,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
 
-    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_collect, R.id.ll_shop, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,R.id.iv_turn_top})
+    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_collect, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,R.id.iv_turn_top,R.id.rl_no_delivery,R.id.ll_title_back})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -208,12 +214,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
                     break;
 
-                case R.id.ll_shop:
+                /*case R.id.ll_shop:
                     Bundle bundle = new Bundle();
                     bundle.putString("storeid", goodsDetailBean.getGoodsItem().getStore_id());
                     UiHelper.launcherForResultBundle(this, StoreActivity.class, 0x4323, bundle);
 
-                    break;
+                    break;*/
 
                 case R.id.ll_shop_car:
 
@@ -258,6 +264,27 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     translucentScrollView.scrollTo(0,0);
 
                     break;
+
+                case R.id.rl_no_delivery:
+
+                    if (isOpen){
+                        isOpen = !isOpen;
+                        tv_no_delivery.setMaxLines(1);
+                        iv_more.setRotation(0);
+                    }else {
+                        isOpen = !isOpen;
+                        tv_no_delivery.setMaxLines(10);
+                        iv_more.setRotation(90);
+                    }
+
+
+                    break;
+
+                case R.id.ll_title_back:
+
+                    finish();
+
+                    break;
             }
         }
     }
@@ -300,14 +327,13 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         getpopup();
         selfGoodsBean = goodsDetailBean.getGoodsItem();
         mGoodsNameTv.setText(selfGoodsBean.getGoods_name());
-        mGoodsPrice.setText(selfGoodsBean.getShop_price() + "");
-        tv_integral_pv.setText("pv值 " + selfGoodsBean.getReturn_integral());
-
-        tv_integral.setText("可用积分抵扣" + selfGoodsBean.getGive_integral());
+        tv_groupon_price.setText(selfGoodsBean.getShop_price() + "");
+        tv_number.setText(goodsDetailBean.getGoodsItem().getGoods_number());
 
         BigDecimal b = new BigDecimal(selfGoodsBean.getMarket_price());
         double marketPrice = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        tv_org_price.setText("¥" + marketPrice);
+        tv_groupon_old_price.setText("¥" + marketPrice);
+        tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         List<String> list_path = new ArrayList<>();
         if (goodsDetailBean.getGoodsItem().getQty() == 0) {
@@ -338,33 +364,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         if ((selfGoodsBean.getGoods_attr() & 16) == 16) {
             rl_rush.setVisibility(View.VISIBLE);
-//           tv_rush_time.setText(selfGoodsBean.getBegin_date());
             sysTime = selfGoodsBean.getNow_date();
-//            tv_rush_time.setColor(getResources().getColor(R.color.white),1);
 
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
-            try {
-                Date date = simpleDateFormat.parse(sysTime);
-                long nowTime = date.getTime();
-                Date date2 = simpleDateFormat.parse(selfGoodsBean.getBegin_date());
-                long startTime = date2.getTime();
-                Date date1 = simpleDateFormat.parse(selfGoodsBean.getEnd_date());
-                long endTime = date1.getTime();
-                if (startTime > nowTime ){
-                    tv_distance_ends.setText("距开始仅剩");
-                    tv_rush_time.start(startTime-nowTime);
-//                    tv_rush_time.setCountdownTime((int)((startTime-nowTime)/1000),goodsid+"");
-                    ll_bottom.setVisibility(View.GONE);
-                    goodsLayout.setClickable(false);
-                }else {
-                    tv_distance_ends.setText("距结束仅剩");
-                    tv_rush_time.start(endTime-nowTime);
-//                    tv_rush_time.setCountdownTime((int)((endTime-nowTime)/1000),goodsid+"");
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
         }
 

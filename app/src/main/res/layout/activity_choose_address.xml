@@ -33,7 +33,10 @@
                 android:id="@+id/rv_choose_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_50"></android.support.v7.widget.RecyclerView>
+                android:layout_marginBottom="@dimen/margin_50"
+                android:background="@color/whitesmoke">
+
+            </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <LinearLayout
@@ -68,6 +71,11 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg"/>
 
             <TextView
                 android:id="@+id/tv_add_address"

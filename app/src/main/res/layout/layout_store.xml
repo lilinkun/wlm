@@ -97,14 +97,18 @@
             android:layout_marginTop="9dp"
             android:background="#f7a77d"/>
 
-
-        <com.wlm.wlm.ui.CustomSortLayout
+        <com.wlm.wlm.ui.TopLinearlayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:textcolor="@color/setting_title_color"
             app:textnormalcolor="@color/list_divider"
             app:up_arrow="@mipmap/ic_store_dot_up"
-            app:down_arrow="@mipmap/ic_store_dot_down">
+            app:down_arrow="@mipmap/ic_store_dot_down"
+            />
+
+        <com.wlm.wlm.ui.CustomSortLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         </com.wlm.wlm.ui.CustomSortLayout>
 
