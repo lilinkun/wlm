@@ -26,10 +26,11 @@ public class BuyGoodsPresenter extends BasePresenter {
     private BuyGoodsContract buyGoodsContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        buyGoodsContract = (BuyGoodsContract) view;
     }
 
     @Override
@@ -42,10 +43,6 @@ public class BuyGoodsPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        buyGoodsContract = (BuyGoodsContract) view;
-    }
 
     public void collectGoods(String goodsId,String SessionId){
         HashMap<String, String> params = new HashMap<>();

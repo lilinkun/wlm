@@ -31,10 +31,11 @@ public class SureOrderPresenter extends BasePresenter {
     private SureOrderContract sureOrderContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        sureOrderContract = (SureOrderContract) view;
     }
 
     @Override
@@ -47,11 +48,6 @@ public class SureOrderPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        sureOrderContract = (SureOrderContract) view;
     }
 
     /**

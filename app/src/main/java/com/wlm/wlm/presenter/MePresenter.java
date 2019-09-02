@@ -27,10 +27,11 @@ public class MePresenter extends BasePresenter {
     private MeContract meContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        meContract = (MeContract) view;
     }
 
     @Override
@@ -43,11 +44,6 @@ public class MePresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        meContract = (MeContract) view;
     }
 
     public void getInfo(String session){

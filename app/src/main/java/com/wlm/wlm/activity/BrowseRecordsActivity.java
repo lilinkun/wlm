@@ -83,8 +83,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
         Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        collectPresenter.attachView(this);
-        collectPresenter.onCreate(this);
+        collectPresenter.onCreate(this,this);
 
         position = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("position");
 
@@ -241,15 +240,6 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
         }
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

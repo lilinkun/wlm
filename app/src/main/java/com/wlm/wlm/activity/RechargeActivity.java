@@ -89,8 +89,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        rechargePresenter.attachView(this);
-        rechargePresenter.onCreate(this);
+        rechargePresenter.onCreate(this,this);
 
         WXPayEntryActivity.setPayListener(this);
         /*final File file = new File(getExternalCacheDir(), "crop.jpg");
@@ -223,16 +222,6 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
 
     @Override
     public void InfoAccountFail(String msg) {
-
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
 
     }
 

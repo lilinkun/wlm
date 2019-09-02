@@ -27,10 +27,11 @@ public class AddressPickerPresenter extends BasePresenter {
     private AddressPickerContract addressPickerContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        addressPickerContract = (AddressPickerContract) view;
     }
 
     @Override
@@ -43,10 +44,6 @@ public class AddressPickerPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        addressPickerContract = (AddressPickerContract) view;
-    }
 
     public void getLocalData(String parentId,final int localType){
         HashMap<String, String> params = new HashMap<>();

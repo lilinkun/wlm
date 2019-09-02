@@ -56,7 +56,7 @@
 
     <!--register-->
     <color name="register_vcode_bg">#FE744A</color>
-    <color name="register_text_hint_bg">#D8D8D8</color>
+    <color name="register_text_hint_bg">#ccf85306</color>
 
     <!--login-->
     <color name="login_title_text">#282828</color>

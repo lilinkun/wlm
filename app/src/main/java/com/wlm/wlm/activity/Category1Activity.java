@@ -58,20 +58,9 @@ public class Category1Activity extends BaseActivity implements CategoryContract,
 
         Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        categoryPresenter.attachView(this);
-        categoryPresenter.onCreate(this);
+        categoryPresenter.onCreate(this,this);
 
         categoryPresenter.getCategoryList(ProApplication.SESSIONID(this));
-
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
 
     }
 

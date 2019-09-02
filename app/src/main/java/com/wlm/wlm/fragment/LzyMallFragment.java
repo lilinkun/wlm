@@ -104,8 +104,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void initEventAndData() {
 //        Eyes.setStatusBarWhiteColor(getActivity(),getResources().getColor(R.color.white));
-        orderPresenter.attachView(this);
-        orderPresenter.onCreate(getActivity());
+        orderPresenter.onCreate(getActivity(),this);
         orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
 
         initPtrFrame();
@@ -249,16 +248,6 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
             all_checkBox.setChecked(false);
         }
         mPtrFrame.refreshComplete();
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

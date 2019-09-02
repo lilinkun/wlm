@@ -59,7 +59,7 @@ public class SplashActivity extends BaseActivity {
                     if (sharedPreferences.getBoolean(LzyydUtil.LOGIN, false) == true) {
                         intent = new Intent(getBaseContext(), MainFragmentActivity.class);
                     } else {
-                        intent = new Intent(getBaseContext(), LoginActivity.class);
+                        intent = new Intent(getBaseContext(), GrouponActivity.class);
                     }
                     //启动MainActivity
                     startActivity(intent);

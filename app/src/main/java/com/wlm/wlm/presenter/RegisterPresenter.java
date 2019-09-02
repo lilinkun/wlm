@@ -26,13 +26,12 @@ public class RegisterPresenter extends BasePresenter {
     private Context mContext;
     private RegisterContract registerContract;
 
-
-
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        registerContract = (RegisterContract) view;
     }
 
     @Override
@@ -45,10 +44,6 @@ public class RegisterPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        registerContract = (RegisterContract) view;
-    }
 
     /**
      * 发送短信验证码
@@ -89,20 +84,53 @@ public class RegisterPresenter extends BasePresenter {
 
     /**
      * 注册
+     */
+   /* public void register(String NickName,String Mobile){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseRegister");
+        params.put("Mobile", Mobile);
+        params.put("NickName", NickName);
+        params.put("NickName", NickName);
+        mCompositeSubscription.add(manager.register(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack(){
+
+                    @Override
+                    public void onResponse(Object o, String status,Object page) {
+                        registerContract.onRegisterSuccess();
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        registerContract.onRegisterFail(msg);
+                    }
+
+                    @Override
+                    public void onNext(ResultBean o) {
+                        super.onNext(o);
+                    }
+
+                })
+        );
+    }*/
+
+    /**
+     * 注册
      * @param mobile
      * @param code
      * @param progressDialog
      */
-    public void register(String account,String mobile, String code, String psd, final ProgressDialog progressDialog,String username){
+    public void register(String mobile, String code, String invitation, final ProgressDialog progressDialog){
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "Register");
-        params.put("user_password", psd);
+        params.put("user_password", invitation);
         params.put("mobile", mobile);
         params.put("Code", code);
-        params.put("UserName",account);
-        params.put("name",username);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -127,6 +155,8 @@ public class RegisterPresenter extends BasePresenter {
                 })
         );
     }
+
+
 
     /**
      * 修改密码

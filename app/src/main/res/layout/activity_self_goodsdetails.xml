@@ -237,6 +237,9 @@
                             android:textColor="@color/pop_text_bg" />
                     </LinearLayout>
 
+                    <include
+                        layout="@layout/layout_integral_price"/>
+
 
                     <include
                         layout="@layout/goods_layout_common"/>

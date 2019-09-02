@@ -106,8 +106,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     public void initEventAndData() {
         Eyes.translucentStatusBar(getActivity());
         translucentScrollView.init(this);
-        mePresenter.attachView(this);
-        mePresenter.onCreate(getActivity());
+        mePresenter.onCreate(getActivity(),this);
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
@@ -297,16 +296,6 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         if (drawable != null) {
             drawable.setAlpha(alpha);
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

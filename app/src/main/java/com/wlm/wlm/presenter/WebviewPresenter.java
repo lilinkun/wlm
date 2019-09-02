@@ -28,10 +28,11 @@ public class WebviewPresenter extends BasePresenter {
     private WebviewContract webviewContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        webviewContract = (WebviewContract) view;
     }
 
     @Override
@@ -44,10 +45,6 @@ public class WebviewPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        webviewContract = (WebviewContract) view;
-    }
 
     /**
      *

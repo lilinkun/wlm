@@ -73,8 +73,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     @Override
     public void initEventAndData() {
 
-        selfOrderPresenter.attachView(this);
-        selfOrderPresenter.onCreate(getActivity());
+        selfOrderPresenter.onCreate(getActivity(),this);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -132,16 +131,6 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
         if (getActivity() != null){
             selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     public void setPayListener(IPayOrderClickListener payListener){

@@ -26,10 +26,11 @@ public class OpinionPresenter extends BasePresenter {
     private OpinionContract opinionContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        opinionContract = (OpinionContract) view;
     }
 
     @Override
@@ -43,12 +44,6 @@ public class OpinionPresenter extends BasePresenter {
             mCompositeSubscription.unsubscribe();
         }
     }
-
-    @Override
-    public void attachView(IView view) {
-        opinionContract = (OpinionContract) view;
-    }
-
 
     public void upload(String contents,String sessionId){
         HashMap<String,String> hashMap = new HashMap<>();

@@ -27,10 +27,11 @@ public class JdGoodsPresenter extends BasePresenter {
     private JdGoodsContract jdGoodsContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        jdGoodsContract = (JdGoodsContract) view;
     }
 
     @Override
@@ -43,11 +44,6 @@ public class JdGoodsPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        jdGoodsContract = (JdGoodsContract) view;
     }
 
     public void setData(String PageIndex,String PageCount,String Sort,String eliteId,String sortName,String SessionId){

@@ -33,10 +33,11 @@ public class OrderListPresenter extends BasePresenter {
     private OrderListContract orderListContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        orderListContract = (OrderListContract)view;
     }
 
     @Override
@@ -49,10 +50,6 @@ public class OrderListPresenter extends BasePresenter {
 
     }
 
-    @Override
-    public void attachView(IView view) {
-        orderListContract = (OrderListContract)view;
-    }
 
     public void getOrderData(String SessionId){
         HashMap<String, String> params = new HashMap<>();

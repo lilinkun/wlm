@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.interf.IGoodsTypeListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
     private int textcolor;
     private int textnormalcolor;
     private int type = 1;
+    private IGoodsTypeListener iGoodsTypeListener = null;
 
 
     public TopLinearlayout(Context context) {
@@ -101,11 +103,13 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
             case R.id.tx_moren:
 
                 bottomLine(tx_moren);
+                iGoodsTypeListener.getSortType(1);
 
                 break;
             case R.id.rl_host:
 
                 bottomLine(tx_host);
+                iGoodsTypeListener.getSortType(2);
 
                 break;
             case R.id.tx_price:
@@ -128,10 +132,14 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
                 img1.setImageResource(R.mipmap.j_1);
                 img2.setImageResource(arrow_down);
                 isView3 = !isView3;
+
+                iGoodsTypeListener.getSortType(4);
             } else {
                 img1.setImageResource(arrow_up);
                 img2.setImageResource(R.mipmap.j_2);
                 isView3 = !isView3;
+
+                iGoodsTypeListener.getSortType(3);
             }
         } else {
             img1.setImageResource(R.mipmap.j_1);
@@ -144,10 +152,12 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
                 img3.setImageResource(R.mipmap.j_1);
                 img4.setImageResource(arrow_down);
                 isView4 = !isView4;
+                iGoodsTypeListener.getSortType(6);
             } else {
                 img3.setImageResource(arrow_up);
                 img4.setImageResource(R.mipmap.j_2);
                 isView4 = !isView4;
+                iGoodsTypeListener.getSortType(5);
             }
         } else {
             img3.setImageResource(R.mipmap.j_1);
@@ -165,5 +175,9 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
             }
         }
 
+    }
+
+    public void setListener(IGoodsTypeListener listener){
+        iGoodsTypeListener = listener;
     }
 }

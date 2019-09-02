@@ -55,8 +55,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        chooseAddressPresenter.attachView(this);
-        chooseAddressPresenter.onCreate(this);
+        chooseAddressPresenter.onCreate(this,this);
 
         if (getIntent() != null){
             if (getIntent().getBundleExtra(LzyydUtil.TYPEID) != null){
@@ -110,16 +109,6 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
                 chooseAddressPresenter.getAddress("1", "40", ProApplication.SESSIONID(this));
             }
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

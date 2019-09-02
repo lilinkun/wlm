@@ -29,10 +29,11 @@ public class StorePresenter extends BasePresenter {
     private StoreContract storeContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        storeContract = (StoreContract) view;
     }
 
     @Override
@@ -47,10 +48,6 @@ public class StorePresenter extends BasePresenter {
         }
     }
 
-    @Override
-    public void attachView(IView view) {
-        storeContract = (StoreContract) view;
-    }
 
     public void setData(String StoreId,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);

@@ -25,10 +25,11 @@ public class ModifyPayPsdPresenter extends BasePresenter {
     private ModifyPayPsdContract modifyPayPsdContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        modifyPayPsdContract = (ModifyPayPsdContract) view;
     }
 
     @Override
@@ -41,11 +42,6 @@ public class ModifyPayPsdPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        modifyPayPsdContract = (ModifyPayPsdContract) view;
     }
 
     /**

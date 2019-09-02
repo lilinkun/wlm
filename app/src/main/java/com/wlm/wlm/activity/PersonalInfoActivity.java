@@ -105,8 +105,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         mFilePath = Environment.getExternalStorageDirectory()+ "/test/" + "temp.jpg";// 获取SD卡路径
 //        mFilePath = mFilePath + "/test/" + "temp.jpg";// 指定路径
 
-        personalInfoPresenter.onCreate(this);
-        personalInfoPresenter.attachView(this);
+        personalInfoPresenter.onCreate(this,this);
         personalInfoPresenter.getInfo(ProApplication.SESSIONID(this));
 
     }
@@ -304,17 +303,6 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, 4);
-    }
-
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

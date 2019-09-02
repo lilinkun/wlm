@@ -28,10 +28,11 @@ public class MemberShipPresenter extends BasePresenter {
     private MemberShipContract memberShipContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        memberShipContract = (MemberShipContract) view;
     }
 
     @Override
@@ -44,11 +45,6 @@ public class MemberShipPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        memberShipContract = (MemberShipContract) view;
     }
 
     public void memberShip(String PageIndex,String PageCount,String SessionId){

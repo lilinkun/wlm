@@ -37,10 +37,11 @@ public class PersonalInfoPresenter extends BasePresenter {
 
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        personalInfoContract = (PersonalInfoContract) view;
     }
 
     @Override
@@ -51,11 +52,6 @@ public class PersonalInfoPresenter extends BasePresenter {
     @Override
     public void onStop() {
 
-    }
-
-    @Override
-    public void attachView(IView view) {
-        personalInfoContract = (PersonalInfoContract) view;
     }
 
     public void modifyInfo(String account,String session){

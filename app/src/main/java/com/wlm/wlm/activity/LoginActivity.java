@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
@@ -28,16 +29,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements LoginContract {
 
-    @BindView(R.id.tv_login_register)
-    TextView mSendRegister;
-    @BindView(R.id.line_phone)
-    View mLinePhone;
-    @BindView(R.id.line_psd)
-    View mLinePsd;
-    @BindView(R.id.et_login_input_phone)
-    EditText mEtLoginPhone;
-    @BindView(R.id.et_login_input_psd)
-    EditText mEtLoginPsd;
+    @BindView(R.id.ll_wx_login)
+    LinearLayout ll_wx_login;
 
     private LoginPresenter loginPresenter = new LoginPresenter();
 
@@ -51,27 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginContract {
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        mEtLoginPhone.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mLinePhone.setBackgroundColor(getResources().getColor(R.color.register_vcode_bg));
-                mLinePsd.setBackgroundColor(getResources().getColor(R.color.line_bg));
-                return false;
-            }
-        });
-        mEtLoginPsd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mLinePsd.setBackgroundColor(getResources().getColor(R.color.register_vcode_bg));
-                mLinePhone.setBackgroundColor(getResources().getColor(R.color.line_bg));
-                return false;
-            }
-        });
-
-        loginPresenter.attachView(this);
-        loginPresenter.onCreate(this);
-
-        loginPresenter.isRegister("1", ProApplication.SESSIONID(this));
+        loginPresenter.onCreate(this,this);
 
         SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
         if (sharedPreferences.getBoolean(LzyydUtil.LOGIN,false)){
@@ -79,29 +52,13 @@ public class LoginActivity extends BaseActivity implements LoginContract {
         }
     }
 
-    @OnClick({R.id.tv_login_register, R.id.tv_login_send_psw, R.id.btn_login})
+    @OnClick({R.id.ll_wx_login})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_login_register:
+            case R.id.ll_wx_login:
                 UiHelper.launcher(this, RegisterActivity.class);
                 break;
 
-            case R.id.tv_login_send_psw:
-                UiHelper.launcherForResult(this, ForgetOnePsdActivity.class,0x1212);
-                break;
-
-            case R.id.btn_login:
-//                UiHelper.launcher(this, MainActivity.class);
-                if(mEtLoginPhone.getText().toString().isEmpty()){
-                    toast(R.string.prompt_login_name_not_empty);
-                    return;
-                }
-                if (mEtLoginPsd.getText().toString().isEmpty()){
-                    toast(R.string.prompt_login_passwrod_not_empty);
-                    return;
-                }
-                loginPresenter.login(mEtLoginPhone.getText().toString(),mEtLoginPsd.getText().toString(), ProApplication.SESSIONID(this));
-                break;
         }
     }
 
@@ -112,16 +69,6 @@ public class LoginActivity extends BaseActivity implements LoginContract {
                 finish();
             }
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override
@@ -141,10 +88,10 @@ public class LoginActivity extends BaseActivity implements LoginContract {
             e.printStackTrace();
         }
         SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(LzyydUtil.LOGIN,true)
+       /* sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(LzyydUtil.LOGIN,true)
                 .putString("logininfo",datalife).putString("account",mEtLoginPhone.getText().toString().trim())
                 .putString("password",mEtLoginPsd.getText().toString().trim()).commit();
-
+*/
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();
     }
@@ -156,22 +103,8 @@ public class LoginActivity extends BaseActivity implements LoginContract {
     }
 
     @Override
-    public void isRegisterSuccess(boolean isRegister) {
-        if (isRegister){
-            if (mSendRegister != null) {
-                mSendRegister.setVisibility(View.VISIBLE);
-            }
-        }else{
-            if (mSendRegister != null) {
-                mSendRegister.setVisibility(View.GONE);
-            }
-        }
+    public void showPromptMessage(int str) {
+        toast(str);
     }
 
-    @Override
-    public void isRegisterFail(String msg) {
-        if (mSendRegister != null) {
-            mSendRegister.setVisibility(View.GONE);
-        }
-    }
 }

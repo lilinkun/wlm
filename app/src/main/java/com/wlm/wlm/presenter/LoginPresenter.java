@@ -30,10 +30,11 @@ public class LoginPresenter extends BasePresenter {
     private LoginContract mLoginView;
 
     @Override
-    public void onCreate(Context mContext) {
+    public void onCreate(Context mContext,IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        mLoginView = (LoginContract) view;
     }
 
     @Override
@@ -47,13 +48,6 @@ public class LoginPresenter extends BasePresenter {
             mCompositeSubscription.unsubscribe();
         }
     }
-
-
-    @Override
-    public void attachView(IView view) {
-        mLoginView = (LoginContract) view;
-    }
-
 
     /**
      * 登陆
@@ -97,36 +91,6 @@ public class LoginPresenter extends BasePresenter {
                     }
                     @Override
                     public void onNext(ResultBean<LoginBean,Object> ResultBean) {
-                        super.onNext(ResultBean);
-                    }
-                })
-        );
-    }
-
-    /**
-     * 是否能注册
-     */
-    public void isRegister(String Type,String sessionId){
-
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "UserBase");
-        params.put("fun", "Html5Url");
-        params.put("Type", Type);
-        params.put("SessionId", sessionId);
-        mCompositeSubscription.add(manager.isRegister(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<Boolean,Object>() {
-                    @Override
-                    public void onResponse(Boolean aBoolean, String status,Object page) {
-                        mLoginView.isRegisterSuccess(aBoolean);
-                    }
-                    @Override
-                    public void onErr(String msg, String status) {
-                        mLoginView.isRegisterFail(msg);
-                    }
-                    @Override
-                    public void onNext(ResultBean<Boolean,Object> ResultBean) {
                         super.onNext(ResultBean);
                     }
                 })

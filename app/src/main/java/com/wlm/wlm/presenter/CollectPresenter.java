@@ -33,10 +33,11 @@ public class CollectPresenter extends BasePresenter {
     private CollectContract collectContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        collectContract = (CollectContract) view;
     }
 
     @Override
@@ -48,12 +49,6 @@ public class CollectPresenter extends BasePresenter {
     public void onStop() {
         mCompositeSubscription.unsubscribe();
     }
-
-    @Override
-    public void attachView(IView view) {
-        collectContract = (CollectContract) view;
-    }
-
 
     public void getCollectDataList(String PageIndex,String PageCount,String SessionId){
         HashMap<String, String> params = new HashMap<>();

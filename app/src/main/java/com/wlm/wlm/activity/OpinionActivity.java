@@ -38,8 +38,7 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        opinionPresenter.attachView(this);
-        opinionPresenter.onCreate(this);
+        opinionPresenter.onCreate(this,this);
     }
 
     @OnClick({R.id.btn_commit})
@@ -60,15 +59,6 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
         finish();
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void onUploadSuccess() {

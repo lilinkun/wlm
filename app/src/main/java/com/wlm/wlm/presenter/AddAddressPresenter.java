@@ -27,10 +27,11 @@ public class AddAddressPresenter extends BasePresenter {
     private AddAddressContract addAddressContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        addAddressContract = (AddAddressContract) view;
     }
 
     @Override
@@ -41,11 +42,6 @@ public class AddAddressPresenter extends BasePresenter {
     @Override
     public void onStop() {
         mCompositeSubscription.unsubscribe();
-    }
-
-    @Override
-    public void attachView(IView view) {
-        addAddressContract = (AddAddressContract) view;
     }
 
     public void getLocalData(String parentId,final int localType){

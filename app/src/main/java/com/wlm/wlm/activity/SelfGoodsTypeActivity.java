@@ -139,8 +139,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
             text_search.setText(goodsname);
         }
 
-        selfGoodsPresenter.attachView(this);
-        selfGoodsPresenter.onCreate(this);
+        selfGoodsPresenter.onCreate(this,this);
 
         viewList.add(view4);
         viewList.add(view1);
@@ -334,16 +333,6 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
                 itemView.setTextColor(getResources().getColor(R.color.list_divider));
             }
         }
-
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
 
     }
 

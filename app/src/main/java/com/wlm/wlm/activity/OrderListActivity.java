@@ -114,8 +114,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        orderListPresenter.attachView(this);
-        orderListPresenter.onCreate(this);
+        orderListPresenter.onCreate(this,this);
 
         initData();
 
@@ -281,16 +280,6 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 
             }
         });
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

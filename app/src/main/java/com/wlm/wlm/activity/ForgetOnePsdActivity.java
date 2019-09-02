@@ -33,8 +33,7 @@ public class ForgetOnePsdActivity extends BaseActivity implements ForgetPassword
 
     @Override
     public void initEventAndData() {
-        forgetPasswordPresenter.attachView(this);
-        forgetPasswordPresenter.onCreate(this);
+        forgetPasswordPresenter.onCreate(this,this);
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
         ActivityUtil.addActivity(this);
@@ -64,16 +63,6 @@ public class ForgetOnePsdActivity extends BaseActivity implements ForgetPassword
 
         setResult(RESULT_OK);
         finish();
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

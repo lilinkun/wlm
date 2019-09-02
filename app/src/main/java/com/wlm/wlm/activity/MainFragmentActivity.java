@@ -98,8 +98,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     @Override
     public void initEventAndData() {
 
-        mainFragmentPresenter.attachView(this);
-        mainFragmentPresenter.onCreate(this);
+        mainFragmentPresenter.onCreate(this,this);
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver,filter);
@@ -280,15 +279,6 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getUpdateSuccess(final DownloadBean downloadBean) {

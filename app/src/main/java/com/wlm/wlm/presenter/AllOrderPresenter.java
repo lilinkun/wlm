@@ -32,10 +32,11 @@ public class AllOrderPresenter extends BasePresenter {
     private AllOrderContract allOrderContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        allOrderContract = (AllOrderContract) view;
     }
 
     @Override
@@ -46,11 +47,6 @@ public class AllOrderPresenter extends BasePresenter {
     @Override
     public void onStop() {
         mCompositeSubscription.unsubscribe();
-    }
-
-    @Override
-    public void attachView(IView view) {
-        allOrderContract = (AllOrderContract) view;
     }
 
     /**

@@ -79,8 +79,7 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        settingPresenter.attachView(this);
-        settingPresenter.onCreate(this);
+        settingPresenter.onCreate(this,this);
 
         try {
             String cacheSize = DataCleanManager.getTotalCacheSize(this);
@@ -227,15 +226,6 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
         }
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void LoginOutSuccess(String msg) {

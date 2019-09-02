@@ -154,8 +154,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         toolbar.setAlpha(0);
 
-        selfGoodsDetailPresenter.attachView(this);
-        selfGoodsDetailPresenter.onCreate(this);
+        selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
         goodsid = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("goodsid");
         type = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type");
@@ -287,17 +286,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     break;
             }
         }
-    }
-
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

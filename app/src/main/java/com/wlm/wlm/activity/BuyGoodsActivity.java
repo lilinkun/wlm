@@ -150,8 +150,7 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        buyGoodsPresenter.attachView(this);
-        buyGoodsPresenter.onCreate(this);
+        buyGoodsPresenter.onCreate(this,this);
 
     }
 
@@ -233,16 +232,6 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
         intent.setAction("android.intent.action.VIEW");
         intent.setData(Uri.parse("taobao:" + tbDisCountBean.getUrl() + "&unid=" + MainFragmentActivity.username));
         startActivity(intent);
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
 

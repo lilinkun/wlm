@@ -11,6 +11,6 @@ public interface LoginContract extends IView {
     public void onLoginSuccess(LoginBean loginBean);
     public void onLoginFail(String msg);
 
-    public void isRegisterSuccess(boolean isRegister);
-    public void isRegisterFail(String msg);
+    public void showPromptMessage(int str);
+
 }

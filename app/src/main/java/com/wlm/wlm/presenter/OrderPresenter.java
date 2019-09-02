@@ -32,10 +32,11 @@ public class OrderPresenter extends BasePresenter {
     private OrderContract orderContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        orderContract = (OrderContract) view;
     }
 
     @Override
@@ -48,10 +49,6 @@ public class OrderPresenter extends BasePresenter {
 
     }
 
-    @Override
-    public void attachView(IView view)  {
-        orderContract = (OrderContract) view;
-    }
 
     /**
      * 获取购物车列表

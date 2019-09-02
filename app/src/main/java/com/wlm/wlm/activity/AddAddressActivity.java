@@ -75,8 +75,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
     public void initEventAndData() {
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        addAddressPresenter.attachView(this);
-        addAddressPresenter.onCreate(this);
+        addAddressPresenter.onCreate(this,this);
         addAddressPresenter.getLocalData("1", TYPE_PROVINCE);
 
         if(getIntent() != null){
@@ -189,16 +188,6 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
                     break;
             }
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

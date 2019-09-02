@@ -8,9 +8,14 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.contract.GrouponContract;
 import com.wlm.wlm.entity.FlashBean;
+import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.interf.IGoodsTypeListener;
+import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
 import com.wlm.wlm.ui.SpaceItemDecoration;
+import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
@@ -28,12 +33,17 @@ import butterknife.OnClick;
  * 拼团
  * Created by LG on 2019/8/19.
  */
-public class GrouponActivity extends BaseActivity implements OnBannerListener, GrouponAdapter.OnItemClickListener {
+public class GrouponActivity extends BaseActivity implements GrouponContract, OnBannerListener, GrouponAdapter.OnItemClickListener, IGoodsTypeListener {
 
     @BindView(R.id.bannerView)
     Banner banner;
     @BindView(R.id.rv_groupon)
     RecyclerView rv_groupon;
+    @BindView(R.id.ll_top)
+    TopLinearlayout ll_top;
+
+    GrouponPresenter groupon = new GrouponPresenter();
+    GrouponAdapter grouponAdapter = null;
 
 
     @Override
@@ -46,7 +56,10 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener, G
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
         startBanner(null);
 
-        GrouponAdapter grouponAdapter = new GrouponAdapter(this);
+        ll_top.setListener(this);
+
+        groupon.onCreate(this,this);
+
 
         rv_groupon.addItemDecoration(new SpaceItemDecoration(0, 20,10));
 
@@ -56,9 +69,11 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener, G
 
         rv_groupon.setLayoutManager(linearLayoutManager);
 
-        rv_groupon.setAdapter(grouponAdapter);
 
         grouponAdapter.setItemClickListener(this);
+
+        groupon.getData("1","20","2");
+
     }
 
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
@@ -119,4 +134,64 @@ public class GrouponActivity extends BaseActivity implements OnBannerListener, G
     public void onItemClick(int position) {
         UiHelper.launcher(this,GrouponGoodsDetailActivity.class);
     }
+
+    @Override
+    public void getSortType(int sortType) {
+        switch (sortType){
+            case 1://默认排序
+
+                toast("默认排序");
+
+                break;
+
+            case 2://几人团
+
+                toast("几人团");
+
+                break;
+
+
+            case 3://销量上
+
+                toast("销量上");
+
+                break;
+
+
+            case 4://销量下
+
+                toast("销量下");
+
+
+                break;
+
+            case 5://价格上
+
+
+                toast("价格上");
+
+                break;
+
+            case 6://价格下
+
+
+                toast("价格下");
+
+                break;
+        }
+    }
+
+    @Override
+    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        if (grouponAdapter == null) {
+            grouponAdapter = new GrouponAdapter(this,goodsListBeans);
+            rv_groupon.setAdapter(grouponAdapter);
+        }
+    }
+
+    @Override
+    public void getFail(String msg) {
+
+    }
+
 }

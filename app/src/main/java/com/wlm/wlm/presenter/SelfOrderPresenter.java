@@ -31,10 +31,11 @@ public class SelfOrderPresenter extends BasePresenter{
     private SelfOrderContract selfOrderContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        selfOrderContract = (SelfOrderContract) view;
     }
 
     @Override
@@ -47,11 +48,6 @@ public class SelfOrderPresenter extends BasePresenter{
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        selfOrderContract = (SelfOrderContract) view;
     }
 
     public void getOrderData(String PageIndex,String PageCount,String OrderStatus,String SessionId){

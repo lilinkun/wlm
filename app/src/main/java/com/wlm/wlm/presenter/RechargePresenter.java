@@ -29,10 +29,11 @@ public class RechargePresenter extends BasePresenter {
     private RechargeContract rechargeContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        rechargeContract = (RechargeContract) view;
     }
 
     @Override
@@ -45,10 +46,6 @@ public class RechargePresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        rechargeContract = (RechargeContract) view;
-    }
 
     public void setWxPay(String Batch_No,String Charge_Amt,String Logo_ID,String Charge_Type,String apptype,String apppackage,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","微信支付中...",true);

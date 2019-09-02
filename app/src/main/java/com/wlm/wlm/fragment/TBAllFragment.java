@@ -58,8 +58,7 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
 //            UToast.show(getActivity(),getArguments().getString("TBId"));
 //        mTvTb.setText(getArguments().getString("TBId"));
 
-        tbAllPresenter.onCreate(getActivity());
-        tbAllPresenter.attachView(this);
+        tbAllPresenter.onCreate(getActivity(),this);
         tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), LzyydUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -126,15 +125,6 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
 
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     public void onPageChange(int page){
         tbDisCountBeans.clear();

@@ -41,8 +41,7 @@ public class MyNickNameActivity extends BaseActivity implements OnTitleBarClickL
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        myNickNamePresenter.attachView(this);
-        myNickNamePresenter.onCreate(this);
+        myNickNamePresenter.onCreate(this,this);
 
         Bundle bundle = getIntent().getBundleExtra(LzyydUtil.TYPEID);
         String nickname = bundle.getString("nick");
@@ -68,17 +67,6 @@ public class MyNickNameActivity extends BaseActivity implements OnTitleBarClickL
                 break;
         }
     }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
-
     @Override
     public void modifySuccess() {
         Intent intent = new Intent();

@@ -46,6 +46,7 @@
     <dimen name="margin_23">23dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_25">25dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
     <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_35">35dp</dimen>
     <dimen name="margin_50">50dp</dimen>

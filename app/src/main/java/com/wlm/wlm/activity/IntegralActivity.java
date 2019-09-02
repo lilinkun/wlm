@@ -55,8 +55,7 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        integralPresenter.attachView(this);
-        integralPresenter.onCreate(this);
+        integralPresenter.onCreate(this,this);
 
         mListStyle =  getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("style");
 
@@ -121,15 +120,6 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
         }
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     private ArrayList<PointListBean> pointListBeans;
     @Override

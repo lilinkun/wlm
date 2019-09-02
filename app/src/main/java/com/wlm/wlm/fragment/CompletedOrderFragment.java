@@ -56,8 +56,7 @@ public class CompletedOrderFragment  extends BasePagerFragment implements SelfOr
 
     @Override
     public void initEventAndData() {
-        selfOrderPresenter.attachView(this);
-        selfOrderPresenter.onCreate(getActivity());
+        selfOrderPresenter.onCreate(getActivity(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -90,15 +89,6 @@ public class CompletedOrderFragment  extends BasePagerFragment implements SelfOr
         this.payListener = payListener;
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getDataSuccess(ArrayList<SelfOrderBean> selfOrderBeans) {

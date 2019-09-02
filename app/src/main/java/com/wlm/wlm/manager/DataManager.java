@@ -13,6 +13,7 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
@@ -419,6 +420,13 @@ public class DataManager {
      */
     public Observable<ResultBean<CollectDeleteBean,Object>> deleteOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.deleteOrder(mHashMap);
+    }
+
+    /**
+     * 获取团购数据
+     */
+    public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData(HashMap<String,String> mHashMap){
+        return  mRetrofitService.grouponData(mHashMap);
     }
 
 }

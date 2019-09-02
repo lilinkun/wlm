@@ -30,10 +30,11 @@ public class SettingPresenter extends BasePresenter {
     private SettingContract settingContract;
 
     @Override
-    public void onCreate(Context mContext) {
+    public void onCreate(Context mContext,IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        settingContract = (SettingContract) view;
     }
 
     @Override
@@ -47,13 +48,6 @@ public class SettingPresenter extends BasePresenter {
             mCompositeSubscription.unsubscribe();
         }
     }
-
-
-    @Override
-    public void attachView(IView view) {
-        settingContract = (SettingContract) view;
-    }
-
 
     public void LoginOut(String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","退出登录中...",true);

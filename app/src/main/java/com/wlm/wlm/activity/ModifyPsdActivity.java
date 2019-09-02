@@ -41,23 +41,12 @@ public class ModifyPsdActivity extends BaseActivity implements OnTitleBarClickLi
         customTitleBar.SetOnTitleClickListener(this);
 
         customRegisterLayout.setVcodeLisener(this);
-        mRegisterPresenter.onCreate(this);
-        mRegisterPresenter.attachView(this);
+        mRegisterPresenter.onCreate(this,this);
     }
 
     @Override
     public void onBackClick() {
         finish();
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override
@@ -95,7 +84,7 @@ public class ModifyPsdActivity extends BaseActivity implements OnTitleBarClickLi
 
 
     @Override
-    public void getOver(String account,String phone, String vcode, String psd,String username) {
+    public void getOver(String account,String phone, String vcode) {
     }
 
     @Override

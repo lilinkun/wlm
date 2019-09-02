@@ -27,10 +27,11 @@ public class MainFragmentPresenter extends BasePresenter {
 
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        mainFragmentContract = (MainFragmentContract) view;
     }
 
     @Override
@@ -43,11 +44,6 @@ public class MainFragmentPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        mainFragmentContract = (MainFragmentContract) view;
     }
 
 

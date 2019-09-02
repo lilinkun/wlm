@@ -95,8 +95,8 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
     public void initEventAndData() {
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        orderPresenter.attachView(this);
-        orderPresenter.onCreate(this);
+
+        orderPresenter.onCreate(this,this);
         orderPresenter.getList(ProApplication.SESSIONID(this));
 
         ActivityUtil.addActivity(this);
@@ -242,16 +242,6 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
         }
         myShoppingCarAdapter.notifyDataSetChanged();
         calulate();
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-        toast(resId + "");
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-        toast(message + "");
     }
 
     @Override

@@ -53,8 +53,7 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
     @Override
     public void initEventAndData() {
 
-        selfGoodsPresenter.attachView(this);
-        selfGoodsPresenter.onCreate(getActivity());
+        selfGoodsPresenter.onCreate(getActivity(),this);
 
         selfGoodsPresenter.getGoodList("1","20","132","add_time","","",ProApplication.SESSIONID(getActivity()));
 
@@ -112,15 +111,6 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
 //        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), LzyydUtil.strs[page], ProApplication.SESSIONID(getActivity()));
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans,boolean load) {

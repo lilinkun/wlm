@@ -11,11 +11,10 @@ import com.wlm.wlm.mvp.IView;
  */
 
 public interface Presenter {
-    void onCreate(Context context);
+    void onCreate(Context context,IView view);
 
     void onStart();
 
     void onStop();
 
-    void attachView(IView view);
 }

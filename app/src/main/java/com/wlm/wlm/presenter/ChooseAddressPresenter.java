@@ -30,10 +30,11 @@ public class ChooseAddressPresenter extends BasePresenter {
     private ChooseAddressContract chooseAddressContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        chooseAddressContract = (ChooseAddressContract) view;
     }
 
 
@@ -45,11 +46,6 @@ public class ChooseAddressPresenter extends BasePresenter {
     @Override
     public void onStop() {
         mCompositeSubscription.unsubscribe();
-    }
-
-    @Override
-    public void attachView(IView view) {
-        chooseAddressContract = (ChooseAddressContract) view;
     }
 
     /**

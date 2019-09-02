@@ -49,8 +49,7 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
 
     @Override
     public void initEventAndData() {
-        selfOrderPresenter.attachView(this);
-        selfOrderPresenter.onCreate(getActivity());
+        selfOrderPresenter.onCreate(getActivity(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -72,16 +71,6 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
         if (getActivity() != null) {
             selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

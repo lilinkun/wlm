@@ -31,10 +31,11 @@ public class HomePresenter extends BasePresenter {
     private HomeContract homeContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        homeContract = (HomeContract) view;
     }
 
     @Override
@@ -46,12 +47,6 @@ public class HomePresenter extends BasePresenter {
     public void onStop() {
         mCompositeSubscription.unsubscribe();
     }
-
-    @Override
-    public void attachView(IView view) {
-        homeContract = (HomeContract) view;
-    }
-
 
     /**
      * 获取首页信息

@@ -26,10 +26,11 @@ public class ForgetPasswordPresenter extends BasePresenter {
     private ForgetPasswordContract forgetPasswordContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        forgetPasswordContract = (ForgetPasswordContract) view;
     }
 
     @Override
@@ -42,10 +43,6 @@ public class ForgetPasswordPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        forgetPasswordContract = (ForgetPasswordContract) view;
-    }
 
     /**
      * 获得绑定手机号码

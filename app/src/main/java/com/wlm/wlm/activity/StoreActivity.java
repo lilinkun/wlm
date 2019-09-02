@@ -57,8 +57,7 @@ public class StoreActivity extends BaseActivity implements StoreContract, TbHotG
 
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.text_question));
 
-        storePresenter.attachView(this);
-        storePresenter.onCreate(this);
+        storePresenter.onCreate(this,this);
 
         String storeid = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("storeid");
 
@@ -75,15 +74,6 @@ public class StoreActivity extends BaseActivity implements StoreContract, TbHotG
         storePresenter.setData(storeid, ProApplication.SESSIONID(this));
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getDataSuccess(ArrayList<SelfStoreBean> selfGoodsBeans) {

@@ -41,8 +41,7 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        webviewPresenter.attachView(this);
-        webviewPresenter.onCreate(this);
+        webviewPresenter.onCreate(this,this);
 
         title = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type");
         if (title.equals("2")){
@@ -77,16 +76,6 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
             }
         });
         webView.loadUrl(paramString);
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

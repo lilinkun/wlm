@@ -94,8 +94,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        selfSearchPresenter.attachView(this);
-        selfSearchPresenter.onCreate(this);
+        selfSearchPresenter.onCreate(this,this);
 
         List<SearchBean> searchBean =  DBManager.getInstance(this).querySearchBean(MainFragmentActivity.username);
 
@@ -341,16 +340,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
                 break;
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

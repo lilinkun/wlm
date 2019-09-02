@@ -27,10 +27,11 @@ public class RushBuyPresenter extends BasePresenter {
     private RushBuyContract rushBuyContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        rushBuyContract = (RushBuyContract) view;
     }
 
     @Override
@@ -43,10 +44,6 @@ public class RushBuyPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        rushBuyContract = (RushBuyContract) view;
-    }
 
     public void getRushBuyData(String PageIndex,String PageCount,String GoodsType,String SessionId){
         HashMap<String, String> params = new HashMap<>();

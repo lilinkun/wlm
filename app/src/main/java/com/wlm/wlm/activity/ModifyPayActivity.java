@@ -58,8 +58,7 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        modifyPayPsdPresenter.attachView(this);
-        modifyPayPsdPresenter.onCreate(this);
+        modifyPayPsdPresenter.onCreate(this,this);
 
         modifyInt = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("modify");
 
@@ -118,16 +117,6 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
                 break;
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

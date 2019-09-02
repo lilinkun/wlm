@@ -124,8 +124,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         status = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("status");
         order_sn.setText(orderSn);
 
-        allOrderPresenter.attachView(this);
-        allOrderPresenter.onCreate(this);
+        allOrderPresenter.onCreate(this,this);
 
         allOrderPresenter.cartBuy(orderSn, ProApplication.SESSIONID(this));
 
@@ -162,15 +161,6 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         }
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @OnClick(R.id.ll_back)
     public void onClick(View view){

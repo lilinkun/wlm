@@ -33,10 +33,11 @@ public class TbAllPresenter extends BasePresenter {
     private TbAllContract tbAllContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        tbAllContract = (TbAllContract) view;
     }
 
     @Override
@@ -49,10 +50,6 @@ public class TbAllPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        tbAllContract = (TbAllContract) view;
-    }
 
     public void setList(String PageIndex,String PageCount,String adzone_id,String q,String sort,String SessionId,String isMall){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);

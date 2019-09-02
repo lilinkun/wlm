@@ -26,10 +26,11 @@ public class MyNickNamePresenter extends BasePresenter {
     private MyNickNameContract myNickNameContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.context = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        myNickNameContract = (MyNickNameContract) view;
     }
 
     @Override
@@ -42,11 +43,6 @@ public class MyNickNamePresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        myNickNameContract = (MyNickNameContract) view;
     }
 
     public void modifyAccout(String NikeName,String SessionId){

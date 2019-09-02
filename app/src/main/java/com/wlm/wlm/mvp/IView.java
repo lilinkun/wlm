@@ -5,7 +5,5 @@ package com.wlm.wlm.mvp;
  */
 
 public interface IView {
-    void showPromptMessage(int resId);
-    void showPromptMessage(String message);
 
 }

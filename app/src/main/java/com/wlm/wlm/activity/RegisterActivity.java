@@ -18,11 +18,9 @@ import butterknife.BindView;
  * Created by LG on 2018/11/13.
  * 注册
  */
-public class RegisterActivity extends BaseActivity implements OnTitleBarClickListener, CustomRegisterLayout.OnRegisterListener, RegisterContract {
+public class RegisterActivity extends BaseActivity implements CustomRegisterLayout.OnRegisterListener, RegisterContract {
 
 
-    @BindView(R.id.custom_title)
-    CustomTitleBar customTitleBar;
     @BindView(R.id.custom_register)
     CustomRegisterLayout customRegisterLayout;
 
@@ -37,22 +35,14 @@ public class RegisterActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        customTitleBar.SetOnTitleClickListener(this);
 
         customRegisterLayout.setVcodeLisener(this);
 
-        mRegisterPresenter.onCreate(this);
-        mRegisterPresenter.attachView(this);
+        mRegisterPresenter.onCreate(this,this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.login_loading));
         progressDialog.setCancelable(true);
-    }
-
-
-    @Override
-    public void onBackClick() {
-        finish();
     }
 
 
@@ -62,8 +52,8 @@ public class RegisterActivity extends BaseActivity implements OnTitleBarClickLis
     }
 
     @Override
-    public void getOver(String account,String phone,String vcode, String psd,String username) {
-        mRegisterPresenter.register(account,phone,vcode,psd,progressDialog,username);
+    public void getOver(String account,String phone,String vcode) {
+        mRegisterPresenter.register(account,phone,vcode,progressDialog);
     }
 
     @Override
@@ -99,13 +89,4 @@ public class RegisterActivity extends BaseActivity implements OnTitleBarClickLis
         toast(msg);
     }
 
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 }

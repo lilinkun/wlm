@@ -30,10 +30,11 @@ public class SelfSearchPresenter extends BasePresenter {
     private SelfSearchContract selfSearchContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        selfSearchContract = (SelfSearchContract) view;
     }
 
     @Override
@@ -46,10 +47,6 @@ public class SelfSearchPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        selfSearchContract = (SelfSearchContract) view;
-    }
 
     public void setList(String PageIndex,String PageCount,String adzone_id,String q,String sort,String SessionId){
         HashMap<String, String> params = new HashMap<>();

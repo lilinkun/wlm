@@ -114,8 +114,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         translucentScrollView.init(this);
         initPtrFrame();
 
-        homePresenter.attachView(this);
-        homePresenter.onCreate(getActivity());
+        homePresenter.onCreate(getActivity(),this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
         homePresenter.setFlash(ProApplication.SESSIONID(getActivity()));
 
@@ -295,16 +294,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         if (drawable != null) {
             drawable.setAlpha(alpha);
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override

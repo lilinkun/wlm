@@ -29,10 +29,11 @@ public class IntegralPresenter extends BasePresenter {
     private IntegralContract integralContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        integralContract = (IntegralContract) view;
     }
 
     @Override
@@ -45,11 +46,6 @@ public class IntegralPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-    @Override
-    public void attachView(IView view) {
-        integralContract = (IntegralContract) view;
     }
 
     public void getIntegralData(String PageIndex,String PageCount,String SessionId){

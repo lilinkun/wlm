@@ -36,10 +36,11 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        selfGoodsDetailContract = (SelfGoodsDetailContract) view;
     }
 
     @Override
@@ -52,10 +53,6 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    @Override
-    public void attachView(IView view) {
-        selfGoodsDetailContract = (SelfGoodsDetailContract) view;
-    }
 
     public void getGoodsDetail(String goodsId,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);

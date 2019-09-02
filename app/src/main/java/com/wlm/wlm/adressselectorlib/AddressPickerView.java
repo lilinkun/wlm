@@ -94,8 +94,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
         mContext = context;
         mRvData = new ArrayList<>();
 
-        addAddressPresenter.attachView(this);
-        addAddressPresenter.onCreate(context);
+        addAddressPresenter.onCreate(context,this);
         addAddressPresenter.getLocalData("1",TYPE_PROVINCE);
 
         // UI
@@ -268,16 +267,6 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
         public void onTabReselected(TabLayout.Tab tab) {
         }
     };
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getDataSuccess(ArrayList<ProvinceBean> provinceBeans, int id) {

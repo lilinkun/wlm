@@ -57,8 +57,7 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
 
     @Override
     public void initEventAndData() {
-        selfOrderPresenter.attachView(this);
-        selfOrderPresenter.onCreate(getActivity());
+        selfOrderPresenter.onCreate(getActivity(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -87,16 +86,6 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
         }
     }
 
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     public void setPayListener(IPayOrderClickListener payListener){
         this.iPayOrderClickListener = payListener;

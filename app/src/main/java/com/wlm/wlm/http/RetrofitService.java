@@ -12,6 +12,7 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
@@ -260,6 +261,10 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<AmountPriceBean,Object>> getAmountPrice(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

@@ -129,8 +129,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     public void initEventAndData() {
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        sureOrderPresenter.attachView(this);
-        sureOrderPresenter.onCreate(this);
+        sureOrderPresenter.onCreate(this,this);
 
         rootView = new OrderPopupLayout(this);
         WXPayEntryActivity.setPayListener(this);
@@ -197,16 +196,6 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         }
     }
 
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
-    }
 
     @Override
     public void getRightNowBuySuccess(BuyBean buyBean) {

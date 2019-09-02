@@ -31,10 +31,11 @@ public class SelfGoodsPresenter extends BasePresenter {
     private SelfGoodsContract selfGoodsContract;
 
     @Override
-    public void onCreate(Context mContext) {
+    public void onCreate(Context mContext,IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
+        selfGoodsContract = (SelfGoodsContract) view;
     }
 
     @Override
@@ -47,12 +48,6 @@ public class SelfGoodsPresenter extends BasePresenter {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }
-    }
-
-
-    @Override
-    public void attachView(IView view) {
-        selfGoodsContract = (SelfGoodsContract) view;
     }
 
 

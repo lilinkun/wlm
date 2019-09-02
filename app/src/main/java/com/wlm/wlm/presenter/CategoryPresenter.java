@@ -34,10 +34,11 @@ public class CategoryPresenter extends BasePresenter {
     private CategoryContract categoryContract;
 
     @Override
-    public void onCreate(Context context) {
+    public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
+        categoryContract = (CategoryContract) view;
     }
 
     @Override
@@ -49,12 +50,6 @@ public class CategoryPresenter extends BasePresenter {
     public void onStop() {
         mCompositeSubscription.unsubscribe();
     }
-
-    @Override
-    public void attachView(IView view) {
-        categoryContract = (CategoryContract) view;
-    }
-
 
     public void getCategoryList(String SessionId){
         HashMap<String,String> hashMap = new HashMap<>();

@@ -53,8 +53,7 @@ public class ForgetFourPsdActivity extends BaseActivity implements ForgetFourPsd
         ActivityUtil.addActivity(this);
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        forgetFourPsdPresenter.attachView(this);
-        forgetFourPsdPresenter.onCreate(this);
+        forgetFourPsdPresenter.onCreate(this,this);
 
         Bundle bundle = getIntent().getBundleExtra(LzyydUtil.TYPEID);
         mobile = bundle.getString("mobile");
@@ -96,16 +95,6 @@ public class ForgetFourPsdActivity extends BaseActivity implements ForgetFourPsd
                 }
             break;
         }
-    }
-
-    @Override
-    public void showPromptMessage(int resId) {
-
-    }
-
-    @Override
-    public void showPromptMessage(String message) {
-
     }
 
     @Override
