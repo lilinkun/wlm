@@ -47,9 +47,9 @@ public class LoginActivity extends BaseActivity implements LoginContract {
         loginPresenter.onCreate(this,this);
 
         SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(LzyydUtil.LOGIN,false)){
-            loginPresenter.login(sharedPreferences.getString("account",""),sharedPreferences.getString("password",""),ProApplication.SESSIONID(this));
-        }
+//        if (sharedPreferences.getBoolean(LzyydUtil.LOGIN,false)){
+            loginPresenter.login("lilinkun","123456",ProApplication.SESSIONID(this));
+//        }
     }
 
     @OnClick({R.id.ll_wx_login})

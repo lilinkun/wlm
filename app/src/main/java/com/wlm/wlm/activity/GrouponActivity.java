@@ -70,7 +70,6 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
         rv_groupon.setLayoutManager(linearLayoutManager);
 
 
-        grouponAdapter.setItemClickListener(this);
 
         groupon.getData("1","20","2");
 
@@ -186,6 +185,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
         if (grouponAdapter == null) {
             grouponAdapter = new GrouponAdapter(this,goodsListBeans);
             rv_groupon.setAdapter(grouponAdapter);
+            grouponAdapter.setItemClickListener(this);
         }
     }
 
