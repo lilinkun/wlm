@@ -66,6 +66,8 @@
     <color name="setting_title_color">#f85905</color>
     <color name="setting_red_color">#E84545</color>
 
+    <color name="bg_crowdfunding">#FA3963</color>
+
     <!--goods-->
     <color name="goods_red">#e30d0f</color>
     <color name="jifen_bg">#508FE0</color>

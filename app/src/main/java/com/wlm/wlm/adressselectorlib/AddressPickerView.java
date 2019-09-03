@@ -186,8 +186,8 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                 mSelectDistrict != null) {
             //   回调接口
             if (mOnAddressPickerSureListener != null) {
-                mOnAddressPickerSureListener.onSureClick(mSelectProvice.getRegion_name() + " " + mSelectCity.getRegion_name() + " " + mSelectDistrict.getRegion_name() + " ",
-                        mSelectProvice.getRegion_id(), mSelectCity.getRegion_id(), mSelectDistrict.getRegion_id(),mSelectDistrict.getRegion_code());
+                mOnAddressPickerSureListener.onSureClick(mSelectProvice.getRegionName() + " " + mSelectCity.getRegionName() + " " + mSelectDistrict.getRegionName() + " ",
+                        mSelectProvice.getRegionId(), mSelectCity.getRegionId(), mSelectDistrict.getRegionId(),mSelectDistrict.getRegionId());
             }
         } else {
             Toast.makeText(mContext, "地址还没有选完整哦", Toast.LENGTH_SHORT).show();
@@ -304,7 +304,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             final int tabSelectPosition = mTabLayout.getSelectedTabPosition();
-            holder.mTitle.setText(mRvData.get(position).getRegion_name());
+            holder.mTitle.setText(mRvData.get(position).getRegionName());
             holder.mTitle.setTextColor(defaultUnSelectedColor);
             holder.mTitle.setTextSize(14);
             // 设置选中效果的颜色
@@ -312,21 +312,21 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                 case 0:
                     if (mRvData.get(position) != null &&
                             mSelectProvice != null &&
-                            mRvData.get(position).getRegion_name().equals(mSelectProvice.getRegion_id())) {
+                            mRvData.get(position).getRegionName().equals(mSelectProvice.getRegionId())) {
                         holder.mTitle.setTextColor(defaultSelectedColor);
                     }
                     break;
                 case 1:
                     if (mRvData.get(position) != null &&
                             mSelectCity != null &&
-                            mRvData.get(position).getRegion_name().equals(mSelectCity.getRegion_id())) {
+                            mRvData.get(position).getRegionName().equals(mSelectCity.getRegionId())) {
                         holder.mTitle.setTextColor(defaultSelectedColor);
                     }
                     break;
                 case 2:
                     if (mRvData.get(position) != null &&
                             mSelectDistrict != null &&
-                            mRvData.get(position).getRegion_name().equals(mSelectDistrict.getRegion_id())) {
+                            mRvData.get(position).getRegionName().equals(mSelectDistrict.getRegionId())) {
                         holder.mTitle.setTextColor(defaultSelectedColor);
                     }
                     break;
@@ -340,7 +340,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                         case 0:
                             mSelectProvice = mRvData.get(position);
 
-                            addAddressPresenter.getLocalData(mSelectProvice.getRegion_id(),TYPE_CITY);
+                            addAddressPresenter.getLocalData(mSelectProvice.getRegionId(),TYPE_CITY);
 
                             // 清空后面两个的数据
                             mSelectCity = null;
@@ -350,7 +350,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                             mTabLayout.getTabAt(1).setText(defaultCity);
                             mTabLayout.getTabAt(2).setText(defaultDistrict);
                             // 设置这个对应的标题
-                            mTabLayout.getTabAt(0).setText(mSelectProvice.getRegion_name());
+                            mTabLayout.getTabAt(0).setText(mSelectProvice.getRegionName());
                             // 跳到下一个选择
                             mTabLayout.getTabAt(1).select();
                             mSelectProvicePosition = position;
@@ -358,13 +358,13 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                         case 1:
                             mSelectCity = mRvData.get(position);
 
-                            addAddressPresenter.getLocalData(mSelectCity.getRegion_id(),TYPE_AREA);
+                            addAddressPresenter.getLocalData(mSelectCity.getRegionId(),TYPE_AREA);
                             // 清空后面一个的数据
                             mSelectDistrict = null;
                             mSelectDistrictPosition = 0;
                             mTabLayout.getTabAt(2).setText(defaultDistrict);
                             // 设置这个对应的标题
-                            mTabLayout.getTabAt(1).setText(mSelectCity.getRegion_name());
+                            mTabLayout.getTabAt(1).setText(mSelectCity.getRegionName());
                             // 跳到下一个选择
                             mTabLayout.getTabAt(2).select();
                             mSelectCityPosition = position;
@@ -372,7 +372,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                         case 2:
                             mSelectDistrict = mRvData.get(position);
                             // 没了，选完了，这个时候可以点确定了
-                            mTabLayout.getTabAt(2).setText(mSelectDistrict.getRegion_name());
+                            mTabLayout.getTabAt(2).setText(mSelectDistrict.getRegionName());
                             notifyDataSetChanged();
                             mSelectDistrictPosition = position;
 

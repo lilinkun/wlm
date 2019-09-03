@@ -20,6 +20,8 @@ public class CustomRoundedImageLoader implements ImageLoaderInterface {
         try {
             if (((String) path).contains("asdads")) {
                 ((ImageView) imageView).setImageResource(R.mipmap.ic_groupon_banner);
+            }else if (((String) path).contains("111111")){
+                ((ImageView) imageView).setImageResource(R.mipmap.ic_banner_crowdfunding);
             }
         }catch (Exception e){
             ((ImageView) imageView).setImageResource(R.mipmap.ic_banner_test);
