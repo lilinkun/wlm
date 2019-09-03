@@ -1,14 +1,11 @@
 package com.wlm.wlm.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -21,15 +18,13 @@ import com.wlm.wlm.contract.CollectContract;
 import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.CollectPresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
-import com.wlm.wlm.util.UtilsLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.wlm.wlm.util.LzyydUtil.PAGE_COUNT;
+import static com.wlm.wlm.util.WlmUtil.PAGE_COUNT;
 
 /**
  * Created by LG on 2018/11/21.
@@ -85,7 +80,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
 
         collectPresenter.onCreate(this,this);
 
-        position = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("position");
+        position = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("position");
 
         if (position == 2) {
             customTitleBar.setTileName(getResources().getString(R.string.me_collection));

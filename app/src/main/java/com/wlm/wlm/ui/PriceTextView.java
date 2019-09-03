@@ -29,8 +29,9 @@ public class PriceTextView extends AppCompatTextView {
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
-        super.setText(numberFormat.format(Double.valueOf(text.toString())), type);
-
+        if (text != null && text.length() > 0) {
+            super.setText(numberFormat.format(Double.valueOf(text.toString())), type);
+        }
     }
 
 }

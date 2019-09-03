@@ -34,10 +34,8 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
-import com.wlm.wlm.interf.ISlideCallback;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
-import com.wlm.wlm.slide.SlideDetailsLayout;
 import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
@@ -46,7 +44,7 @@ import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
@@ -55,7 +53,6 @@ import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoader;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +60,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.iwgang.countdownview.CountdownView;
 
 /**
  * Created by LG on 2018/12/8.
@@ -156,8 +152,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
-        goodsid = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("goodsid");
-        type = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type");
+        goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsid");
+        type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type");
         if (goodsid == null || goodsid.isEmpty()) {
             selfGoodsDetailPresenter.getGoodsDetail("1139", ProApplication.SESSIONID(this));
         } else {
@@ -304,7 +300,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == 0x4323) {
-                toast(data.getBundleExtra(LzyydUtil.TYPEID).getString("goodsid"));
+                toast(data.getBundleExtra(WlmUtil.TYPEID).getString("goodsid"));
             }
         }
     }

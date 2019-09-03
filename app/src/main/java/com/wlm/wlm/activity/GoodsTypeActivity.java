@@ -21,7 +21,7 @@ import com.wlm.wlm.ui.MotionViewPager;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
     private boolean isView4 = false;
 
     String[] strs = {"全部","男装", "女装", "美食", "母婴", "居家", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
-    int[] ints = {LzyydUtil.GOODS_ALL_WEAR,LzyydUtil.GOODS_MAN_WEAR,LzyydUtil.GOODS_WOMAN_WEAR,LzyydUtil.GOODS_FOOD,LzyydUtil.GOODS_MOTHER,LzyydUtil.GOODS_HOUSE,LzyydUtil.GOODS_MAKEUP,LzyydUtil.GOODS_MOTION,LzyydUtil.GOODS_SHOES,LzyydUtil.GOODS_DIGITAL,LzyydUtil.GOODS_UNDERWEAR};
+    int[] ints = {WlmUtil.GOODS_ALL_WEAR, WlmUtil.GOODS_MAN_WEAR, WlmUtil.GOODS_WOMAN_WEAR, WlmUtil.GOODS_FOOD, WlmUtil.GOODS_MOTHER, WlmUtil.GOODS_HOUSE, WlmUtil.GOODS_MAKEUP, WlmUtil.GOODS_MOTION, WlmUtil.GOODS_SHOES, WlmUtil.GOODS_DIGITAL, WlmUtil.GOODS_UNDERWEAR};
     private GetRecordsPagerAdapter getRecordsPagerAdapter;
     private TBAllFragment tbAllFragment;
     private int position = 0;
@@ -105,8 +105,8 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
-        position = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("position");
-        isMall = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("isMall");
+        position = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("position");
+        isMall = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("isMall");
 
         ActivityUtil.addActivity(this);
 
@@ -126,7 +126,7 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
 
 //        pagerSlidingTabStrip.setLineheight(15);
         if (position == 20){
-            String searchName = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("str");
+            String searchName = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("str");
             TBbean tBbean = new TBbean();
             tBbean.setId("1");
             tBbean.setCate_name(searchName);

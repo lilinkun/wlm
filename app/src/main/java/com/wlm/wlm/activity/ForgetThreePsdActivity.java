@@ -10,10 +10,9 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.ForgetPasswordContract;
 import com.wlm.wlm.presenter.ForgetPasswordPresenter;
-import com.wlm.wlm.ui.CustomRegisterLayout;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 
@@ -53,8 +52,8 @@ public class ForgetThreePsdActivity extends BaseActivity implements ForgetPasswo
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
         ActivityUtil.addActivity(this);
-        mobile = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("mobile");
-        username = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("username");
+        mobile = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("mobile");
+        username = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("username");
         tv_mobile.setText(PhoneFormatCheckUtils.phoneAddress(mobile));
 
     }

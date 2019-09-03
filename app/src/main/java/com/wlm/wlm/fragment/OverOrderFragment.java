@@ -17,7 +17,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -56,20 +56,20 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         over_pay_rv.setLayoutManager(linearLayoutManager);
 
-        selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
             }
         });
     }
 
     public void setData(){
         if (getActivity() != null) {
-            selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
+            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
         }
     }
 

@@ -11,7 +11,7 @@ import com.wlm.wlm.contract.WebviewContract;
 import com.wlm.wlm.presenter.WebviewPresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +43,7 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
 
         webviewPresenter.onCreate(this,this);
 
-        title = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type");
+        title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type");
         if (title.equals("2")){
             titleBar.setTileName("常见问题");
         }else if (title.equals("3")){

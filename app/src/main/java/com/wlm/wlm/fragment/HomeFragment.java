@@ -51,6 +51,7 @@ import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -64,6 +65,7 @@ import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
+import static android.content.Context.MODE_PRIVATE;
 import static in.srain.cube.views.ptr.util.PtrLocalDisplay.dp2px;
 
 /**
@@ -300,13 +302,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void getUrlSuccess(UrlBean urlBean) {
         ProApplication.HEADIMG = urlBean.getGoodsImgUrl();
         ProApplication.BANNERIMG = urlBean.getShopImgUrl();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("img", ProApplication.HEADIMG).putString("shop", ProApplication.BANNERIMG).commit();
+
     }
 
     @Override
     public void getUrlFail(String msg) {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", MODE_PRIVATE);
         ProApplication.HEADIMG = sharedPreferences.getString("img", ProApplication.HEADIMG);
         ProApplication.BANNERIMG = sharedPreferences.getString("shop", ProApplication.BANNERIMG);
     }

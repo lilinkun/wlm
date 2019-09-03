@@ -1,48 +1,29 @@
 package com.wlm.wlm.fragment;
 
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.AllOrderActivity;
-import com.wlm.wlm.activity.OrderListActivity;
-import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.adapter.SelfOrderAdapter;
-import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfOrderContract;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.interf.IPayOrderClickListener;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
-import com.wlm.wlm.ui.SelfGoodsPopLayout;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 全部订单
@@ -85,14 +66,14 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 //        divider.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.custom_divider));
 //        allOrderRv.addItemDecoration(divider);
 
-        selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
 
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
             }
         });
 
@@ -106,11 +87,11 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 //                            mHandler.postDelayed(new Runnable() {
 //                                @Override
 //                                public void run() {
-                            if (pageIndex * Integer.valueOf(LzyydUtil.PAGE_COUNT) > selfOrderBeans.size()){
+                            if (pageIndex * Integer.valueOf(WlmUtil.PAGE_COUNT) > selfOrderBeans.size()){
                                 UToast.show(getActivity(),"已到末尾");
                             }else {
                                 pageIndex++;
-                                selfOrderPresenter.getOrderData(pageIndex + "", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+                                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
                             }
 //                                }
 //                            }, 200);
@@ -129,7 +110,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 
     public void setData(){
         if (getActivity() != null){
-            selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
         }
     }
 
@@ -224,6 +205,6 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 
     @Override
     public void loadData() {
-        selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
     }
 }

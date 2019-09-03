@@ -1,20 +1,15 @@
 package com.wlm.wlm.fragment;
 
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.adapter.SelfOrderAdapter;
-import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfOrderContract;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -22,7 +17,7 @@ import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.interf.IPayOrderClickListener;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -72,16 +67,16 @@ public class CompletedOrderFragment  extends BasePagerFragment implements SelfOr
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
             }
         });
 
-        selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
     }
 
     public void setData(){
         if (getActivity() != null) {
-            selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT, "2", ProApplication.SESSIONID(getActivity()));
+            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT, "2", ProApplication.SESSIONID(getActivity()));
         }
     }
 
@@ -177,6 +172,6 @@ public class CompletedOrderFragment  extends BasePagerFragment implements SelfOr
 
     @Override
     public void loadData() {
-        selfOrderPresenter.getOrderData(pageIndex+"", LzyydUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"2", ProApplication.SESSIONID(getActivity()));
     }
 }

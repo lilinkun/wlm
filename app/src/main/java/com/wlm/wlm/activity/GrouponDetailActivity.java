@@ -1,12 +1,15 @@
 package com.wlm.wlm.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,6 +25,8 @@ public class GrouponDetailActivity extends BaseActivity {
     @BindView(R.id.rv_groupon_list)
     RecyclerView rv_groupon_list;
 
+    GoodsListBean goodsListBean = null;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_groupon_detail;
@@ -30,6 +35,13 @@ public class GrouponDetailActivity extends BaseActivity {
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+
+        Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
+
+        if (bundle != null && bundle.getSerializable("groupongoods") != null){
+            goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
+        }
+
 
         tv_grouponing.setBackground(null);
         tv_grouponing.setText("拼团中");

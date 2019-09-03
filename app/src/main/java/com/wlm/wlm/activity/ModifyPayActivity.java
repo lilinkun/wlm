@@ -12,10 +12,9 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.ModifyPayPsdContract;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.presenter.ModifyPayPsdPresenter;
-import com.wlm.wlm.ui.CustomRegisterLayout;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
         modifyPayPsdPresenter.onCreate(this,this);
 
-        modifyInt = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("modify");
+        modifyInt = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("modify");
 
         if (modifyInt == 1) {
             titleBar.setTileName("修改密码");
@@ -68,10 +67,10 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
             titleBar.setTileName("修改支付密码");
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
         String loginInfo = sharedPreferences.getString("logininfo","");
         try {
-            loginBean = (LoginBean) LzyydUtil.unSerialization(loginInfo);
+            loginBean = (LoginBean) WlmUtil.unSerialization(loginInfo);
             textView.setText(PhoneFormatCheckUtils.phoneAddress(loginBean.getMobile()));
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,6 +13,9 @@ import android.view.View;
 
 import com.wlm.wlm.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -956,6 +959,61 @@ public class CountdownView extends View {
         super.onDetachedFromWindow();
         stop();
     }
+
+    /**
+     * start countdown
+     * @param mill millisecond
+     */
+    public void start(String mill) {
+        long millisecond = 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+
+        Date date = new Date();
+
+
+        try {
+            millisecond = simpleDateFormat.parse(mill).getTime();
+            millisecond = millisecond - (new Date()).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (millisecond <= 0) {
+            return ;
+        }
+
+        if (null != mCustomCountDownTimer) {
+            mCustomCountDownTimer.stop();
+            mCustomCountDownTimer = null;
+        }
+
+        long countDownInterval;
+        if (isShowMillisecond) {
+            countDownInterval = 10;
+            updateShow(millisecond);
+        } else {
+            countDownInterval = 1000;
+        }
+
+        mCustomCountDownTimer = new CustomCountDownTimer(millisecond, countDownInterval) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateShow(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                // countdown end
+                allShowZero();
+                // callback
+                if (null != mOnCountdownEndListener) {
+                    mOnCountdownEndListener.onEnd(CountdownView.this);
+                }
+            }
+        };
+        mCustomCountDownTimer.start();
+    }
+
 
     /**
      * start countdown

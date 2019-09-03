@@ -3,7 +3,6 @@ package com.wlm.wlm.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +21,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.presenter.BuyGoodsPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 import com.squareup.picasso.Picasso;
 
@@ -95,7 +94,7 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
         Eyes.translucentStatusBar(this);
 
-        tbDisCountBean = (TbMaterielBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("discount");
+        tbDisCountBean = (TbMaterielBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("discount");
 
         try {
             DBManager.getInstance(this).insertTbMateriel(tbDisCountBean);

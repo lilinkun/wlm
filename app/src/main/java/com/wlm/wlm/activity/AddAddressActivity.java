@@ -24,7 +24,7 @@ import com.wlm.wlm.presenter.AddAddressPresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 
 import java.util.ArrayList;
@@ -79,8 +79,8 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
         addAddressPresenter.getLocalData("1", TYPE_PROVINCE);
 
         if(getIntent() != null){
-            if (getIntent().getBundleExtra(LzyydUtil.TYPEID) != null) {
-                addressBean = (AddressBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("addressBean");
+            if (getIntent().getBundleExtra(WlmUtil.TYPEID) != null) {
+                addressBean = (AddressBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("addressBean");
             }
         }
 

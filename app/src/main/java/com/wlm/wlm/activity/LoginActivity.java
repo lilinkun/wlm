@@ -2,11 +2,8 @@ package com.wlm.wlm.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
@@ -15,7 +12,7 @@ import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.presenter.LoginPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.io.IOException;
@@ -46,7 +43,7 @@ public class LoginActivity extends BaseActivity implements LoginContract {
 
         loginPresenter.onCreate(this,this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 //        if (sharedPreferences.getBoolean(LzyydUtil.LOGIN,false)){
             loginPresenter.login("lilinkun","123456",ProApplication.SESSIONID(this));
 //        }
@@ -83,11 +80,11 @@ public class LoginActivity extends BaseActivity implements LoginContract {
         LoginBean loginBean = mLoginBean;
         String datalife = null;
         try {
-            datalife = LzyydUtil.serialize(loginBean);
+            datalife = WlmUtil.serialize(loginBean);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
        /* sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(LzyydUtil.LOGIN,true)
                 .putString("logininfo",datalife).putString("account",mEtLoginPhone.getText().toString().trim())
                 .putString("password",mEtLoginPsd.getText().toString().trim()).commit();

@@ -23,7 +23,7 @@ import java.util.Date;
  * Created by LG on 2018/11/10.
  */
 
-public class LzyydUtil {
+public class WlmUtil {
 
     public static final int PAGE_HOMEPAGE = 0;
     public static final int PAGE_MALL = 1;

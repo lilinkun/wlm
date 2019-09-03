@@ -48,7 +48,7 @@ import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.OrderListPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.QRCodeUtil;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
@@ -323,7 +323,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     @Override
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        LzyydUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
     }
 
 

@@ -11,7 +11,7 @@ import com.wlm.wlm.presenter.RegisterPresenter;
 import com.wlm.wlm.ui.CustomRegisterLayout;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 
@@ -62,7 +62,7 @@ public class ModifyPsdActivity extends BaseActivity implements OnTitleBarClickLi
     @Override
     public void onRegisterSuccess() {
             toast("修改成功");
-            SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 
             if (mobile.equals(sharedPreferences.getString("account",""))) {
                 sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this))

@@ -13,7 +13,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.interf.IWxResultListener;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	
@@ -27,7 +27,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
         
-    	api = WXAPIFactory.createWXAPI(this, LzyydUtil.APP_ID);
+    	api = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID);
         api.handleIntent(getIntent(), this);
     }
 

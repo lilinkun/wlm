@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.factory.ResultException;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import rx.Subscriber;
 
@@ -30,9 +30,9 @@ public abstract class HttpResultCallBack<M,T> extends Subscriber<ResultBean<M,T>
         if(e != null){
             if(e instanceof ResultException){
                 ResultException err = (ResultException) e;
-                onErr(err.getErrMsg(), LzyydUtil.RESULT_FAIL);
+                onErr(err.getErrMsg(), WlmUtil.RESULT_FAIL);
             }else{
-                onErr("网络异常，请检查网络", LzyydUtil.RESULT_FAIL);
+                onErr("服务异常", WlmUtil.RESULT_FAIL);
                 Log.d("HttpResultCallBack","解析失败==：" + e.getMessage());
             }
         }
@@ -50,14 +50,14 @@ public abstract class HttpResultCallBack<M,T> extends Subscriber<ResultBean<M,T>
     public void onNext(ResultBean<M,T> result) {
         String jsonResponse = new Gson().toJson(result);
         Log.d("HttpResultCallBack", "返回ok==：" + jsonResponse);
-        if (result.getStatus().equals(LzyydUtil.RESULT_SUCCESS)) {
+        if (result.getStatus().equals(WlmUtil.RESULT_SUCCESS)) {
             if (result.getData() == null){
                 onResponse(result.getData(), result.getDesc(),result.getPage());
             }else {
-                onResponse(result.getData(), LzyydUtil.RESULT_SUCCESS,result.getPage());
+                onResponse(result.getData(), WlmUtil.RESULT_SUCCESS,result.getPage());
             }
         } else {
-            onHttpFail(result.getDesc(), LzyydUtil.RESULT_FAIL + result.getCode());
+            onHttpFail(result.getDesc(), WlmUtil.RESULT_FAIL + result.getCode());
         }
     }
 }

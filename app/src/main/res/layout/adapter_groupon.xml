@@ -61,7 +61,6 @@
             android:layout_marginTop="@dimen/margin_5"
             android:background="@drawable/shape_groupon_info"
             android:textColor="@color/groupon_text"
-            android:text="3人团,6折优惠"
             android:textSize="11sp" />
 
         <LinearLayout
@@ -128,7 +127,7 @@
                     android:text="￥"/>
 
 
-                <TextView
+                <com.wlm.wlm.ui.PriceTextView
                     android:id="@+id/tv_groupon_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,7 +144,6 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/list_divider"
                     android:textSize="@dimen/textsize11"
-                    android:text="￥90"
                     />
 
 

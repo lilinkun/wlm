@@ -16,8 +16,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.TbMaterielBean;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -156,11 +155,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                         if (type == 0) {
                             if (collectId != null && collectId.contains(collectBeans.get(position).getCollect_id())) {
                                 if (collectId.contains("," + collectBeans.get(position).getCollect_id())) {
-                                    collectId = LzyydUtil.redecuStr(collectId, "," + collectBeans.get(position).getCollect_id());
+                                    collectId = WlmUtil.redecuStr(collectId, "," + collectBeans.get(position).getCollect_id());
                                 } else if (collectId.contains(collectBeans.get(position).getCollect_id() + ",")) {
-                                    collectId = LzyydUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id() + ",");
+                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id() + ",");
                                 } else if (collectId.contains(collectBeans.get(position).getCollect_id())) {
-                                    collectId = LzyydUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id());
+                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id());
                                 }
                             }
                             onDeleteListener.delete(collectId);

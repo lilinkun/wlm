@@ -15,7 +15,7 @@ import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.PointListBean;
 import com.wlm.wlm.presenter.IntegralPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -57,14 +57,14 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
         integralPresenter.onCreate(this,this);
 
-        mListStyle =  getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("style");
+        mListStyle =  getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("style");
 
         if (mListStyle == 0) {
-            integralPresenter.getIntegralData(PAGE_INDEX+"", LzyydUtil.PAGE_COUNT, ProApplication.SESSIONID(this));
+            integralPresenter.getIntegralData(PAGE_INDEX+"", WlmUtil.PAGE_COUNT, ProApplication.SESSIONID(this));
             tv_balance.setText("积分");
             tv_style.setText("积分明细");
         }else if(mListStyle == 1){
-            integralPresenter.getPriceData(PAGE_INDEX+"", LzyydUtil.PAGE_COUNT, ProApplication.SESSIONID(this));
+            integralPresenter.getPriceData(PAGE_INDEX+"", WlmUtil.PAGE_COUNT, ProApplication.SESSIONID(this));
             tv_balance.setText("余额");
             tv_style.setText("余额明细");
         }
@@ -84,14 +84,14 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 //                            mHandler.postDelayed(new Runnable() {
 //                                @Override
 //                                public void run() {
-                            if (PAGE_INDEX * Integer.valueOf(LzyydUtil.PAGE_COUNT) > pointListBeans.size()){
+                            if (PAGE_INDEX * Integer.valueOf(WlmUtil.PAGE_COUNT) > pointListBeans.size()){
                                 toast("已到末尾");
                             }else {
                                 PAGE_INDEX++;
                                 if (mListStyle == 0) {
-                                    integralPresenter.getIntegralData(PAGE_INDEX + "", LzyydUtil.PAGE_COUNT, ProApplication.SESSIONID(IntegralActivity.this));
+                                    integralPresenter.getIntegralData(PAGE_INDEX + "", WlmUtil.PAGE_COUNT, ProApplication.SESSIONID(IntegralActivity.this));
                                 }else {
-                                    integralPresenter.getPriceData(PAGE_INDEX+"", LzyydUtil.PAGE_COUNT, ProApplication.SESSIONID(IntegralActivity.this));
+                                    integralPresenter.getPriceData(PAGE_INDEX+"", WlmUtil.PAGE_COUNT, ProApplication.SESSIONID(IntegralActivity.this));
                                 }
                             }
 //                                }

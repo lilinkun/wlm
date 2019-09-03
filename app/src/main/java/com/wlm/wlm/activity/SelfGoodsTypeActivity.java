@@ -1,6 +1,5 @@
 package com.wlm.wlm.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GetPagerAdapter;
-import com.wlm.wlm.adapter.RecordAdapter;
 import com.wlm.wlm.adapter.SelfGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.BaseFragment;
@@ -25,14 +23,12 @@ import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.TBbean;
 import com.wlm.wlm.fragment.SelfGoodFragment;
-import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.SelfGoodsPresenter;
-import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -101,7 +97,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     private SelfGoodsPresenter selfGoodsPresenter = new SelfGoodsPresenter();
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
     private SelfGoodsAdapter selfGoodsAdapter;
-    private final String PAGE_COUNT = LzyydUtil.PAGE_COUNT;
+    private final String PAGE_COUNT = WlmUtil.PAGE_COUNT;
     private int PAGE_INDEX = 1;
     private String SortField = "add_time";
     private String SortType = "";
@@ -128,14 +124,14 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        homeCategoryBean = (HomeCategoryBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("home");
+        homeCategoryBean = (HomeCategoryBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("home");
         if (homeCategoryBean != null && homeCategoryBean.getCat_id() != 0) {
             catid = homeCategoryBean.getCat_id() + "";
         }
         ActivityUtil.addActivity(this);
 
-        if(getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("goodsname") != null  && !getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("goodsname").isEmpty()){
-            goodsname = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("goodsname");
+        if(getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname") != null  && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname").isEmpty()){
+            goodsname = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname");
             text_search.setText(goodsname);
         }
 

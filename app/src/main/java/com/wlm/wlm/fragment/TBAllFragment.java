@@ -14,13 +14,11 @@ import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.adapter.TbGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.contract.TbAllContract;
 import com.wlm.wlm.entity.TbMaterielBean;
-import com.wlm.wlm.presenter.HomePresenter;
 import com.wlm.wlm.presenter.TbAllPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
 
     private int lastVisibleItem = 0;
     private int page_des = 0;
-    private final String PAGE_COUNT = LzyydUtil.PAGE_COUNT;
+    private final String PAGE_COUNT = WlmUtil.PAGE_COUNT;
     private int PAGE_INDEX = 1;
     private TbGoodsAdapter tbGoodsAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -59,12 +57,12 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
 //        mTvTb.setText(getArguments().getString("TBId"));
 
         tbAllPresenter.onCreate(getActivity(),this);
-        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), LzyydUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"),LzyydUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+                tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
             }
         });
 
@@ -129,7 +127,7 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
     public void onPageChange(int page){
         tbDisCountBeans.clear();
         PAGE_INDEX = 1;
-        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"),LzyydUtil.strs[page], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
     }
 
 

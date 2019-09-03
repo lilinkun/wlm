@@ -31,7 +31,7 @@ import com.wlm.wlm.fragment.MeFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UpdateManager;
 
 import java.io.File;
@@ -205,9 +205,9 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     }
 
     private void getMenusFragments() {
-        sparseArray.put(LzyydUtil.PAGE_HOMEPAGE, new HomeFragment());
-        sparseArray.put(LzyydUtil.PAGE_MALL, lzyMallFragment);
-        sparseArray.put(LzyydUtil.PAGE_ME, meFragment);
+        sparseArray.put(WlmUtil.PAGE_HOMEPAGE, new HomeFragment());
+        sparseArray.put(WlmUtil.PAGE_MALL, lzyMallFragment);
+        sparseArray.put(WlmUtil.PAGE_ME, meFragment);
     }
 
     private void setMenuBg(RelativeLayout layout){

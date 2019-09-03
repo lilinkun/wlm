@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import butterknife.BindView;
@@ -36,7 +36,7 @@ public class PayResultActivity extends BaseActivity {
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.pop_text_bg));
 
-        String price = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("price");
+        String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("price");
         tv_price.setText("¥ "  + price);
 
     }

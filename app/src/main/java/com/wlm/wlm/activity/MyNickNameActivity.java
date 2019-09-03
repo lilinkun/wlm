@@ -13,7 +13,7 @@ import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.MyNickNamePresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +43,7 @@ public class MyNickNameActivity extends BaseActivity implements OnTitleBarClickL
 
         myNickNamePresenter.onCreate(this,this);
 
-        Bundle bundle = getIntent().getBundleExtra(LzyydUtil.TYPEID);
+        Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
         String nickname = bundle.getString("nick");
         nickEditText.setText(nickname);
     }

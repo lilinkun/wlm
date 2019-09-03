@@ -30,7 +30,7 @@ import com.wlm.wlm.presenter.SureOrderPresenter;
 import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
@@ -116,9 +116,9 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
         sureOrderPresenter.onCreate(this,this);
 
-        if (getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("type") == 1) {
+        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("type") == 1) {
             loadDialog();
-            cartid = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("CartId");
+            cartid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("CartId");
             sureOrderPresenter.cartBuy(cartid, ProApplication.SESSIONID(this));
         }
 
@@ -406,7 +406,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     @Override
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        LzyydUtil.wxPay(wxInfoBean.getAppid(), wxInfoBean.getPartnerid(), wxInfoBean.getPrepayid(), wxInfoBean.getNoncestr(), wxInfoBean.getTimestamp(), wxInfoBean.getSign(), this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(), wxInfoBean.getPartnerid(), wxInfoBean.getPrepayid(), wxInfoBean.getNoncestr(), wxInfoBean.getTimestamp(), wxInfoBean.getSign(), this);
     }
 
     @Override
@@ -440,7 +440,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == address_result) {
-                addressBean = (AddressBean) data.getBundleExtra(LzyydUtil.TYPEID).getSerializable("address");
+                addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
                 linearLayout.setVisibility(View.VISIBLE);
                 setAddress(addressBean);
                 getFare(addressBean.getProvince(), addressBean.getCity());

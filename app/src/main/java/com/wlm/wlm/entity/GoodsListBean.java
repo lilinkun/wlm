@@ -1,10 +1,12 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
+
 /**
  * 团购实体
  * Created by LG on 2019/9/2.
  */
-public class GoodsListBean {
+public class GoodsListBean implements Serializable {
 
     private String GoodsId;
     private String CategoryId;
@@ -21,8 +23,8 @@ public class GoodsListBean {
     private String GoodsNumber;
     private String UseNumber;
     private String GoodsWeight;
-    private String MarketPrice;
-    private String Price;
+    private double MarketPrice;
+    private double Price;
     private String GoodsBrief;
     private String GoodsDesc;
     private String GoodsImg;
@@ -169,19 +171,19 @@ public class GoodsListBean {
         GoodsWeight = goodsWeight;
     }
 
-    public String getMarketPrice() {
+    public double getMarketPrice() {
         return MarketPrice;
     }
 
-    public void setMarketPrice(String marketPrice) {
+    public void setMarketPrice(double marketPrice) {
         MarketPrice = marketPrice;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return Price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         Price = price;
     }
 

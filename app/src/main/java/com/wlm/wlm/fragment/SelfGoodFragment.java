@@ -1,17 +1,14 @@
 package com.wlm.wlm.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
-import com.wlm.wlm.adapter.RecordAdapter;
 import com.wlm.wlm.adapter.SelfGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
@@ -20,7 +17,6 @@ import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.presenter.SelfGoodsPresenter;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;

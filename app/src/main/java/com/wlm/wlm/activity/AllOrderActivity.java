@@ -35,7 +35,7 @@ import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.AllOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
 
 import java.math.BigDecimal;
@@ -120,8 +120,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        orderSn = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("order_sn");
-        status = getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("status");
+        orderSn = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("order_sn");
+        status = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("status");
         order_sn.setText(orderSn);
 
         allOrderPresenter.onCreate(this,this);
@@ -352,7 +352,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     @Override
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        LzyydUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
     }
 
     @Override

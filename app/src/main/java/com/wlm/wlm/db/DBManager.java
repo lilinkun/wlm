@@ -17,7 +17,7 @@ import com.wlm.wlm.entity.SearchBean;
 import com.wlm.wlm.entity.SearchBeanDao;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbMaterielBeanDao;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -294,7 +294,7 @@ public class DBManager {
         BrowseRecordBeanDao browseRecordBeanDao = daoSession.getBrowseRecordBeanDao();
         QueryBuilder<BrowseRecordBean> qb = browseRecordBeanDao.queryBuilder();
         qb.where(BrowseRecordBeanDao.Properties.Goods_id.eq(recordBean.getGoods_id())).orderAsc(BrowseRecordBeanDao.Properties.Goods_id);
-        qb.where(BrowseRecordBeanDao.Properties.Browse_date.eq(LzyydUtil.getCurDate())).orderAsc(BrowseRecordBeanDao.Properties.Browse_date);
+        qb.where(BrowseRecordBeanDao.Properties.Browse_date.eq(WlmUtil.getCurDate())).orderAsc(BrowseRecordBeanDao.Properties.Browse_date);
         List<BrowseRecordBean> list = qb.list();
         return list;
     }

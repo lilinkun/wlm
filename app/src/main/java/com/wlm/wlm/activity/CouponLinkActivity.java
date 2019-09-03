@@ -7,7 +7,7 @@ import android.webkit.WebViewClient;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 
@@ -33,7 +33,7 @@ public class CouponLinkActivity extends BaseActivity {
         this.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         this.webview.getSettings().setLoadWithOverviewMode(true);
 
-        String mUrlLink = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("link");
+        String mUrlLink = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("link");
 
         if (mUrlLink.startsWith("//")){
             mUrlLink = "https:" + mUrlLink;

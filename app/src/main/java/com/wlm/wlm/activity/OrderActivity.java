@@ -1,33 +1,21 @@
 package com.wlm.wlm.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.MyExtendableListViewAdapter;
 import com.wlm.wlm.adapter.OrderListAdapter;
-import com.wlm.wlm.adressselectorlib.AddressPickerView;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SureOrderContract;
@@ -44,22 +32,17 @@ import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.SureOrderPresenter;
 import com.wlm.wlm.ui.OrderPopupLayout;
-import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.iwgang.countdownview.CountdownView;
 
 /**
  * Created by LG on 2018/12/13.
@@ -133,10 +116,10 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
         rootView = new OrderPopupLayout(this);
         WXPayEntryActivity.setPayListener(this);
-        if (getIntent().getBundleExtra(LzyydUtil.TYPEID).getInt("type")==0) {
-            GoodsChooseBean goodsChooseBean = (GoodsChooseBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("goodsChooseBean");
-            SelfGoodsBean selfGoodsBean = (SelfGoodsBean) getIntent().getBundleExtra(LzyydUtil.TYPEID).getSerializable("selfGoodsBean");
-            String num = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("num");
+        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("type")==0) {
+            GoodsChooseBean goodsChooseBean = (GoodsChooseBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("goodsChooseBean");
+            SelfGoodsBean selfGoodsBean = (SelfGoodsBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("selfGoodsBean");
+            String num = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("num");
             attr_id = "";
             if (goodsChooseBean != null) {
                 attr_id = String.valueOf(goodsChooseBean.getAttr_id());
@@ -360,7 +343,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     @Override
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        LzyydUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
     }
 
     @Override
@@ -393,7 +376,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK){
             if (requestCode == address_result){
-                addressBean = (AddressBean) data.getBundleExtra(LzyydUtil.TYPEID).getSerializable("address");
+                addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
                 linearLayout.setVisibility(View.VISIBLE);
                 setAddress(addressBean);
                 getFare(addressBean.getProvince(),addressBean.getCity());

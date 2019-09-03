@@ -2,12 +2,8 @@ package com.wlm.wlm.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,26 +15,20 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TbAdapter;
-import com.wlm.wlm.adapter.TbGoodsAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfSearchContract;
 import com.wlm.wlm.db.DBManager;
-import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.HotHomeBean;
 import com.wlm.wlm.entity.SearchBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
-import com.wlm.wlm.entity.TbGoodsBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.presenter.SelfSearchPresenter;
 import com.wlm.wlm.ui.FlowLayout;
-import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
-import com.wlm.wlm.util.UToast;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -47,8 +37,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.wlm.wlm.util.LzyydUtil.PAGE_COUNT;
 
 /**
  * Created by LG on 2018/11/21.
@@ -228,8 +216,8 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 mSearchGoodsType.setText(R.string.home_jd);
             }
         });
-        if (getIntent() != null && getIntent().getBundleExtra(LzyydUtil.TYPEID) != null && getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("search") != null && !getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("search").isEmpty()){
-            if(getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("search").equals("taobao")) {
+        if (getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search") != null && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search").isEmpty()){
+            if(getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search").equals("taobao")) {
                 type = 2;
                 tvSelf.setTextColor(getResources().getColor(R.color.login_title_text));
                 tvTb.setTextColor(getResources().getColor(R.color.white));

@@ -1,12 +1,5 @@
 package com.wlm.wlm.activity;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -14,7 +7,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
@@ -27,17 +19,11 @@ import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.RechargePresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
-import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.SoftKeyboardUtil;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
-import com.squareup.picasso.Picasso;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -205,7 +191,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void setReChargeSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        LzyydUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
     }
 
 

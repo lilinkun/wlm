@@ -10,12 +10,8 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.ui.CustomRegisterLayout;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.LzyydUtil;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,11 +51,11 @@ public class SplashActivity extends BaseActivity {
                 case R.id.ll_splash:
                     myCountDownTimer.cancel();
                     Intent intent = null;
-                    SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
-                    if (sharedPreferences.getBoolean(LzyydUtil.LOGIN, false) == true) {
-                        intent = new Intent(getBaseContext(), MainFragmentActivity.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+                    if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
+                        intent = new Intent(getBaseContext(), GrouponActivity.class);
                     } else {
-                        intent = new Intent(getBaseContext(), LoginActivity.class);
+                        intent = new Intent(getBaseContext(), GrouponActivity.class);
                     }
                     //启动MainActivity
                     startActivity(intent);
@@ -90,11 +86,11 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void onFinish() {
             Intent intent = null;
-            SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
-            if (sharedPreferences.getBoolean(LzyydUtil.LOGIN, false) == true) {
-                intent = new Intent(getBaseContext(), MainFragmentActivity.class);
+            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+            if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
+                intent = new Intent(getBaseContext(), GrouponActivity.class);
             } else {
-                intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent = new Intent(getBaseContext(), GrouponActivity.class);
             }
             //启动MainActivity
             startActivity(intent);

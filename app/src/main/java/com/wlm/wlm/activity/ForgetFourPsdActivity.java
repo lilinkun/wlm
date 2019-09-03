@@ -16,7 +16,7 @@ import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.presenter.ForgetFourPsdPresenter;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class ForgetFourPsdActivity extends BaseActivity implements ForgetFourPsd
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         forgetFourPsdPresenter.onCreate(this,this);
 
-        Bundle bundle = getIntent().getBundleExtra(LzyydUtil.TYPEID);
+        Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
         mobile = bundle.getString("mobile");
         username = bundle.getString("username");
         vcode = bundle.getString("vcode");
@@ -112,12 +112,12 @@ public class ForgetFourPsdActivity extends BaseActivity implements ForgetFourPsd
         LoginBean loginBean = mLoginBean;
         String datalife = null;
         try {
-            datalife = LzyydUtil.serialize(loginBean);
+            datalife = WlmUtil.serialize(loginBean);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SharedPreferences sharedPreferences = getSharedPreferences(LzyydUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this)).putBoolean(LzyydUtil.LOGIN,true)
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString("logininfo",datalife).putString("account",username)
                 .putString("password",et_psd.getText().toString()).commit();
 

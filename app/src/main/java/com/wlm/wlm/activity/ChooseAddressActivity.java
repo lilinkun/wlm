@@ -18,7 +18,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.presenter.ChooseAddressPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
 import java.util.ArrayList;
@@ -58,9 +58,9 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
         chooseAddressPresenter.onCreate(this,this);
 
         if (getIntent() != null){
-            if (getIntent().getBundleExtra(LzyydUtil.TYPEID) != null){
-                if (getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type") != null  && !getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type").isEmpty()){
-                    if (getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("type").equals("me")) {
+            if (getIntent().getBundleExtra(WlmUtil.TYPEID) != null){
+                if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type") != null  && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type").isEmpty()){
+                    if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type").equals("me")) {
                         isMe = true;
                     }
                 }
@@ -184,7 +184,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
                 AddressBean addressBean = addressBeans.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("address", addressBean);
-                intent.putExtra(LzyydUtil.TYPEID, bundle);
+                intent.putExtra(WlmUtil.TYPEID, bundle);
                 setResult(RESULT_OK, intent);
                 finish();
             }

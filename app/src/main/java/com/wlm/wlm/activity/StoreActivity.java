@@ -1,7 +1,6 @@
 package com.wlm.wlm.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,14 +11,13 @@ import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.StoreContract;
-import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.presenter.StorePresenter;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.LzyydUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +57,7 @@ public class StoreActivity extends BaseActivity implements StoreContract, TbHotG
 
         storePresenter.onCreate(this,this);
 
-        String storeid = getIntent().getBundleExtra(LzyydUtil.TYPEID).getString("storeid");
+        String storeid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("storeid");
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
