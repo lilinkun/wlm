@@ -1,0 +1,58 @@
+package com.wlm.wlm.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.wlm.wlm.R;
+import com.wlm.wlm.util.GrouponType;
+
+import java.util.ArrayList;
+
+/**
+ * Created by LG on 2019/9/3.
+ */
+public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdapter.ViewHolder> {
+
+    private Context context;
+
+    public ChooseGrouponAdapter(Context context){
+        this.context = context;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_choose_groupon,parent,false);
+
+        ViewHolder viewHolder = new ViewHolder(view);
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.tv_groupon.setText(GrouponType.values()[position].getTypeName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return GrouponType.values().length;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView tv_groupon;
+
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            tv_groupon = itemView.findViewById(R.id.tv_groupon);
+        }
+    }
+
+}

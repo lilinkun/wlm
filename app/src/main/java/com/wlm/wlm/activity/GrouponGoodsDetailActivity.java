@@ -2,22 +2,30 @@ package com.wlm.wlm.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
+import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoader;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,8 +39,20 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     Banner mBanner;
     @BindView(R.id.tv_groupon_old_price)
     MyTextView tv_groupon_old_price;
+    @BindView(R.id.tv_groupon_price)
+    PriceTextView tv_groupon_price;
     @BindView(R.id.tv_rush_time)
     CountdownView tv_rush_time;
+    @BindView(R.id.tv_goods_name)
+    TextView tv_goods_name;
+    @BindView(R.id.tv_grounon_info)
+    TextView tv_grounon_info;
+    @BindView(R.id.tv_right_now_groupon)
+    TextView tv_right_now_groupon;
+    @BindView(R.id.tv_distance_ends)
+    TextView tv_distance_ends;
+
+    GoodsListBean goodsListBean = null;
 
 
     @Override
@@ -44,11 +64,36 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     public void initEventAndData() {
         Eyes.translucentStatusBar(this,false);
 
+        Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
+
+        if (bundle != null && bundle.getSerializable("groupongoods") != null){
+            goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
+        }
+
+
+        tv_groupon_price.setText(goodsListBean.getPrice()+"");
+
+        tv_groupon_old_price.setText("￥" + goodsListBean.getMarketPrice());
+
+        tv_goods_name.setText(goodsListBean.getGoodsName());
+
+        tv_grounon_info.setText(goodsListBean.getGoodsTypeName());
+
         ArrayList<String> strings = new ArrayList<>();
         strings.add("adssasd");
         strings.add("afsdf");
 
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+        if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
+            tv_right_now_groupon.setVisibility(View.GONE);
+            tv_distance_ends.setText("距开始");
+        }else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 1){
+            tv_distance_ends.setText("距结束");
+        }else {
+            tv_right_now_groupon.setVisibility(View.GONE);
+        }
 
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -73,7 +118,6 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
                 //必须最后调用的方法，启动轮播图。
                 .start();
 
-        tv_rush_time.start(1572310800);
     }
 
     @Override
@@ -100,8 +144,9 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
                 break;
 
             case R.id.tv_right_now_groupon:
-
-                UiHelper.launcher(this,GrouponDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("groupongoods",goodsListBean);
+                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
 
                 break;
         }

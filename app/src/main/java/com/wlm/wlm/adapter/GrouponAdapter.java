@@ -17,6 +17,7 @@ import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,20 +62,12 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
         holder.tv_goods_title.setText(goodsListBeans.get(position).getGoodsName());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
-        long startTime = 0;
-        long endTime = 0;
-        try {
-            startTime = simpleDateFormat.parse(goodsListBeans.get(position).getBeginDate()).getTime();
-            endTime = simpleDateFormat.parse(goodsListBeans.get(position).getEndDate()).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (startTime > (new Date()).getTime()){
+
+        if(WlmUtil.isCountdown(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time) == 0){
             holder.tv_grouponing.setVisibility(View.GONE);
-            holder.tv_rush_time.start(startTime - (new Date()).getTime());
-        }else if(endTime > (new Date()).getTime()){
-            holder.tv_rush_time.start(endTime - (new Date()).getTime());
+            holder.tv_end_time.setText("至开始");
+        }else if (WlmUtil.isCountdown(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time) == 1){
+            holder.tv_end_time.setText("后截止");
         }else {
             holder.tv_grouponing.setVisibility(View.GONE);
         }
@@ -103,6 +96,11 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         }
     }
 
+    public void setData(ArrayList<GoodsListBean> goodsListBeans){
+        this.goodsListBeans = goodsListBeans;
+        notifyDataSetChanged();
+    }
+
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
@@ -110,7 +108,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder{
 
         MyTextView tv_groupon_old_price;
-        TextView tv_grouponing,tv_grounon_info,tv_goods_title;
+        TextView tv_grouponing,tv_grounon_info,tv_goods_title,tv_end_time;
         CountdownView tv_rush_time;
         CustomRoundAngleImageView iv_goods_pic;
         PriceTextView tv_groupon_price;
@@ -125,6 +123,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             iv_goods_pic = itemView.findViewById(R.id.iv_goods_pic);
             tv_groupon_price = itemView.findViewById(R.id.tv_groupon_price);
             tv_goods_title = itemView.findViewById(R.id.tv_goods_title);
+            tv_end_time = itemView.findViewById(R.id.tv_end_time);
         }
     }
 

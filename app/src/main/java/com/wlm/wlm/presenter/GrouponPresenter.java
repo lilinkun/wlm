@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.wlm.wlm.contract.GrouponContract;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,13 +51,15 @@ public class GrouponPresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType){
+    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy){
+
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListVip");
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
+        params.put("OrderBy",OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

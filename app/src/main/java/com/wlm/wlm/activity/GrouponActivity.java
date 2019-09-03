@@ -1,11 +1,17 @@
 package com.wlm.wlm.activity;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.ChooseGrouponAdapter;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.GrouponContract;
@@ -44,6 +50,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     GrouponPresenter groupon = new GrouponPresenter();
     GrouponAdapter grouponAdapter = null;
+    ArrayList<GoodsListBean> goodsListBeans = null;
 
 
     @Override
@@ -69,9 +76,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
         rv_groupon.setLayoutManager(linearLayoutManager);
 
-
-
-        groupon.getData("1","20","2");
+        groupon.getData("1","20","2","0");
 
     }
 
@@ -131,7 +136,9 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void onItemClick(int position) {
-        UiHelper.launcher(this,GrouponGoodsDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("groupongoods",goodsListBeans.get(position));
+        UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
     }
 
     @Override
@@ -140,6 +147,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 1://默认排序
 
                 toast("默认排序");
+                groupon.getData("1","20","2","0");
 
                 break;
 
@@ -147,12 +155,32 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
                 toast("几人团");
 
+                View view = LayoutInflater.from(this).inflate(R.layout.pop_layout,null);
+                RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
+
+                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                recyclerView.setAdapter(chooseGrouponAdapter);
+
+                PopupWindow popupWindow = new PopupWindow(view,
+                        LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT, true);
+
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.showAsDropDown(ll_top);
+
                 break;
 
 
             case 3://销量上
 
                 toast("销量上");
+                groupon.getData("1","20","2","1");
 
                 break;
 
@@ -160,7 +188,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 4://销量下
 
                 toast("销量下");
-
+                groupon.getData("1","20","2","2");
 
                 break;
 
@@ -168,6 +196,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
 
                 toast("价格上");
+                groupon.getData("1","20","2","3");
 
                 break;
 
@@ -175,6 +204,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
 
                 toast("价格下");
+                groupon.getData("1","20","2","4");
 
                 break;
         }
@@ -182,10 +212,13 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        this.goodsListBeans = goodsListBeans;
         if (grouponAdapter == null) {
             grouponAdapter = new GrouponAdapter(this,goodsListBeans);
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
+        }else {
+            grouponAdapter.setData(goodsListBeans);
         }
     }
 

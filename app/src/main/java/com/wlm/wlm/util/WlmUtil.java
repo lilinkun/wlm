@@ -5,10 +5,11 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.wlm.wlm.entity.LoginBean;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.ui.CountdownView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -178,6 +180,28 @@ public class WlmUtil {
             dd = dd + total.substring(total.indexOf(reduce)+reduce.length(),total.length());
         }
         return dd;
+    }
+
+
+    public static int isCountdown(String startStr, String endStr, CountdownView countdownView){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+        long startTime = 0;
+        long endTime = 0;
+        try {
+            startTime = simpleDateFormat.parse(startStr).getTime();
+            endTime = simpleDateFormat.parse(endStr).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (startTime > (new Date()).getTime()){
+            countdownView.start(startTime - (new Date()).getTime());
+            return 0;
+        }else if(endTime > (new Date()).getTime()){
+            countdownView.start(endTime - (new Date()).getTime());
+            return 1;
+        }else {
+            return 2;
+        }
     }
 
 }
