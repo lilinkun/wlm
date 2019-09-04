@@ -1,6 +1,7 @@
 package com.wlm.wlm.activity;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
@@ -23,6 +24,8 @@ public class CrowdFundingActivity extends BaseActivity implements OnBannerListen
     Banner banner;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
+
+    GrouponAdapter grouponAdapter = null;
 
     @Override
     public int getLayoutId() {

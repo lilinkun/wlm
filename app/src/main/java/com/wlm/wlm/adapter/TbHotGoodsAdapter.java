@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HotHomeBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
@@ -25,17 +26,17 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
 
     private Context context;
     private LayoutInflater mInflater;
-    private ArrayList<HotHomeBean> hotHomeBeans = null;
+    private ArrayList<GoodsListBean> hotHomeBeans = null;
     private OnItemClickListener onItemClickListener;
-    private HotHomeBean homeBean;
+    private GoodsListBean homeBean;
 
-    public TbHotGoodsAdapter(Context context, ArrayList<HotHomeBean> homeHeadBean, LayoutInflater mInflater) {
+    public TbHotGoodsAdapter(Context context, ArrayList<GoodsListBean> homeHeadBean, LayoutInflater mInflater) {
         this.hotHomeBeans = homeHeadBean;
         this.context = context;
         this.mInflater = mInflater;
     }
 
-    public void setData(ArrayList<HotHomeBean> hotHomeBeans){
+    public void setData(ArrayList<GoodsListBean> hotHomeBeans){
         this.hotHomeBeans = hotHomeBeans;
         notifyDataSetChanged();
     }
@@ -60,13 +61,13 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
 
             homeBean = hotHomeBeans.get(position);
 
-            holder.goodsTitleNameTv.setText(homeBean.getGoods_name());
+            holder.goodsTitleNameTv.setText(homeBean.getGoodsName());
 
-            holder.goodsPriceTv.setText("" + homeBean.getShop_price());
-            holder.goodsBuyCountTv.setText(homeBean.getUse_number() + "");
+            holder.goodsPriceTv.setText("" + homeBean.getPrice());
+            holder.goodsBuyCountTv.setText(homeBean.getUseNumber() + "");
 
-            if (homeBean.getGoods_img() != null && !homeBean.getGoods_img().isEmpty()) {
-                Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoods_img()).into(holder.goodsPicImg);
+            if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
+                Picasso.with(context).load("http://192.168.0.106:8083" + homeBean.getGoodsImg()).into(holder.goodsPicImg);
             }
         }
     }

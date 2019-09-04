@@ -81,7 +81,7 @@ public class StoreActivity extends BaseActivity implements StoreContract, TbHotG
         tv_store_phone.setText(selfStoreBean.getLink_phone());
         Picasso.with(this).load(ProApplication.BANNERIMG + selfStoreBean.getShop_logo()).into(iv_store_img);
 
-        tbHotGoodsAdapter = new TbHotGoodsAdapter(this, selfGoodsBeans.get(0).getGoods(), getLayoutInflater());
+//        tbHotGoodsAdapter = new TbHotGoodsAdapter(this, selfGoodsBeans.get(0).getGoods(), getLayoutInflater());
         mHotGridView.setAdapter(tbHotGoodsAdapter);
         tbHotGoodsAdapter.setItemClickListener(this);
 

@@ -348,7 +348,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         startBanner(homeHeadBean.getFlash_list());
 
         hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
-        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), hotHomeBeans, getLayoutInflater());
+        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
         mHotGridView.setAdapter(tbHotGoodsAdapter);
         tbHotGoodsAdapter.setItemClickListener(this);
     }

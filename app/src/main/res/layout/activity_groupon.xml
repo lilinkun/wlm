@@ -209,17 +209,22 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_groupon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_10"
-        android:paddingRight="@dimen/padding_10"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.wlm.wlm.ui.AutoSwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+            <com.wlm.wlm.ui.LoadRecyclerView
+                android:id="@+id/rv_groupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    </com.wlm.wlm.ui.LoadRecyclerView>
 
+        </com.wlm.wlm.ui.AutoSwipeRefreshLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

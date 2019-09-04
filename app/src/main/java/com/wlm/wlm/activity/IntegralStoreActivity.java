@@ -6,10 +6,17 @@ import android.util.Log;
 import android.view.View;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.contract.IntegralStoreContract;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.fragment.TBAllFragment;
+import com.wlm.wlm.presenter.IntegralStorePresenter;
+import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.util.Eyes;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -18,9 +25,15 @@ import butterknife.OnClick;
  * 积分商城
  * Created by LG on 2019/8/15.
  */
-public class IntegralStoreActivity extends BaseActivity {
+public class IntegralStoreActivity extends BaseActivity implements IntegralStoreContract {
+
+    @BindView(R.id.custom_sort)
+    CustomSortLayout custom_sort;
 
     private int position = 0;
+    private ArrayList<GoodsListBean> goodsListBeans = null;
+    private IntegralStorePresenter integralStorePresenter = new IntegralStorePresenter();
+    private GrouponAdapter grouponAdapter = null;
 
     private Handler handler = new Handler(){
         @Override
@@ -42,6 +55,10 @@ public class IntegralStoreActivity extends BaseActivity {
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.integral_bg));
+
+        integralStorePresenter.onCreate(this,this);
+
+        integralStorePresenter.getData("1","20","2","0");
     }
 
     @OnClick({R.id.ll_back})
@@ -53,5 +70,16 @@ public class IntegralStoreActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        this.goodsListBeans = goodsListBeans;
+        custom_sort.setData(goodsListBeans);
+    }
+
+    @Override
+    public void getFail(String msg) {
+        toast(msg);
     }
 }
