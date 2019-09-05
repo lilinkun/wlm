@@ -20,8 +20,8 @@ public class GoodsListBean implements Serializable {
     private String GoodsUnit;
     private String GoodsGG;
     private String BrowserCount;
-    private String GoodsNumber;
-    private String UseNumber;
+    private int GoodsNumber;
+    private int UseNumber;
     private String GoodsWeight;
     private double MarketPrice;
     private double Price;
@@ -37,7 +37,7 @@ public class GoodsListBean implements Serializable {
     private String GoodsFlag;
     private String GoodsType;
     private String GoodsTypeName;
-    private String Integral;
+    private double Integral;
     private String ReturnIntegral;
     private String CreateDate;
     private String LastUpdate;
@@ -147,19 +147,19 @@ public class GoodsListBean implements Serializable {
         BrowserCount = browserCount;
     }
 
-    public String getGoodsNumber() {
+    public int getGoodsNumber() {
         return GoodsNumber;
     }
 
-    public void setGoodsNumber(String goodsNumber) {
+    public void setGoodsNumber(int goodsNumber) {
         GoodsNumber = goodsNumber;
     }
 
-    public String getUseNumber() {
+    public int getUseNumber() {
         return UseNumber;
     }
 
-    public void setUseNumber(String useNumber) {
+    public void setUseNumber(int useNumber) {
         UseNumber = useNumber;
     }
 
@@ -283,11 +283,11 @@ public class GoodsListBean implements Serializable {
         GoodsTypeName = goodsTypeName;
     }
 
-    public String getIntegral() {
+    public double getIntegral() {
         return Integral;
     }
 
-    public void setIntegral(String integral) {
+    public void setIntegral(double integral) {
         Integral = integral;
     }
 

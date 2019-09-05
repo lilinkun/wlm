@@ -436,4 +436,19 @@ public class DataManager {
         return  mRetrofitService.grouponData(mHashMap);
     }
 
+    /**
+     * 获取团购商品详情
+     */
+    public Observable<ResultBean<GoodsListBean,Object>> getGrouponGoodDetail(HashMap<String,String> mHashMap){
+        return mRetrofitService.getGrouponGoodDetail(mHashMap);
+    }
+
+
+    /**
+     * 团购立即购买
+     */
+    public Observable<ResultBean<String,Object>> grouponRightNowBuy(HashMap<String,String> mHashMap){
+        return mRetrofitService.grouponRightNowBuy(mHashMap);
+    }
+
 }

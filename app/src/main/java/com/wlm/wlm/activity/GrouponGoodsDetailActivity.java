@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.GrouponGoodsDetailContract;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.PriceTextView;
@@ -33,7 +36,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/8/27.
  */
-public class GrouponGoodsDetailActivity extends BaseActivity implements OnBannerListener {
+public class GrouponGoodsDetailActivity extends BaseActivity implements OnBannerListener, GrouponGoodsDetailContract {
 
     @BindView(R.id.banner_good_pic)
     Banner mBanner;
@@ -53,7 +56,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     TextView tv_distance_ends;
 
     GoodsListBean goodsListBean = null;
-
+    GrouponGoodsDetailPresenter grouponGoodsDetailPresenter = new GrouponGoodsDetailPresenter();
 
     @Override
     public int getLayoutId() {
@@ -70,6 +73,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
             goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
         }
 
+        grouponGoodsDetailPresenter.onCreate(this,this);
+        grouponGoodsDetailPresenter.getGoodsDetail(goodsListBean.getGoodsId(), ProApplication.SESSIONID(this));
 
         tv_groupon_price.setText(goodsListBean.getPrice()+"");
 
@@ -125,6 +130,16 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
     }
 
+    @Override
+    public void getDataSuccess(GoodsListBean goodsListBean) {
+
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+
+    }
+
     //自定义的图片加载器
     private class MyLoader extends ImageLoader {
         @Override
@@ -145,8 +160,9 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
             case R.id.tv_right_now_groupon:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("groupongoods",goodsListBean);
-                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
+                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBean);
+                UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
+//                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
 
                 break;
         }

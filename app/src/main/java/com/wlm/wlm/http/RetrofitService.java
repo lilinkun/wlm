@@ -266,6 +266,13 @@ public interface RetrofitService {
     @POST("Api/")
     Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<GoodsListBean,Object>> getGrouponGoodDetail(@FieldMap Map<String, String> params);
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> grouponRightNowBuy(@FieldMap Map<String, String> params);
+
     /**
      * 上传图片
      * @return

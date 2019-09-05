@@ -54,6 +54,7 @@ public class WlmUtil {
     public static final String LOGIN = "login";
     public static final String OPENID = "openid";
     public static final String UNIONID = "unionid";
+    public static final String GROUPONGOODS = "groupongoods";
 
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";

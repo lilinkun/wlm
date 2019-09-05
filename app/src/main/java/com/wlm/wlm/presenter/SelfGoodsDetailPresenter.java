@@ -50,7 +50,9 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     @Override
     public void onStop() {
-        mCompositeSubscription.unsubscribe();
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
 

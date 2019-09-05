@@ -85,6 +85,7 @@
         <activity android:name=".activity.GrouponDetailActivity"/>
         <activity android:name=".activity.GrouponGoodsDetailActivity"/>
         <activity android:name=".activity.CrowdFundingActivity"/>
+        <activity android:name=".activity.GrouponOrderActivity"/>
         <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>
 
