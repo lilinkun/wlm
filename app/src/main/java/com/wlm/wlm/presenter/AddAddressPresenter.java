@@ -65,16 +65,16 @@ public class AddAddressPresenter extends BasePresenter {
                 }));
     }
 
-    public void getSaveAddress(String Consignee,String Province,String City,String District,String Address,String ZipCode,String Mobile,String IsDefault,String SessionId){
+    public void getSaveAddress(String Name,String Province,String City,String District,String Address,String ZipCode,String Mobile,String IsDefault,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","UserAddressCreate");
-        params.put("Consignee",Consignee);
-        params.put("Province",Province);
-        params.put("City",City);
-        params.put("District",District);
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressCreate");
+        params.put("Name",Name);
+        params.put("prov",Province);
+        params.put("city",City);
+        params.put("area",District);
         params.put("Address",Address);
-        params.put("ZipCode",ZipCode);
+        params.put("Post",ZipCode);
         params.put("Mobile",Mobile);
         params.put("IsDefault",IsDefault);
         params.put("SessionId",SessionId);

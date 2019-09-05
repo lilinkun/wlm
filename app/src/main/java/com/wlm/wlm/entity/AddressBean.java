@@ -7,36 +7,36 @@ import java.io.Serializable;
  * Created by LG on 2018/12/9.
  */
 public class AddressBean implements Serializable{
-    private String address_id;//收货人Id
-    private String consignee;//收货人姓名
+    private String AddressID;//收货人Id
+    private String Name;//收货人姓名
     private String country;//国家
-    private String province;//省份
+    private String prov;//省份
     private String city;//城市
-    private String district;//地区
-    private String road;//街道
-    private String address;//详细地址
-    private String zipcode;//邮编
-    private String tel;//电话
-    private String mobile;//手机
-    private String bestTime;//最佳发货时间
-    private int is_default;//是否默认
-    private String addressLabel;//地址标签
-    private String addressName;//地址
+    private String area;//地区
+    private String town;//街道
+    private String Address;//详细地址
+    private String Post;//邮编
+    private String Phone;//电话
+    private String Mobile;//手机
+    private String CreateDate;//创建时间
+    private boolean IsDefault;//是否默认
+    private String UserId;//用户id
+    private String AddressName;//详细的省市区
 
-    public String getAddress_id() {
-        return address_id;
+    public String getAddressID() {
+        return AddressID;
     }
 
-    public void setAddress_id(String address_id) {
-        this.address_id = address_id;
+    public void setAddressID(String addressID) {
+        AddressID = addressID;
     }
 
-    public String getConsignee() {
-        return consignee;
+    public String getName() {
+        return Name;
     }
 
-    public void setConsignee(String consignee) {
-        this.consignee = consignee;
+    public void setName(String name) {
+        Name = name;
     }
 
     public String getCountry() {
@@ -47,12 +47,12 @@ public class AddressBean implements Serializable{
         this.country = country;
     }
 
-    public String getProvince() {
-        return province;
+    public String getProv() {
+        return prov;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setProv(String prov) {
+        this.prov = prov;
     }
 
     public String getCity() {
@@ -63,83 +63,104 @@ public class AddressBean implements Serializable{
         this.city = city;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getArea() {
+        return area;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public String getRoad() {
-        return road;
+    public String getTown() {
+        return town;
     }
 
-    public void setRoad(String road) {
-        this.road = road;
+    public void setTown(String town) {
+        this.town = town;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        Address = address;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getPost() {
+        return Post;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setPost(String post) {
+        Post = post;
     }
 
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return Phone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
     public String getMobile() {
-        return mobile;
+        return Mobile;
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile;
+        Mobile = mobile;
     }
 
-    public String getBestTime() {
-        return bestTime;
+    public String getCreateDate() {
+        return CreateDate;
     }
 
-    public void setBestTime(String bestTime) {
-        this.bestTime = bestTime;
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
     }
 
-    public int getIs_default() {
-        return is_default;
+    public boolean isDefault() {
+        return IsDefault;
     }
 
-    public void setIs_default(int is_default) {
-        this.is_default = is_default;
+    public void setDefault(boolean aDefault) {
+        IsDefault = aDefault;
     }
 
-    public String getAddressLabel() {
-        return addressLabel;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setAddressLabel(String addressLabel) {
-        this.addressLabel = addressLabel;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public String getAddressName() {
-        return addressName;
+        return AddressName;
     }
 
     public void setAddressName(String addressName) {
-        this.addressName = addressName;
+        AddressName = addressName;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBean{" +
+                "AddressID='" + AddressID + '\'' +
+                ", Name='" + Name + '\'' +
+                ", country='" + country + '\'' +
+                ", prov='" + prov + '\'' +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", town='" + town + '\'' +
+                ", Address='" + Address + '\'' +
+                ", Post='" + Post + '\'' +
+                ", Phone='" + Phone + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", CreateDate='" + CreateDate + '\'' +
+                ", IsDefault=" + IsDefault +
+                ", UserId='" + UserId + '\'' +
+                ", AddressName='" + AddressName + '\'' +
+                '}';
     }
 }

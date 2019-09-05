@@ -54,8 +54,8 @@ public class RegisterPresenter extends BasePresenter {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "SendSms");
-        params.put("fun", "RegisteredSmsCode");
-        params.put("mobile", mobile);
+        params.put("fun", "RegisterCode");
+        params.put("phone", mobile);
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
@@ -119,18 +119,23 @@ public class RegisterPresenter extends BasePresenter {
 
     /**
      * 注册
-     * @param mobile
+     * @param Mobile
      * @param code
-     * @param progressDialog
      */
-    public void register(String mobile, String code, String invitation, final ProgressDialog progressDialog){
+    public void register(String Mobile,String NickName, String code, String Referees,String UnionId,String OpenId,String Portrait,String TPLType,String SessionId){
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
-        params.put("fun", "Register");
-        params.put("user_password", invitation);
-        params.put("mobile", mobile);
-        params.put("Code", code);
+        params.put("fun", "UserBaseRegister");
+        params.put("Referees", Referees);
+        params.put("Mobile", Mobile);
+        params.put("Code",code);
+        params.put("UnionId", UnionId);
+        params.put("OpenId", OpenId);
+        params.put("NickName", NickName);
+        params.put("Portrait", Portrait);
+        params.put("TPLType", TPLType);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -139,7 +144,6 @@ public class RegisterPresenter extends BasePresenter {
                     @Override
                     public void onResponse(Object o, String status,Object page) {
                         registerContract.onRegisterSuccess();
-                        progressDialog.show();
                     }
 
                     @Override

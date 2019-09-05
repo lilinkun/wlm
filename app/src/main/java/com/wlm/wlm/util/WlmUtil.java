@@ -35,8 +35,8 @@ public class WlmUtil {
     public static  final String PAGE_COUNT = "20";
 
 //    public static final String APP_ID = "wx7b154709878a1cbe";
-    public static final String APP_ID = "wx3686dfb825618610";
-    public static final String SECRET = "b92b65a7e3452eb4714685abd1ad3b73";
+    public static final String APP_ID = "wx11a116ef840f67f9";
+    public static final String SECRET = "579a6a72da743151f2a4eb6c78fef144";
 
     public static final int GOODS_ALL_WEAR = 3756;
     public static final int GOODS_WOMAN_WEAR = 3767;
@@ -52,6 +52,8 @@ public class WlmUtil {
 
     public static final String TYPEID = "TYPEID";
     public static final String LOGIN = "login";
+    public static final String OPENID = "openid";
+    public static final String UNIONID = "unionid";
 
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";

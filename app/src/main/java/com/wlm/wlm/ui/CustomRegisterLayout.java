@@ -131,8 +131,8 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
                 }
 
                 if(mEtInputInvitation == null || mEtInputInvitation.getText().toString().isEmpty()){
-                    UToast.show(context,R.string.register_psd_invalid);
-                    return;
+//                    UToast.show(context,R.string.register_psd_invalid);
+//                    return;
                 }
 
                 if (isRegister) {

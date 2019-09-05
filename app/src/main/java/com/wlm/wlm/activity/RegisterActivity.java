@@ -2,15 +2,21 @@ package com.wlm.wlm.activity;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.RegisterContract;
+import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.RegisterPresenter;
 import com.wlm.wlm.ui.CustomRegisterLayout;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 
@@ -26,6 +32,7 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
     private RegisterPresenter mRegisterPresenter = new RegisterPresenter();
     ProgressDialog progressDialog = null;
+    WxUserInfo wxUserInfo = null;
 
     @Override
     public int getLayoutId() {
@@ -36,13 +43,20 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
+        Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
+        if (bundle != null && bundle.getSerializable("wxinfo") != null){
+
+            wxUserInfo = (WxUserInfo) bundle.getSerializable("wxinfo");
+
+        }
+
         customRegisterLayout.setVcodeLisener(this);
 
         mRegisterPresenter.onCreate(this,this);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.login_loading));
-        progressDialog.setCancelable(true);
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage(getResources().getString(R.string.login_loading));
+//        progressDialog.setCancelable(true);
     }
 
 
@@ -52,8 +66,10 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
     }
 
     @Override
-    public void getOver(String account,String phone,String vcode) {
-        mRegisterPresenter.register(account,phone,vcode,progressDialog);
+    public void getOver(String phone,String vcode,String Referees) {
+        if (wxUserInfo != null) {
+            mRegisterPresenter.register(phone,wxUserInfo.getNickname(), vcode, Referees,wxUserInfo.getUnionid(),wxUserInfo.getOpenid(),wxUserInfo.getHeadimgurl(),"2", ProApplication.SESSIONID(this));
+        }
     }
 
     @Override
@@ -72,20 +88,23 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
     @Override
     public void onRegisterSuccess() {
-        progressDialog.dismiss();
-        setResult(RESULT_OK);
-        finish();
+//        progressDialog.dismiss();
+//        setResult(RESULT_OK);
+//        finish();
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
+                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid()).commit();
+
+        UiHelper.launcher(this,MainFragmentActivity.class);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRegisterPresenter.onStop();
     }
 
     @Override
     public void onRegisterFail(String msg) {
-        progressDialog.dismiss();
         toast(msg);
     }
 

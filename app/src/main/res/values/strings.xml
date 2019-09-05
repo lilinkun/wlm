@@ -82,6 +82,8 @@
     <!--我的-->
     <string name="me_balance">余额</string>
     <string name="me_integral">积分</string>
+    <string name="me_wlm_coin">唯乐币</string>
+    <string name="me_wlm_income_coin">待收入唯乐币</string>
     <string name="me_order">我的订单</string>
     <string name="me_coupon">我的地址</string>
     <string name="me_collection">我的收藏</string>
@@ -90,8 +92,15 @@
     <string name="me_recommend">推荐好友</string>
     <string name="me_problem">常见问题</string>
     <string name="me_opinion">意见反馈</string>
-    <string name="me_customer_service">客服热线</string>
+    <string name="me_customer_service">客服</string>
     <string name="me_about">关于我们</string>
+    <string name="me_grounon">我的拼团</string>
+    <string name="me_search_all">查看全部</string>
+    <string name="me_fans">我的粉丝</string>
+    <string name="me_scan">我的二维码</string>
+    <string name="me_shared_friend">分享给好友</string>
+    <string name="me_bind_card">认证绑卡</string>
+    <string name="me_address">收货地址</string>
     
     <!--个人信息-->
     <string name="personal_over">完成</string>

@@ -60,141 +60,6 @@
         app:page_margin="20dp"/>
 
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize13"
-            android:textColor="@color/black_333333"
-            android:text="默认排序"/>
-        
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize13"
-            android:textColor="@color/black_333333"
-            android:text="拼团人数"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_2"
-            android:src="@mipmap/j_2"/>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize13"
-            android:textColor="@color/black_333333"
-            android:text="销售"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/margin_2"
-            android:gravity="center">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/j_1"/>
-
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/j_2"
-            android:layout_marginTop="@dimen/margin_2"/>
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize13"
-            android:textColor="@color/black_333333"
-            android:text="价格"/>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/margin_2"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/j_1"
-                />
-
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/j_2"
-                android:layout_marginTop="@dimen/margin_2"/>
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    </LinearLayout>-->
-
         <com.wlm.wlm.ui.TopLinearlayout
             android:id="@+id/ll_top"
             android:layout_width="match_parent"
@@ -209,10 +74,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-        <com.wlm.wlm.ui.AutoSwipeRefreshLayout
-            android:id="@+id/swipe_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--        <com.wlm.wlm.ui.AutoSwipeRefreshLayout-->
+<!--            android:id="@+id/swipe_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
             <com.wlm.wlm.ui.LoadRecyclerView
                 android:id="@+id/rv_groupon"
@@ -222,9 +87,9 @@
                 android:paddingRight="@dimen/padding_10"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </com.wlm.wlm.ui.LoadRecyclerView>
+            </com.wlm.wlm.ui.LoadRecyclerView>
 
-        </com.wlm.wlm.ui.AutoSwipeRefreshLayout>
+<!--        </com.wlm.wlm.ui.AutoSwipeRefreshLayout>-->
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

@@ -98,6 +98,10 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
 
     }
 
+    public void setText(String str){
+        tx_host.setText(str);
+    }
+
 
     @Override
     public void onClick(View view) {

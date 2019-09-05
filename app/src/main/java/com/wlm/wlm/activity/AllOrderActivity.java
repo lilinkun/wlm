@@ -31,6 +31,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
+import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.AllOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
@@ -504,4 +505,5 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

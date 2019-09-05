@@ -15,9 +15,10 @@ import java.util.ArrayList;
 /**
  * Created by LG on 2019/9/3.
  */
-public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdapter.ViewHolder> {
+public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdapter.ViewHolder> implements View.OnClickListener {
 
     private Context context;
+    private OnItemClickListener mItemClickListener;
 
     public ChooseGrouponAdapter(Context context){
         this.context = context;
@@ -30,17 +31,29 @@ public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdap
 
         ViewHolder viewHolder = new ViewHolder(view);
 
+        view.setOnClickListener(this);
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        holder.itemView.setTag(position);
+
         holder.tv_groupon.setText(GrouponType.values()[position].getTypeName());
     }
 
     @Override
     public int getItemCount() {
         return GrouponType.values().length;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mItemClickListener!=null){
+            mItemClickListener.onItemClick((Integer) v.getTag());
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -53,6 +66,14 @@ public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdap
 
             tv_groupon = itemView.findViewById(R.id.tv_groupon);
         }
+    }
+
+    public void setOnItemClick(OnItemClickListener mItemClickListener){
+        this.mItemClickListener = mItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        public void onItemClick(int position);
     }
 
 }

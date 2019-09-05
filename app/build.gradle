@@ -12,9 +12,21 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+    //配置keystore签名
+    signingConfigs {
+        release {
+            storeFile file("libs/wlm.jks")
+            storePassword "wlm123789"
+            keyAlias "wlm"
+            keyPassword "wlm123789"
+        }
+    }
+
     buildTypes {
         debug {
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             //启用代码混淆
             minifyEnabled false
             //zip压缩
@@ -26,7 +38,8 @@ android {
         }
 
         release {
-//            signingConfig signingConfigs.release
+            debuggable true
+            signingConfig signingConfigs.release
             //开启混淆
             minifyEnabled false
             zipAlignEnabled false
@@ -36,6 +49,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
     //greendao配置
     greendao {
         //版本号，升级时可配置

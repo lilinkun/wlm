@@ -58,7 +58,7 @@ public class ChooseAddressAdapter extends RecyclerView.Adapter<ChooseAddressAdap
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setTag(position);
         holder.tvAddress.setText(addressBeans.get(position).getAddressName()+ addressBeans.get(position).getAddress());
-        holder.tvName.setText(addressBeans.get(position).getConsignee());
+        holder.tvName.setText(addressBeans.get(position).getName());
 
         String phone = addressBeans.get(position).getMobile();
 
@@ -71,7 +71,7 @@ public class ChooseAddressAdapter extends RecyclerView.Adapter<ChooseAddressAdap
                 new AlertDialog.Builder(context).setMessage("删除确认").setMessage("您确定要删除改地址嘛？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        onDeleteAddress.delete(addressBeans.get(position).getAddress_id());
+                        onDeleteAddress.delete(addressBeans.get(position).getAddressID());
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -91,7 +91,7 @@ public class ChooseAddressAdapter extends RecyclerView.Adapter<ChooseAddressAdap
 
         radioButtons.add(holder.radioButton);
 
-        if (addressBeans.get(position).getIs_default() == 1) {
+        if (addressBeans.get(position).isDefault()) {
             holder.radioButton.setChecked(true);
         }else {
             holder.radioButton.setChecked(false);

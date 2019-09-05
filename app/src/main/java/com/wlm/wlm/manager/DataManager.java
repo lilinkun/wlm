@@ -429,4 +429,11 @@ public class DataManager {
         return  mRetrofitService.grouponData(mHashMap);
     }
 
+    /**
+     * 获取团购订单数据
+     */
+    public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponOrder(HashMap<String,String> mHashMap){
+        return  mRetrofitService.grouponData(mHashMap);
+    }
+
 }

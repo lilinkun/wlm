@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GrouponDetailActivity;
+import com.wlm.wlm.activity.OrderActivity;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
@@ -79,7 +80,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("groupongoods",goodsListBeans.get(position));
-                UiHelper.launcherBundle(context, GrouponDetailActivity.class,bundle);
+                UiHelper.launcherBundle(context, OrderActivity.class,bundle);
             }
         });
     }

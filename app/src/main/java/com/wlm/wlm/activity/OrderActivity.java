@@ -160,7 +160,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
                         if (!isWxPay) {
                             sureOrderPresenter.sureOrder(goodsids, attr_id, num, isFare + "",
-                                    point + "", total + "", addressBean.getAddress_id(),
+                                    point + "", total + "", addressBean.getAddressID(),
                                     buyBean.getStoremodel().get(0).getTotal_amount() + "", ProApplication.SESSIONID(this));
                         }else {
                             sureOrderPresenter.setWxPay(orderid,total+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(this));
@@ -379,14 +379,14 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
                 addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
                 linearLayout.setVisibility(View.VISIBLE);
                 setAddress(addressBean);
-                getFare(addressBean.getProvince(),addressBean.getCity());
+                getFare(addressBean.getProv(),addressBean.getCity());
             }
         }
     }
 
     private void setAddress(AddressBean address){
 
-        tv_consignee_name.setText(address.getConsignee());
+        tv_consignee_name.setText(address.getName());
         tv_consignee_phone.setText(PhoneFormatCheckUtils.phoneAddress(address.getMobile()));
         tv_consignee_address.setText(address.getAddressName() + address.getAddress());
     }
@@ -397,7 +397,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         this.storeIds = storeIds;
         this.spec = spec;
         this.num = num;
-        getFare(buyBean.getUseraddressmodel().getProvince(),buyBean.getUseraddressmodel().getCity());
+        getFare(buyBean.getUseraddressmodel().getProv(),buyBean.getUseraddressmodel().getCity());
     }
 
     private void getFare(String provinceId,String cityId){

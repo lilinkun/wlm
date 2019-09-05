@@ -56,8 +56,8 @@ public class ChooseAddressPresenter extends BasePresenter {
      */
     public void getAddress(String PageIndex,String PageCount,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","UserAddressList");
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressList");
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
         params.put("SessionId",SessionId);
@@ -118,9 +118,9 @@ public class ChooseAddressPresenter extends BasePresenter {
      */
     public void isDefault(String UserAddressId ,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","UpdateUserAddressIsdefault");
-        params.put("UserAddressId",UserAddressId);
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressSetDefault");
+        params.put("AddressID",UserAddressId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.isDefault(params)
                 .subscribeOn(Schedulers.io())

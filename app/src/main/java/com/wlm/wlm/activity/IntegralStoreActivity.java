@@ -34,6 +34,7 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     private ArrayList<GoodsListBean> goodsListBeans = null;
     private IntegralStorePresenter integralStorePresenter = new IntegralStorePresenter();
     private GrouponAdapter grouponAdapter = null;
+    private String goodstype = "1";
 
     private Handler handler = new Handler(){
         @Override
@@ -58,7 +59,7 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
 
         integralStorePresenter.onCreate(this,this);
 
-        integralStorePresenter.getData("1","20","2","0");
+        integralStorePresenter.getData("1","20",goodstype,"0");
     }
 
     @OnClick({R.id.ll_back})

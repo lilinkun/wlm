@@ -179,7 +179,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                     } else {
                         int point = Integer.valueOf(tv_use_point.getText().toString()) * -1;
                         if (!isWxPay) {
-                            sureOrderPresenter.sureSelfOrder(points + "", cartid, tv_fare.getText().toString(), isFare + "", point + "", total + "", addressBean.getAddress_id(), mount + "", ProApplication.SESSIONID(this));
+                            sureOrderPresenter.sureSelfOrder(points + "", cartid, tv_fare.getText().toString(), isFare + "", point + "", total + "", addressBean.getAddressID(), mount + "", ProApplication.SESSIONID(this));
                         } else {
                             sureOrderPresenter.setWxPay(orderid, total + "", "29", "1", "Android", "com.wlm.wlm", ProApplication.SESSIONID(this));
                         }
@@ -232,7 +232,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
         }
 
         goods_total_price.setText("¥" + mount);
-        String addressid = buyBean.getUseraddressmodel().getAddress_id();
+        String addressid = buyBean.getUseraddressmodel().getAddressID();
 
         sureOrderPresenter.getFares(cartid, addressid, ProApplication.SESSIONID(this));
 
@@ -443,14 +443,14 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                 addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
                 linearLayout.setVisibility(View.VISIBLE);
                 setAddress(addressBean);
-                getFare(addressBean.getProvince(), addressBean.getCity());
+                getFare(addressBean.getProv(), addressBean.getCity());
             }
         }
     }
 
     private void setAddress(AddressBean address) {
 
-        tv_consignee_name.setText(address.getConsignee());
+        tv_consignee_name.setText(address.getName());
         tv_consignee_phone.setText(PhoneFormatCheckUtils.phoneAddress(address.getMobile()));
         tv_consignee_address.setText(address.getAddressName() + address.getAddress());
     }
@@ -466,7 +466,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
     private void getFare(String provinceId, String cityId) {
 
-        sureOrderPresenter.getFares(cartid, addressBean.getAddress_id(), ProApplication.SESSIONID(this));
+        sureOrderPresenter.getFares(cartid, addressBean.getAddressID(), ProApplication.SESSIONID(this));
     }
 
     @Override

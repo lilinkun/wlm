@@ -52,24 +52,17 @@ public class LoginPresenter extends BasePresenter {
     /**
      * 登陆
      */
-    public void login(String username,String psw,String sessionId){
-        if(username == null || username.isEmpty() || username.isEmpty()){
-            mLoginView.showPromptMessage(R.string.prompt_login_name_not_empty);
-            return;
-        }
+    public void login(String openid,String unionid,String TPLType,String sessionId){
 
-        if(psw == null || psw.isEmpty()|| psw.isEmpty()){
-            mLoginView.showPromptMessage(R.string.prompt_login_passwrod_not_empty);
-            return;
-        }
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","登录中...",true);
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
-        params.put("fun", "Login");
-        params.put("UserName", username);
-        params.put("PassWord", psw);
+        params.put("fun", "WxLogin");
+        params.put("openid", openid);
+        params.put("unionid", unionid);
         params.put("SessionId", sessionId);
+        params.put("TPLType",TPLType);
         params.put("MobileType","android");
         mCompositeSubscription.add(manager.login(params)
                 .subscribeOn(Schedulers.io())

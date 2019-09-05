@@ -162,7 +162,9 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
     @Override
     public void modify(int position) {
         AddressBean addressBean = addressBeans.get(position);
-        String isDefault = addressBean.getIs_default() + "";
+        if (addressBean.isDefault()) {
+            String isDefault =  "1";
+        }
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("addressBean",addressBean);
@@ -172,7 +174,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
     @Override
     public void isDefault(int addressId) {
-        chooseAddressPresenter.isDefault(addressBeans.get(addressId).getAddress_id(),ProApplication.SESSIONID(this));
+        chooseAddressPresenter.isDefault(addressBeans.get(addressId).getAddressID(),ProApplication.SESSIONID(this));
     }
 
     @Override

@@ -21,6 +21,8 @@
     
     <color name="vip_text_bg">#664630</color>
 
+    <color name="me_vip_text">#f5e0b3</color>
+
     <color name="integral_bg">#9071c1</color>
     <color name="integral_search_bg">#ae99d1</color>
     <color name="integral_text_bg">#809071c1</color>

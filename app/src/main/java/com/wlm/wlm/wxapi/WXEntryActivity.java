@@ -3,6 +3,7 @@ package com.wlm.wlm.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.OkHttpUtils;
 import com.wlm.wlm.entity.WxUserInfo;
+import com.wlm.wlm.interf.IWxLoginListener;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -27,7 +29,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     private IWXAPI iwxapi;
     private String unionid;
     private String openid;
-    public static IWxResultListener iWxResult;
+    public static IWxLoginListener iWxResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         //接收到分享以及登录的intent传递handleIntent方法，处理结果
         iwxapi = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID, false);
         iwxapi.handleIntent(getIntent(), this);
-
     }
 
 
@@ -129,7 +130,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                             DBManager.getInstance(WXEntryActivity.this).insertWxInfo(wxInfomation);
 //                            loadNetData(1, openid, nickName, sex, province,
 //                                    city, country, headimgurl, unionid);
-//                            iWxResult.setWxSuccess();
+                            iWxResult.setWxLoginSuccess(wxInfomation);
                             Intent intent = new Intent();
                             intent.putExtra("wxinfo",wxInfomation);
                             setResult(RESULT_OK,intent);
@@ -168,7 +169,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         super.onPause();
     }
 
-    public static void setLoginListener(IWxResultListener iWxResultListener){
+    public static void setLoginListener(IWxLoginListener iWxResultListener){
         iWxResult = iWxResultListener;
     }
 

@@ -85,18 +85,18 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
         }
 
         if (addressBean != null){
-            mSwitch.setChecked(addressBean.getIs_default() == 1 ? true : false);
+            mSwitch.setChecked(addressBean.isDefault());
             phoneAddress.setText(addressBean.getMobile());
             addressDetails.setText(addressBean.getAddress());
-            consigneeAddress.setText(addressBean.getConsignee());
+            consigneeAddress.setText(addressBean.getName());
             mLocalTv.setText(addressBean.getAddressName());
             customTitleBar.setRightText("修改");
 
-            mProvinceCode = addressBean.getProvince();
+            mProvinceCode = addressBean.getProv();
             mCityCode = addressBean.getCity();
-            mAreaCode = addressBean.getDistrict();
-            mZipCode = addressBean.getZipcode();
-            isDefault = addressBean.getIs_default() + "";
+            mAreaCode = addressBean.getArea();
+            mZipCode = addressBean.getPost();
+            isDefault = addressBean.isDefault() ? "1" : "0";
         }
 
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -177,7 +177,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
                     if (addressBean == null) {
                         addAddressPresenter.getSaveAddress(consigneeAddress.getText().toString(), mProvinceCode, mCityCode, mAreaCode, addressDetails.getText().toString(), mZipCode, phoneAddress.getText().toString(), isDefault, ProApplication.SESSIONID(this));
                     } else {
-                        addAddressPresenter.modifyAddress(addressBean.getAddress_id(), consigneeAddress.getText().toString(), mProvinceCode, mCityCode, mAreaCode, addressDetails.getText().toString(), mZipCode, phoneAddress.getText().toString(), isDefault, ProApplication.SESSIONID(this));
+                        addAddressPresenter.modifyAddress(addressBean.getAddressID(), consigneeAddress.getText().toString(), mProvinceCode, mCityCode, mAreaCode, addressDetails.getText().toString(), mZipCode, phoneAddress.getText().toString(), isDefault, ProApplication.SESSIONID(this));
                     }
                     break;
 

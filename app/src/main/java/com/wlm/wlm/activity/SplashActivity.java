@@ -50,16 +50,7 @@ public class SplashActivity extends BaseActivity {
             switch (view.getId()) {
                 case R.id.ll_splash:
                     myCountDownTimer.cancel();
-                    Intent intent = null;
-                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-                    if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
-                        intent = new Intent(getBaseContext(), MainFragmentActivity.class);
-                    } else {
-                        intent = new Intent(getBaseContext(), MainFragmentActivity.class);
-                    }
-                    //启动MainActivity
-                    startActivity(intent);
-                    finish();
+                    turnHome();
 
                     break;
             }
@@ -85,22 +76,27 @@ public class SplashActivity extends BaseActivity {
         //计时完毕的方法
         @Override
         public void onFinish() {
-            Intent intent = null;
-            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-            if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
-                intent = new Intent(getBaseContext(), MainFragmentActivity.class);
-            } else {
-                intent = new Intent(getBaseContext(), MainFragmentActivity.class);
-            }
-            //启动MainActivity
-            startActivity(intent);
-            finish();
+            turnHome();
+
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void turnHome(){
+        Intent intent = null;
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
+            intent = new Intent(getBaseContext(), MainFragmentActivity.class);
+        } else {
+            intent = new Intent(getBaseContext(), MainFragmentActivity.class);
+        }
+        //启动MainActivity
+        startActivity(intent);
+        finish();
     }
 }
 

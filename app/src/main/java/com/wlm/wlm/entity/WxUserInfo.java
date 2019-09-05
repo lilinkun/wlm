@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 public class WxUserInfo implements Serializable {
-    @Unique
+
     private String openid;
     private String nickname;
     private int sex;

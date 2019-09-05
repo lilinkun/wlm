@@ -76,4 +76,45 @@ public class GrouponPresenter extends BasePresenter {
                 }));
     }
 
+    /**
+     * 团购订单
+     * @param OrderInfo
+     * @param OrderInfoTeamAdd
+     * @param GoodsId
+     * @param Num
+     * @param OrderAmount
+     * @param ShippingFree
+     * @param AddressID
+     * @param Integral
+     * @param SessionId
+     */
+    public void setOrder(String OrderInfo,String OrderInfoTeamAdd,String GoodsId,String Num,String OrderAmount,String ShippingFree,String AddressID,String Integral,String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Goods");
+        params.put("fun","GoodsListVip");
+        params.put("OrderInfo",OrderInfo);
+        params.put("OrderInfoTeamAdd",OrderInfoTeamAdd);
+        params.put("GoodsId",GoodsId);
+        params.put("Num",Num);
+        params.put("OrderAmount",OrderAmount);
+        params.put("AddressID",AddressID);
+        params.put("ShippingFree",ShippingFree);
+        params.put("Integral",Integral);
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.grouponOrder(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
+                        grouponContract.getSuccess(integralBean);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        grouponContract.getFail(msg);
+                    }
+                }));
+    }
+
 }

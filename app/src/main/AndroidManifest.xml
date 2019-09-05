@@ -85,6 +85,8 @@
         <activity android:name=".activity.GrouponDetailActivity"/>
         <activity android:name=".activity.GrouponGoodsDetailActivity"/>
         <activity android:name=".activity.CrowdFundingActivity"/>
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:exported="true"/>
 
         <service android:name="com.trycath.myupdateapklibrary.service.DownloadFileService" />
 
