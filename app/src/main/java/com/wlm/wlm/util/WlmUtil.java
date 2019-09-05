@@ -36,7 +36,7 @@ public class WlmUtil {
 
 //    public static final String APP_ID = "wx7b154709878a1cbe";
     public static final String APP_ID = "wx3686dfb825618610";
-
+    public static final String SECRET = "b92b65a7e3452eb4714685abd1ad3b73";
 
     public static final int GOODS_ALL_WEAR = 3756;
     public static final int GOODS_WOMAN_WEAR = 3767;

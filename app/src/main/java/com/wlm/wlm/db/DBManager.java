@@ -17,6 +17,8 @@ import com.wlm.wlm.entity.SearchBean;
 import com.wlm.wlm.entity.SearchBeanDao;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbMaterielBeanDao;
+import com.wlm.wlm.entity.WxUserInfo;
+import com.wlm.wlm.entity.WxUserInfoDao;
 import com.wlm.wlm.util.WlmUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -76,6 +78,36 @@ public class DBManager {
         }
         SQLiteDatabase db = openHelper.getWritableDatabase();
         return db;
+    }
+
+    /**
+     * 插入微信用户
+     * @param wxUserInfo
+     */
+    public void insertWxInfo(WxUserInfo wxUserInfo){
+        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
+        DaoSession daoSession = daoMaster.newSession();
+        WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
+        wxUserInfoDao.insert(wxUserInfo);
+    }
+
+    /**
+     * 删除记录
+     */
+    public void deleteWxInfo(){
+        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
+        DaoSession daoSession = daoMaster.newSession();
+        WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
+        wxUserInfoDao.deleteAll();
+    }
+
+    public WxUserInfo queryWxInfo(){
+        DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
+        DaoSession daoSession = daoMaster.newSession();
+        WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
+        QueryBuilder<WxUserInfo> qb = wxUserInfoDao.queryBuilder();
+        WxUserInfo list = qb.unique();
+        return list;
     }
 
 

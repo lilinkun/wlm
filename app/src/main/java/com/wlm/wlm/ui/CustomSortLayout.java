@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
+import com.wlm.wlm.entity.GoodsListBean;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ public class CustomSortLayout extends LinearLayout{
 
     private Context context;
     private RecyclerView recyclerView;
+    private TbHotGoodsAdapter tbHotGoodsAdapter = null;
 
     public CustomSortLayout(Context context) {
         super(context);
@@ -62,9 +64,6 @@ public class CustomSortLayout extends LinearLayout{
 
         recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount1, spacing1,0));
 
-        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(context,null,LayoutInflater.from(context));
-
-        recyclerView.setAdapter(tbHotGoodsAdapter);
 
         addView(view);
 
@@ -75,6 +74,15 @@ public class CustomSortLayout extends LinearLayout{
      * @param position
      */
     public void setType(int position){
+
+    }
+
+
+    public void setData(ArrayList<GoodsListBean> goodsListBeans){
+        if(tbHotGoodsAdapter == null){
+            tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
+            recyclerView.setAdapter(tbHotGoodsAdapter);
+        }
 
     }
 

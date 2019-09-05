@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.Category1Activity;
+import com.wlm.wlm.activity.CrowdFundingActivity;
 import com.wlm.wlm.activity.GoodsDetailActivity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
@@ -163,7 +164,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip,R.id.iv_home_advertisement2,R.id.ll_groupon})
+    @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
+            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -220,6 +222,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
 
+
+                    break;
+
+                case R.id.ll_crowd_funding:
+
+                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
 
                     break;
 
@@ -340,7 +348,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         startBanner(homeHeadBean.getFlash_list());
 
         hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
-        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), hotHomeBeans, getLayoutInflater());
+        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
         mHotGridView.setAdapter(tbHotGoodsAdapter);
         tbHotGoodsAdapter.setItemClickListener(this);
     }
@@ -350,8 +358,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        UToast.show(getActivity(), msg);
         if (msg.contains("网络异常")) {
         }else {
-            UiHelper.launcher(getActivity(), LoginActivity.class);
-            getActivity().finish();
+//            UiHelper.launcher(getActivity(), LoginActivity.class);
+//            getActivity().finish();
         }
     }
 

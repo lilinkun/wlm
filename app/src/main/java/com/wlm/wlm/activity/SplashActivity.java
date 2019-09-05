@@ -53,9 +53,9 @@ public class SplashActivity extends BaseActivity {
                     Intent intent = null;
                     SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
                     if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
-                        intent = new Intent(getBaseContext(), GrouponActivity.class);
+                        intent = new Intent(getBaseContext(), MainFragmentActivity.class);
                     } else {
-                        intent = new Intent(getBaseContext(), GrouponActivity.class);
+                        intent = new Intent(getBaseContext(), MainFragmentActivity.class);
                     }
                     //启动MainActivity
                     startActivity(intent);
@@ -88,9 +88,9 @@ public class SplashActivity extends BaseActivity {
             Intent intent = null;
             SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
-                intent = new Intent(getBaseContext(), GrouponActivity.class);
+                intent = new Intent(getBaseContext(), MainFragmentActivity.class);
             } else {
-                intent = new Intent(getBaseContext(), GrouponActivity.class);
+                intent = new Intent(getBaseContext(), MainFragmentActivity.class);
             }
             //启动MainActivity
             startActivity(intent);

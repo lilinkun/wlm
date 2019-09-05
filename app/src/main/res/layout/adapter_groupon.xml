@@ -103,6 +103,17 @@
 
         </LinearLayout>
 
+        <com.wlm.wlm.ui.UpdataCFProgressBar
+            android:id="@+id/update"
+            android:layout_width="129dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="@dimen/margin_13"
+            app:updataAPPBarHeight="20dp"
+            android:visibility="gone"
+            android:padding="3dp"
+            app:updataAPPMax="100"
+            app:updataAPPProgress="80"
+            app:updataAPPTextColor="@color/white" />
 
         <RelativeLayout
             android:layout_width="match_parent"

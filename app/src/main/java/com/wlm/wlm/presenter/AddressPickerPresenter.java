@@ -47,9 +47,9 @@ public class AddressPickerPresenter extends BasePresenter {
 
     public void getLocalData(String parentId,final int localType){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Dict_Region");
-        params.put("fun","DictRegionList");
-        params.put("parentId",parentId);
+        params.put("cls","Region");
+        params.put("fun","RegionListDrop");
+        params.put("ParentId",parentId);
         mCompositeSubscription.add(manager.getLocalData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -61,7 +61,7 @@ public class AddressPickerPresenter extends BasePresenter {
 
                     @Override
                     public void onErr(String msg, String status) {
-
+                        addressPickerContract.getDataFail(msg);
                     }
                 }));
     }

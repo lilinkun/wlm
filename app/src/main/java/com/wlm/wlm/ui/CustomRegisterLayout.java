@@ -32,7 +32,6 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     private Resources res;
     private TextView tv_send_vcode;
     private EditText mEtInputInvitation,mEtInputVcode,mEtInputPhone;
-    private ImageView mIvInputPsd;
     private LinearLayout mLlProtocol;
     private Button mOverBtn;
 
@@ -84,8 +83,6 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         mEtInputPhone = (EditText) view.findViewById(R.id.et_input_phone);
         mLlProtocol = (LinearLayout) view.findViewById(R.id.ll_protocol);
         mOverBtn = (Button)view.findViewById(R.id.btn_over);
-        mIvInputPsd = (ImageView) view.findViewById(R.id.ic_input_psd);
-        mIvInputPsd.setOnClickListener(this);
         tv_send_vcode.setOnClickListener(this);
         mOverBtn.setOnClickListener(this);
 
@@ -117,12 +114,6 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
 
                 tv_send_vcode.setTextColor(getResources().getColor(R.color.search_edittext_bg));
                 myCountDownTimer.start();
-
-                break;
-
-            case R.id.ic_input_psd:
-
-
 
                 break;
 

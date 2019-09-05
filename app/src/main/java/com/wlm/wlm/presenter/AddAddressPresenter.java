@@ -47,7 +47,7 @@ public class AddAddressPresenter extends BasePresenter {
     public void getLocalData(String parentId,final int localType){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Dict_Region");
-        params.put("fun","DictRegionList");
+        params.put("fun","RegionListDrop");
         params.put("parentId",parentId);
         mCompositeSubscription.add(manager.getLocalData(params)
                 .subscribeOn(Schedulers.io())

@@ -31,6 +31,8 @@
     <color name="empty_red">#F22F2F</color>
 
     <color name="goods_black">#2F1616</color>
+\
+    <color name="cf_progress_unfinished">#ffd7d7</color>
 
     <!--homepage-->
     <color name="layout_gray_bg">#ffefefef</color>
@@ -65,6 +67,8 @@
     <!--setting-->
     <color name="setting_title_color">#f85905</color>
     <color name="setting_red_color">#E84545</color>
+
+    <color name="bg_crowdfunding">#FA3963</color>
 
     <!--goods-->
     <color name="goods_red">#e30d0f</color>

@@ -20,6 +20,7 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
+import com.wlm.wlm.ui.LoadRecyclerView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
@@ -44,13 +45,15 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @BindView(R.id.bannerView)
     Banner banner;
     @BindView(R.id.rv_groupon)
-    RecyclerView rv_groupon;
+    LoadRecyclerView rv_groupon;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
 
     GrouponPresenter groupon = new GrouponPresenter();
     GrouponAdapter grouponAdapter = null;
     ArrayList<GoodsListBean> goodsListBeans = null;
+
+    private int goodstype = 3;
 
 
     @Override
@@ -147,7 +150,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 1://默认排序
 
                 toast("默认排序");
-                groupon.getData("1","20","2","0");
+                groupon.getData("1","20",goodstype+"","0");
 
                 break;
 
@@ -180,7 +183,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 3://销量上
 
                 toast("销量上");
-                groupon.getData("1","20","2","1");
+                groupon.getData("1","20",goodstype+"","1");
 
                 break;
 
@@ -188,7 +191,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 4://销量下
 
                 toast("销量下");
-                groupon.getData("1","20","2","2");
+                groupon.getData("1","20",goodstype+"","2");
 
                 break;
 
@@ -196,7 +199,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
 
                 toast("价格上");
-                groupon.getData("1","20","2","3");
+                groupon.getData("1","20",goodstype+"","3");
 
                 break;
 
@@ -204,7 +207,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
 
                 toast("价格下");
-                groupon.getData("1","20","2","4");
+                groupon.getData("1","20",goodstype+"","4");
 
                 break;
         }

@@ -84,6 +84,7 @@
 
         <activity android:name=".activity.GrouponDetailActivity"/>
         <activity android:name=".activity.GrouponGoodsDetailActivity"/>
+        <activity android:name=".activity.CrowdFundingActivity"/>
 
         <service android:name="com.trycath.myupdateapklibrary.service.DownloadFileService" />
 
