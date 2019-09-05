@@ -121,7 +121,7 @@ public class GrouponOrderPresenter extends BasePresenter {
      * @param Num
      * @param SessionId
      */
-    public void rightNowBuy(String GoodsId,String AddressID,String Num,String OrderAmount,String ShippingFree,String Integral ,String SessionId){
+    public void rightNowBuy(String GoodsId,String AddressID,String Num,String OrderAmount,String ShippingFree,String Integral,String PostScript ,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","下单中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
@@ -132,6 +132,7 @@ public class GrouponOrderPresenter extends BasePresenter {
         params.put("OrderAmount",OrderAmount);
         params.put("ShippingFree",ShippingFree);
         params.put("Integral",Integral);
+        params.put("PostScript",PostScript);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.grouponRightNowBuy(params)
                 .subscribeOn(Schedulers.io())

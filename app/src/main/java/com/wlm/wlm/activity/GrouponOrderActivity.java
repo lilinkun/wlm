@@ -148,7 +148,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
             case R.id.tv_place_order:
 
                 grouponOrderPresenter.rightNowBuy(goodsListBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareBean.getFare()+"",goodsListBean.getIntegral()+"",ProApplication.SESSIONID(this));
+                        ,fareBean.getFare()+"",goodsListBean.getIntegral()+"","",ProApplication.SESSIONID(this));
 
 
                 break;
