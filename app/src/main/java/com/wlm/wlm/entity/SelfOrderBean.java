@@ -1,32 +1,29 @@
 package com.wlm.wlm.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
+ * 订单实体
  * Created by LG on 2018/12/18.
  */
-
-public class SelfOrderBean {
+public class SelfOrderBean<T> {
     private String OrderId;
     private String OrderSn;
-    private double MoneyPayid;
-    private ArrayList<SelfOrderInfoBean> OrderGoodsItem;
-    private int  UseIntegral;
+    private String UserId;
+    private String UserName;
+    private int Integral;
+    private int OrderStatus;
+    private String OrderStatusName;
+    private String Consignee;
+    private int OrderType;
+    private String Address;
+    private String Mobile;
     private double OrderAmount;
     private double ShippingFee;
-    private int OrderStatus;
     private String ConfirmTime;
-    private StoreModelBean StoreModel;
-    private String Effective_Payment_Time;
-    private String Erm;
-
-    public String getErm() {
-        return Erm;
-    }
-
-    public void setErm(String erm) {
-        Erm = erm;
-    }
+    private String CreateDate;
+    private ArrayList<SelfOrderInfoBean> list;
 
     public String getOrderId() {
         return OrderId;
@@ -44,28 +41,76 @@ public class SelfOrderBean {
         OrderSn = orderSn;
     }
 
-    public double getMoneyPayid() {
-        return MoneyPayid;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setMoneyPayid(double moneyPayid) {
-        MoneyPayid = moneyPayid;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
-    public ArrayList<SelfOrderInfoBean> getOrderGoodsItem() {
-        return OrderGoodsItem;
+    public String getUserName() {
+        return UserName;
     }
 
-    public void setOrderGoodsItem(ArrayList<SelfOrderInfoBean> orderGoodsItem) {
-        OrderGoodsItem = orderGoodsItem;
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 
-    public int getUseIntegral() {
-        return UseIntegral;
+    public int getIntegral() {
+        return Integral;
     }
 
-    public void setUseIntegral(int useIntegral) {
-        UseIntegral = useIntegral;
+    public void setIntegral(int integral) {
+        Integral = integral;
+    }
+
+    public int getOrderStatus() {
+        return OrderStatus;
+    }
+
+    public void setOrderStatus(int orderStatus) {
+        OrderStatus = orderStatus;
+    }
+
+    public String getOrderStatusName() {
+        return OrderStatusName;
+    }
+
+    public void setOrderStatusName(String orderStatusName) {
+        OrderStatusName = orderStatusName;
+    }
+
+    public String getConsignee() {
+        return Consignee;
+    }
+
+    public void setConsignee(String consignee) {
+        Consignee = consignee;
+    }
+
+    public int getOrderType() {
+        return OrderType;
+    }
+
+    public void setOrderType(int orderType) {
+        OrderType = orderType;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getMobile() {
+        return Mobile;
+    }
+
+    public void setMobile(String mobile) {
+        Mobile = mobile;
     }
 
     public double getOrderAmount() {
@@ -84,14 +129,6 @@ public class SelfOrderBean {
         ShippingFee = shippingFee;
     }
 
-    public int getOrderStatus() {
-        return OrderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        OrderStatus = orderStatus;
-    }
-
     public String getConfirmTime() {
         return ConfirmTime;
     }
@@ -100,19 +137,19 @@ public class SelfOrderBean {
         ConfirmTime = confirmTime;
     }
 
-    public StoreModelBean getStoreModel() {
-        return StoreModel;
+    public String getCreateDate() {
+        return CreateDate;
     }
 
-    public void setStoreModel(StoreModelBean storeModel) {
-        StoreModel = storeModel;
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
     }
 
-    public String getEffective_Payment_Time() {
-        return Effective_Payment_Time;
+    public ArrayList<SelfOrderInfoBean> getList() {
+        return list;
     }
 
-    public void setEffective_Payment_Time(String effective_Payment_Time) {
-        Effective_Payment_Time = effective_Payment_Time;
+    public void setList(ArrayList<SelfOrderInfoBean> list) {
+        this.list = list;
     }
 }

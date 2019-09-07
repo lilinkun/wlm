@@ -68,7 +68,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onItemClick(int positionId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("goodsid",orderDetailBeans.get(position).getOrderGoodsItem().get(positionId).getGoods_id());
+                bundle.putString("goodsid",orderDetailBeans.get(position).getOrderGoodsItem().get(positionId).getGoodsId());
                 UiHelper.launcherBundle(mContext,SelfGoodsDetailActivity.class,bundle);
             }
         });

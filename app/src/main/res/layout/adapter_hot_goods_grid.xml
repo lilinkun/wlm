@@ -62,7 +62,7 @@
                         android:textColor="@color/red_price"
                         android:textSize="@dimen/textsize12"/>
 
-                    <TextView
+                    <com.wlm.wlm.ui.PriceTextView
                         android:id="@+id/tv_goods_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,6 +71,38 @@
                         android:textColor="@color/red_price"
                         android:layout_marginLeft="5dp"
                         android:textSize="@dimen/textsize15" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+                        <com.wlm.wlm.ui.PriceTextView
+                            android:id="@+id/tv_add_integral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize15"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/me_integral"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_buy_count"

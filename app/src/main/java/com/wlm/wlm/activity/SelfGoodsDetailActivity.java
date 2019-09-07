@@ -33,6 +33,7 @@ import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
@@ -81,14 +82,10 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     ImageView mCollectIv;
     @BindView(R.id.tv_collect)
     TextView mCollectTv;
-    @BindView(R.id.tv_shop_name)
-    TextView mShopName;
     @BindView(R.id.rv_recommend)
     CommendRecyclerView recyclerView;
     @BindView(R.id.wv_goods_detail)
     WebView webView;
-    @BindView(R.id.tv_freight)
-    TextView tv_freight;
     @BindView(R.id.rl_goods_format)
     RelativeLayout goodsLayout;
     @BindView(R.id.tsv_home)
@@ -97,16 +94,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     RelativeLayout rl_add_cart;
     @BindView(R.id.rl_rush)
     RelativeLayout rl_rush;
-    @BindView(R.id.rl_rush_org)
-    RelativeLayout rl_rush_org;
+//    @BindView(R.id.rl_rush_org)
+//    RelativeLayout rl_rush_org;
     @BindView(R.id.tv_groupon_old_price)
     TextView tv_groupon_old_price;
-    @BindView(R.id.tv_integral)
-    TextView tv_integral;
     @BindView(R.id.ll_bottom)
     LinearLayout ll_bottom;
-    @BindView(R.id.tv_integral_pv)
-    TextView tv_integral_pv;
     @BindView(R.id.titlebar)
     LinearLayout toolbar;
     @BindView(R.id.iv_turn_top)
@@ -117,17 +110,25 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     TextView tv_no_delivery;
     @BindView(R.id.tv_number)
     TextView tv_number;
+    @BindView(R.id.ll_layout_integral_price)
+    LinearLayout ll_layout_integral_price;
+    @BindView(R.id.tv_title_name)
+    TextView tv_title_name;
+    @BindView(R.id.tv_details_goods_add_integral)
+    TextView tv_details_goods_add_integral;
+    @BindView(R.id.tv_details_goods_add_price)
+    TextView tv_details_goods_add_price;
+    @BindView(R.id.tv_macket_price)
+    TextView tv_macket_price;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
-    private GoodsDetailBean<ArrayList> goodsDetailBean;
-    private SelfGoodsBean selfGoodsBean;
+    private GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean;
     private boolean isCollect = false;
     private String collectId = "";
     private PopupWindow popupWindow;
     private SelfGoodsPopLayout selfGoodsPopLayout;
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
-    private GoodsChooseBean goodsChooseBean;
     private String num = "";
     private int self_address_result = 0x2213;
     private String type = "";
@@ -152,16 +153,24 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
-        goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsid");
-        type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type");
-        if (goodsid == null || goodsid.isEmpty()) {
-            selfGoodsDetailPresenter.getGoodsDetail("1139", ProApplication.SESSIONID(this));
-        } else {
+        goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSID);
+        type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
+        if (goodsid != null && !goodsid.isEmpty()) {
             selfGoodsDetailPresenter.getGoodsDetail(goodsid, ProApplication.SESSIONID(this));
+//            selfGoodsDetailPresenter.getGoodsTest(goodsid, ProApplication.SESSIONID(this));
         }
-        selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
 
-        selfGoodsDetailPresenter.randomGoods(goodsid, ProApplication.SESSIONID(this));
+
+        if (type.equals(WlmUtil.INTEGRAL)){
+            ll_layout_integral_price.setVisibility(View.VISIBLE);
+            mGoodsNameTv.setVisibility(View.GONE);
+            rl_rush.setVisibility(View.GONE);
+        }
+
+
+//        selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
+
+//        selfGoodsDetailPresenter.randomGoods(goodsid, ProApplication.SESSIONID(this));
 
         FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 3);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
@@ -203,7 +212,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                             selfGoodsDetailPresenter.deleteCollect(collectId, ProApplication.SESSIONID(this));
                         }
                     } else {
-                        selfGoodsDetailPresenter.onCollect(selfGoodsBean.getGoods_id(), ProApplication.SESSIONID(this));
+                        selfGoodsDetailPresenter.onCollect(goodsDetailBean.getGoodsId(), ProApplication.SESSIONID(this));
 
                     }
 
@@ -224,12 +233,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
                 case R.id.rl_add_cart:
 
-                    if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsItem().getGoods_number()) == 0){
+                    if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsNumber()) == 0){
                         toast("库存不足，无法加入购物车");
                     }else {
-                        if (Integer.valueOf(goodsDetailBean.getGoodsItem().getQty()) == 0) {
+                        if (goodsDetailBean.getQty() == 0) {
                             rl_add_cart.setClickable(false);
-                            selfGoodsDetailPresenter.addCartAdd(goodsDetailBean.getGoodsItem().getGoods_id(), "", "1", ProApplication.SESSIONID(this));
+                            selfGoodsDetailPresenter.addCartAdd(goodsDetailBean.getGoodsId(), "", "1", ProApplication.SESSIONID(this));
 
                         } else {
                             if (popupWindow != null) {
@@ -243,7 +252,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     break;
 
                 case R.id.rl_immediate_purchase:
-                    if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsItem().getGoods_number()) == 0){
+                    if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsNumber()) == 0){
                         toast("库存不足，无法下单");
                     }else {
                         if (popupWindow != null) {
@@ -306,21 +315,27 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void getDataSuccess(GoodsDetailBean<ArrayList> goodsDetailBean) {
+    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
         getpopup();
-        selfGoodsBean = goodsDetailBean.getGoodsItem();
-        mGoodsNameTv.setText(selfGoodsBean.getGoods_name());
-        tv_groupon_price.setText(selfGoodsBean.getShop_price() + "");
-        tv_number.setText(goodsDetailBean.getGoodsItem().getGoods_number());
+        if (type.equals(WlmUtil.INTEGRAL)) {
+            tv_title_name.setText(goodsDetailBean.getGoodsName());
+            tv_details_goods_add_integral.setText(goodsDetailBean.getReturnIntegral());
+            tv_details_goods_add_price.setText(goodsDetailBean.getPrice()+"");
+            tv_macket_price.setText("¥"+goodsDetailBean.getMarketPrice()+"");
+            tv_macket_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        mGoodsNameTv.setText(goodsDetailBean.getGoodsName());
+        tv_groupon_price.setText(goodsDetailBean.getPrice() + "");
+        tv_number.setText(goodsDetailBean.getGoodsNumber());
 
-        BigDecimal b = new BigDecimal(selfGoodsBean.getMarket_price());
+        BigDecimal b = new BigDecimal(goodsDetailBean.getMarketPrice());
         double marketPrice = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         tv_groupon_old_price.setText("¥" + marketPrice);
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         List<String> list_path = new ArrayList<>();
-        if (goodsDetailBean.getGoodsItem().getQty() == 0) {
+        if (goodsDetailBean.getQty() == 0) {
             goodsLayout.setVisibility(View.GONE);
         } else {
             goodsLayout.setVisibility(View.VISIBLE);
@@ -332,25 +347,19 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                 return false;
             }
         });
-        webView.loadUrl(goodsDetailBean.getGoodsItem().getMobile_desc());
+        webView.loadUrl(goodsDetailBean.getMobileDesc());
 
-        mShopName.setText(goodsDetailBean.getGoodsItem().getShop_name());
 
-        for (int i = 0; i < selfGoodsBean.getGoods_imglist().size(); i++) {
-            list_path.add(ProApplication.HEADIMG + selfGoodsBean.getGoods_imglist().get(i));
+        String[] strings ;
+        if (goodsDetailBean.getGoodsImgList().contains(",")) {
+            strings = goodsDetailBean.getGoodsImgList().split(",");
+        }else {
+            strings = new String[1];
+            strings[0] = goodsDetailBean.getGoodsImgList();
         }
 
-        if ((selfGoodsBean.getGoods_attr() & 1) == 1) {
-            tv_freight.setText("免邮");
-        } else {
-            tv_freight.setText("不免邮");
-        }
-
-        if ((selfGoodsBean.getGoods_attr() & 16) == 16) {
-            rl_rush.setVisibility(View.VISIBLE);
-            sysTime = selfGoodsBean.getNow_date();
-
-
+        for (int i = 0; i < strings.length; i++) {
+            list_path.add(ProApplication.HEADIMG + strings[i]);
         }
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -380,12 +389,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         Date date = new Date(System.currentTimeMillis());
         String time = simpleDateFormat.format(date);
         collectBean = new BrowseRecordBean();
-        collectBean.setGoods_img(goodsDetailBean.getGoodsItem().getGoods_img());
-        collectBean.setAdd_time(goodsDetailBean.getGoodsItem().getAdd_time());
-        collectBean.setGoods_id(Long.valueOf(goodsDetailBean.getGoodsItem().getGoods_id()));
-        collectBean.setGoods_name(goodsDetailBean.getGoodsItem().getGoods_name());
-        collectBean.setShop_price(goodsDetailBean.getGoodsItem().getShop_price());
-        collectBean.setStore_name(goodsDetailBean.getGoodsItem().getShop_name());
+        collectBean.setGoods_img(goodsDetailBean.getGoodsImg());
+//        collectBean.setAdd_time(goodsDetailBean.getGoodsItem().getAdd_time());
+        collectBean.setGoods_id(Long.valueOf(goodsDetailBean.getGoodsId()));
+        collectBean.setGoods_name(goodsDetailBean.getGoodsName());
+        collectBean.setShop_price(goodsDetailBean.getPrice());
         collectBean.setUser_id(MainFragmentActivity.username);
         collectBean.setBrowse_date(time);
         List<BrowseRecordBean> beanList =  DBManager.getInstance(this).queryBrowseBean(MainFragmentActivity.username);
@@ -434,7 +442,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void mRightNowBuy(SelfGoodsBean selfGoodsBean, GoodsChooseBean goodsChooseBean, int num) {
+    public void mRightNowBuy(GoodsDetailInfoBean selfGoodsBean, GoodsChooseBean goodsChooseBean, int num) {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
@@ -442,12 +450,10 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         if (goodsChooseBean != null) {
             attr_id = String.valueOf(goodsChooseBean.getAttr_id());
         }
-        this.selfGoodsBean = selfGoodsBean;
-        this.goodsChooseBean = goodsChooseBean;
         this.num = num + "";
 
         selfGoodsDetailPresenter.isUserAddress(ProApplication.SESSIONID(this));
-//        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoods_id(),attr_id,num+"",ProApplication.SESSIONID(this));
+        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
     }
 
 
@@ -583,8 +589,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     public void isAddressSuccess(String msg) {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("goodsChooseBean", goodsChooseBean);
-        bundle.putSerializable("selfGoodsBean", selfGoodsBean);
         bundle.putInt("type", 0);
         bundle.putString("num", num + "");
         UiHelper.launcherBundle(this, OrderActivity.class, bundle);
@@ -642,7 +646,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
-        selfGoodsPopLayout.setData(goodsDetailBean, popupWindow);
+        selfGoodsPopLayout.setData(goodsDetailBean);
         selfGoodsPopLayout.setListener(this);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

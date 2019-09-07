@@ -55,6 +55,9 @@ public class WlmUtil {
     public static final String OPENID = "openid";
     public static final String UNIONID = "unionid";
     public static final String GROUPONGOODS = "groupongoods";
+    public static final String INTEGRAL = "integral";
+    public static final String GOODSID = "goodsid";
+    public static final String TYPE = "type";
 
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";

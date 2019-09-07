@@ -1,13 +1,9 @@
 package com.wlm.wlm.entity;
 
-import java.io.Serializable;
-
 /**
- * 团购实体
- * Created by LG on 2019/9/2.
+ * Created by LG on 2019/9/7.
  */
-public class GoodsListBean implements Serializable {
-
+public class GoodsDetailInfoBean<T> {
     //商品id
     private String GoodsId;
     //分类ID
@@ -35,18 +31,18 @@ public class GoodsListBean implements Serializable {
     private String GoodsImgList;
     private String GoodsIndexType;
     private String GoodsIndexImg;
-    private String IsCarriage;
-    private String IsOnSale;
-    private String IsDelete;
-    private String GoodsFlag;
-    private String GoodsType;
+    private boolean IsCarriage;
+    private boolean IsOnSale;
+    private boolean IsDelete;
+    private int GoodsFlag;
+    private int GoodsType;
     private String GoodsTypeName;
     private double Integral;
     private String ReturnIntegral;
     private String CreateDate;
     private String LastUpdate;
     private String MobileDesc;
-    private String Qty;
+    private int Qty;
     private String BackSay;
     private String SortRank;
     private String BeginDate;
@@ -54,6 +50,7 @@ public class GoodsListBean implements Serializable {
     private String IsSetMeal;
     private String TeamType;
     private String TeamTypeName;
+    private T Attr;
 
     public String getGoodsId() {
         return GoodsId;
@@ -239,52 +236,44 @@ public class GoodsListBean implements Serializable {
         GoodsIndexImg = goodsIndexImg;
     }
 
-    public String getIsCarriage() {
+    public boolean isCarriage() {
         return IsCarriage;
     }
 
-    public void setIsCarriage(String isCarriage) {
-        IsCarriage = isCarriage;
+    public void setCarriage(boolean carriage) {
+        IsCarriage = carriage;
     }
 
-    public String getIsOnSale() {
+    public boolean isOnSale() {
         return IsOnSale;
     }
 
-    public void setIsOnSale(String isOnSale) {
-        IsOnSale = isOnSale;
+    public void setOnSale(boolean onSale) {
+        IsOnSale = onSale;
     }
 
-    public String getIsDelete() {
+    public boolean isDelete() {
         return IsDelete;
     }
 
-    public void setIsDelete(String isDelete) {
-        IsDelete = isDelete;
+    public void setDelete(boolean delete) {
+        IsDelete = delete;
     }
 
-    public String getGoodsFlag() {
+    public int getGoodsFlag() {
         return GoodsFlag;
     }
 
-    public void setGoodsFlag(String goodsFlag) {
+    public void setGoodsFlag(int goodsFlag) {
         GoodsFlag = goodsFlag;
     }
 
-    public String getGoodsType() {
+    public int getGoodsType() {
         return GoodsType;
     }
 
-    public void setGoodsType(String goodsType) {
+    public void setGoodsType(int goodsType) {
         GoodsType = goodsType;
-    }
-
-    public String getGoodsTypeName() {
-        return GoodsTypeName;
-    }
-
-    public void setGoodsTypeName(String goodsTypeName) {
-        GoodsTypeName = goodsTypeName;
     }
 
     public double getIntegral() {
@@ -327,11 +316,11 @@ public class GoodsListBean implements Serializable {
         MobileDesc = mobileDesc;
     }
 
-    public String getQty() {
+    public int getQty() {
         return Qty;
     }
 
-    public void setQty(String qty) {
+    public void setQty(int qty) {
         Qty = qty;
     }
 
@@ -391,9 +380,27 @@ public class GoodsListBean implements Serializable {
         TeamTypeName = teamTypeName;
     }
 
+    public String getGoodsTypeName() {
+        return GoodsTypeName;
+    }
+
+    public void setGoodsTypeName(String goodsTypeName) {
+        GoodsTypeName = goodsTypeName;
+    }
+
+    public T getAttr() {
+        return Attr;
+    }
+
+    public void setAttr(T attr) {
+        Attr = attr;
+    }
+
+
+
     @Override
     public String toString() {
-        return "GoodsListBean{" +
+        return "GoodsDetailInfoBean{" +
                 "GoodsId='" + GoodsId + '\'' +
                 ", CategoryId='" + CategoryId + '\'' +
                 ", CategoryPath='" + CategoryPath + '\'' +
@@ -406,11 +413,11 @@ public class GoodsListBean implements Serializable {
                 ", GoodsUnit='" + GoodsUnit + '\'' +
                 ", GoodsGG='" + GoodsGG + '\'' +
                 ", BrowserCount='" + BrowserCount + '\'' +
-                ", GoodsNumber='" + GoodsNumber + '\'' +
-                ", UseNumber='" + UseNumber + '\'' +
+                ", GoodsNumber=" + GoodsNumber +
+                ", UseNumber=" + UseNumber +
                 ", GoodsWeight='" + GoodsWeight + '\'' +
-                ", MarketPrice='" + MarketPrice + '\'' +
-                ", Price='" + Price + '\'' +
+                ", MarketPrice=" + MarketPrice +
+                ", Price=" + Price +
                 ", GoodsBrief='" + GoodsBrief + '\'' +
                 ", GoodsDesc='" + GoodsDesc + '\'' +
                 ", GoodsImg='" + GoodsImg + '\'' +
@@ -423,7 +430,7 @@ public class GoodsListBean implements Serializable {
                 ", GoodsFlag='" + GoodsFlag + '\'' +
                 ", GoodsType='" + GoodsType + '\'' +
                 ", GoodsTypeName='" + GoodsTypeName + '\'' +
-                ", Integral='" + Integral + '\'' +
+                ", Integral=" + Integral +
                 ", ReturnIntegral='" + ReturnIntegral + '\'' +
                 ", CreateDate='" + CreateDate + '\'' +
                 ", LastUpdate='" + LastUpdate + '\'' +
@@ -436,6 +443,7 @@ public class GoodsListBean implements Serializable {
                 ", IsSetMeal='" + IsSetMeal + '\'' +
                 ", TeamType='" + TeamType + '\'' +
                 ", TeamTypeName='" + TeamTypeName + '\'' +
+                ", Attr=" + Attr +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ public class PriceTextView extends AppCompatTextView {
     public void setText(CharSequence text, BufferType type) {
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
-
+        numberFormat.setGroupingUsed(false);
         if (text != null && text.length() > 0) {
             super.setText(numberFormat.format(Double.valueOf(text.toString())), type);
         }

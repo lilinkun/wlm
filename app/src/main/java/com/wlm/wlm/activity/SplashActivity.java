@@ -92,7 +92,7 @@ public class SplashActivity extends BaseActivity {
         if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
             intent = new Intent(getBaseContext(), MainFragmentActivity.class);
         } else {
-            intent = new Intent(getBaseContext(), MainFragmentActivity.class);
+            intent = new Intent(getBaseContext(), LoginActivity.class);
         }
         //启动MainActivity
         startActivity(intent);

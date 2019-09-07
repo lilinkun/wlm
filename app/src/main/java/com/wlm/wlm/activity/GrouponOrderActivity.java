@@ -17,6 +17,7 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.presenter.GrouponOrderPresenter;
 import com.wlm.wlm.ui.OrderPopupLayout;
+import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -72,6 +73,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
     @Override
     public void initEventAndData() {
+
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.white));
 
         grouponOrderPresenter.onCreate(this,this);
 

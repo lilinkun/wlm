@@ -13,8 +13,8 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -33,17 +33,13 @@ import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
-import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.RetrofitHelper;
 import com.wlm.wlm.http.RetrofitService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.RecursiveTask;
 
-import okhttp3.MultipartBody;
 import rx.Observable;
 
 /**
@@ -183,6 +179,13 @@ public class DataManager {
     }
 
     /**
+     * 获取商品详情
+     */
+    public Observable<ResultBean<GoodsDetailInfoBean<ArrayList<String>>,Object>> getSelfGoodDetailInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.getSelfGoodDetailInfo(mHashMap);
+    }
+
+    /**
      * 增加自营商品收藏
      */
     public Observable<ResultBean<CollectBean,Object>> addGoodCollect(HashMap<String,String> mHashMap){
@@ -248,7 +251,7 @@ public class DataManager {
     /**
      * 判断是否有地址
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> getIsAddress(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> getIsAddress(HashMap<String,String> mHashMap){
         return mRetrofitService.getIsAddress(mHashMap);
     }
 

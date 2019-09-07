@@ -53,8 +53,8 @@ public class SelfOrderPresenter extends BasePresenter{
     public void getOrderData(String PageIndex,String PageCount,String OrderStatus,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "Order");
-        params.put("fun", "OrderInfoList");
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoVipList");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
         params.put("OrderStatus", OrderStatus);

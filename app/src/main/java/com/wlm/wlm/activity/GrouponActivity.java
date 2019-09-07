@@ -55,6 +55,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     ArrayList<GoodsListBean> goodsListBeans = null;
 
     private int goodstype = 2;
+    private String mTeamType = "0";
+    private boolean isGrouponType = false;
 
 
     @Override
@@ -80,7 +82,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
         rv_groupon.setLayoutManager(linearLayoutManager);
 
-        groupon.getData("1","20",goodstype + "","0");
+        groupon.getData("1","20",goodstype + "","0",mTeamType);
 
     }
 
@@ -149,70 +151,81 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     public void getSortType(int sortType) {
         switch (sortType){
             case 1://默认排序
-
-                groupon.getData("1","20",goodstype+"","0");
-
+                isGrouponType = false;
+                groupon.getData("1","20",goodstype+"","0",mTeamType);
+                ll_top.setText(getResources().getString(R.string.groupon_num));
                 break;
 
             case 2://几人团
 
+                if (isGrouponType) {
+                    View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
+                    RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
 
-                View view = LayoutInflater.from(this).inflate(R.layout.pop_layout,null);
-                RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
+                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this);
 
-                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+                    recyclerView.setLayoutManager(linearLayoutManager);
 
+                    recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                    });
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    recyclerView.setAdapter(chooseGrouponAdapter);
 
-                recyclerView.setLayoutManager(linearLayoutManager);
+                    final PopupWindow popupWindow = new PopupWindow(view,
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
 
-                recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-                });
-
-                recyclerView.setAdapter(chooseGrouponAdapter);
-
-                final PopupWindow popupWindow = new PopupWindow(view,
-                        LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT, true);
-
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                popupWindow.showAsDropDown(ll_top);
-                chooseGrouponAdapter.setOnItemClick(new ChooseGrouponAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        ll_top.setText(GrouponType.values()[position].getTypeName());
-                        popupWindow.dismiss();
-                    }
-                });
+                    popupWindow.setOutsideTouchable(true);
+                    popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                    popupWindow.showAsDropDown(ll_top);
+                    chooseGrouponAdapter.setOnItemClick(new ChooseGrouponAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            if (position == 0) {
+                                mTeamType = "1";
+                            } else if (position == 1) {
+                                mTeamType = "2";
+                            }
+                            ll_top.setText(GrouponType.values()[position].getTypeName());
+                            groupon.getData("1", "20", goodstype + "", "0", mTeamType);
+                            popupWindow.dismiss();
+                        }
+                    });
+                }else {
+                    isGrouponType = true;
+                }
                 break;
 
 
             case 3://销量上
 
-                groupon.getData("1","20",goodstype+"","1");
+                isGrouponType = false;
+                groupon.getData("1","20",goodstype+"","1",mTeamType);
 
                 break;
 
 
             case 4://销量下
 
-                groupon.getData("1","20",goodstype+"","2");
+                isGrouponType = false;
+                groupon.getData("1","20",goodstype+"","2",mTeamType);
 
                 break;
 
             case 5://价格上
 
 
-                groupon.getData("1","20",goodstype+"","3");
+                isGrouponType = false;
+                groupon.getData("1","20",goodstype+"","3",mTeamType);
 
                 break;
 
             case 6://价格下
 
-                groupon.getData("1","20",goodstype+"","4");
+                isGrouponType = false;
+                groupon.getData("1","20",goodstype+"","4",mTeamType);
 
                 break;
         }

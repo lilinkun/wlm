@@ -436,9 +436,9 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         CountdownView tv_time = view.findViewById(R.id.tv_time);
         TextView tv_right_now_pay = view.findViewById(R.id.tv_right_now_pay);
         tv_pay_self.setText(countBean.getAmount() + "");
-        String endTime = selfOrderBean.getEffective_Payment_Time();
+        String endTime = selfOrderBean.getCreateDate();
 
-        if ((int)selfOrderBean.getMoneyPayid() == 0){
+        if ((int)selfOrderBean.getOrderAmount() == 0){
             check_wx.setClickable(false);
             check_wx.setChecked(false);
             check_wx.setEnabled(false);
@@ -484,7 +484,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
                     TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
                     Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
 
-                    textView.setText(selfOrderBean.getMoneyPayid()+"");
+                    textView.setText(selfOrderBean.getOrderAmount()+"");
 
                     btn_sure.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -499,14 +499,14 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
                 }else if (check_wx.isChecked()){
                     payPopupWindow.dismiss();
 //                    toast("你瞅我干啥，暂时不能微信支付类");
-                    orderListPresenter.setWxPay(selfOrderBean.getOrderSn(),selfOrderBean.getMoneyPayid()+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(OrderListActivity.this));
+                    orderListPresenter.setWxPay(selfOrderBean.getOrderSn(),selfOrderBean.getOrderAmount()+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(OrderListActivity.this));
                 }else {
                     toast("请选择支付方式");
                 }
             }
         });
 
-        tv_price.setText("¥" + selfOrderBean.getMoneyPayid()+"");
+        tv_price.setText("¥" + selfOrderBean.getOrderAmount()+"");
 
         rl_self.setOnClickListener(new View.OnClickListener() {
             @Override

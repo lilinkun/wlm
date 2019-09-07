@@ -3,7 +3,6 @@ package com.wlm.wlm.http;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BuyBean;
-import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.CategoryListBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -12,8 +11,8 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -129,6 +128,10 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
+    Observable<ResultBean<GoodsDetailInfoBean<ArrayList<String>>,Object>> getSelfGoodDetailInfo(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
     Observable<ResultBean<CollectBean,Object>> addGoodCollect(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
@@ -160,7 +163,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> getIsAddress(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> getIsAddress(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

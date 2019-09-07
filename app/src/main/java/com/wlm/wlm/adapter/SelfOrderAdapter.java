@@ -59,28 +59,22 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.itemView.setTag(position);
-        holder.tv_store.setText(selfOrderBeans.get(position).getStoreModel().getShop_name()+"");
         holder.tv_ship_pay.setText(ShipStatusEnum.getPageByValue(selfOrderBeans.get(position).getOrderStatus()).getStatusMsg()+"");
-        double price = selfOrderBeans.get(position).getOrderAmount() - selfOrderBeans.get(position).getUseIntegral();
+        double price = selfOrderBeans.get(position).getOrderAmount() - selfOrderBeans.get(position).getIntegral();
 
         BigDecimal b = new BigDecimal(price);
         price = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        holder.tv_integral.setText("(含积分抵扣"+ selfOrderBeans.get(position).getUseIntegral() + "、运费¥" + selfOrderBeans.get(position).getShippingFee() + ")");
+        holder.tv_integral.setText("(含积分抵扣"+ selfOrderBeans.get(position).getIntegral() + "、运费¥" + selfOrderBeans.get(position).getShippingFee() + ")");
         holder.tv_order_amount.setText("¥" + price);
         int num = 0;
-        for (int i = 0;i<selfOrderBeans.get(position).getOrderGoodsItem().size();i++){
-            num += selfOrderBeans.get(position).getOrderGoodsItem().get(i).getGoods_number();
+        for (int i = 0;i<selfOrderBeans.get(position).getList().size();i++){
+//            num += selfOrderBeans.get(position).getList().get(i).getGoods_number();
         }
         holder.tv_goods_num.setText("共" + num +"件商品");
 
         if (selfOrderBeans.get(position).getOrderStatus() == 1){
             holder.tv_exit_order.setVisibility(View.GONE);
-            if (selfOrderBeans.get(position).getErm() != null  && selfOrderBeans.get(position).getErm().length() > 0) {
-                holder.tv_go_pay.setText("现场提货");
-            }else {
-                holder.tv_go_pay.setVisibility(View.GONE);
-            }
 
         }else if (selfOrderBeans.get(position).getOrderStatus() == 0){
             holder.tv_exit_order.setVisibility(View.VISIBLE);
@@ -90,7 +84,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             Date date = new Date(System.currentTimeMillis());
             Date str = new Date();
             try {
-                str = simpleDateFormat.parse(selfOrderBeans.get(position).getEffective_Payment_Time());
+                str = simpleDateFormat.parse(selfOrderBeans.get(position).getCreateDate());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -143,7 +137,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                     } else if (selfOrderBeans.get(position).getOrderStatus() == 2) {
                         onItemClick.sureReceipt(selfOrderBeans.get(position).getOrderId());
                     } else if(selfOrderBeans.get(position).getOrderStatus() == 1){
-                        onItemClick.getQrcode(selfOrderBeans.get(position).getErm());
+//                        onItemClick.getQrcode(selfOrderBeans.get(position).getErm());
                     }
                 }
             }
@@ -153,7 +147,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.tv_order_rv.setLayoutManager(linearLayoutManager);
 
-        SelfOrderListAdapter selfOrderListAdapter = new SelfOrderListAdapter(context,selfOrderBeans.get(position).getOrderGoodsItem());
+        SelfOrderListAdapter selfOrderListAdapter = new SelfOrderListAdapter(context,selfOrderBeans.get(position).getList());
 
         holder.tv_order_rv.setAdapter(selfOrderListAdapter);
         holder.tv_order_rv.setOnTouchListener(new View.OnTouchListener() {

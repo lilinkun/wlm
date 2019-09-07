@@ -38,7 +38,7 @@
         android:layout_height="132dp"
         android:layout_alignTop="@+id/rl_goods_pic"
         android:layout_alignBottom="@+id/rl_goods_pic"
-        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_10"
         android:layout_toRightOf="@+id/rl_goods_pic"
         android:orientation="vertical">
 
@@ -152,7 +152,7 @@
                     android:id="@+id/tv_groupon_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
                     android:textColor="@color/list_divider"
                     android:textSize="@dimen/textsize11"

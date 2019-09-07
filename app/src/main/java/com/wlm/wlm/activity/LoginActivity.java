@@ -107,10 +107,6 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid()).commit();
-
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();
     }

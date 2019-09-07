@@ -8,10 +8,13 @@
         android:background="#9071c1">
 
         <TextView
+            android:id="@+id/tv_title_name"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:textColor="@color/white"
             android:layout_marginLeft="@dimen/margin_10"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:gravity="center_vertical"
             />
 
@@ -25,7 +28,8 @@
             android:orientation="horizontal">
 
 
-            <TextView
+            <com.wlm.wlm.ui.PriceTextView
+                android:id="@+id/tv_details_goods_add_integral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="69"
@@ -41,7 +45,8 @@
                 android:textColor="@color/groupon_text"
                 android:text="积分+"/>
 
-            <TextView
+            <com.wlm.wlm.ui.PriceTextView
+                android:id="@+id/tv_details_goods_add_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize16"
@@ -57,12 +62,13 @@
 
 
             <TextView
+                android:id="@+id/tv_macket_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grey_color2"
                 android:textSize="@dimen/textsize12"
                 android:layout_marginLeft="@dimen/margin_5"
-                android:text="￥9999"/>
+                android:text="¥9999"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

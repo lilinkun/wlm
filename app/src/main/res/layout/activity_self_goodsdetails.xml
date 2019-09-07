@@ -133,14 +133,15 @@
 
                     </RelativeLayout>
 
+<!--                    <include -->
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:orientation="vertical"
-                        android:paddingTop="@dimen/margin_15">
+                        android:orientation="vertical">
 
-                        <RelativeLayout
+                        <!--<RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone">
@@ -223,7 +224,7 @@
                                 android:layout_marginStart="@dimen/margin_10"
                                 />
 
-                        </RelativeLayout>
+                        </RelativeLayout>-->
 
                         <TextView
                             android:id="@+id/tv_goods_name"
@@ -245,113 +246,7 @@
                         layout="@layout/goods_layout_common"/>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        android:background="@color/white"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_goods_format"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_15">
-
-
-                            <TextView
-                                android:id="@+id/tv_goods_format"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="@string/goods_format"
-                                android:textColor="@color/list_divider"
-                                android:textSize="@dimen/textsize_common" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_10"
-                                android:layout_toRightOf="@+id/tv_goods_format"
-                                android:text="选择颜色和尺寸"
-                                android:textColor="@color/pop_text_bg" />
-
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:src="@mipmap/ic_right_arrow" />
-
-                        </RelativeLayout>
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/line_bg" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_goods_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:padding="@dimen/margin_15">
-
-                            <TextView
-                                android:id="@+id/tv_goods_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="@string/shop_name"
-                                android:textColor="@color/list_divider"
-                                android:textSize="@dimen/textsize_common" />
-
-                            <TextView
-                                android:id="@+id/tv_shop_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_10"
-                                android:layout_toRightOf="@+id/tv_goods_address"
-                                android:textColor="@color/pop_text_bg" />
-
-
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/line_bg" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_goods_freight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_15">
-
-                            <TextView
-                                android:id="@+id/tv_goods_freight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="@string/goods_freight"
-                                android:textColor="@color/list_divider"
-                                android:textSize="@dimen/textsize_common" />
-
-                            <TextView
-                                android:id="@+id/tv_freight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_10"
-                                android:layout_toRightOf="@+id/tv_goods_freight"
-                                android:text="免运费"
-                                android:textColor="@color/pop_text_bg" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"

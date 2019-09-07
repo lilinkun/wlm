@@ -159,14 +159,10 @@ public class OrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.getIsAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
-                        if (collectDeleteBean.getStatus() == 0) {
-                            orderContract.isAddressSuccess(collectDeleteBean.getMessage());
-                        }else if (collectDeleteBean.getStatus() == 101){
-                            orderContract.isAddressFail(collectDeleteBean.getMessage());
-                        }
+                    public void onResponse(String string, String status,Object page) {
+                        orderContract.isAddressFail(string);
                     }
 
                     @Override

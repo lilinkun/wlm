@@ -41,12 +41,12 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.tv_goods_count.setText("X" + selfOrderInfoBeans.get(position).getGoods_number());
-        holder.tv_goods_title.setText("" + selfOrderInfoBeans.get(position).getGoods_name());
-        holder.tv_goods_price.setText("¥" + selfOrderInfoBeans.get(position).getGoods_price());
-        holder.tv_goods_spec1.setText(selfOrderInfoBeans.get(position).getGoods_attr_one());
-        holder.tv_goods_spec2.setText(selfOrderInfoBeans.get(position).getGoods_attr_two());
-        Picasso.with(context).load(ProApplication.HEADIMG + selfOrderInfoBeans.get(position).getGoods_img()).into(holder.iv_goods_pic);
+        holder.tv_goods_count.setText("X" + selfOrderInfoBeans.get(position).getGoodsNumber());
+        holder.tv_goods_title.setText("" + selfOrderInfoBeans.get(position).getGoodsName());
+        holder.tv_goods_price.setText("¥" + selfOrderInfoBeans.get(position).getPrice());
+        holder.tv_goods_spec1.setText(selfOrderInfoBeans.get(position).getAttrOne());
+        holder.tv_goods_spec2.setText(selfOrderInfoBeans.get(position).getAttrTwo());
+        Picasso.with(context).load(ProApplication.HEADIMG + selfOrderInfoBeans.get(position).getGoodsImg()).into(holder.iv_goods_pic);
 
     }
 

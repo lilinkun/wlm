@@ -46,17 +46,17 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
 
         holder.itemView.setTag(position);
 
-        holder.goodsTitle.setText(childListBeans.get(position).getGoods_name());
+        holder.goodsTitle.setText(childListBeans.get(position).getGoodsName());
 
-        holder.goodsPrice.setText("¥ " + childListBeans.get(position).getGoods_price());
-        if (childListBeans.get(position).getGoods_attr_one() != null&& !childListBeans.get(position).getGoods_attr_one().isEmpty()) {
-            holder.goodsSpec1.setText(childListBeans.get(position).getGoods_attr_one() + "");
+        holder.goodsPrice.setText("¥ " + childListBeans.get(position).getPrice());
+        if (childListBeans.get(position).getAttrOne() != null&& !childListBeans.get(position).getAttrOne().isEmpty()) {
+            holder.goodsSpec1.setText(childListBeans.get(position).getAttrOne() + "");
         }
-        if (childListBeans.get(position).getGoods_attr_two() != null && !childListBeans.get(position).getGoods_attr_two().isEmpty()) {
-            holder.goodsSpec2.setText("，" + childListBeans.get(position).getGoods_attr_two());
+        if (childListBeans.get(position).getAttrTwo() != null && !childListBeans.get(position).getAttrTwo().isEmpty()) {
+            holder.goodsSpec2.setText("，" + childListBeans.get(position).getAttrTwo());
         }
-        holder.goodsnum.setText("X" + childListBeans.get(position).getGoods_number());
-        Picasso.with(mContext).load(ProApplication.HEADIMG + childListBeans.get(position).getGoods_img()).into(holder.childImg);
+        holder.goodsnum.setText("X" + childListBeans.get(position).getGoodsNumber());
+        Picasso.with(mContext).load(ProApplication.HEADIMG + childListBeans.get(position).getGoodsImg()).into(holder.childImg);
     }
 
     @Override

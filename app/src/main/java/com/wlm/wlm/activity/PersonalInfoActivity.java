@@ -317,10 +317,10 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public void getInfoSuccess(PersonalInfoBean loginBean) {
-        if (loginBean.getUser_data().getHeadPic() != null){
-            Picasso.with(this).load(loginBean.getUser_data().getHeadPic()).into(roundImageView);
+        if (loginBean.getUser_data().getPortrait() != null){
+            Picasso.with(this).load(loginBean.getUser_data().getPortrait()).into(roundImageView);
         }
-        nickName.setText(loginBean.getUser_data().getNikeName());
+        nickName.setText(loginBean.getUser_data().getNickName());
         tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(loginBean.getUser_data().getMobile()));
     }
 

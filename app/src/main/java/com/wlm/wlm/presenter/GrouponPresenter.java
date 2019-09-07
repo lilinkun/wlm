@@ -51,7 +51,7 @@ public class GrouponPresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy){
+    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String TeamType){
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
@@ -60,6 +60,9 @@ public class GrouponPresenter extends BasePresenter {
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
         params.put("OrderBy",OrderBy);
+        if (!TeamType.equals("0")){
+            params.put("TeamType",TeamType);
+        }
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

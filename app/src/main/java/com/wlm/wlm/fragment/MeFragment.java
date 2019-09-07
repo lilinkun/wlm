@@ -233,8 +233,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                         roundImageView.setImageDrawable(drawable);
                     }
                 } else {
-                    if (personalInfoBean.getUser_data().getHeadPic() != null) {
-                        Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getHeadPic()).into(roundImageView);
+                    if (personalInfoBean.getUser_data().getPortrait() != null) {
+                        Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getPortrait()).into(roundImageView);
                     } else {
                         roundImageView.setImageResource(R.mipmap.ic_head);
                     }
@@ -254,20 +254,20 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         BigDecimal b = new BigDecimal(point);
         point = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         mIntegralBalance.setText(point + "");
-        mTvAccount.setText(personalInfoBean.getUser_data().getUser_name());
-        MainFragmentActivity.username = personalInfoBean.getUser_data().getUser_name();
+        mTvAccount.setText(personalInfoBean.getUser_data().getUserName());
+        MainFragmentActivity.username = personalInfoBean.getUser_data().getUserName();
 
         final File file = new File(getActivity().getExternalCacheDir(), "crop.jpg");
-        if (personalInfoBean.getUser_data().getHeadPic() != null) {
+        if (personalInfoBean.getUser_data().getPortrait() != null) {
             if (file.exists()) {
                 Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
                 drawable = new BitmapDrawable(bm);
-                if (!personalInfoBean.getUser_data().getHeadPic().isEmpty()) {
-                    Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getHeadPic() + "").placeholder(drawable).error(R.color.line_bg).into(roundImageView);
+                if (!personalInfoBean.getUser_data().getPortrait().isEmpty()) {
+                    Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getPortrait() + "").placeholder(drawable).error(R.color.line_bg).into(roundImageView);
                 }
             } else {
-                if (!personalInfoBean.getUser_data().getHeadPic().isEmpty()) {
-                    Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getHeadPic() + "").error(R.mipmap.ic_head).into(roundImageView);
+                if (!personalInfoBean.getUser_data().getPortrait().isEmpty()) {
+                    Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getPortrait() + "").error(R.mipmap.ic_head).into(roundImageView);
                 }
             }
         }

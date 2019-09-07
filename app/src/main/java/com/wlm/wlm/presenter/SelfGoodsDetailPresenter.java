@@ -2,15 +2,12 @@ package com.wlm.wlm.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 
-import com.wlm.wlm.contract.RegisterContract;
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
-import com.wlm.wlm.entity.GoodsDetailBean;
-import com.wlm.wlm.entity.OrderListBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
@@ -60,34 +57,36 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
-        params.put("fun","GoodsDetail");
-        params.put("goodsId",goodsId);
+        params.put("fun","GoodsGet");
+        params.put("GoodsId",goodsId);
         params.put("SessionId",SessionId);
 
-        mCompositeSubscription.add(manager.getSelfGoodDetail(params)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new HttpResultCallBack<GoodsDetailBean<ArrayList>, Object>() {
+        mCompositeSubscription.add(manager.getSelfGoodDetailInfo(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<GoodsDetailInfoBean<ArrayList<String>>, Object>() {
 
-            @Override
-            public void onResponse(GoodsDetailBean<ArrayList> objectObjectGoodsDetailBean, String status,Object page) {
-                selfGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-            }
+                    @Override
+                    public void onResponse(GoodsDetailInfoBean<ArrayList<String>> objectObjectGoodsDetailBean, String status,Object page) {
+                        selfGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
 
-            @Override
-            public void onErr(String msg, String status) {
-                selfGoodsDetailContract.getDataFail(msg);
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-            }
+                    @Override
+                    public void onErr(String msg, String status) {
+                        selfGoodsDetailContract.getDataFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
 
-        }));
+                }));
 
     }
+
+
 
     public void onCollect(String goodsId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
@@ -278,20 +277,18 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
      */
     public void isUserAddress(String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","Is_UserAddress");
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddress_IsExits");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getIsAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
-                        if (collectDeleteBean.getStatus() == 0) {
-                            selfGoodsDetailContract.isAddressSuccess(collectDeleteBean.getMessage());
-                        }else if (collectDeleteBean.getStatus() == 101){
-                            selfGoodsDetailContract.isAddressFail(collectDeleteBean.getMessage());
-                        }
+                    public void onResponse(String s, String status,Object page) {
+
+                        selfGoodsDetailContract.isAddressSuccess(s);
+
                     }
 
                     @Override

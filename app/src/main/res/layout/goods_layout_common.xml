@@ -71,6 +71,50 @@
 
     </LinearLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_goods_format"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:paddingLeft="@dimen/padding_10"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_goods_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/goods_format"
+            android:textColor="@color/list_divider"
+            android:textSize="@dimen/textsize_common" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_toRightOf="@+id/tv_goods_format"
+            android:text="选择颜色和尺寸"
+            android:textColor="@color/pop_text_bg" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right_arrow"
+            android:layout_marginRight="@dimen/margin_10"/>
+
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

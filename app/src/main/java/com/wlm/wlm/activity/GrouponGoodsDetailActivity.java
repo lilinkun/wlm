@@ -132,7 +132,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
     @Override
     public void getDataSuccess(GoodsListBean goodsListBean) {
-
+        this.goodsListBean = goodsListBean;
     }
 
     @Override
