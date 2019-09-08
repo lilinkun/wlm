@@ -2,6 +2,7 @@ package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
+import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.OrderListBean;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public interface SelfGoodsDetailContract extends IView {
-    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean);
+    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean);
     public void getDataFail(String msg);
 
     public void addCollectSuccess(CollectBean collectBean);

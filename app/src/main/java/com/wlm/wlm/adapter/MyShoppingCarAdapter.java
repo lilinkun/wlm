@@ -156,13 +156,13 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
 
         final OrderChildBean child = (OrderChildBean) getChild(groupPosition, childPosition);
         if (child != null) {
-            childViewHolder.goodsName.setText(child.getOrderBean().getGoods_name());
-            childViewHolder.goodsPrice.setText("¥" + child.getOrderBean().getShop_price() + "");
+            childViewHolder.goodsName.setText(child.getOrderBean().getGoodsName());
+            childViewHolder.goodsPrice.setText("¥" + child.getOrderBean().getPrice() + "");
             childViewHolder.goodsNum.setText(String.valueOf(child.getOrderBean().getNum()));
-            childViewHolder.goods_size1.setText( child.getOrderBean().getGoods_attr_one());
-            childViewHolder.goods_size2.setText( child.getOrderBean().getGoods_attr_two());
+            childViewHolder.goods_size1.setText( child.getOrderBean().getGoodsSpec1());
+            childViewHolder.goods_size2.setText( child.getOrderBean().getGoodsSpec2());
 
-            Picasso.with(mcontext).load(ProApplication.HEADIMG + child.getOrderBean().getGoods_img()).into(childViewHolder.goodsImage);
+            Picasso.with(mcontext).load(ProApplication.HEADIMG + child.getOrderBean().getGoodsImg()).into(childViewHolder.goodsImage);
 
             /*if (groupClickId != -1){
                 if(groupPosition == groupClickId){
@@ -209,7 +209,7 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
                     }
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("goodsid", child.getOrderBean().getGoods_id());
+                    bundle.putString("goodsid", child.getOrderBean().getGoodsId());
                     bundle.putString("type", "cart");
                     UiHelper.launcherBundle(activity, SelfGoodsDetailActivity.class, bundle);
                 }
@@ -257,11 +257,11 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
                     dialog.dismiss();
                 }else{
                     UtilsLog.i("数量="+number+"");
-                    if (number > child.getOrderBean().getGoods_number()){
+                    if (number > child.getOrderBean().getGoodsNumber()){
                         UToast.show(mcontext,"库存不足");
                     }else {
                         num.setText(String.valueOf(number));
-                        child.getOrderBean().setNum(number + "");
+                        child.getOrderBean().setNum(number);
                         modifyCountInterface.doUpdate(groupPosition, childPosition, showCountView, isChecked);
                         dialog.dismiss();
                     }

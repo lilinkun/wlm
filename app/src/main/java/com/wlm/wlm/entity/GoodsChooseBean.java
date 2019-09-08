@@ -5,10 +5,9 @@ import java.io.Serializable;
 /**
  * Created by LG on 2018/12/8.
  */
-
 public class GoodsChooseBean implements Serializable{
     private int attr_id;
-    private String goods_id;
+    private String GoodsId;
     private String spec1;
     private String spec1_image;
     private String spec2;
@@ -20,8 +19,7 @@ public class GoodsChooseBean implements Serializable{
     private String spec_order;
     private String spec_weight;
     private String market_Price;
-    private String return_integral;
-    private String deductible_integral;
+    private String integral;
 
     public int getAttr_id() {
         return attr_id;
@@ -31,12 +29,12 @@ public class GoodsChooseBean implements Serializable{
         this.attr_id = attr_id;
     }
 
-    public String getGoods_id() {
-        return goods_id;
+    public String getGoodsId() {
+        return GoodsId;
     }
 
-    public void setGoods_id(String goods_id) {
-        this.goods_id = goods_id;
+    public void setGoodsId(String goodsId) {
+        GoodsId = goodsId;
     }
 
     public String getSpec1() {
@@ -127,19 +125,11 @@ public class GoodsChooseBean implements Serializable{
         this.market_Price = market_Price;
     }
 
-    public String getReturn_integral() {
-        return return_integral;
+    public String getIntegral() {
+        return integral;
     }
 
-    public void setReturn_integral(String return_integral) {
-        this.return_integral = return_integral;
-    }
-
-    public String getDeductible_integral() {
-        return deductible_integral;
-    }
-
-    public void setDeductible_integral(String deductible_integral) {
-        this.deductible_integral = deductible_integral;
+    public void setIntegral(String integral) {
+        this.integral = integral;
     }
 }

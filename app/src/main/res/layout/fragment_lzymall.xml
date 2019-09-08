@@ -3,23 +3,56 @@
     xmlns:lzy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bg_list"
     android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:background="@drawable/shape_me_title_bg">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <com.wlm.wlm.ui.CustomTitleBar
-        android:id="@+id/titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        lzy:text_title="@string/shopping_car"
-        lzy:text_right="@string/shopping_edit"
-        lzy:right_color="@color/login_title_text"
-        android:layout_marginTop="@dimen/margin_15"
-        ></com.wlm.wlm.ui.CustomTitleBar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="@dimen/margin_20">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shopping_car"
+                android:textSize="@dimen/textsize20"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:textColor="@color/cart_text_bg"/>
+
+            <TextView
+                android:id="@+id/tv_cart_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize14"
+                android:text="@string/shopping_edit"
+                android:textColor="#fadab3"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_cart_num"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:textColor="@color/cart_text_bg"
+            android:text="总共4件宝贝"/>
 
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:background="@color/menu_item_bg"
@@ -28,16 +61,19 @@
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
         cube_ptr:ptr_resistance="1.7"
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_duration_to_close="300"
         cube_ptr:ptr_duration_to_close_header="2000"
         cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false" >
+        cube_ptr:ptr_pull_to_fresh="false">
         <FrameLayout
             android:background="@color/menu_item_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
             <LinearLayout
                 android:id="@+id/ll_cart"
                 android:orientation="vertical"

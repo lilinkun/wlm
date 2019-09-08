@@ -58,6 +58,8 @@ public class WlmUtil {
     public static final String INTEGRAL = "integral";
     public static final String GOODSID = "goodsid";
     public static final String TYPE = "type";
+    public static final String GOODSCHOOSEBEAN = "goodsChooseBean";
+    public static final String GOODSDETAILINFOBEAN = "GoodsDetailInfoBean";
 
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";

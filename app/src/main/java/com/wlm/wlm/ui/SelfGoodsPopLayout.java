@@ -56,7 +56,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     private TextView tv_spec1, tv_spec2;
     private int num = 1;
     private OnAddCart onAddCart;
-    private GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean;
+    private GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean;
     private GoodsChooseBean goodsChooseBean;
     private LinearLayout mSpecLayout1,mSpecLayout2;
     private int mtype = 0;
@@ -151,7 +151,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     }
 
 
-    public void setData(final GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean){
+    public void setData(final GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean){
         this.goodsDetailBean = goodsDetailBean;
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -166,7 +166,8 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
         Picasso.with(context).load(ProApplication.HEADIMG + goodsDetailBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_small_pic);
 
         final ArrayList<GoodsChooseBean> goodsChooseBeans = new ArrayList<>();
-        tv_stock.setText(goodsDetailBean.getGoodsNumber()+"");
+        tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
+        tv_stock.setText(""+goodsDetailBean.getGoodsNumber());
 
 
         if (goodsDetailBean != null && goodsDetailBean.getAttr() != null && goodsDetailBean.getAttr().size() != 0) {
@@ -177,7 +178,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                 goodsChooseBeans.add(goodsChooseBean);
             }
 
-            tv_goods_pop_price.setText("¥ " + goodsDetailBean.getPrice());
+            tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
 
             final ArrayList<GoodsChooseBean> goodsChooseBeans1 = new ArrayList<>();
             ArrayList<String> strings1 = new ArrayList<>();
@@ -256,7 +257,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                     flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
                         public void onLabelClick(TextView label, Object data, int position) {
-                            tv_goods_pop_price.setText("¥ " + ((GoodsChooseBean) data).getPrice());
+                            tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
                             tv_choose.setText(goodsChooseBean.getSpec1());
@@ -291,7 +292,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                         flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                             @Override
                             public void onLabelClick(TextView label, Object data, int position) {
-                                tv_goods_pop_price.setText("¥ " + ((GoodsChooseBean) data).getPrice());
+                                tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
                                 goodsChooseBean = (GoodsChooseBean) data;
                                 tv_size.setText("已选 ");
                                 tv_choose.setText(goodsChooseBean.getSpec1());
@@ -339,7 +340,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                     labael_size.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
                         public void onLabelClick(TextView label, Object data, int position) {
-                            tv_goods_pop_price.setText("¥ " + ((GoodsChooseBean) data).getPrice());
+                            tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
                             tv_choose_size.setText("  " + goodsChooseBean.getSpec2());
@@ -450,7 +451,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                     }else {
                         if (flowLayout.getSelectLabelDatas().size() > 0  && labael_size.getSelectLabelDatas().size() > 0){
-//                            onAddCart.mRightNowBuy(selfGoodsBean, goodsChooseBean, num);
+                            onAddCart.mRightNowBuy(goodsDetailBean, goodsChooseBean, num);
                         }else {
                             UToast.show(context,"请选择完整规格");
                         }

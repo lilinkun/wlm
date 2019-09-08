@@ -18,10 +18,14 @@
     <color name="text_default">#8e8e93</color>
     <color name="white">#ffffffff</color>
     <color name="black">#000000</color>
+
+    <color name="cart_text_bg">#ffebd4</color>
     
     <color name="vip_text_bg">#664630</color>
 
     <color name="me_vip_text">#f5e0b3</color>
+
+    <color name="bg_list">#F6F6F6</color>
 
     <color name="integral_bg">#9071c1</color>
     <color name="integral_search_bg">#ae99d1</color>

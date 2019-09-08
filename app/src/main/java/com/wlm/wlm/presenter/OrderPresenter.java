@@ -58,14 +58,14 @@ public class OrderPresenter extends BasePresenter {
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Cart");
-        params.put("fun","CartList");
+        params.put("fun","Cart_GetLitsByUserId");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getCartList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<OrderListBean<ArrayList<OrderBean>>>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<OrderBean>,Object>() {
                     @Override
-                    public void onResponse(ArrayList<OrderListBean<ArrayList<OrderBean>>> orderListBeans, String status,Object page) {
+                    public void onResponse(ArrayList<OrderBean> orderListBeans, String status,Object page) {
                         orderContract.OrderListSuccess(orderListBeans);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();

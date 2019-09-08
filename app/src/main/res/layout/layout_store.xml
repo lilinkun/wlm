@@ -98,6 +98,7 @@
             android:background="#f7a77d"/>
 
         <com.wlm.wlm.ui.TopLinearlayout
+            android:id="@+id/ll_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:textcolor="@color/setting_title_color"

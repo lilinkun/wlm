@@ -414,6 +414,16 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
         toast(msg);
     }
 
+    @Override
+    public void isAddressSuccess(AddressBean addressBean) {
+
+    }
+
+    @Override
+    public void isAddressFail(String msg) {
+
+    }
+
 
     private void loadDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_address, null);

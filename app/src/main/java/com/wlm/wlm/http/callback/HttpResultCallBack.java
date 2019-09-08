@@ -32,7 +32,7 @@ public abstract class HttpResultCallBack<M,T> extends Subscriber<ResultBean<M,T>
                 ResultException err = (ResultException) e;
                 onErr(err.getErrMsg(), WlmUtil.RESULT_FAIL);
             }else{
-                onErr("服务异常", WlmUtil.RESULT_FAIL);
+                onErr(e.getMessage(), WlmUtil.RESULT_FAIL);
                 Log.d("HttpResultCallBack","解析失败==：" + e.getMessage());
             }
         }

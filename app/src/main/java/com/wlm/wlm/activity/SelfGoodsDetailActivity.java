@@ -123,12 +123,13 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
-    private GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean;
+    private GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean;
     private boolean isCollect = false;
     private String collectId = "";
     private PopupWindow popupWindow;
     private SelfGoodsPopLayout selfGoodsPopLayout;
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
+    private GoodsChooseBean goodsChooseBean;
     private String num = "";
     private int self_address_result = 0x2213;
     private String type = "";
@@ -154,7 +155,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
         goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSID);
-        type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
+        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE) != null) {
+            type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
+        }
         if (goodsid != null && !goodsid.isEmpty()) {
             selfGoodsDetailPresenter.getGoodsDetail(goodsid, ProApplication.SESSIONID(this));
 //            selfGoodsDetailPresenter.getGoodsTest(goodsid, ProApplication.SESSIONID(this));
@@ -238,7 +241,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     }else {
                         if (goodsDetailBean.getQty() == 0) {
                             rl_add_cart.setClickable(false);
-                            selfGoodsDetailPresenter.addCartAdd(goodsDetailBean.getGoodsId(), "", "1", ProApplication.SESSIONID(this));
+                            selfGoodsDetailPresenter.addCartAdd(goodsDetailBean.getGoodsId(), "0", "1", ProApplication.SESSIONID(this));
 
                         } else {
                             if (popupWindow != null) {
@@ -315,7 +318,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<String>> goodsDetailBean) {
+    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
         getpopup();
         if (type.equals(WlmUtil.INTEGRAL)) {
@@ -327,7 +330,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
         mGoodsNameTv.setText(goodsDetailBean.getGoodsName());
         tv_groupon_price.setText(goodsDetailBean.getPrice() + "");
-        tv_number.setText(goodsDetailBean.getGoodsNumber());
+        tv_number.setText(goodsDetailBean.getGoodsNumber()+"");
 
         BigDecimal b = new BigDecimal(goodsDetailBean.getMarketPrice());
         double marketPrice = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -450,10 +453,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         if (goodsChooseBean != null) {
             attr_id = String.valueOf(goodsChooseBean.getAttr_id());
         }
+        this.goodsChooseBean = goodsChooseBean;
         this.num = num + "";
 
         selfGoodsDetailPresenter.isUserAddress(ProApplication.SESSIONID(this));
-        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
+//        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
     }
 
 
@@ -589,6 +593,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     public void isAddressSuccess(String msg) {
 
         Bundle bundle = new Bundle();
+        bundle.putSerializable(WlmUtil.GOODSCHOOSEBEAN, goodsChooseBean);
+        bundle.putSerializable(WlmUtil.GOODSDETAILINFOBEAN,goodsDetailBean);
         bundle.putInt("type", 0);
         bundle.putString("num", num + "");
         UiHelper.launcherBundle(this, OrderActivity.class, bundle);
@@ -626,9 +632,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     protected void onDestroy() {
 
         if (collectBean != null) {
-            if (DBManager.getInstance(this).queryGoodCollectBean(collectBean.getGoods_id()).size() == 0) {
+//            if (DBManager.getInstance(this).queryGoodCollectBean(collectBean.getGoods_id()).size() == 0) {
 //                DBManager.getInstance(this).insertCollectBean(collectBean);
-            }
+//            }
         }
 
         super.onDestroy();

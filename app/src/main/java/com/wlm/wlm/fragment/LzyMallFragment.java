@@ -63,12 +63,8 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     CheckBox all_checkBox;
     @BindView(R.id.total_price)
     TextView total_price;
-    @BindView(R.id.titlebar)
-    CustomTitleBar titlebar;
     @BindView(R.id.go_pay)
     TextView goPay;
-    @BindView(R.id.tv_head_right)
-    TextView actionBarEdit;
     @BindView(R.id.order_info)
     LinearLayout orderInfo;
     @BindView(R.id.share_info)
@@ -81,6 +77,10 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     LinearLayout linearLayout;
     @BindView(R.id.go_shopping)
     TextView tv_no_shopping;
+    @BindView(R.id.tv_cart_num)
+    TextView tv_cart_num;
+    @BindView(R.id.tv_cart_edit)
+    TextView tv_cart_edit;
 
 
     private OrderPresenter orderPresenter = new OrderPresenter();
@@ -142,7 +142,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.rl_more,R.id.go_pay,R.id.go_shopping})
+    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.tv_cart_edit,R.id.go_pay,R.id.go_shopping})
     public void onClick(View view){
         AlertDialog dialog;
         if (!ButtonUtils.isFastDoubleClick(view.getId()) && view.getId() != R.id.all_checkBox) {
@@ -151,7 +151,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
                     doCheckAll();
                     break;
 
-                case R.id.rl_more:
+                case R.id.tv_cart_edit:
                     flag = !flag;
                     setVisiable();
                     break;
@@ -206,13 +206,13 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         if (flag) {
             orderInfo.setVisibility(View.GONE);
             shareInfo.setVisibility(View.VISIBLE);
-            actionBarEdit.setText("完成");
+            tv_cart_edit.setText("完成");
             goPay.setVisibility(View.GONE);
         } else {
             orderInfo.setVisibility(View.VISIBLE);
             shareInfo.setVisibility(View.GONE);
             goPay.setVisibility(View.VISIBLE);
-            actionBarEdit.setText("编辑");
+            tv_cart_edit.setText("编辑");
         }
     }
 
@@ -251,28 +251,28 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void OrderListSuccess(ArrayList<OrderListBean<ArrayList<OrderBean>>> orderListBeans) {
+    public void OrderListSuccess(ArrayList<OrderBean> orderListBeans) {
         ArrayList<OrderGroupBean<ArrayList<OrderBean>>> orderGroupBeans = new ArrayList<>();
 
         if (orderListBeans.size() > 0) {
             linearLayout.setVisibility(View.GONE);
             rl_cart_bottom.setVisibility(View.VISIBLE);
             expandableListView.setVisibility(View.VISIBLE);
-            for (OrderListBean<ArrayList<OrderBean>> orderListBean : orderListBeans) {
-                OrderGroupBean<ArrayList<OrderBean>> orderGroupBean = new OrderGroupBean<>();
-                orderGroupBean.setOrderListBean(orderListBean);
-                ArrayList<OrderChildBean> orderChildBeans = new ArrayList<>();
-                for (OrderBean orderBean : orderListBean.getGoodsList()) {
-                    OrderChildBean orderChildBean = new OrderChildBean();
-                    orderChildBean.setOrderBean(orderBean);
-                    orderChildBean.setChoosed(false);
-                    orderChildBean.setParentId(orderListBean.getStore_id());
-                    orderChildBeans.add(orderChildBean);
-                    map.put(orderListBean.getStore_id(), orderChildBeans);
-                }
-                orderGroupBeans.add(orderGroupBean);
-                this.orderListBeans = orderGroupBeans;
-            }
+//            for (OrderListBean<ArrayList<OrderBean>> orderListBean : orderListBeans) {
+//                OrderGroupBean<ArrayList<OrderBean>> orderGroupBean = new OrderGroupBean<>();
+//                orderGroupBean.setOrderListBean(orderListBean);
+//                ArrayList<OrderChildBean> orderChildBeans = new ArrayList<>();
+//                for (OrderBean orderBean : orderListBean.getGoodsList()) {
+//                    OrderChildBean orderChildBean = new OrderChildBean();
+//                    orderChildBean.setOrderBean(orderBean);
+//                    orderChildBean.setChoosed(false);
+//                    orderChildBean.setParentId(orderListBean.getStore_id());
+//                    orderChildBeans.add(orderChildBean);
+//                    map.put(orderListBean.getStore_id(), orderChildBeans);
+//                }
+//                orderGroupBeans.add(orderGroupBean);
+//                this.orderListBeans = orderGroupBeans;
+//            }
 
             myShoppingCarAdapter = new MyShoppingCarAdapter(orderGroupBeans, map, getActivity(),getActivity());
             expandableListView.setAdapter(myShoppingCarAdapter);
@@ -322,7 +322,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         if (collectDeleteBean.getStatus() != 0){
             UToast.show(getActivity(),collectDeleteBean.getMessage());
         }else {
-            orderBean.getOrderBean().setNum(num + "");
+            orderBean.getOrderBean().setNum(Integer.valueOf(num));
             ((TextView) showCountView).setText(String.valueOf(num));
             myShoppingCarAdapter.notifyDataSetChanged();
             calulate();
@@ -449,7 +449,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         orderBean = (OrderChildBean)myShoppingCarAdapter.getChild(groupPosition,childPosition);
         int count = Integer.valueOf(orderBean.getOrderBean().getNum());
         count++;
-        orderPresenter.modifyOrder(count+"",orderBean.getOrderBean().getCart_id(),showCountView,ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count+"",orderBean.getOrderBean().getCartId(),showCountView,ProApplication.SESSIONID(getActivity()));
 //        orderBean.getOrderBean().setNum(count + "");
 //        ((TextView) showCountView).setText(String.valueOf(count));
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -464,7 +464,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
             return;
         }
         count--;
-        orderPresenter.modifyOrder(count+"",orderBean.getOrderBean().getCart_id(),showCountView,ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count+"",orderBean.getOrderBean().getCartId(),showCountView,ProApplication.SESSIONID(getActivity()));
 //        orderBean.getOrderBean().setNum(count + "");
 //        ((TextView) showCountView).setText("" + count);
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -475,7 +475,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     public void doUpdate(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
         orderBean = (OrderChildBean) myShoppingCarAdapter.getChild(groupPosition, childPosition);
         int count = Integer.valueOf(orderBean.getOrderBean().getNum());
-        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCart_id(),showCountView, ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCartId(),showCountView, ProApplication.SESSIONID(getActivity()));
 //        UtilsLog.i("进行更新数据，数量" + count + "");
 //        ((TextView) showCountView).setText(String.valueOf(count));
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -506,9 +506,9 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
             for (int j = 0; j < child.size(); j++) {
                 if (child.get(j).isChoosed()) {
                     if (OrderStr.equals("")){
-                        OrderStr = child.get(j).getOrderBean().getCart_id();
+                        OrderStr = child.get(j).getOrderBean().getCartId();
                     }else {
-                        OrderStr = OrderStr + "," + child.get(j).getOrderBean().getCart_id();
+                        OrderStr = OrderStr + "," + child.get(j).getOrderBean().getCartId();
                     }
                 }
             }
@@ -535,9 +535,9 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
                 if (child.get(j).isChoosed()) {
                     toBeDeleteChilds.add(child.get(j));
                     if (deleteStr.equals("")){
-                        deleteStr = child.get(j).getOrderBean().getCart_id();
+                        deleteStr = child.get(j).getOrderBean().getCartId();
                     }else {
-                        deleteStr = deleteStr + "," + child.get(j).getOrderBean().getCart_id();
+                        deleteStr = deleteStr + "," + child.get(j).getOrderBean().getCartId();
                     }
 
                 }
@@ -570,13 +570,13 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         if (count == 0) {
             clearCart();
         } else {
-            titlebar.setTileName("购物车(" + count + ")");
+            tv_cart_num.setText("总共" + count + "件宝贝");
         }
 
     }
 
     private void clearCart() {
-        titlebar.setTileName("购物车");
+        tv_cart_num.setText("购物车");
     }
 
     /**
@@ -595,7 +595,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
                 OrderChildBean good = child.get(j);
                 if (good.isChoosed()) {
                     mtotalCount += Integer.valueOf(good.getOrderBean().getNum());
-                    mtotalPrice += good.getOrderBean().getShop_price() * Integer.valueOf(good.getOrderBean().getNum());
+                    mtotalPrice += good.getOrderBean().getPrice() * Integer.valueOf(good.getOrderBean().getNum());
                 }
             }
         }
@@ -608,7 +608,7 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
         if (mtotalCount == 0) {
             setCartNum();
         } else {
-            titlebar.setTileName("购物车(" + mtotalCount + ")");
+            tv_cart_num.setText("总共" + mtotalCount + "件宝贝");
         }
 
         if (orderListBeans.size() == 0){

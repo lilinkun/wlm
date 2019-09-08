@@ -12,6 +12,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
@@ -181,7 +182,7 @@ public class DataManager {
     /**
      * 获取商品详情
      */
-    public Observable<ResultBean<GoodsDetailInfoBean<ArrayList<String>>,Object>> getSelfGoodDetailInfo(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>,Object>> getSelfGoodDetailInfo(HashMap<String,String> mHashMap){
         return mRetrofitService.getSelfGoodDetailInfo(mHashMap);
     }
 
@@ -317,7 +318,7 @@ public class DataManager {
     /**
      * 获取购物车列表
      */
-    public Observable<ResultBean<ArrayList<OrderListBean<ArrayList<OrderBean>>> ,Object>> getCartList(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<ArrayList<OrderBean> ,Object>> getCartList(HashMap<String,String> mHashMap){
         return mRetrofitService.getCartList(mHashMap);
     }
 

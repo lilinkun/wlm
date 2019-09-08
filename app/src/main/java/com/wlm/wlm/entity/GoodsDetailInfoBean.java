@@ -1,9 +1,11 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by LG on 2019/9/7.
  */
-public class GoodsDetailInfoBean<T> {
+public class GoodsDetailInfoBean<T> implements Serializable {
     //商品id
     private String GoodsId;
     //分类ID

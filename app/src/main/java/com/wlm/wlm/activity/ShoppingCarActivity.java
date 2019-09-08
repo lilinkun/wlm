@@ -245,28 +245,28 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
     }
 
     @Override
-    public void OrderListSuccess(ArrayList<OrderListBean<ArrayList<OrderBean>>> orderListBeans) {
+    public void OrderListSuccess(ArrayList<OrderBean> orderListBeans) {
         ArrayList<OrderGroupBean<ArrayList<OrderBean>>> orderGroupBeans = new ArrayList<>();
 
         if (orderListBeans.size() > 0) {
             linearLayout.setVisibility(View.GONE);
             expandableListView.setVisibility(View.VISIBLE);
             rl_cart_bottom.setVisibility(View.VISIBLE);
-            for (OrderListBean<ArrayList<OrderBean>> orderListBean : orderListBeans) {
-                OrderGroupBean<ArrayList<OrderBean>> orderGroupBean = new OrderGroupBean<>();
-                orderGroupBean.setOrderListBean(orderListBean);
-                ArrayList<OrderChildBean> orderChildBeans = new ArrayList<>();
-                for (OrderBean orderBean : orderListBean.getGoodsList()) {
-                    OrderChildBean orderChildBean = new OrderChildBean();
-                    orderChildBean.setOrderBean(orderBean);
-                    orderChildBean.setChoosed(false);
-                    orderChildBean.setParentId(orderListBean.getStore_id());
-                    orderChildBeans.add(orderChildBean);
-                    map.put(orderListBean.getStore_id(), orderChildBeans);
-                }
-                orderGroupBeans.add(orderGroupBean);
-                this.orderListBeans = orderGroupBeans;
-            }
+//            for (OrderListBean<ArrayList<OrderBean>> orderListBean : orderListBeans) {
+//                OrderGroupBean<ArrayList<OrderBean>> orderGroupBean = new OrderGroupBean<>();
+//                orderGroupBean.setOrderListBean(orderListBean);
+//                ArrayList<OrderChildBean> orderChildBeans = new ArrayList<>();
+//                for (OrderBean orderBean : orderListBean.getGoodsList()) {
+//                    OrderChildBean orderChildBean = new OrderChildBean();
+//                    orderChildBean.setOrderBean(orderBean);
+//                    orderChildBean.setChoosed(false);
+//                    orderChildBean.setParentId(orderListBean.getStore_id());
+//                    orderChildBeans.add(orderChildBean);
+//                    map.put(orderListBean.getStore_id(), orderChildBeans);
+//                }
+//                orderGroupBeans.add(orderGroupBean);
+//                this.orderListBeans = orderGroupBeans;
+//            }
 
             myShoppingCarAdapter = new MyShoppingCarAdapter(orderGroupBeans, map, this,this);
             expandableListView.setAdapter(myShoppingCarAdapter);
@@ -317,7 +317,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
         if (collectDeleteBean.getStatus() != 0) {
             toast(collectDeleteBean.getMessage());
         }else {
-            orderBean.getOrderBean().setNum(num + "");
+            orderBean.getOrderBean().setNum(Integer.valueOf(num));
             ((TextView) showCountView).setText(String.valueOf(num));
             myShoppingCarAdapter.notifyDataSetChanged();
             calulate();
@@ -443,7 +443,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
         orderBean = (OrderChildBean) myShoppingCarAdapter.getChild(groupPosition, childPosition);
         int count = Integer.valueOf(orderBean.getOrderBean().getNum());
         count++;
-        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCart_id(),showCountView, ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCartId(),showCountView, ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -454,7 +454,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
             return;
         }
         count--;
-        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCart_id(),showCountView, ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCartId(),showCountView, ProApplication.SESSIONID(this));
 //        orderBean.getOrderBean().setNum(count + "");
 //        ((TextView) showCountView).setText("" + count);
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -465,7 +465,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
     public void doUpdate(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
         orderBean = (OrderChildBean) myShoppingCarAdapter.getChild(groupPosition, childPosition);
         int count = Integer.valueOf(orderBean.getOrderBean().getNum());
-        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCart_id(), showCountView,ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getOrderBean().getCartId(), showCountView,ProApplication.SESSIONID(this));
 //        UtilsLog.i("进行更新数据，数量" + count + "");
 //        ((TextView) showCountView).setText(String.valueOf(count));
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -497,9 +497,9 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
             for (int j = 0; j < child.size(); j++) {
                 if (child.get(j).isChoosed()) {
                     if (OrderStr.equals("")){
-                        OrderStr = child.get(j).getOrderBean().getCart_id();
+                        OrderStr = child.get(j).getOrderBean().getCartId();
                     }else {
-                        OrderStr = OrderStr + "," + child.get(j).getOrderBean().getCart_id();
+                        OrderStr = OrderStr + "," + child.get(j).getOrderBean().getCartId();
                     }
                 }
             }
@@ -526,9 +526,9 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
                 if (child.get(j).isChoosed()) {
                     toBeDeleteChilds.add(child.get(j));
                     if (deleteStr.equals("")){
-                        deleteStr = child.get(j).getOrderBean().getCart_id();
+                        deleteStr = child.get(j).getOrderBean().getCartId();
                     }else {
-                        deleteStr = deleteStr + "," + child.get(j).getOrderBean().getCart_id();
+                        deleteStr = deleteStr + "," + child.get(j).getOrderBean().getCartId();
                     }
 
                 }
@@ -587,7 +587,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
                 OrderChildBean good = child.get(j);
                 if (good.isChoosed()) {
                     mtotalCount += Integer.valueOf(good.getOrderBean().getNum());
-                    mtotalPrice += good.getOrderBean().getShop_price() * Integer.valueOf(good.getOrderBean().getNum());
+                    mtotalPrice += good.getOrderBean().getPrice() * Integer.valueOf(good.getOrderBean().getNum());
                 }
             }
         }

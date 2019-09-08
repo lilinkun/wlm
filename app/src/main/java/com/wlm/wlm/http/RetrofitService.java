@@ -10,6 +10,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
@@ -128,7 +129,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<GoodsDetailInfoBean<ArrayList<String>>,Object>> getSelfGoodDetailInfo(@FieldMap Map<String, String> params);
+    Observable<ResultBean<GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>,Object>> getSelfGoodDetailInfo(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -247,7 +248,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<ArrayList<OrderListBean<ArrayList<OrderBean>>> ,Object>> getCartList(@FieldMap Map<String, String> params);
+    Observable<ResultBean<ArrayList<OrderBean> ,Object>> getCartList(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

@@ -7,6 +7,7 @@ import com.wlm.wlm.contract.SelfGoodsDetailContract;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
+import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
@@ -64,10 +65,10 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.getSelfGoodDetailInfo(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<GoodsDetailInfoBean<ArrayList<String>>, Object>() {
+                .subscribe(new HttpResultCallBack<GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>, Object>() {
 
                     @Override
-                    public void onResponse(GoodsDetailInfoBean<ArrayList<String>> objectObjectGoodsDetailBean, String status,Object page) {
+                    public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status,Object page) {
                         selfGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -182,9 +183,9 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","加入购物车...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Cart");
-        params.put("fun","CartAdd");
+        params.put("fun","CartCreate");
         params.put("GoodsId",GoodsId);
-        params.put("AttrId",AttrId);
+        params.put("attr_id",AttrId);
         params.put("Num",Num);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.addCartAdd(params)

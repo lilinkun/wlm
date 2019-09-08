@@ -47,7 +47,9 @@ public class TbAllPresenter extends BasePresenter {
 
     @Override
     public void onStop() {
-        mCompositeSubscription.unsubscribe();
+        if (mCompositeSubscription.hasSubscriptions()){
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
 

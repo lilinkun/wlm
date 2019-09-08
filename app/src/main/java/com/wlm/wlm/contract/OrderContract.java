@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public interface OrderContract extends IView {
 
-    public void OrderListSuccess(ArrayList<OrderListBean<ArrayList<OrderBean>>> orderListBeans);
+    public void OrderListSuccess(ArrayList<OrderBean> orderListBeans);
     public void OrderListFail(String msg);
 
     public void modifyOrderSuccess(CollectDeleteBean collectDeleteBean, String num, View view);

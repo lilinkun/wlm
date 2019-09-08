@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.OrderListAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -25,6 +26,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
@@ -102,6 +104,8 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     private final int address_result = 0x123;
     private boolean isWxPay = false;
     private OrderPopupLayout rootView = null;
+    private GoodsChooseBean goodsChooseBean = null;
+    private GoodsDetailInfoBean goodsDetailInfoBean = null;
 
     @Override
     public int getLayoutId() {
@@ -117,8 +121,8 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         rootView = new OrderPopupLayout(this);
         WXPayEntryActivity.setPayListener(this);
         if (getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("type")==0) {
-            GoodsChooseBean goodsChooseBean = (GoodsChooseBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("goodsChooseBean");
-            SelfGoodsBean selfGoodsBean = (SelfGoodsBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("selfGoodsBean");
+            goodsChooseBean = (GoodsChooseBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.GOODSCHOOSEBEAN);
+            goodsDetailInfoBean = (GoodsDetailInfoBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.GOODSDETAILINFOBEAN);
             String num = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("num");
             attr_id = "";
             if (goodsChooseBean != null) {
@@ -126,14 +130,14 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
             }
 
             loadDialog();
-            sureOrderPresenter.rightNowBuy(selfGoodsBean.getGoods_id(), attr_id, num, ProApplication.SESSIONID(this));
+            sureOrderPresenter.getAddress("1","200", ProApplication.SESSIONID(this));
+//            sureOrderPresenter.rightNowBuy(selfGoodsBean.getGoodsId(), attr_id, num, ProApplication.SESSIONID(this));
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
     }
 
@@ -351,6 +355,18 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         toast(msg);
     }
 
+    @Override
+    public void isAddressSuccess(AddressBean addressBean) {
+        this.addressBean = addressBean;
+        setAddress(addressBean);
+        sureOrderPresenter.getFare(goodsDetailInfoBean.getGoodsId(),addressBean.getAddressID(),goodsDetailInfoBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
+    }
+
+    @Override
+    public void isAddressFail(String msg) {
+        toast(msg);
+    }
+
     private void loadDialog(){
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_address,null);
         dialog = new Dialog(this);
@@ -389,6 +405,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         tv_consignee_name.setText(address.getName());
         tv_consignee_phone.setText(PhoneFormatCheckUtils.phoneAddress(address.getMobile()));
         tv_consignee_address.setText(address.getAddressName() + address.getAddress());
+
     }
 
     @Override
@@ -401,7 +418,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     }
 
     private void getFare(String provinceId,String cityId){
-        sureOrderPresenter.getFare(goodsids,spec,num,provinceId,cityId,storeIds,ProApplication.SESSIONID(this));
+//        sureOrderPresenter.getFare(goodsids,spec,num,provinceId,cityId,storeIds,ProApplication.SESSIONID(this));
     }
 
     @Override

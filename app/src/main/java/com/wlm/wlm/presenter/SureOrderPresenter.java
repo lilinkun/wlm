@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.SureOrderContract;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.FareBean;
@@ -126,25 +127,17 @@ public class SureOrderPresenter extends BasePresenter {
     /**
      * 获取单个邮费
      * @param GoodsId
-     * @param AttrId
      * @param Num
-     * @param Provice
-     * @param City
-     * @param StoreId
      * @param SessionId
      */
-    public void getFare(String GoodsId,String AttrId,String Num,String Provice,String City,String StoreId,String SessionId){
+    public void getFare(String GoodsId,String AddressID,String Num,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","更新邮费...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","GetFare");
+        params.put("cls","OrderInfo");
+        params.put("fun","GoodsBuyShippingFreeGet");
         params.put("GoodsId",GoodsId);
-        params.put("AttrId",AttrId);
+        params.put("AddressID",AddressID);
         params.put("Num",Num);
-        params.put("Provice",Provice);
-        params.put("City",City);
-        params.put("LgsId","");
-        params.put("StoreId",StoreId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getfare(params)
                 .subscribeOn(Schedulers.io())
@@ -366,5 +359,40 @@ public class SureOrderPresenter extends BasePresenter {
                         }
                     }
                 }));
+    }
+
+    /**
+     * 获取收货地址
+     * @param PageIndex
+     * @param PageCount
+     * @param SessionId
+     */
+    public void getAddress(String PageIndex,String PageCount,String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressList");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
+        params.put("SessionId",SessionId);
+
+        mCompositeSubscription.add(manager.getConsigneeAddress(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>, Object>() {
+                    @Override
+                    public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
+                        for (AddressBean addressBean : addressBeans){
+
+                            if (addressBean.isDefault()){
+                                sureOrderContract.isAddressSuccess(addressBean);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onErr(String msg, String status) {
+                        sureOrderContract.isAddressFail(msg);
+                    }
+                })
+        );
     }
 }
