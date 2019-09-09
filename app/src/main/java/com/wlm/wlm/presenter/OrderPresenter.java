@@ -7,6 +7,7 @@ import android.view.View;
 import com.wlm.wlm.contract.OpinionContract;
 import com.wlm.wlm.contract.OrderContract;
 import com.wlm.wlm.entity.CollectDeleteBean;
+import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
@@ -63,9 +64,9 @@ public class OrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.getCartList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<OrderBean>,Object>() {
+                .subscribe(new HttpResultCallBack<GoodsCartbean,Object>() {
                     @Override
-                    public void onResponse(ArrayList<OrderBean> orderListBeans, String status,Object page) {
+                    public void onResponse(GoodsCartbean orderListBeans, String status,Object page) {
                         orderContract.OrderListSuccess(orderListBeans);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -134,9 +135,9 @@ public class OrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.deleteGoods(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean b, String status,Object page) {
+                    public void onResponse(String b, String status,Object page) {
                         orderContract.deleteGoodsSuccess(b);
                     }
 

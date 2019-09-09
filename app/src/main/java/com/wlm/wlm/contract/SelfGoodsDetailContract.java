@@ -1,5 +1,6 @@
 package com.wlm.wlm.contract;
 
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
@@ -36,6 +37,6 @@ public interface SelfGoodsDetailContract extends IView {
     public void getRightNowBuySuccess(BuyBean orderListBeans);
     public void getRightNowBuyFail(String msg);
 
-    public void isAddressSuccess(String msg);
+    public void isAddressSuccess(ArrayList<AddressBean> msg);
     public void isAddressFail(String msg);
 }

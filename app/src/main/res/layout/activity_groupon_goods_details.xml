@@ -183,21 +183,6 @@
                                 android:text="3人团,6折优惠"
                                 android:textSize="11sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_20"
-                                android:textSize="@dimen/textsize13"
-                                android:textColor="@color/black_333333"
-                                android:text="@string/goods_freight_detail"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="@dimen/textsize13"
-                                android:textColor="@color/black_333333"
-                                android:text="0.00"/>
-
 
                         </LinearLayout>
 

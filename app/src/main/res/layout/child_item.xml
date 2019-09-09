@@ -64,15 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_pv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/setting_title_color"
-                android:layout_above="@+id/tv_goods_price"
-                android:textSize="@dimen/textsize12"
-                android:layout_marginBottom="@dimen/margin_7"/>
-
             <com.wlm.wlm.ui.MyTextView
                 android:id="@+id/tv_goods_price"
                 android:layout_width="wrap_content"

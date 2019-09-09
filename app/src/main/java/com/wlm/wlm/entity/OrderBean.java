@@ -5,29 +5,31 @@ package com.wlm.wlm.entity;
  */
 
 public class OrderBean {
-    private String CreateTime;
-    private String BrandId;
     private String CartId;
+    private String CreateTime;
+    private String UserId;
+    private String UserName;
+    private int Num;
+    private String GoodsId;
+    private String BrandId;
     private String GoodsSn;
-    private int GoodsType;
-    private String GoodsWeight;
     private String GoodsSpec1;
     private String GoodsSpec2;
-    private String GoodsId;
-    private int Num;
+    private String GoodsName;
+    private int GoodsNumber;
+    private String GoodsWeight;
+    private double Price;
+    private double MarketPrice;
     private boolean IsOnSale;
     private boolean IsDelete;
     private boolean IsCarriage;
+    private int GoodsType;
     private int Integral;
-    private String GoodsName;
-    private double Price;
-    private double MarketPrice;
     private String GoodsImg;
     private String GoodsImgList;
     private String GoodsIndexImg;
-    private String UserId;
-    private String UserName;
-    private int GoodsNumber;
+    private String spec1;
+    private String spec2;
 
     public String getCreateTime() {
         return CreateTime;
@@ -211,5 +213,21 @@ public class OrderBean {
 
     public void setGoodsNumber(int goodsNumber) {
         GoodsNumber = goodsNumber;
+    }
+
+    public String getSpec1() {
+        return spec1;
+    }
+
+    public void setSpec1(String spec1) {
+        this.spec1 = spec1;
+    }
+
+    public String getSpec2() {
+        return spec2;
+    }
+
+    public void setSpec2(String spec2) {
+        this.spec2 = spec2;
     }
 }

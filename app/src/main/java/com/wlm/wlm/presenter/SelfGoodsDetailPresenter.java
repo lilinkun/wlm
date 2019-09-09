@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -276,19 +277,21 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
      * 判断是否有地址
      * @param SessionId
      */
-    public void isUserAddress(String SessionId){
+    public void isUserAddress(String PageIndex,String PageCount,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddress_IsExits");
+        params.put("fun","ReceiptAddressList");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
         params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.getIsAddress(params)
+        mCompositeSubscription.add(manager.getConsigneeAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>,Object>() {
                     @Override
-                    public void onResponse(String s, String status,Object page) {
+                    public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
 
-                        selfGoodsDetailContract.isAddressSuccess(s);
+                        selfGoodsDetailContract.isAddressSuccess(addressBeans);
 
                     }
 

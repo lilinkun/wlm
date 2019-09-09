@@ -12,6 +12,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
@@ -27,6 +28,7 @@ import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
@@ -318,7 +320,7 @@ public class DataManager {
     /**
      * 获取购物车列表
      */
-    public Observable<ResultBean<ArrayList<OrderBean> ,Object>> getCartList(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<GoodsCartbean,Object>> getCartList(HashMap<String,String> mHashMap){
         return mRetrofitService.getCartList(mHashMap);
     }
 
@@ -353,7 +355,7 @@ public class DataManager {
     /**
      * 删除购物车
      */
-    public Observable<ResultBean<CollectDeleteBean ,Object>> deleteGoods(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String ,Object>> deleteGoods(HashMap<String,String> mHashMap){
         return mRetrofitService.deleteGoods(mHashMap);
     }
 
@@ -453,6 +455,13 @@ public class DataManager {
      */
     public Observable<ResultBean<String,Object>> grouponRightNowBuy(HashMap<String,String> mHashMap){
         return mRetrofitService.grouponRightNowBuy(mHashMap);
+    }
+
+    /**
+     * 单个商品返回订单信息
+     */
+    public Observable<ResultBean<RightNowBuyBean,Object>> getGoodsOrderInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.getGoodsOrderInfo(mHashMap);
     }
 
 }

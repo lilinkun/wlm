@@ -19,7 +19,7 @@ public class GoodsChooseBean implements Serializable{
     private String spec_order;
     private String spec_weight;
     private String market_Price;
-    private String integral;
+    private int integral;
 
     public int getAttr_id() {
         return attr_id;
@@ -125,11 +125,11 @@ public class GoodsChooseBean implements Serializable{
         this.market_Price = market_Price;
     }
 
-    public String getIntegral() {
+    public int getIntegral() {
         return integral;
     }
 
-    public void setIntegral(String integral) {
+    public void setIntegral(int integral) {
         this.integral = integral;
     }
 }

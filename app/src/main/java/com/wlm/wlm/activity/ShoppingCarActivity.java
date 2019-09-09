@@ -18,6 +18,7 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.OrderContract;
 import com.wlm.wlm.entity.CollectDeleteBean;
+import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
 import com.wlm.wlm.entity.OrderGroupBean;
@@ -245,7 +246,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
     }
 
     @Override
-    public void OrderListSuccess(ArrayList<OrderBean> orderListBeans) {
+    public void OrderListSuccess(GoodsCartbean goodsCartbean) {
         ArrayList<OrderGroupBean<ArrayList<OrderBean>>> orderGroupBeans = new ArrayList<>();
 
         if (orderListBeans.size() > 0) {
@@ -269,6 +270,7 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
 //            }
 
             myShoppingCarAdapter = new MyShoppingCarAdapter(orderGroupBeans, map, this,this);
+            myShoppingCarAdapter.setCheckInterface(this);
             expandableListView.setAdapter(myShoppingCarAdapter);
             myShoppingCarAdapter.setCheckInterface(this);
             myShoppingCarAdapter.setModifyCountInterface(this); //关键步骤2:设置增删减的接口
@@ -330,13 +332,11 @@ public class ShoppingCarActivity extends BaseActivity implements OrderContract, 
     }
 
     @Override
-    public void deleteGoodsSuccess(CollectDeleteBean collectDeleteBean) {
-        if (collectDeleteBean.getStatus() == 0) {
-            toast("删除成功");
-            calulate();
-        }else {
-            toast("删除失败");
-        }
+    public void deleteGoodsSuccess(String collectDeleteBean) {
+
+        toast("删除成功");
+        calulate();
+
     }
 
     @Override

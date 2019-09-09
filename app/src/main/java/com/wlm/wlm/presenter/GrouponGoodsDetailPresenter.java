@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.GrouponGoodsDetailContract;
+import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -47,17 +49,16 @@ public class GrouponGoodsDetailPresenter extends BasePresenter {
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
-        params.put("fun","GoodsDetail");
-        params.put("goodsId",goodsId);
+        params.put("fun","GoodsGet");
+        params.put("GoodsId",goodsId);
         params.put("SessionId",SessionId);
-
-        mCompositeSubscription.add(manager.getGrouponGoodDetail(params)
+        mCompositeSubscription.add(manager.getSelfGoodDetailInfo(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<GoodsListBean, Object>() {
+                .subscribe(new HttpResultCallBack<GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>, Object>() {
 
                     @Override
-                    public void onResponse(GoodsListBean objectObjectGoodsDetailBean, String status,Object page) {
+                    public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status,Object page) {
                         grouponGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -73,6 +74,8 @@ public class GrouponGoodsDetailPresenter extends BasePresenter {
                     }
 
                 }));
+
+
 
     }
 }

@@ -51,6 +51,7 @@
             android:layout_height="49dp"
             android:gravity="center"
             android:layout_marginLeft="@dimen/margin_15"
+            android:textSize="@dimen/textsize15"
             android:textColor="@color/cart_text_bg"
             android:text="总共4件宝贝"/>
 
@@ -70,7 +71,6 @@
         cube_ptr:ptr_keep_header_when_refresh="true"
         cube_ptr:ptr_pull_to_fresh="false">
         <FrameLayout
-            android:background="@color/menu_item_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >

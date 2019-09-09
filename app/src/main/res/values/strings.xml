@@ -185,7 +185,7 @@
     <string name="shopping_edit">编辑</string>
     <string name="actionBar_edit">编辑</string>
     <string name="all">全选</string>
-    <string name="order_total">实付 :</string>
+    <string name="order_total">合计 :</string>
     <string name="choose_pay">选择支付方式</string>
     <string name="pay_zfb">支付宝支付</string>
     <string name="pay_wx">微信支付</string>

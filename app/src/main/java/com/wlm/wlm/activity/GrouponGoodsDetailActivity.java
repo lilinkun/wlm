@@ -11,6 +11,8 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.GrouponGoodsDetailContract;
+import com.wlm.wlm.entity.GoodsChooseBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
@@ -57,6 +59,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
     GoodsListBean goodsListBean = null;
     GrouponGoodsDetailPresenter grouponGoodsDetailPresenter = new GrouponGoodsDetailPresenter();
+    private GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean;
 
     @Override
     public int getLayoutId() {
@@ -78,7 +81,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         tv_groupon_price.setText(goodsListBean.getPrice()+"");
 
-        tv_groupon_old_price.setText("￥" + goodsListBean.getMarketPrice());
+        tv_groupon_old_price.setText("¥" + goodsListBean.getMarketPrice());
 
         tv_goods_name.setText(goodsListBean.getGoodsName());
 
@@ -131,8 +134,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     }
 
     @Override
-    public void getDataSuccess(GoodsListBean goodsListBean) {
-        this.goodsListBean = goodsListBean;
+    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
+        this.goodsDetailBean = goodsDetailBean;
     }
 
     @Override
@@ -160,7 +163,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
             case R.id.tv_right_now_groupon:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBean);
+                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsDetailBean);
                 UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
 //                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
 

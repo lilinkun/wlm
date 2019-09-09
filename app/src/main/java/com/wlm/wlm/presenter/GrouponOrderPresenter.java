@@ -7,6 +7,7 @@ import com.wlm.wlm.contract.GrouponOrderContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.FareBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -42,40 +43,6 @@ public class GrouponOrderPresenter extends BasePresenter {
 
     }
 
-    /**
-     * 获取收货地址
-     * @param PageIndex
-     * @param PageCount
-     * @param SessionId
-     */
-    public void getAddress(String PageIndex,String PageCount,String SessionId){
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddressList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("SessionId",SessionId);
-
-        mCompositeSubscription.add(manager.getConsigneeAddress(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>, Object>() {
-                    @Override
-                    public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
-                        for (AddressBean addressBean : addressBeans){
-
-                            if (addressBean.isDefault()){
-                                orderContract.isAddressSuccess(addressBean);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onErr(String msg, String status) {
-                        orderContract.isAddressFail(msg);
-                    }
-                })
-        );
-    }
 
     /**
      * 获取单个邮费
@@ -141,6 +108,37 @@ public class GrouponOrderPresenter extends BasePresenter {
                     @Override
                     public void onResponse(String String, String status,Object page) {
 //                        orderContract.getRightNowBuySuccess(rightNows);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        orderContract.getRightNowBuyFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                }));
+    }
+
+    public void getGoodsOrderInfo(String GoodsId,String AttrId,String Num,String SessionId){
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","OrderInfo");
+        params.put("fun","GoodsBuyGet");
+        params.put("GoodsId",GoodsId);
+        params.put("attr_id",AttrId);
+        params.put("Num",Num);
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getGoodsOrderInfo(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<RightNowBuyBean,Object>() {
+                    @Override
+                    public void onResponse(RightNowBuyBean rightNows, String status,Object page) {
+                        orderContract.getRightNowBuySuccess(rightNows);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

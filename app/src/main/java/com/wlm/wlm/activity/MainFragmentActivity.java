@@ -28,6 +28,7 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.fragment.HomeFragment;
 import com.wlm.wlm.fragment.LzyMallFragment;
 import com.wlm.wlm.fragment.MeFragment;
+import com.wlm.wlm.fragment.WlmCartFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
@@ -68,7 +69,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
 
     private FragmentManager manager;
-    private LzyMallFragment lzyMallFragment = new LzyMallFragment();
+    private WlmCartFragment lzyMallFragment = new WlmCartFragment();
     private MeFragment meFragment = new MeFragment();
     public static String username ="";
     private MainFragmentPresenter mainFragmentPresenter = new MainFragmentPresenter();

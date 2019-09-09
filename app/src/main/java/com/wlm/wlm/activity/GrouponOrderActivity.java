@@ -13,13 +13,19 @@ import com.wlm.wlm.contract.GrouponOrderContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.FareBean;
+import com.wlm.wlm.entity.GoodsChooseBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.presenter.GrouponOrderPresenter;
 import com.wlm.wlm.ui.OrderPopupLayout;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.WlmUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -61,10 +67,12 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
     private OrderPopupLayout rootView = null;
     public static int pay_type_position = 1;
-    GoodsListBean goodsListBean = null;
+    GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsListBean = null;
     private AddressBean addressBean = null;
     private double totalPrice = 0;
     private FareBean fareBean = null;
+    private RightNowBuyBean rightNowBuyBean = null;
+    private RightNowGoodsBean rightNowGoodsBean = null;
 
     @Override
     public int getLayoutId() {
@@ -79,46 +87,36 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         grouponOrderPresenter.onCreate(this,this);
 
         rootView = new OrderPopupLayout(this);
-        grouponOrderPresenter.getAddress("1","200", ProApplication.SESSIONID(this));
+//        grouponOrderPresenter.getAddress("1","200", ProApplication.SESSIONID(this));
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
         if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null){
-            goodsListBean = (GoodsListBean) bundle.getSerializable(WlmUtil.GROUPONGOODS);
+            goodsListBean = (GoodsDetailInfoBean<ArrayList< GoodsChooseBean >>) bundle.getSerializable(WlmUtil.GROUPONGOODS);
         }
 
-        tv_goods_title.setText(goodsListBean.getGoodsName());
-        Picasso.with(this).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).into(iv_goods_pic);
-        tv_goods_price.setText(goodsListBean.getPrice()+"");
-        tv_coupon_price.setText("X" + goodsListBean.getUseNumber());
+        if (goodsListBean != null && goodsListBean.getAttr() == null){
+            grouponOrderPresenter.getGoodsOrderInfo(goodsListBean.getGoodsId(),"","1",ProApplication.SESSIONID(this));
+        }
 
-        String price = "¥" + goodsListBean.getPrice() * 1 + "";
-        goods_total_price.setText(price);
-        tv_use_point.setText(goodsListBean.getIntegral() + "");
 
 
     }
 
-    @Override
     public void isAddressSuccess(AddressBean addressBean) {
         this.addressBean = addressBean;
         tv_consignee_name.setText(addressBean.getName());
         tv_consignee_phone.setText(PhoneFormatCheckUtils.phoneAddress(addressBean.getMobile()));
         tv_consignee_address.setText(addressBean.getAddressName() + addressBean.getAddress());
 
-        grouponOrderPresenter.getFare(goodsListBean.getGoodsId(),addressBean.getAddressID(),goodsListBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
-    }
-
-    @Override
-    public void isAddressFail(String msg) {
-
+        grouponOrderPresenter.getFare(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),rightNowGoodsBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
     }
 
     @Override
     public void getOrderGetFareSuccess(FareBean fareBean) {
         this.fareBean = fareBean;
         tv_fare.setText(fareBean.getFare()+"");
-        totalPrice = goodsListBean.getPrice() * 1-fareBean.getFare()-goodsListBean.getIntegral();
+        totalPrice = rightNowGoodsBean.getPrice() * 1-fareBean.getFare()-rightNowGoodsBean.getIntegral();
         tv_total.setText("¥" + totalPrice);
         tv_total_price.setText(totalPrice + "");
     }
@@ -129,8 +127,25 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     }
 
     @Override
-    public void getRightNowBuySuccess(BuyBean buyBean) {
-        toast("asdasdasd");
+    public void getRightNowBuySuccess(RightNowBuyBean buyBean) {
+
+        this.rightNowBuyBean = buyBean;
+        this.addressBean = rightNowBuyBean.getAddress().get(0);
+        this.rightNowGoodsBean = rightNowBuyBean.getList().get(0);
+
+
+        if (addressBean != null){
+            isAddressSuccess(addressBean);
+        }
+
+        tv_goods_title.setText(buyBean.getList().get(0).getGoodsName());
+        Picasso.with(this).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
+        tv_goods_price.setText(buyBean.getList().get(0).getPrice()+"");
+        tv_coupon_price.setText("X" + buyBean.getList().get(0).getUseNumber());
+
+        String price = "¥" + buyBean.getList().get(0).getPrice() * 1 + "";
+        goods_total_price.setText(price);
+        tv_use_point.setText(buyBean.getList().get(0).getIntegral() + "");
     }
 
     @Override
@@ -150,8 +165,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
             case R.id.tv_place_order:
 
-                grouponOrderPresenter.rightNowBuy(goodsListBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareBean.getFare()+"",goodsListBean.getIntegral()+"","",ProApplication.SESSIONID(this));
+                grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
+                        ,fareBean.getFare()+"",rightNowGoodsBean.getIntegral()+"","",ProApplication.SESSIONID(this));
 
 
                 break;

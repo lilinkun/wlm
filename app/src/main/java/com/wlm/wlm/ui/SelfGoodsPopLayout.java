@@ -416,7 +416,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                     }else {
                         if (flowLayout.getSelectLabelDatas().size() > 0  && labael_size.getSelectLabelDatas().size() > 0){
-//                            onAddCart.addShopCart(selfGoodsBean, goodsChooseBean,num);
+                            onAddCart.addShopCart(goodsDetailBean, goodsChooseBean,num);
                         }else {
                             UToast.show(context,"请选择完整规格");
                         }
@@ -549,7 +549,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     }
 
     public interface OnAddCart{
-        public void addShopCart(SelfGoodsBean selfGoodsBean, GoodsChooseBean goodsChooseBean, int num);
+        public void addShopCart(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean, GoodsChooseBean goodsChooseBean, int num);
         public void delete();
         public void mRightNowBuy(GoodsDetailInfoBean selfGoodsBean, GoodsChooseBean goodsChooseBean, int num);
     }

@@ -27,6 +27,7 @@ import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
@@ -131,7 +132,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
             loadDialog();
             sureOrderPresenter.getAddress("1","200", ProApplication.SESSIONID(this));
-//            sureOrderPresenter.rightNowBuy(selfGoodsBean.getGoodsId(), attr_id, num, ProApplication.SESSIONID(this));
+            sureOrderPresenter.rightNowBuy(goodsDetailInfoBean.getGoodsId(), attr_id, num, ProApplication.SESSIONID(this));
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -163,9 +164,9 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
 
                         if (!isWxPay) {
-                            sureOrderPresenter.sureOrder(goodsids, attr_id, num, isFare + "",
-                                    point + "", total + "", addressBean.getAddressID(),
-                                    buyBean.getStoremodel().get(0).getTotal_amount() + "", ProApplication.SESSIONID(this));
+//                            sureOrderPresenter.sureOrder(goodsids, attr_id, num, isFare + "",
+//                                    point + "", total + "", addressBean.getAddressID(),
+//                                    buyBean.getStoremodel().get(0).getTotal_amount() + "", ProApplication.SESSIONID(this));
                         }else {
                             sureOrderPresenter.setWxPay(orderid,total+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(this));
                         }
@@ -214,7 +215,9 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     public void getOrderGetFareSuccess(FareBean fareBean) {
         isFare = fareBean.getFare();
         if (fareBean.getFare() == 0){
-            orderListAdapter.setFreight("免邮");
+            if (orderListAdapter != null) {
+                orderListAdapter.setFreight("免邮");
+            }
         }else {
             orderListAdapter.setFreight(fareBean.getFare()+"");
         }
@@ -227,9 +230,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
 
         tv_total.setText("¥" + total);
         tv_total_price.setText("¥" + total);
-        if (buyBean.getUsermodel().getAmount() > total){
 
-        }
     }
 
     @Override
@@ -359,7 +360,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
     public void isAddressSuccess(AddressBean addressBean) {
         this.addressBean = addressBean;
         setAddress(addressBean);
-        sureOrderPresenter.getFare(goodsDetailInfoBean.getGoodsId(),addressBean.getAddressID(),goodsDetailInfoBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
+//        sureOrderPresenter.getFare(goodsDetailInfoBean.getGoodsId(),addressBean.getAddressID(),goodsDetailInfoBean.getGoodsNumber()+"",goodsChooseBean.getAttr_id()+"",ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -414,7 +415,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         this.storeIds = storeIds;
         this.spec = spec;
         this.num = num;
-        getFare(buyBean.getUseraddressmodel().getProv(),buyBean.getUseraddressmodel().getCity());
+//        getFare(buyBean.getUseraddressmodel().getProv(),buyBean.getUseraddressmodel().getCity());
     }
 
     private void getFare(String provinceId,String cityId){
@@ -430,9 +431,7 @@ public class OrderActivity extends BaseActivity implements SureOrderContract, Or
         total = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         tv_total.setText("¥" + total);
         tv_total_price.setText("" + total);
-        if (buyBean.getUsermodel().getAmount() >= total){
-        }else {
-        }
+
     }
 
     @Override

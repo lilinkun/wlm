@@ -3,17 +3,10 @@ package com.wlm.wlm.contract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.FareBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.mvp.IView;
 
 public interface GrouponOrderContract extends IView {
-
-
-    /**
-     * 获取默认地址
-     * @param addressBean
-     */
-    public void isAddressSuccess(AddressBean addressBean);
-    public void isAddressFail(String msg);
 
 
     /**
@@ -25,6 +18,6 @@ public interface GrouponOrderContract extends IView {
     /**
      * 团购下单
      */
-    public void getRightNowBuySuccess(BuyBean buyBean);
+    public void getRightNowBuySuccess(RightNowBuyBean buyBean);
     public void getRightNowBuyFail(String msg);
 }

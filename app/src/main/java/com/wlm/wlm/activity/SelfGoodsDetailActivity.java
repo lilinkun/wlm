@@ -28,6 +28,7 @@ import com.wlm.wlm.base.BaseGoodsActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
 import com.wlm.wlm.db.DBManager;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectBean;
@@ -429,12 +430,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void addShopCart(SelfGoodsBean selfGoodsBean, GoodsChooseBean goodsChooseBean, int num) {
+    public void addShopCart(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean, GoodsChooseBean goodsChooseBean, int num) {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
         String attr_id = String.valueOf(goodsChooseBean.getAttr_id());
-        selfGoodsDetailPresenter.addCartAdd(selfGoodsBean.getGoods_id(), attr_id + "", num + "", ProApplication.SESSIONID(this));
+        selfGoodsDetailPresenter.addCartAdd(goodsDetailBean.getGoodsId(), attr_id + "", num + "", ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -456,7 +457,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         this.goodsChooseBean = goodsChooseBean;
         this.num = num + "";
 
-        selfGoodsDetailPresenter.isUserAddress(ProApplication.SESSIONID(this));
+        Bundle bundle = new Bundle();
+//        bundle.putString();
+        UiHelper.launcherBundle(this,GrouponOrderActivity.class,bundle);
+
+//        selfGoodsDetailPresenter.isUserAddress("1","20",ProApplication.SESSIONID(this));
 //        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
     }
 
@@ -590,7 +595,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void isAddressSuccess(String msg) {
+    public void isAddressSuccess(ArrayList<AddressBean> addressBeans) {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(WlmUtil.GOODSCHOOSEBEAN, goodsChooseBean);

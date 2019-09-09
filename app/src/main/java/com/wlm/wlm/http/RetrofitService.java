@@ -10,6 +10,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
@@ -20,11 +21,11 @@ import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderDetailBean;
-import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
@@ -224,7 +225,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> deleteGoods(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> deleteGoods(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -248,7 +249,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<ArrayList<OrderBean> ,Object>> getCartList(@FieldMap Map<String, String> params);
+    Observable<ResultBean<GoodsCartbean,Object>> getCartList(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -273,9 +274,14 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<GoodsListBean,Object>> getGrouponGoodDetail(@FieldMap Map<String, String> params);
+
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<String,Object>> grouponRightNowBuy(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<RightNowBuyBean,Object>> getGoodsOrderInfo(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片
