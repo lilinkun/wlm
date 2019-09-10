@@ -9,6 +9,15 @@ public class WxInfo {
     private String timeStamp;
     private String nonceStr;
     private String paySign;
+    private String partnerid;
+
+    public String getPartnerid() {
+        return partnerid;
+    }
+
+    public void setPartnerid(String partnerid) {
+        this.partnerid = partnerid;
+    }
 
     public String getAppId() {
         return appId;

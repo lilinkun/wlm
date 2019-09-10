@@ -23,19 +23,21 @@ import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
+import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.GrouponOrderPresenter;
 import com.wlm.wlm.ui.OrderPopupLayout;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
+import com.wlm.wlm.wxapi.WXPayEntryActivity;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class GrouponOrderActivity extends BaseActivity implements GrouponOrderContract, IOrderChoosePayTypeListener {
+public class GrouponOrderActivity extends BaseActivity implements GrouponOrderContract, IOrderChoosePayTypeListener, IWxResultListener {
 
     @BindView(R.id.tv_place_order)
     TextView tv_place_order;
@@ -101,6 +103,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
         rootView = new OrderPopupLayout(this);
 //        grouponOrderPresenter.getAddress("1","200", ProApplication.SESSIONID(this));
+
+        WXPayEntryActivity.setPayListener(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
@@ -186,7 +190,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
     @Override
     public void sureOrderSuccess(WxInfo wxInfo) {
-        WlmUtil.wxPay1(wxInfo.getAppId(),wxInfo.getPrepay_id(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
+        WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepay_id(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
 //        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 //        grouponOrderPresenter.getGoodsOrderInfo(ordersn,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
     }
@@ -249,5 +253,15 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
             isAddressSuccess(addressBean);
             grouponOrderPresenter.getFare(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),rightNowGoodsBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
         }
+    }
+
+    @Override
+    public void setWxSuccess() {
+        toast("asdasda");
+    }
+
+    @Override
+    public void setWxFail() {
+        toast("222222");
     }
 }
