@@ -134,6 +134,7 @@ public class GrouponOrderPresenter extends BasePresenter {
         params.put("OpenId",OpenId);
         params.put("OrderAmount",OrderAmount);
         params.put("Logo_ID",Logo_ID);
+        params.put("payType","1");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureGoodsOrder(params)
                 .subscribeOn(Schedulers.io())

@@ -5,34 +5,26 @@ package com.wlm.wlm.entity;
  */
 public class WxInfo {
     private String appId;
-    private String prepay_id;
+    private String prepayid;
     private String timeStamp;
     private String nonceStr;
     private String paySign;
     private String partnerid;
 
-    public String getPartnerid() {
-        return partnerid;
-    }
-
-    public void setPartnerid(String partnerid) {
-        this.partnerid = partnerid;
-    }
-
     public String getAppId() {
-        return appId;
+        return "wx11a116ef840f67f9";
     }
 
     public void setAppId(String appId) {
         this.appId = appId;
     }
 
-    public String getPrepay_id() {
-        return prepay_id;
+    public String getPrepayid() {
+        return prepayid;
     }
 
-    public void setPrepay_id(String prepay_id) {
-        this.prepay_id = prepay_id;
+    public void setPrepayid(String prepayid) {
+        this.prepayid = prepayid;
     }
 
     public String getTimeStamp() {
@@ -57,5 +49,13 @@ public class WxInfo {
 
     public void setPaySign(String paySign) {
         this.paySign = paySign;
+    }
+
+    public String getPartnerid() {
+        return partnerid;
+    }
+
+    public void setPartnerid(String partnerid) {
+        this.partnerid = partnerid;
     }
 }

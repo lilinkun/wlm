@@ -87,6 +87,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     private RightNowGoodsBean rightNowGoodsBean = null;
     private int goodsnum = 1;
     private String fareStr ;
+    private String type;
     private final int address_result = 0x123;
 
     @Override
@@ -113,6 +114,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         if (bundle != null && bundle.getSerializable(WlmUtil.RIGHTNOWBUYBEAN) != null){
             rightNowBuyBean = (RightNowBuyBean) bundle.getSerializable(WlmUtil.RIGHTNOWBUYBEAN);
             rightNowGoodsBean = rightNowBuyBean.getList().get(0);
+
+            type = bundle.getString(WlmUtil.TYPE);
 
             if (bundle.getInt(WlmUtil.GOODSNUM) != 0){
 
@@ -179,6 +182,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     public void getRightNowBuySuccess(String buyBean) {
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+
         grouponOrderPresenter.getGoodsOrderInfo(buyBean,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
 
     }
@@ -190,7 +194,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
     @Override
     public void sureOrderSuccess(WxInfo wxInfo) {
-        WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepay_id(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
+        WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepayid(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
 //        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 //        grouponOrderPresenter.getGoodsOrderInfo(ordersn,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
     }
@@ -211,9 +215,16 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 break;
 
             case R.id.tv_place_order:
-
+                String goodsType = "";
+                if (type.equals(WlmUtil.GROUPONGOODS)){
+                    goodsType = "2";
+                }else if (type.equals(WlmUtil.INTEGRAL)){
+                    goodsType = "1";
+                }else if (type.equals(WlmUtil.VIP)){
+                    goodsType = "4";
+                }
                 grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareStr,rightNowGoodsBean.getIntegral()+"","","2",ProApplication.SESSIONID(this));
+                        ,fareStr,rightNowGoodsBean.getIntegral()+"","",goodsType,ProApplication.SESSIONID(this));
 
 
                 break;

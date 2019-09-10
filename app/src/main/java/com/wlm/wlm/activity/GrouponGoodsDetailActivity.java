@@ -162,6 +162,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         Bundle bundle = new Bundle();
         bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN,orderListBeans);
         bundle.putInt(WlmUtil.GOODSNUM,1);
+        bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
         UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
     }
 

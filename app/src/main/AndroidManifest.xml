@@ -83,6 +83,7 @@
         <activity android:name=".activity.ManufactureStoreActivity" />
         <activity android:name=".activity.GrouponActivity" />
         <activity android:name=".activity.GoodsDetailActivity" />
+        <activity android:name=".activity.CustomerServiceActivity"/>
 
         <activity android:name=".activity.GrouponDetailActivity"/>
         <activity android:name=".activity.GrouponGoodsDetailActivity"/>

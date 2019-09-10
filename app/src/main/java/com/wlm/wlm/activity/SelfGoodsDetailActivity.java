@@ -600,6 +600,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         Bundle bundle = new Bundle();
         bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN, buyBean);
         bundle.putInt(WlmUtil.GOODSNUM,Integer.valueOf(num));
+        bundle.putString(WlmUtil.TYPE,type);
         UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
     }
 

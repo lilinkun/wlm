@@ -31,6 +31,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BindCardActivity;
 import com.wlm.wlm.activity.BrowseRecordsActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
+import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
@@ -119,7 +120,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,R.id.ll_customer_service})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -164,6 +165,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.ll_bind_card:
 
                     UiHelper.launcher(getActivity(), BindCardActivity.class);
+
+                    break;
+
+                case R.id.ll_customer_service:
+
+                    UiHelper.launcher(getActivity(), CustomerServiceActivity.class);
 
                     break;
 
