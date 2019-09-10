@@ -82,7 +82,7 @@ public class GrouponOrderPresenter extends BasePresenter {
     }
 
     /**
-     * 团购下单
+     * 确认下单
      * @param GoodsId
      * @param AddressID
      * @param Num
@@ -123,21 +123,21 @@ public class GrouponOrderPresenter extends BasePresenter {
                 }));
     }
 
-    public void getGoodsOrderInfo(String GoodsId,String AttrId,String Num,String SessionId){
+    public void getGoodsOrderInfo(String OrderSn,String OpenId,String OrderAmount,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
-        params.put("fun","GoodsBuyGet");
-        params.put("GoodsId",GoodsId);
-        params.put("attr_id",AttrId);
-        params.put("Num",Num);
+        params.put("fun","OrderInfoPay");
+        params.put("OrderSn",OrderSn);
+        params.put("OpenId",OpenId);
+        params.put("OrderAmount",OrderAmount);
         params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.getGoodsOrderInfo(params)
+        mCompositeSubscription.add(manager.sureGoodsOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<RightNowBuyBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(RightNowBuyBean rightNows, String status,Object page) {
+                    public void onResponse(String rightNows, String status,Object page) {
                         orderContract.getRightNowBuySuccess(rightNows);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -153,8 +153,6 @@ public class GrouponOrderPresenter extends BasePresenter {
                     }
                 }));
     }
-
-
 
 
 }

@@ -241,12 +241,8 @@
                     <include
                         layout="@layout/layout_integral_price"/>
 
-
                     <include
                         layout="@layout/goods_layout_common"/>
-
-
-
 
                     <TextView
                         android:layout_width="match_parent"

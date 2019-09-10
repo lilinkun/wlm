@@ -19,6 +19,8 @@
     <color name="white">#ffffffff</color>
     <color name="black">#000000</color>
 
+    <color name="integral_add_cart">#a28ac8</color>
+
     <color name="cart_text_bg">#ffebd4</color>
     
     <color name="vip_text_bg">#664630</color>

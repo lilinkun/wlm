@@ -464,4 +464,12 @@ public class DataManager {
         return mRetrofitService.getGoodsOrderInfo(mHashMap);
     }
 
+
+    /**
+     * 支付订单信息
+     */
+    public Observable<ResultBean<String,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
+        return mRetrofitService.sureGoodsOrder(mHashMap);
+    }
+
 }

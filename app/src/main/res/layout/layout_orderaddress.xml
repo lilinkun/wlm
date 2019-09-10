@@ -72,6 +72,17 @@
         
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_no_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_toRightOf="@+id/iv_location"
+        android:layout_toLeftOf="@+id/iv_address_right"
+        android:textColor="@color/black_333333"
+        android:text="请填写收货地址"/>
+
 
     <ImageView
         android:id="@+id/iv_address_right"

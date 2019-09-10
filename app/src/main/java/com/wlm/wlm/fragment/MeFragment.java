@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.BindCardActivity;
 import com.wlm.wlm.activity.BrowseRecordsActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
 import com.wlm.wlm.activity.IntegralActivity;
@@ -118,7 +119,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -157,6 +158,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     Bundle bundle4 = new Bundle();
                     bundle4.putInt("style", 0);
                     UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle4);
+
+                    break;
+
+                case R.id.ll_bind_card:
+
+                    UiHelper.launcher(getActivity(), BindCardActivity.class);
 
                     break;
 

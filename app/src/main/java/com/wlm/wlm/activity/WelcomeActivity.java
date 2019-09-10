@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
-    private TextView[] dots;
+    private ImageView[] dots;
     private int[] layouts;
     private Button btnNext;
     private PrefManager prefManager;
@@ -62,7 +63,8 @@ public class WelcomeActivity extends AppCompatActivity {
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
-                R.layout.welcome_slide3
+                R.layout.welcome_slide3,
+                R.layout.welcome_slide4
         };
         //添加点
         addBottomDots(0);
@@ -89,22 +91,33 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void addBottomDots(int currentPage){
-        dots = new TextView[layouts.length];
+        dots = new ImageView[layouts.length];
 
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
         dotsLayout.removeAllViews();
         for(int i = 0; i < dots.length; i++){
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));//圆点
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(colorsInactive[currentPage]);
+            dots[i] = new ImageView(this);
+//            dots[i].setText(Html.fromHtml("&#8226;"));//圆点
+//            dots[i].setTextSize(35);
+//            dots[i].setTextColor(colorsInactive[currentPage]);
+            if (currentPage%2 == 0) {
+                dots[i].setImageResource(R.mipmap.ic_welcome_unclick1);
+            }else {
+                dots[i].setImageResource(R.mipmap.ic_welcome_unclick2);
+            }
+            dots[i].setPadding(15,0,15,0);
             dotsLayout.addView(dots[i]);
         }
 
         if(dots.length > 0){
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
+            if (currentPage%2 == 0){
+                dots[currentPage].setImageResource(R.mipmap.ic_welcome_click1);
+            }else {
+                dots[currentPage].setImageResource(R.mipmap.ic_welcome_click2);
+            }
+//            dots[currentPage].setTextColor(colorsActive[currentPage]);
         }
     }
 

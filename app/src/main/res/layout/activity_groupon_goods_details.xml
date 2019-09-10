@@ -253,6 +253,40 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_15"
                             android:text="商品详情" />
+
+                        <WebView
+                            android:id="@+id/wv_goods_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </WebView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:background="@color/white"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_10"
+                                android:layout_marginLeft="@dimen/margin_15"
+                                android:layout_marginRight="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:text="@string/goods_recommend"
+                                android:textColor="@color/pop_text_bg"
+                                android:textSize="@dimen/textsize15" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_self_goods"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -260,12 +294,6 @@
 
 
         </RelativeLayout>
-
-        <WebView
-            android:id="@+id/wv_goods_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
-
     </com.wlm.wlm.slide.SlideDetailsLayout>
 
 

@@ -74,6 +74,8 @@
                         android:id="@+id/rl_pay_layout"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:visibility="gone"
                         android:background="@drawable/shape_info_pop">
 
                         <TextView
@@ -124,8 +126,6 @@
 
                     </RelativeLayout>
 
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -146,130 +146,6 @@
                             android:layout_height="0.5dp"
                             android:background="@color/line_bg" />
 
-                        <RelativeLayout
-                            android:id="@+id/rl_zfb"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_10"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/ic_order_zfb" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_5"
-                                    android:text="@string/pay_zfb" />
-
-                            </LinearLayout>
-
-                            <CheckBox
-                                android:id="@+id/check_zfb"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:button="@null"
-                                android:clickable="false"
-                                android:drawableLeft="@drawable/checkbox_bg" />
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_self"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_10">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/ic_order_self" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_5"
-                                    android:text="@string/pay_self" />
-
-                                <TextView
-                                    android:id="@+id/tv_pay_self"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
-                            </LinearLayout>
-
-                            <CheckBox
-                                android:id="@+id/check_self"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:button="@null"
-                                android:clickable="false"
-                                android:checked="true"
-                                android:drawableLeft="@drawable/checkbox_bg" />
-
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/line_bg" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_wx"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_10">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/ic_order_wx" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_5"
-                                    android:text="@string/pay_wx" />
-
-                            </LinearLayout>
-
-                            <CheckBox
-                                android:id="@+id/check_wx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:button="@null"
-                                android:clickable="false"
-                                android:checked="false"
-                                android:drawableLeft="@drawable/checkbox_bg" />
-
-                        </RelativeLayout>
-
 
                     </LinearLayout>
 
@@ -278,6 +154,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:background="@drawable/shape_info_pop"
+                        android:visibility="gone"
                         android:layout_marginTop="@dimen/margin_10">
 
                         <TextView
@@ -324,54 +201,6 @@
                         android:layout_marginTop="@dimen/margin_10"
                         android:background="@drawable/shape_info_pop">
 
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="44dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black_333333"
-                                android:layout_centerVertical="true"
-                                android:textSize="@dimen/textsize14"
-                                android:layout_marginLeft="@dimen/margin_10"
-                                android:text="@string/pay_invoice"/>
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:layout_marginRight="@dimen/margin_10"
-                                android:layout_alignParentRight="true"
-                                android:gravity="center">
-                                <TextView
-                                    android:id="@+id/tv_invoice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/list_divider"
-                                    android:textSize="@dimen/textsize14"
-                                    android:text="不开发票"/>
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/ic_right_arrow"
-                                    android:layout_marginLeft="@dimen/margin_10"
-                                    />
-
-                            </LinearLayout>
-
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginLeft="@dimen/margin_10"
-                            android:layout_marginRight="@dimen/margin_10"
-                            android:background="@color/line_bg"/>
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="44dp">
@@ -387,7 +216,7 @@
 
 
                             <TextView
-                                android:id="@+id/tv_use_point"
+                                android:id="@+id/tv_use_remarks"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -401,7 +230,9 @@
                     </LinearLayout>
 
 
-                    <include layout="@layout/pay_layout"/>
+                    <include
+                        android:id="@+id/pay_layout"
+                        layout="@layout/pay_layout"/>
 
                 </LinearLayout>
             </LinearLayout>

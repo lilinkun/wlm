@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.wlm.wlm.contract.GrouponGoodsDetailContract;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
@@ -56,6 +59,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     TextView tv_right_now_groupon;
     @BindView(R.id.tv_distance_ends)
     TextView tv_distance_ends;
+    @BindView(R.id.wv_goods_detail)
+    WebView wv_goods_detail;
 
     GoodsListBean goodsListBean = null;
     GrouponGoodsDetailPresenter grouponGoodsDetailPresenter = new GrouponGoodsDetailPresenter();
@@ -72,36 +77,18 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
-        if (bundle != null && bundle.getSerializable("groupongoods") != null){
+        if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null){
             goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
+
         }
 
         grouponGoodsDetailPresenter.onCreate(this,this);
         grouponGoodsDetailPresenter.getGoodsDetail(goodsListBean.getGoodsId(), ProApplication.SESSIONID(this));
 
-        tv_groupon_price.setText(goodsListBean.getPrice()+"");
-
-        tv_groupon_old_price.setText("¥" + goodsListBean.getMarketPrice());
-
-        tv_goods_name.setText(goodsListBean.getGoodsName());
-
-        tv_grounon_info.setText(goodsListBean.getGoodsTypeName());
-
         ArrayList<String> strings = new ArrayList<>();
         strings.add("adssasd");
         strings.add("afsdf");
 
-        tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-
-
-        if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
-            tv_right_now_groupon.setVisibility(View.GONE);
-            tv_distance_ends.setText("距开始");
-        }else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 1){
-            tv_distance_ends.setText("距结束");
-        }else {
-            tv_right_now_groupon.setVisibility(View.GONE);
-        }
 
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -136,10 +123,50 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
+        tv_groupon_price.setText(goodsListBean.getPrice()+"");
+
+        tv_groupon_old_price.setText("¥" + goodsListBean.getMarketPrice());
+
+        tv_goods_name.setText(goodsListBean.getGoodsName());
+
+        tv_grounon_info.setText(goodsListBean.getGoodsTypeName());
+
+        tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+        wv_goods_detail.getSettings().setJavaScriptEnabled(true);
+        wv_goods_detail.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
+                return false;
+            }
+        });
+        wv_goods_detail.loadUrl(goodsDetailBean.getMobileDesc());
+
+        if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
+            tv_right_now_groupon.setVisibility(View.GONE);
+            tv_distance_ends.setText("距开始");
+        }else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 1){
+            tv_distance_ends.setText("距结束");
+        }else {
+            tv_right_now_groupon.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void getDataFail(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void getRightNowBuySuccess(RightNowBuyBean orderListBeans) {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN,orderListBeans);
+        bundle.putInt(WlmUtil.GOODSNUM,1);
+        UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
+    }
+
+    @Override
+    public void getRightNowBuyFail(String msg) {
 
     }
 
@@ -162,9 +189,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
                 break;
 
             case R.id.tv_right_now_groupon:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsDetailBean);
-                UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
+                grouponGoodsDetailPresenter.rightNowBuy(goodsDetailBean.getGoodsId(),"","1",ProApplication.SESSIONID(this));
 //                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
 
                 break;

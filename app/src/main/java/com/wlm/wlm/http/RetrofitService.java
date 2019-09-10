@@ -283,6 +283,10 @@ public interface RetrofitService {
     @POST("Api/")
     Observable<ResultBean<RightNowBuyBean,Object>> getGoodsOrderInfo(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
+
     /**
      * 上传图片
      * @return

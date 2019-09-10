@@ -1,11 +1,12 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by LG on 2019/9/9.
  */
-public class RightNowGoodsBean {
+public class RightNowGoodsBean implements Serializable {
 
     private String BackSay;
     private String BeginDate;

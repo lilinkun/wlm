@@ -1,16 +1,17 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by LG on 2019/9/9.
  */
-public class RightNowBuyBean {
-    private String Money2Balance;
-    private String Money5Balance;
+public class RightNowBuyBean implements Serializable {
+    private String Money2Balance;//剩余积分
+    private String Money5Balance;//剩余余额
     private String Money1Balance;
     private String Money3Balance;
-    private String Integral;
+    private int Integral;
     private String GoodsAmount;
     private String Discount;
     private String OrderAmount;
@@ -51,11 +52,11 @@ public class RightNowBuyBean {
         Money3Balance = money3Balance;
     }
 
-    public String getIntegral() {
+    public int getIntegral() {
         return Integral;
     }
 
-    public void setIntegral(String integral) {
+    public void setIntegral(int integral) {
         Integral = integral;
     }
 

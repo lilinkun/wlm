@@ -11,6 +11,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.PageBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -250,27 +251,35 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
      * @param SessionId
      */
     public void rightNowBuy(String GoodsId,String AttrId,String Num,String SessionId){
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","生成订单中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","Buy");
+        params.put("cls","OrderInfo");
+        params.put("fun","GoodsBuyGet");
         params.put("GoodsId",GoodsId);
-        params.put("AttrId",AttrId);
+        params.put("attr_id",AttrId);
         params.put("Num",Num);
         params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.rightNowBuy(params)
+        mCompositeSubscription.add(manager.getGoodsOrderInfo(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BuyBean,Object>() {
+                .subscribe(new HttpResultCallBack<RightNowBuyBean,Object>() {
                     @Override
-                    public void onResponse(BuyBean rightNows, String status,Object page) {
+                    public void onResponse(RightNowBuyBean rightNows, String status,Object page) {
                         selfGoodsDetailContract.getRightNowBuySuccess(rightNows);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         selfGoodsDetailContract.getRightNowBuyFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
                 }));
+
     }
 
     /**

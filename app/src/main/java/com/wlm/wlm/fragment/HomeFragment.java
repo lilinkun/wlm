@@ -26,6 +26,7 @@ import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
+import com.wlm.wlm.activity.StrategyActivity;
 import com.wlm.wlm.activity.VipActivity;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
@@ -93,6 +94,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     LinearLayout ll_membership;
     @BindView(R.id.mPtrframe)
     CusPtrClassicFrameLayout mPtrFrame;
+    @BindView(R.id.ll_strategy)
+    LinearLayout ll_strategy;
 
     private PopupWindow popupWindow;
     private int PAGE_INDEX = 1;
@@ -165,7 +168,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
-            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding})
+            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding,R.id.ll_strategy})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -228,6 +231,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 case R.id.ll_crowd_funding:
 
                     UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
+
+                    break;
+
+                case R.id.ll_strategy:
+
+                    UiHelper.launcher(getActivity(), StrategyActivity.class);
+
 
                     break;
 

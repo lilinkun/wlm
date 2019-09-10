@@ -119,6 +119,7 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
+        bundle.putString(WlmUtil.TYPE,WlmUtil.VIP);
         UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
     }
 }

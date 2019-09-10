@@ -1,5 +1,7 @@
 package com.wlm.wlm.activity;
 
+import android.view.View;
+
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -17,6 +19,7 @@ import com.xw.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class CrowdFundingActivity extends BaseActivity implements OnBannerListener, IGoodsTypeListener {
 
@@ -85,7 +88,7 @@ public class CrowdFundingActivity extends BaseActivity implements OnBannerListen
 
                 break;
 
-            case 3:
+            case 3://销量上
 
                 break;
 
@@ -101,6 +104,17 @@ public class CrowdFundingActivity extends BaseActivity implements OnBannerListen
 
             case 6://价格下
 
+
+                break;
+        }
+    }
+
+    @OnClick({R.id.ll_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.ll_back:
+
+                finish();
 
                 break;
         }

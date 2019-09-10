@@ -35,6 +35,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
@@ -93,6 +94,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     TranslucentScrollView translucentScrollView;
     @BindView(R.id.rl_add_cart)
     RelativeLayout rl_add_cart;
+    @BindView(R.id.rl_immediate_purchase)
+    RelativeLayout rl_immediate_purchase;
     @BindView(R.id.rl_rush)
     RelativeLayout rl_rush;
 //    @BindView(R.id.rl_rush_org)
@@ -121,6 +124,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     TextView tv_details_goods_add_price;
     @BindView(R.id.tv_macket_price)
     TextView tv_macket_price;
+    @BindView(R.id.ll_service)
+    LinearLayout ll_service;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -169,6 +174,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             ll_layout_integral_price.setVisibility(View.VISIBLE);
             mGoodsNameTv.setVisibility(View.GONE);
             rl_rush.setVisibility(View.GONE);
+            rl_add_cart.setBackgroundColor(getResources().getColor(R.color.integral_add_cart));
+            rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.integral_bg));
+            ll_service.setVisibility(View.GONE);
+        }else if (type.equals(WlmUtil.VIP)){
+            rl_add_cart.setVisibility(View.GONE);
         }
 
 
@@ -259,10 +269,16 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsNumber()) == 0){
                         toast("库存不足，无法下单");
                     }else {
-                        if (popupWindow != null) {
-                            iv_bg.setVisibility(View.VISIBLE);
-                            selfGoodsPopLayout.setPosition(2);
-                            popupWindow.showAtLocation(relativeLayout, Gravity.CENTER | Gravity.CENTER, 0, 0);
+                        if (type.equals(WlmUtil.VIP)){
+                            if (goodsDetailBean != null) {
+                                mRightNowBuy(goodsDetailBean, null, 1);
+                            }
+                        }else {
+                            if (popupWindow != null) {
+                                iv_bg.setVisibility(View.VISIBLE);
+                                selfGoodsPopLayout.setPosition(2);
+                                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER | Gravity.CENTER, 0, 0);
+                            }
                         }
                     }
                     break;
@@ -457,12 +473,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         this.goodsChooseBean = goodsChooseBean;
         this.num = num + "";
 
-        Bundle bundle = new Bundle();
-//        bundle.putString();
-        UiHelper.launcherBundle(this,GrouponOrderActivity.class,bundle);
-
 //        selfGoodsDetailPresenter.isUserAddress("1","20",ProApplication.SESSIONID(this));
-//        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
+        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
     }
 
 
@@ -583,10 +595,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void getRightNowBuySuccess(BuyBean buyBean) {
+    public void getRightNowBuySuccess(RightNowBuyBean buyBean) {
+
         Bundle bundle = new Bundle();
-        bundle.putSerializable("order", buyBean);
-        UiHelper.launcherBundle(this, OrderActivity.class, bundle);
+        bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN, buyBean);
+        bundle.putInt(WlmUtil.GOODSNUM,Integer.valueOf(num));
+        UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
     }
 
     @Override
