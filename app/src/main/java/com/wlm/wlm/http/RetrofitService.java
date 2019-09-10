@@ -33,6 +33,7 @@ import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.entity.WxRechangeBean;
 
 import java.util.ArrayList;
@@ -285,7 +286,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<String,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
+    Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

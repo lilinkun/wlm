@@ -36,6 +36,7 @@ import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.RetrofitHelper;
 import com.wlm.wlm.http.RetrofitService;
@@ -468,7 +469,7 @@ public class DataManager {
     /**
      * 支付订单信息
      */
-    public Observable<ResultBean<String,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.sureGoodsOrder(mHashMap);
     }
 

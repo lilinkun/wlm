@@ -21,6 +21,7 @@ import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RightNowGoodsBean;
+import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.presenter.GrouponOrderPresenter;
 import com.wlm.wlm.ui.OrderPopupLayout;
@@ -173,6 +174,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     @Override
     public void getRightNowBuySuccess(String buyBean) {
 
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        grouponOrderPresenter.getGoodsOrderInfo(buyBean,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
 
     }
 
@@ -182,9 +185,10 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     }
 
     @Override
-    public void sureOrderSuccess(String ordersn) {
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        grouponOrderPresenter.getGoodsOrderInfo(ordersn,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"",ProApplication.SESSIONID(this));
+    public void sureOrderSuccess(WxInfo wxInfo) {
+        WlmUtil.wxPay1(wxInfo.getAppId(),wxInfo.getPrepay_id(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
+//        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+//        grouponOrderPresenter.getGoodsOrderInfo(ordersn,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -205,7 +209,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
             case R.id.tv_place_order:
 
                 grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareStr,rightNowGoodsBean.getIntegral()+"","",ProApplication.SESSIONID(this));
+                        ,fareStr,rightNowGoodsBean.getIntegral()+"","","2",ProApplication.SESSIONID(this));
 
 
                 break;

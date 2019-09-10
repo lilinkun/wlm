@@ -6,15 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.wlm.wlm.slide.SlideDetailsLayout
-        android:id="@+id/slidedetails"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_bottom">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <com.wlm.wlm.ui.TranslucentScrollView
                 android:id="@+id/tsv_home"
@@ -240,13 +232,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        android:gravity="center"
-                        android:background="@color/white"
-                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -288,13 +273,10 @@
                             </android.support.v7.widget.RecyclerView>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
             </com.wlm.wlm.ui.TranslucentScrollView>
 
 
-        </RelativeLayout>
-    </com.wlm.wlm.slide.SlideDetailsLayout>
 
 
     <TextView

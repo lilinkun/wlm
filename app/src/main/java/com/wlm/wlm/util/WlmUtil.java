@@ -177,6 +177,32 @@ public class WlmUtil {
         }
     }
 
+    public static void wxPay1(String appid,String prepayId,String nonceStr,String timeStamp,String sign,Context context) {
+        Toast.makeText(context, "获取订单中...", Toast.LENGTH_SHORT).show();
+        IWXAPI api = WXAPIFactory.createWXAPI(context, null);
+        api.registerApp(appid);
+        try {
+//            org.json.JSONObject json = new org.json.JSONObject(result);
+//            if (null != json && !json.has("retcode")) {
+            PayReq req = new PayReq();
+            req.appId = appid;
+            req.prepayId = prepayId;
+            req.nonceStr = nonceStr;
+            req.timeStamp = timeStamp;
+            req.packageValue = "Sign=WXPay";
+            req.sign = sign;
+            req.extData = "app data";
+            api.sendReq(req);
+//            } else {
+//                Log.d("PAY_GET", "返回错误" + json.getString("retmsg"));
+//                Toast.makeText(this, "返回错误" + json.getString("retmsg"), Toast.LENGTH_SHORT).show();
+//            }
+        } catch (Exception e) {
+            Log.e("PAY_GET", "异常：" + e.getMessage());
+            Toast.makeText(context, "异常：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public static String getCurDate(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
@@ -214,5 +240,6 @@ public class WlmUtil {
             return 2;
         }
     }
+
 
 }

@@ -8,6 +8,7 @@ import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -88,11 +89,11 @@ public class GrouponOrderPresenter extends BasePresenter {
      * @param Num
      * @param SessionId
      */
-    public void rightNowBuy(String GoodsId,String AddressID,String Num,String OrderAmount,String ShippingFree,String Integral,String PostScript ,String SessionId){
+    public void rightNowBuy(String GoodsId,String AddressID,String Num,String OrderAmount,String ShippingFree,String Integral,String PostScript,String OrderType,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","下单中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
-        params.put("fun","OrderInfoTeamAdd");
+        params.put("fun","OrderInfo_Add");
         params.put("GoodsId",GoodsId);
         params.put("AddressID",AddressID);
         params.put("Num",Num);
@@ -100,14 +101,15 @@ public class GrouponOrderPresenter extends BasePresenter {
         params.put("ShippingFree",ShippingFree);
         params.put("Integral",Integral);
         params.put("PostScript",PostScript);
+        params.put("OrderType",OrderType);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.grouponRightNowBuy(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(String String, String status,Object page) {
-//                        orderContract.getRightNowBuySuccess(rightNows);
+                    public void onResponse(String rightNows, String status,Object page) {
+                        orderContract.getRightNowBuySuccess(rightNows);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -123,7 +125,7 @@ public class GrouponOrderPresenter extends BasePresenter {
                 }));
     }
 
-    public void getGoodsOrderInfo(String OrderSn,String OpenId,String OrderAmount,String SessionId){
+    public void getGoodsOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
@@ -131,14 +133,15 @@ public class GrouponOrderPresenter extends BasePresenter {
         params.put("OrderSn",OrderSn);
         params.put("OpenId",OpenId);
         params.put("OrderAmount",OrderAmount);
+        params.put("Logo_ID",Logo_ID);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureGoodsOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<WxInfo,Object>() {
                     @Override
-                    public void onResponse(String rightNows, String status,Object page) {
-                        orderContract.getRightNowBuySuccess(rightNows);
+                    public void onResponse(WxInfo rightNows, String status, Object page) {
+                        orderContract.sureOrderSuccess(rightNows);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -146,7 +149,7 @@ public class GrouponOrderPresenter extends BasePresenter {
 
                     @Override
                     public void onErr(String msg, String status) {
-                        orderContract.getRightNowBuyFail(msg);
+                        orderContract.sureOrderFail(msg);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
