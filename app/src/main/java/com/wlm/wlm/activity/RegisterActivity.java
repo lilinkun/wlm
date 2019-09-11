@@ -56,7 +56,7 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
 //        progressDialog = new ProgressDialog(this);
 //        progressDialog.setMessage(getResources().getString(R.string.login_loading));
-//        progressDialog.setCancelable(true);
+//        progressDialog.setCancelable(true);getVcode
     }
 
 

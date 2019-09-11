@@ -76,8 +76,9 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-                bundle.putString(WlmUtil.GOODSNUM,"1");
+                bundle.putInt(WlmUtil.GOODSNUM,1);
                 bundle.putString(WlmUtil.ATTRID,"");
+                bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
                 UiHelper.launcherBundle(context, GrouponOrderActivity.class,bundle);
             }
         });

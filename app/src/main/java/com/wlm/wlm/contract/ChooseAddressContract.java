@@ -17,6 +17,6 @@ public interface ChooseAddressContract extends IView{
     public void deleteSuccess();
     public void deleteFail(String msg);
 
-    public void isDefaultSuccess(CollectDeleteBean collectDeleteBean);
+    public void isDefaultSuccess(String isDefaultStr);
     public void isDefaultFail(String msg);
 }

@@ -145,8 +145,9 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
     }
 
     @Override
-    public void isDefaultSuccess(CollectDeleteBean collectDeleteBean) {
+    public void isDefaultSuccess(String isDefault) {
         toast("设置默认成功");
+        chooseAddressPresenter.getAddress("1", "40", ProApplication.SESSIONID(this));
     }
 
     @Override

@@ -220,7 +220,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> isDefault(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> isDefault(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

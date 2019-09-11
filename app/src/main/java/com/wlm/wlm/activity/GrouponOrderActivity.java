@@ -80,6 +80,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     TextView tv_goods_spec2;
     @BindView(R.id.tv_goods_consignee_name)
     TextView tv_goods_consignee_name;
+    @BindView(R.id.tv_use_remarks)
+    TextView tv_use_remarks;
 
     private GrouponOrderPresenter grouponOrderPresenter = new GrouponOrderPresenter();
 
@@ -165,7 +167,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         this.rightNowBuyBean = orderListBeans;
         rightNowGoodsBean = rightNowBuyBean.getList().get(0);
 
-        if (rightNowGoodsBean.getGoodsAttr() != null){
+        if (rightNowGoodsBean.getGoodsAttr() != null && rightNowGoodsBean.getGoodsAttr().size() > 0){
             goodsChooseBean = rightNowGoodsBean.getGoodsAttr().get(0);
         }
 
@@ -268,7 +270,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 }
 
                 grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareStr,rightNowGoodsBean.getIntegral()+"","",goodsType,sttr_id,ProApplication.SESSIONID(this));
+                        ,fareStr,rightNowGoodsBean.getIntegral()+"",tv_use_remarks.getText().toString(),goodsType,sttr_id,ProApplication.SESSIONID(this));
 
 
                 break;

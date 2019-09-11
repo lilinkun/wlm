@@ -76,6 +76,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     TextView tv_no_address;
     @BindView(R.id.tv_goods_consignee_name)
     TextView tv_goods_consignee_name;
+    @BindView(R.id.tv_use_remarks)
+    TextView tv_use_remarks;
 
     SureOrderPresenter sureOrderPresenter = new SureOrderPresenter();
     CartOrderListAdapter orderListAdapter;
@@ -144,7 +146,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                     } else {
                         int point = Integer.valueOf(tv_use_point.getText().toString());
 
-                        sureOrderPresenter.sureSelfOrder( addressBean.getAddressID(),mount + "",tv_fare.getText().toString(),  point + "", "",ProApplication.SESSIONID(this));
+                        sureOrderPresenter.sureSelfOrder( addressBean.getAddressID(),mount + "",tv_fare.getText().toString(),  point + "", tv_use_remarks.getText().toString(),ProApplication.SESSIONID(this));
 
                     }
 
@@ -268,7 +270,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
     private void getFare(String provinceId, String cityId) {
 
-        sureOrderPresenter.getFares(cartid, addressBean.getAddressID(), ProApplication.SESSIONID(this));
+//        sureOrderPresenter.getFares(cartid, addressBean.getAddressID(), ProApplication.SESSIONID(this));
     }
 
     @Override

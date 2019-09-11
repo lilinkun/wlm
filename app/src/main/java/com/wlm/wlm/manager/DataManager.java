@@ -316,7 +316,7 @@ public class DataManager {
     /**
      *　设置默认地址
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> isDefault(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> isDefault(HashMap<String,String> mHashMap){
         return mRetrofitService.isDefault(mHashMap);
     }
 

@@ -125,11 +125,11 @@ public class ChooseAddressPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.isDefault(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean ,Object>() {
+                .subscribe(new HttpResultCallBack<String ,Object>() {
 
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
-                        chooseAddressContract.isDefaultSuccess(collectDeleteBean);
+                    public void onResponse(String isDefaultStr, String status,Object page) {
+                        chooseAddressContract.isDefaultSuccess(isDefaultStr);
                     }
 
                     @Override

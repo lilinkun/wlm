@@ -78,6 +78,7 @@
     <string name="setting_update">在线升级</string>
     <string name="setting_delete_cache">清除缓存</string>
     <string name="setting_exit_login">退出登录</string>
+    <string name="about_app">关于唯乐美</string>
     
     <!--我的-->
     <string name="me_balance">余额</string>
@@ -106,9 +107,10 @@
     <string name="personal_over">完成</string>
     <string name="personal_head_face">头像</string>
     <string name="personal_nickname">昵称</string>
-    <string name="personal_phone">手机</string>
+    <string name="personal_phone">手机号</string>
     <string name="take_photo">拍摄</string>
     <string name="system_photo">从相册选择</string>
+    <string name="pay_psd">支付密码</string>
 
     <!--搜索-->
     <string name="search_hint">抢大额神券</string>

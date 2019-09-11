@@ -37,6 +37,7 @@ import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.PersonalInfoPresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.RoundImageView;
+import com.wlm.wlm.util.DataCleanManager;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.FileImageUpload;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
@@ -66,6 +67,8 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     TextView nickName;
     @BindView(R.id.tv_phone)
     TextView tv_phone;
+    @BindView(R.id.tv_clear)
+    TextView tv_clear;
 
     private PopupWindow popupWindow = null;
     private static final int IMAGEBUNDLE = 0x221;
@@ -108,9 +111,18 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         personalInfoPresenter.onCreate(this,this);
         personalInfoPresenter.getInfo(ProApplication.SESSIONID(this));
 
+        try {
+            String cacheSize = DataCleanManager.getTotalCacheSize(this);
+            if (!cacheSize.equals("0K")) {
+                tv_clear.setText(cacheSize);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right})
+    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_head_title_info:
@@ -189,6 +201,16 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             case R.id.iv_head_right:
 
 //                personalInfoPresenter.getInfo();
+
+                break;
+
+            case R.id.rl_clear:
+
+                DataCleanManager.clearAllCache(this);
+                if (tv_clear.getText().toString().length() > 0) {
+                    toast("清除缓存成功");
+                }
+                tv_clear.setText("");
 
                 break;
         }
