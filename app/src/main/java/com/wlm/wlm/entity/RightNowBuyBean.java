@@ -6,49 +6,49 @@ import java.util.ArrayList;
 /**
  * Created by LG on 2019/9/9.
  */
-public class RightNowBuyBean implements Serializable {
-    private String Money2Balance;//剩余积分
-    private String Money5Balance;//剩余余额
-    private String Money1Balance;
-    private String Money3Balance;
+public class RightNowBuyBean<T> implements Serializable {
+    private double Money2Balance;//剩余积分
+    private double Money5Balance;//剩余余额
+    private double Money1Balance;
+    private double Money3Balance;
     private int Integral;
     private String GoodsAmount;
     private String Discount;
-    private String OrderAmount;
-    private String ShippingFree;
+    private double OrderAmount;
+    private double ShippingFree;
     private String Weight;
     private ArrayList<AddressBean> Address;
-    private ArrayList<RightNowGoodsBean> list;
+    private ArrayList<T> list;
 
-    public String getMoney2Balance() {
+    public double getMoney2Balance() {
         return Money2Balance;
     }
 
-    public void setMoney2Balance(String money2Balance) {
+    public void setMoney2Balance(double money2Balance) {
         Money2Balance = money2Balance;
     }
 
-    public String getMoney5Balance() {
+    public double getMoney5Balance() {
         return Money5Balance;
     }
 
-    public void setMoney5Balance(String money5Balance) {
+    public void setMoney5Balance(double money5Balance) {
         Money5Balance = money5Balance;
     }
 
-    public String getMoney1Balance() {
+    public double getMoney1Balance() {
         return Money1Balance;
     }
 
-    public void setMoney1Balance(String money1Balance) {
+    public void setMoney1Balance(double money1Balance) {
         Money1Balance = money1Balance;
     }
 
-    public String getMoney3Balance() {
+    public double getMoney3Balance() {
         return Money3Balance;
     }
 
-    public void setMoney3Balance(String money3Balance) {
+    public void setMoney3Balance(double money3Balance) {
         Money3Balance = money3Balance;
     }
 
@@ -76,19 +76,19 @@ public class RightNowBuyBean implements Serializable {
         Discount = discount;
     }
 
-    public String getOrderAmount() {
+    public double getOrderAmount() {
         return OrderAmount;
     }
 
-    public void setOrderAmount(String orderAmount) {
+    public void setOrderAmount(double orderAmount) {
         OrderAmount = orderAmount;
     }
 
-    public String getShippingFree() {
+    public double getShippingFree() {
         return ShippingFree;
     }
 
-    public void setShippingFree(String shippingFree) {
+    public void setShippingFree(double shippingFree) {
         ShippingFree = shippingFree;
     }
 
@@ -108,11 +108,11 @@ public class RightNowBuyBean implements Serializable {
         Address = address;
     }
 
-    public ArrayList<RightNowGoodsBean> getList() {
+    public ArrayList<T> getList() {
         return list;
     }
 
-    public void setList(ArrayList<RightNowGoodsBean> list) {
+    public void setList(ArrayList<T> list) {
         this.list = list;
     }
 }

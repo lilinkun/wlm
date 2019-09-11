@@ -15,18 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.OrderActivity;
-import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.StoreActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.ChildListBean;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
-import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 

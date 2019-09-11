@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.wlm.wlm.contract.OpinionContract;
 import com.wlm.wlm.contract.OrderContract;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
@@ -154,21 +155,48 @@ public class OrderPresenter extends BasePresenter {
      */
     public void isUserAddress(String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","Is_UserAddress");
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddress_GetListIsDefault");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getIsAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>,Object>() {
                     @Override
-                    public void onResponse(String string, String status,Object page) {
-                        orderContract.isAddressFail(string);
+                    public void onResponse(ArrayList<AddressBean> string, String status,Object page) {
+                        orderContract.isAddressSuccess(string);
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         orderContract.isAddressFail(msg);
+                    }
+                }));
+    }
+
+    /**
+     * 购物车下单
+     * @param CartId
+     * @param SessionId
+     */
+    public void getOrderInfo(String CartId,String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Cart");
+        params.put("fun","CartIdSaveRedis");
+        params.put("CartId",CartId);
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getOrderInfo(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<String,Object>() {
+                    @Override
+                    public void onResponse(String s, String status,Object page) {
+                        orderContract.cartOrderBuySuccess(s);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        orderContract.cartOrderBuyFail(msg);
                     }
                 }));
     }

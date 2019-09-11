@@ -3,6 +3,7 @@ package com.wlm.wlm.http;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BuyBean;
+import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.CategoryListBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -26,6 +27,7 @@ import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
@@ -166,7 +168,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<String,Object>> getIsAddress(@FieldMap Map<String, String> params);
+    Observable<ResultBean<ArrayList<AddressBean>,Object>> getIsAddress(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -182,7 +184,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<BuyBean,Object>> rightNowBuy(@FieldMap Map<String, String> params);
+    Observable<ResultBean<RightNowBuyBean<CartBuyBean>,Object>> rightNowBuy(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -198,7 +200,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> sureOrder(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> sureOrder(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -282,11 +284,15 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<RightNowBuyBean,Object>> getGoodsOrderInfo(@FieldMap Map<String, String> params);
+    Observable<ResultBean<RightNowBuyBean<RightNowGoodsBean>,Object>> getGoodsOrderInfo(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> getOrderInfo(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

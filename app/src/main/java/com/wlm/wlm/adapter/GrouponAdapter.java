@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.GrouponDetailActivity;
-import com.wlm.wlm.activity.OrderActivity;
+import com.wlm.wlm.activity.GrouponOrderActivity;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
@@ -20,10 +19,7 @@ import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * 拼团adapter
@@ -79,8 +75,10 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("groupongoods",goodsListBeans.get(position));
-                UiHelper.launcherBundle(context, OrderActivity.class,bundle);
+                bundle.putSerializable(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
+                bundle.putString(WlmUtil.GOODSNUM,"1");
+                bundle.putString(WlmUtil.ATTRID,"");
+                UiHelper.launcherBundle(context, GrouponOrderActivity.class,bundle);
             }
         });
     }

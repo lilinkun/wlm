@@ -83,7 +83,7 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
         textViewList.add(tx_top);
 
         if (type == 2){
-            tx_host.setText(getResources().getString(R.string.groupon_num));
+            tx_host.setText(getResources().getString(R.string.groupon_all));
             iv_host_arrow.setVisibility(VISIBLE);
         }else if (type == 3){
             rl_host.setVisibility(GONE);

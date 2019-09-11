@@ -6,9 +6,12 @@ import android.content.Context;
 import com.wlm.wlm.contract.SureOrderContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BuyBean;
+import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -51,62 +54,24 @@ public class SureOrderPresenter extends BasePresenter {
         }
     }
 
-    /**
-     * 立即购买
-     * @param GoodsId
-     * @param AttrId
-     * @param Num
-     * @param SessionId
-     */
-    public void rightNowBuy(String GoodsId,String AttrId,String Num,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","Buy");
-        params.put("GoodsId",GoodsId);
-        params.put("AttrId",AttrId);
-        params.put("Num",Num);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.rightNowBuy(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BuyBean,Object>() {
-                    @Override
-                    public void onResponse(BuyBean rightNows, String status,Object page) {
-                        sureOrderContract.getRightNowBuySuccess(rightNows);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
 
-                    @Override
-                    public void onErr(String msg, String status) {
-                        sureOrderContract.getRightNowBuyFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-                }));
-    }
 
     /**
      * 购物车购买
-     * @param CartId
      * @param SessionId
      */
-    public void cartBuy(String CartId,String SessionId){
+    public void cartBuy(String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","购物车购买中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","CartOrderBuy");
-        params.put("CartId",CartId);
+        params.put("cls","Cart");
+        params.put("fun","Cart_GetLitsByAdd");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.rightNowBuy(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BuyBean,Object>() {
+                .subscribe(new HttpResultCallBack<RightNowBuyBean<CartBuyBean>,Object>() {
                     @Override
-                    public void onResponse(BuyBean rightNows, String status,Object page) {
+                    public void onResponse(RightNowBuyBean<CartBuyBean> rightNows, String status, Object page) {
                         sureOrderContract.getRightNowBuySuccess(rightNows);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
@@ -198,86 +163,25 @@ public class SureOrderPresenter extends BasePresenter {
 
     /**
      * 确认订单
-     * @param GoodsId
-     * @param AttrId
-     * @param Num
-     * @param Fare
-     * @param UseIntegral
-     * @param PayAmount
-     * @param AddressId
-     * @param GoodsAmount
-     * @param SessionId
      */
-    public void sureOrder(String GoodsId,String AttrId,String Num,String Fare,String UseIntegral,String PayAmount,String AddressId,String GoodsAmount,String SessionId){
-
+    public void sureSelfOrder(String AddressID,String OrderAmount,String ShippingFree,String Integral,String PostScript,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","提交订单中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","BuySave");
-        params.put("GoodsId",GoodsId);
-        params.put("AttrId",AttrId);
-        params.put("Num",Num);
-        params.put("Fare",Fare);
-        params.put("UseIntegral",UseIntegral);
-        params.put("OrderAmount",PayAmount);
-        params.put("AddressId",AddressId);
-        params.put("GoodsAmount",GoodsAmount);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.sureOrder(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
-                    @Override
-                    public void onResponse(CollectDeleteBean fareBean, String status,Object page) {
-                        sureOrderContract.sureOrderSuccess(fareBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-                        sureOrderContract.getOrderGetFareFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-                }));
-    }
-
- /**
-     * 确认订单
-     * @param Point
-     * @param CartId
-     * @param OrderAmount
-     * @param Frares
-     * @param UseIntegral
-     * @param ShippingFee
-     * @param AddressId
-     * @param GoodsAmount
-     * @param SessionId
-     */
-    public void sureSelfOrder(String Point,String CartId,String ShippingFee,String Frares,String UseIntegral,String OrderAmount,String AddressId,String GoodsAmount,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","提交订单中...",true);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","CartBuySave");
-        params.put("Point",Point);
-        params.put("CartId",CartId);
-        params.put("ShippingFee",ShippingFee);
-        params.put("Frares",Frares);
-        params.put("UseIntegral",UseIntegral);
+        params.put("cls","OrderInfo");
+        params.put("fun","Order_Cart_Add");
+        params.put("AddressID",AddressID);
+        params.put("ShippingFree",ShippingFree);
+        params.put("Integral",Integral);
         params.put("OrderAmount",OrderAmount);
-        params.put("AddressId",AddressId);
-        params.put("GoodsAmount",GoodsAmount);
+        params.put("PostScript",PostScript);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean fareBean, String status,Object page) {
-                        sureOrderContract.sureOrderSuccess(fareBean);
+                    public void onResponse(String orderid, String status,Object page) {
+                        sureOrderContract.sureOrderSuccess(orderid);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -293,106 +197,5 @@ public class SureOrderPresenter extends BasePresenter {
                 }));
     }
 
-    /**
-     * 余额支付
-     */
-    public void selfPay(String PayPwd,String OrderNo,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","余额支付中...",true);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","BankNoPay");
-        params.put("PayPwd",PayPwd);
-        params.put("OrderNo",OrderNo);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.selfPay(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
-                    @Override
-                    public void onResponse(CollectDeleteBean fareBean, String status,Object page) {
-                        sureOrderContract.selfPaySuccess(fareBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
 
-                    @Override
-                    public void onErr(String msg, String status) {
-                        sureOrderContract.selfPayFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-                }));
-    }
-
-
-    public void setWxPay(String Batch_No,String Charge_Amt,String Logo_ID,String Charge_Type,String apptype,String apppackage,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","微信支付中...",true);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankCharge");
-        params.put("fun","BankChargeRecharge");
-        params.put("Batch_No",Batch_No);
-        params.put("Charge_Amt",Charge_Amt);
-        params.put("Logo_ID",Logo_ID);
-        params.put("Charge_Type",Charge_Type);
-        params.put("apptype",apptype);
-        params.put("apppackage",apppackage);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.wxPay(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<WxRechangeBean,Object>() {
-                    @Override
-                    public void onResponse(WxRechangeBean fareBean, String status,Object page) {
-                        sureOrderContract.wxInfoSuccess(fareBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-                        sureOrderContract.wxInfoFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-                }));
-    }
-
-    /**
-     * 获取收货地址
-     * @param PageIndex
-     * @param PageCount
-     * @param SessionId
-     */
-    public void getAddress(String PageIndex,String PageCount,String SessionId){
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddressList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("SessionId",SessionId);
-
-        mCompositeSubscription.add(manager.getConsigneeAddress(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>, Object>() {
-                    @Override
-                    public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
-                        for (AddressBean addressBean : addressBeans){
-
-                            if (addressBean.isDefault()){
-                                sureOrderContract.isAddressSuccess(addressBean);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onErr(String msg, String status) {
-                        sureOrderContract.isAddressFail(msg);
-                    }
-                })
-        );
-    }
 }

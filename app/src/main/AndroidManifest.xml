@@ -74,6 +74,7 @@
         <activity android:name=".activity.SplashActivity" />
         <activity android:name=".activity.BindCardActivity"/>
         <activity android:name=".activity.StrategyActivity"/>
+        <activity android:name=".activity.PayActivity"/>
 
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:theme="@android:style/Theme.Translucent"

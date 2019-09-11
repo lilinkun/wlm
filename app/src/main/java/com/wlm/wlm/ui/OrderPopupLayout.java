@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.OrderActivity;
 import com.wlm.wlm.interf.IOrderChoosePayTypeListener;
 import com.wlm.wlm.util.UToast;
 
@@ -64,13 +63,13 @@ public class OrderPopupLayout extends PopupWindow {
         tv_right_now_pay = view.findViewById(R.id.tv_right_now_pay);
         tv_right_now_pay.setText(context.getString(R.string.modify_sure));
 
-        if(OrderActivity.pay_type_position == 1){
+        /*if(OrderActivity.pay_type_position == 1){
             check_self.setChecked(false);
             check_wx.setChecked(true);
         }else if(OrderActivity.pay_type_position == 2){
             check_self.setChecked(true);
             check_wx.setChecked(false);
-        }
+        }*/
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

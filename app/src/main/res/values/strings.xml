@@ -191,8 +191,8 @@
     <string name="pay_wx">微信支付</string>
     <string name="pay_self">余额支付</string>
     <string name="goods_price">商品价格</string>
-    <string name="use_integral">可用积分</string>
-    <string name="uses_integral">使用积分</string>
+    <string name="use_integral">剩余积分</string>
+    <string name="uses_integral">所需积分</string>
     <string name="postage">邮费</string>
     <string name="total_payable">应付总额</string>
     <string name="getpay">提交订单</string>
@@ -232,4 +232,5 @@
 
     <!--拼团-->
     <string name="groupon_num">拼团人数</string>
+    <string name="groupon_all">全部</string>
 </resources>

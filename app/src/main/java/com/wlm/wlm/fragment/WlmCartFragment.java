@@ -21,6 +21,7 @@ import com.wlm.wlm.adapter.ShoppingCarAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.OrderContract;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
@@ -182,7 +183,9 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
                         return;
                     }
 
-                    orderPresenter.isUserAddress(ProApplication.SESSIONID(getActivity()));
+                    orderPresenter.getOrderInfo(getOrderList(),ProApplication.SESSIONID(getActivity()));
+
+//                    orderPresenter.isUserAddress(ProApplication.SESSIONID(getActivity()));
                     break;
                 case R.id.go_shopping:
 
@@ -336,17 +339,21 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void cartOrderBuySuccess() {
+    public void cartOrderBuySuccess(String str) {
 
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",1);
+        bundle.putString("CartId",getOrderList());
+        UiHelper.launcherForResultBundle(this, CartOrderActivity.class,order_result,bundle);
     }
 
     @Override
-    public void cartOrderBuyFail() {
-
+    public void cartOrderBuyFail(String msg) {
+        UToast.show(getActivity(),msg);
     }
 
     @Override
-    public void isAddressSuccess(String msg) {
+    public void isAddressSuccess(ArrayList<AddressBean> msg) {
 
         Bundle bundle = new Bundle();
         bundle.putInt("type",1);
@@ -433,17 +440,15 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     public String getOrderList(){
         String OrderStr = "";
         for (int i = 0; i < orderListBeans.size(); i++) {
-           /* OrderGroupBean group = orderListBeans.get(i);
-            List<OrderChildBean> child = map.get(group.getOrderListBean().getStore_id());
-            for (int j = 0; j < child.size(); j++) {
-                if (child.get(j).isChoosed()) {
-                    if (OrderStr.equals("")){
-                        OrderStr = child.get(j).getOrderBean().getCartId();
-                    }else {
-                        OrderStr = OrderStr + "," + child.get(j).getOrderBean().getCartId();
-                    }
+
+            OrderChildBean child = map.get(orderListBeans.get(i).getCartId());
+            if (child.isChoosed()){
+                if (OrderStr.equals("")){
+                    OrderStr = orderListBeans.get(i).getCartId();
+                }else {
+                    OrderStr = OrderStr + "," + orderListBeans.get(i).getCartId();
                 }
-            }*/
+            }
         }
         return OrderStr;
     }

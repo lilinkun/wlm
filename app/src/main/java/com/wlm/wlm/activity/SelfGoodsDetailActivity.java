@@ -473,8 +473,13 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         this.goodsChooseBean = goodsChooseBean;
         this.num = num + "";
 
-//        selfGoodsDetailPresenter.isUserAddress("1","20",ProApplication.SESSIONID(this));
-        selfGoodsDetailPresenter.rightNowBuy(selfGoodsBean.getGoodsId(),attr_id,num+"",ProApplication.SESSIONID(this));
+        Bundle bundle = new Bundle();
+        bundle.putString(WlmUtil.GOODSID, selfGoodsBean.getGoodsId());
+        bundle.putInt(WlmUtil.GOODSNUM,Integer.valueOf(num));
+        bundle.putString(WlmUtil.ATTRID,attr_id);
+        bundle.putString(WlmUtil.TYPE,type);
+        UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
+
     }
 
 
@@ -595,21 +600,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void getRightNowBuySuccess(RightNowBuyBean buyBean) {
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN, buyBean);
-        bundle.putInt(WlmUtil.GOODSNUM,Integer.valueOf(num));
-        bundle.putString(WlmUtil.TYPE,type);
-        UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
-    }
-
-    @Override
-    public void getRightNowBuyFail(String msg) {
-        toast(msg);
-    }
-
-    @Override
     public void isAddressSuccess(ArrayList<AddressBean> addressBeans) {
 
         Bundle bundle = new Bundle();
@@ -617,7 +607,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         bundle.putSerializable(WlmUtil.GOODSDETAILINFOBEAN,goodsDetailBean);
         bundle.putInt("type", 0);
         bundle.putString("num", num + "");
-        UiHelper.launcherBundle(this, OrderActivity.class, bundle);
+        UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
 
     }
 

@@ -16,23 +16,19 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.CartOrderActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
-import com.wlm.wlm.activity.OrderActivity;
-import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.adapter.MyShoppingCarAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.OrderContract;
+import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
 import com.wlm.wlm.entity.OrderGroupBean;
-import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.presenter.OrderPresenter;
-import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UtilTool;
@@ -347,17 +343,17 @@ public class LzyMallFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void cartOrderBuySuccess() {
+    public void cartOrderBuySuccess(String str) {
 
     }
 
     @Override
-    public void cartOrderBuyFail() {
+    public void cartOrderBuyFail(String msg) {
 
     }
 
     @Override
-    public void isAddressSuccess(String msg) {
+    public void isAddressSuccess(ArrayList<AddressBean> msg) {
 
         Bundle bundle = new Bundle();
         bundle.putInt("type",1);

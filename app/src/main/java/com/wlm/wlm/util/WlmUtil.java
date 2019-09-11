@@ -63,6 +63,10 @@ public class WlmUtil {
     public static final String GOODSDETAILINFOBEAN = "GoodsDetailInfoBean";
     public static final String RIGHTNOWBUYBEAN = "RightNowBuyBean";
     public static final String GOODSNUM = "GoodsNum";
+    public static final String ATTRID = "attr_id";
+    public static final String ORDERID = "orderid";
+    public static final String ORDERAMOUNT = "orderamount";
+
 
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";

@@ -1,9 +1,11 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by LG on 2019/9/10.
  */
-public class WxInfo {
+public class WxInfo implements Serializable {
     private String appId;
     private String prepayid;
     private String timeStamp;

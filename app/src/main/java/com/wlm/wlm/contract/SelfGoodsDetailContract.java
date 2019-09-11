@@ -31,12 +31,8 @@ public interface SelfGoodsDetailContract extends IView {
     public void addCartSuccess(String msg);
     public void addCartFail(String msg);
 
-
     public void getCommendGoodsSuccess(ArrayList<SelfGoodsBean> selfGoodsBean);
     public void getCommendGoodsFail(String msg);
-
-    public void getRightNowBuySuccess(RightNowBuyBean orderListBeans);
-    public void getRightNowBuyFail(String msg);
 
     public void isAddressSuccess(ArrayList<AddressBean> msg);
     public void isAddressFail(String msg);

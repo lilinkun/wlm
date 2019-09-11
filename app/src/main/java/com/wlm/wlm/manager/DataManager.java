@@ -5,6 +5,7 @@ import android.content.Context;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BuyBean;
+import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.CategoryListBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -29,6 +30,7 @@ import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
@@ -255,7 +257,7 @@ public class DataManager {
     /**
      * 判断是否有地址
      */
-    public Observable<ResultBean<String,Object>> getIsAddress(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<ArrayList<AddressBean>,Object>> getIsAddress(HashMap<String,String> mHashMap){
         return mRetrofitService.getIsAddress(mHashMap);
     }
 
@@ -377,7 +379,7 @@ public class DataManager {
     /**
      * 立即购买
      */
-    public Observable<ResultBean<BuyBean,Object>> rightNowBuy(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<RightNowBuyBean<CartBuyBean>,Object>> rightNowBuy(HashMap<String,String> mHashMap){
         return mRetrofitService.rightNowBuy(mHashMap);
     }
 
@@ -398,7 +400,7 @@ public class DataManager {
     /**
      * 确认订单
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> sureOrder(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> sureOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.sureOrder(mHashMap);
     }
 
@@ -461,7 +463,7 @@ public class DataManager {
     /**
      * 单个商品返回订单信息
      */
-    public Observable<ResultBean<RightNowBuyBean,Object>> getGoodsOrderInfo(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<RightNowBuyBean<RightNowGoodsBean>,Object>> getGoodsOrderInfo(HashMap<String,String> mHashMap){
         return mRetrofitService.getGoodsOrderInfo(mHashMap);
     }
 
@@ -471,6 +473,14 @@ public class DataManager {
      */
     public Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.sureGoodsOrder(mHashMap);
+    }
+
+
+    /**
+     * 购物车下单
+     */
+    public Observable<ResultBean<String,Object>> getOrderInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.getOrderInfo(mHashMap);
     }
 
 }

@@ -51,7 +51,9 @@ public class PersonalInfoPresenter extends BasePresenter {
 
     @Override
     public void onStop() {
-
+        if (mCompositeSubscription.hasSubscriptions()){
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     public void modifyInfo(String account,String session){

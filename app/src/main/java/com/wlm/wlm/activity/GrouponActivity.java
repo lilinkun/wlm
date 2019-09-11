@@ -2,6 +2,7 @@ package com.wlm.wlm.activity;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +21,9 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
+import com.wlm.wlm.ui.AutoSwipeRefreshLayout;
 import com.wlm.wlm.ui.LoadRecyclerView;
+import com.wlm.wlm.ui.RecyclerViewScrollListener;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
@@ -41,7 +44,7 @@ import butterknife.OnClick;
  * 拼团
  * Created by LG on 2019/8/19.
  */
-public class GrouponActivity extends BaseActivity implements GrouponContract, OnBannerListener, GrouponAdapter.OnItemClickListener, IGoodsTypeListener {
+public class GrouponActivity extends BaseActivity implements GrouponContract, OnBannerListener, GrouponAdapter.OnItemClickListener, IGoodsTypeListener, RecyclerViewScrollListener.OnLoadListener {
 
     @BindView(R.id.bannerView)
     Banner banner;
@@ -49,14 +52,19 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     LoadRecyclerView rv_groupon;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
+    @BindView(R.id.swipe_container)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     GrouponPresenter groupon = new GrouponPresenter();
     GrouponAdapter grouponAdapter = null;
     ArrayList<GoodsListBean> goodsListBeans = null;
 
     private int goodstype = 2;
+    private String orderby = "0";
     private String mTeamType = "0";
     private boolean isGrouponType = false;
+
+    private int pageIndex = 1;
 
 
     @Override
@@ -82,7 +90,16 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
         rv_groupon.setLayoutManager(linearLayoutManager);
 
-        groupon.getData("1","20",goodstype + "","0",mTeamType);
+        rv_groupon.setOnLoadListener(this);
+
+        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
+            }
+        });
 
     }
 
@@ -152,8 +169,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
         switch (sortType){
             case 1://默认排序
                 isGrouponType = false;
-                groupon.getData("1","20",goodstype+"","0",mTeamType);
-                ll_top.setText(getResources().getString(R.string.groupon_num));
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,"0");
+                ll_top.setText(getString(R.string.groupon_all));
                 break;
 
             case 2://几人团
@@ -189,7 +206,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
                                 mTeamType = "2";
                             }
                             ll_top.setText(GrouponType.values()[position].getTypeName());
-                            groupon.getData("1", "20", goodstype + "", "0", mTeamType);
+                            orderby = "0";
+                            groupon.getData("1", "20", goodstype + "", orderby, mTeamType);
                             popupWindow.dismiss();
                         }
                     });
@@ -200,32 +218,34 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
 
             case 3://销量上
-
+                orderby = "1";
                 isGrouponType = false;
-                groupon.getData("1","20",goodstype+"","1",mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
 
                 break;
 
 
             case 4://销量下
 
+                orderby = "2";
                 isGrouponType = false;
-                groupon.getData("1","20",goodstype+"","2",mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
 
                 break;
 
             case 5://价格上
 
-
+                orderby = "3";
                 isGrouponType = false;
-                groupon.getData("1","20",goodstype+"","3",mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
 
                 break;
 
             case 6://价格下
 
+                orderby = "4";
                 isGrouponType = false;
-                groupon.getData("1","20",goodstype+"","4",mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
 
                 break;
         }
@@ -233,12 +253,13 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
-        this.goodsListBeans = goodsListBeans;
         if (grouponAdapter == null) {
+            this.goodsListBeans = goodsListBeans;
             grouponAdapter = new GrouponAdapter(this,goodsListBeans);
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
         }else {
+            this.goodsListBeans.addAll(goodsListBeans);
             grouponAdapter.setData(goodsListBeans);
         }
     }
@@ -248,4 +269,10 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     }
 
+    @Override
+    public void onLoad() {
+        pageIndex++;
+        groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+//        toast("asdasdads");
+    }
 }

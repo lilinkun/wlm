@@ -17,6 +17,7 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
+import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
@@ -156,20 +157,6 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         toast(msg);
     }
 
-    @Override
-    public void getRightNowBuySuccess(RightNowBuyBean orderListBeans) {
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(WlmUtil.RIGHTNOWBUYBEAN,orderListBeans);
-        bundle.putInt(WlmUtil.GOODSNUM,1);
-        bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
-        UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
-    }
-
-    @Override
-    public void getRightNowBuyFail(String msg) {
-
-    }
 
     //自定义的图片加载器
     private class MyLoader extends ImageLoader {
@@ -190,8 +177,13 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
                 break;
 
             case R.id.tv_right_now_groupon:
-                grouponGoodsDetailPresenter.rightNowBuy(goodsDetailBean.getGoodsId(),"","1",ProApplication.SESSIONID(this));
-//                UiHelper.launcherBundle(this, GrouponDetailActivity.class,bundle);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(WlmUtil.GOODSID,goodsDetailBean.getGoodsId());
+                bundle.putInt(WlmUtil.GOODSNUM,1);
+                bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
+                bundle.putString(WlmUtil.ATTRID,"");
+                UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
 
                 break;
         }
