@@ -2,31 +2,24 @@ package com.wlm.wlm.activity;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MenuItemAdapter;
 import com.wlm.wlm.adapter.MenuLeftAdapter;
-import com.wlm.wlm.adapter.MenuRightAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.CategoryContract;
-import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.CategoryListBean;
 import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.presenter.CategoryPresenter;
 import com.wlm.wlm.ui.GridViewForScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -259,6 +259,9 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
         }else {
+            if(swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
             this.goodsListBeans.addAll(goodsListBeans);
             grouponAdapter.setData(goodsListBeans);
         }

@@ -23,6 +23,8 @@ import com.wlm.wlm.R;
 
 import org.w3c.dom.Attr;
 
+import java.util.ArrayList;
+
 /**
  * Created by LG on 2018/11/14.
  */
@@ -34,7 +36,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
 
     private Context context;
     private  int tabWidth;
-    private String[] titles;
+    private ArrayList<String> titles;
     private int count;
     private Paint mPaint;
     private float mTranslationX;
@@ -95,11 +97,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
         viewPager.setCurrentItem(position,false);
     }
 
-    public void setTitles(String[] titles, int position, Handler handler){
+    public void setTitles(ArrayList<String> titles, int position, Handler handler){
         this.position = position;
         this.handler = handler;
         this.titles = titles;
-        count = titles.length;
+        count = titles.size();
         tabWidth = (int)(SCREEN_WIDTH/5.5);
         generateTitleView();
     }
@@ -131,7 +133,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
     {
         if (getChildCount() > 0)
             this.removeAllViews();
-        count = titles.length;
+        count = titles.size();
         tabCount = count;
 
         linearLayout = new LinearLayout(context);
@@ -148,7 +150,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
             }else {
                 tv.setTextColor(mUnclickColor);
             }
-            tv.setText(titles[i]);
+            tv.setText(titles.get(i));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);//字体大小
             tv.setPadding(25,15,25,15);
             tv.setLayoutParams(lp);

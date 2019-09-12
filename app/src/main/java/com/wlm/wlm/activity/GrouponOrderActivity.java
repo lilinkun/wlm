@@ -197,10 +197,10 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         }
 
         if (rightNowGoodsBean.getQty() == 2){
-            tv_goods_spec1.setText(rightNowGoodsBean.getGoodsSpec1());
-            tv_goods_spec2.setText(rightNowGoodsBean.getGoodsSpec2());
+            tv_goods_spec1.setText(rightNowGoodsBean.getGoodsAttr().get(0).getSpec1() + " , ");
+            tv_goods_spec2.setText(rightNowGoodsBean.getGoodsAttr().get(0).getSpec2());
         }else if (rightNowGoodsBean.getQty() == 1){
-            tv_goods_spec1.setText(rightNowGoodsBean.getGoodsSpec1());
+            tv_goods_spec1.setText(rightNowGoodsBean.getGoodsAttr().get(0).getSpec1());
         }
     }
 

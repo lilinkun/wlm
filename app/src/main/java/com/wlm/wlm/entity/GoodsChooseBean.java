@@ -11,7 +11,7 @@ public class GoodsChooseBean implements Serializable{
     private String spec1;
     private String spec1_image;
     private String spec2;
-    private String price;
+    private double price;
     private int amount;
     private int use_amount;
     private String backup1;
@@ -61,11 +61,11 @@ public class GoodsChooseBean implements Serializable{
         this.spec2 = spec2;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

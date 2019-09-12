@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/pop_text_bg"
                         android:textSize="@dimen/textsize12"
-                        android:text="百年中堂" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/tv_collect_num"

@@ -1,15 +1,9 @@
 package com.wlm.wlm.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
-import com.google.gson.Gson;
 import com.wlm.wlm.contract.CategoryContract;
-import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.CategoryListBean;
-import com.wlm.wlm.entity.GoodsDetailBean;
-import com.wlm.wlm.entity.HomeCategoryBean;
-import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;

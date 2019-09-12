@@ -39,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tv_money_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥ "
@@ -46,7 +47,7 @@
                         android:textColor="@color/groupon_text" />
 
 
-                    <com.wlm.wlm.ui.PriceTextView
+                    <TextView
                         android:id="@+id/tv_goods_pop_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -241,26 +242,25 @@
 
                     <ImageView
                         android:id="@+id/iv_goods_subtraction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_5"
+                        android:layout_width="35dp"
+                        android:layout_height="26dp"
                         android:src="@mipmap/ic_goods_subtraction" />
 
                     <TextView
                         android:id="@+id/tv_goods_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="45dp"
+                        android:layout_height="26dp"
                         android:background="@color/main_bg"
-                        android:paddingLeft="@dimen/margin_10"
-                        android:paddingRight="@dimen/margin_10"
+                        android:gravity="center"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
                         android:text="1"
                         android:textSize="@dimen/margin_18" />
 
                     <ImageView
                         android:id="@+id/iv_goods_plus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_5"
+                        android:layout_width="35dp"
+                        android:layout_height="26dp"
                         android:src="@mipmap/ic_goods_plus" />
                 </LinearLayout>
 

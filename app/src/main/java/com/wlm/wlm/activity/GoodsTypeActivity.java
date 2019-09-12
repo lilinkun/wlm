@@ -77,7 +77,8 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
     private boolean isView3 = false;
     private boolean isView4 = false;
 
-    String[] strs = {"全部","男装", "女装", "美食", "母婴", "居家", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
+//    String[] strs = {"全部","男装", "女装", "美食", "母婴", "居家", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
+    ArrayList<String> strs = new ArrayList<>();
     int[] ints = {WlmUtil.GOODS_ALL_WEAR, WlmUtil.GOODS_MAN_WEAR, WlmUtil.GOODS_WOMAN_WEAR, WlmUtil.GOODS_FOOD, WlmUtil.GOODS_MOTHER, WlmUtil.GOODS_HOUSE, WlmUtil.GOODS_MAKEUP, WlmUtil.GOODS_MOTION, WlmUtil.GOODS_SHOES, WlmUtil.GOODS_DIGITAL, WlmUtil.GOODS_UNDERWEAR};
     private GetRecordsPagerAdapter getRecordsPagerAdapter;
     private TBAllFragment tbAllFragment;
@@ -91,8 +92,8 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
             if (msg.what == 0x110) {
                 Log.v("TAG","hander");
                 position = msg.getData().getInt("position");
-                customTitleBar.setTileName(strs[msg.getData().getInt("position")]);
-                tbAllFragment =(TBAllFragment) hashMap.get(strs[position]);
+                customTitleBar.setTileName(strs.get(msg.getData().getInt("position")));
+                tbAllFragment =(TBAllFragment) hashMap.get(strs.get(position));
             }
         }
     };
@@ -142,17 +143,17 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
                 }
             });
         }else {
-            for (int i = 0; i < strs.length; i++) {
+            for (int i = 0; i < strs.size(); i++) {
                 TBbean tBbean = new TBbean();
                 tBbean.setId(ints[i] + "");
-                tBbean.setCate_name(strs[i]);
+                tBbean.setCate_name(strs.get(i));
                 tBbean.setCate_icon("");
                 listTb.add(tBbean);
             }
             getRecordsPagerAdapter = new GetRecordsPagerAdapter(getSupportFragmentManager(), listTb, new GetRecordsPagerAdapter.OnPageChange() {
                 @Override
                 public void getChange(BaseFragment baseFragment, String str) {
-                    if (str.equals(strs[position])) {
+                    if (str.equals(strs.get(position))) {
                         tbAllFragment = (TBAllFragment) baseFragment;
                     }
 
@@ -166,7 +167,7 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
         if (position == 20){
             customTitleBar.setTileName("淘宝");
         }else {
-            customTitleBar.setTileName(strs[position]);
+            customTitleBar.setTileName(strs.get(position));
         }
 
     }

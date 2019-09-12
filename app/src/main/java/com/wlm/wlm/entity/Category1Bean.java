@@ -5,142 +5,87 @@ import java.io.Serializable;
 /**
  * Created by LG on 2018/12/16.
  */
+public class Category1Bean implements Serializable {
+    private String CategoryID;
+    private String CategoryParentId;
+    private String CategoryName;
+    private String CategoryImg;
+    private int CategoryLevel;
+    private String CategoryPath;
+    private boolean IsUse;
+    private boolean IsLeaf;
+    private int SortRank;
 
-public class Category1Bean<T> implements Serializable {
-    private String cat_id;
-    private String cat_name;
-    private String keywords;
-    private String cat_desc;
-    private String parent_id;
-    private String sort_order;
-    private String show_in_nav;
-    private String is_show;
-    private String cat_icon;
-    private String cat_indeximg;
-    private String cat_index_order;
-    private String is_leaf;
-    private String cat_level;
-    private String cat_type;
-    private T subclass;
-
-    public String getCat_id() {
-        return cat_id;
+    public String getCategoryID() {
+        return CategoryID;
     }
 
-    public void setCat_id(String cat_id) {
-        this.cat_id = cat_id;
+    public void setCategoryID(String categoryID) {
+        CategoryID = categoryID;
     }
 
-    public String getCat_name() {
-        return cat_name;
+    public String getCategoryParentId() {
+        return CategoryParentId;
     }
 
-    public void setCat_name(String cat_name) {
-        this.cat_name = cat_name;
+    public void setCategoryParentId(String categoryParentId) {
+        CategoryParentId = categoryParentId;
     }
 
-    public String getKeywords() {
-        return keywords;
+    public String getCategoryName() {
+        return CategoryName;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public void setCategoryName(String categoryName) {
+        CategoryName = categoryName;
     }
 
-    public String getCat_desc() {
-        return cat_desc;
+    public String getCategoryImg() {
+        return CategoryImg;
     }
 
-    public void setCat_desc(String cat_desc) {
-        this.cat_desc = cat_desc;
+    public void setCategoryImg(String categoryImg) {
+        CategoryImg = categoryImg;
     }
 
-    public String getParent_id() {
-        return parent_id;
+    public int getCategoryLevel() {
+        return CategoryLevel;
     }
 
-    public void setParent_id(String parent_id) {
-        this.parent_id = parent_id;
+    public void setCategoryLevel(int categoryLevel) {
+        CategoryLevel = categoryLevel;
     }
 
-    public String getSort_order() {
-        return sort_order;
+    public String getCategoryPath() {
+        return CategoryPath;
     }
 
-    public void setSort_order(String sort_order) {
-        this.sort_order = sort_order;
+    public void setCategoryPath(String categoryPath) {
+        CategoryPath = categoryPath;
     }
 
-    public String getShow_in_nav() {
-        return show_in_nav;
+    public boolean isUse() {
+        return IsUse;
     }
 
-    public void setShow_in_nav(String show_in_nav) {
-        this.show_in_nav = show_in_nav;
+    public void setUse(boolean use) {
+        IsUse = use;
     }
 
-    public String getIs_show() {
-        return is_show;
+    public boolean isLeaf() {
+        return IsLeaf;
     }
 
-    public void setIs_show(String is_show) {
-        this.is_show = is_show;
+    public void setLeaf(boolean leaf) {
+        IsLeaf = leaf;
     }
 
-    public String getCat_icon() {
-        return cat_icon;
+    public int getSortRank() {
+        return SortRank;
     }
 
-    public void setCat_icon(String cat_icon) {
-        this.cat_icon = cat_icon;
-    }
-
-    public String getCat_indeximg() {
-        return cat_indeximg;
-    }
-
-    public void setCat_indeximg(String cat_indeximg) {
-        this.cat_indeximg = cat_indeximg;
-    }
-
-    public String getCat_index_order() {
-        return cat_index_order;
-    }
-
-    public void setCat_index_order(String cat_index_order) {
-        this.cat_index_order = cat_index_order;
-    }
-
-    public String getIs_leaf() {
-        return is_leaf;
-    }
-
-    public void setIs_leaf(String is_leaf) {
-        this.is_leaf = is_leaf;
-    }
-
-    public String getCat_level() {
-        return cat_level;
-    }
-
-    public void setCat_level(String cat_level) {
-        this.cat_level = cat_level;
-    }
-
-    public String getCat_type() {
-        return cat_type;
-    }
-
-    public void setCat_type(String cat_type) {
-        this.cat_type = cat_type;
-    }
-
-    public T getSubclass() {
-        return subclass;
-    }
-
-    public void setSubclass(T subclass) {
-        this.subclass = subclass;
+    public void setSortRank(int sortRank) {
+        SortRank = sortRank;
     }
 }
 

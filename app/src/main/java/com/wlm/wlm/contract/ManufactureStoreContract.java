@@ -6,7 +6,13 @@ import com.wlm.wlm.mvp.IView;
 
 import java.util.ArrayList;
 
-public interface IntegralStoreContract extends IView {
+/**
+ * Created by LG on 2019/9/12.
+ */
+public interface ManufactureStoreContract extends IView {
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans);
     public void getFail(String msg);
+
+    public void getCategorySuccess(ArrayList<Category1Bean> category1Beans);
+    public void getCategoryFail(String msg);
 }

@@ -244,6 +244,41 @@
                     <include
                         layout="@layout/goods_layout_common"/>
 
+
+                    <LinearLayout
+                        android:id="@+id/ll_exchange"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/padding_10"
+                        android:paddingRight="@dimen/padding_10"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="兑换说明"
+                            android:textSize="@dimen/textsize12"
+                            android:textColor="@color/grey_color3"
+                            android:layout_marginTop="@dimen/margin_10"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="权限数量有限，先到先得，兑完为止，积分兑换的权益无质量问题不支持对换货兑完为止，积分兑换的权益无质量问题不支持兑换"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:textSize="@dimen/textsize12"
+                            android:textColor="@color/grey_color3"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_marginBottom="@dimen/margin_10"/>
+
+
+
+                    </LinearLayout>
+
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="44dp"

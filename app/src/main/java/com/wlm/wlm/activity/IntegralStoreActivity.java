@@ -9,12 +9,14 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.IntegralStoreContract;
+import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.fragment.TBAllFragment;
 import com.wlm.wlm.presenter.IntegralStorePresenter;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -76,11 +78,12 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.goodsListBeans = goodsListBeans;
-        custom_sort.setData(goodsListBeans);
+        custom_sort.setData(goodsListBeans, WlmUtil.INTEGRAL);
     }
 
     @Override
     public void getFail(String msg) {
         toast(msg);
     }
+
 }

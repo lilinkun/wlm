@@ -6,6 +6,7 @@ import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
+import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.CategoryListBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -482,5 +483,13 @@ public class DataManager {
     public Observable<ResultBean<String,Object>> getOrderInfo(HashMap<String,String> mHashMap){
         return mRetrofitService.getOrderInfo(mHashMap);
     }
+
+    /**
+     * 获取商城类别
+     */
+    public Observable<ResultBean<ArrayList<Category1Bean>,Object>> getCategoryList(HashMap<String,String> mHashMap){
+        return mRetrofitService.getCategoryList(mHashMap);
+    }
+
 
 }

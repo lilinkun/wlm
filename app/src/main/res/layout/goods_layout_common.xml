@@ -125,7 +125,8 @@
     <RelativeLayout
         android:id="@+id/rl_no_delivery"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_no_delivery"

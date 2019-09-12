@@ -2,7 +2,9 @@ package com.wlm.wlm.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -31,7 +33,9 @@ import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UtilTool;
 import com.wlm.wlm.util.UtilsLog;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -52,7 +56,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     private TextView tv_add_cart;
     private TextView tv_choose;
     private TextView tv_choose_size;
-    private TextView tv_size;
+    private TextView tv_size,tv_money_icon;
     private TextView tv_spec1, tv_spec2;
     private int num = 1;
     private OnAddCart onAddCart;
@@ -96,6 +100,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
         tv_spec1 = (TextView) view.findViewById(R.id.tv_spec1);
         tv_spec2 = (TextView) view.findViewById(R.id.tv_spec2);
+        tv_money_icon = (TextView) view.findViewById(R.id.tv_money_icon);
 
         iv_goods_small_pic = (ImageView) view.findViewById(R.id.iv_goods_small_pic);
 
@@ -129,7 +134,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
     public void setPosition(int position){
         if (position == 1){
-            tv_add_cart.setBackgroundColor(getResources().getColor(R.color.setting_title_color));
+//            tv_add_cart.setBackgroundColor(getResources().getColor(R.color.setting_title_color));
             tv_add_cart.setText(R.string.modify_sure);
             tv_add_cart.setVisibility(VISIBLE);
             tv_buy_goods.setVisibility(GONE);
@@ -140,7 +145,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
         } else if (position == 3){
             tv_buy_goods.setVisibility(VISIBLE);
             tv_add_cart.setVisibility(VISIBLE);
-            tv_add_cart.setBackgroundColor(getResources().getColor(R.color.goods_car_bg));
+//            tv_add_cart.setBackgroundColor(getResources().getColor(R.color.goods_car_bg));
             tv_buy_goods.setText(R.string.goods_buy_now);
             tv_add_cart.setText(R.string.goods_add_shoppingcar);
         }
@@ -151,7 +156,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     }
 
 
-    public void setData(final GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean){
+    public void setData(final GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean, final String type){
         this.goodsDetailBean = goodsDetailBean;
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -161,12 +166,19 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
         }
 
 
+        changeBgColor(type);
         Stock = Integer.valueOf(goodsDetailBean.getGoodsNumber());
 
         Picasso.with(context).load(ProApplication.HEADIMG + goodsDetailBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_small_pic);
 
         final ArrayList<GoodsChooseBean> goodsChooseBeans = new ArrayList<>();
-        tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
+
+        if (type.equals(WlmUtil.INTEGRAL)){
+            tv_goods_pop_price.setText(goodsDetailBean.getIntegral()+"积分 + " + goodsDetailBean.getPrice() +"元");
+        }else {
+            tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
+        }
+
         tv_stock.setText(""+goodsDetailBean.getGoodsNumber());
 
 
@@ -178,7 +190,11 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                 goodsChooseBeans.add(goodsChooseBean);
             }
 
-            tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
+            if (type.equals(WlmUtil.INTEGRAL)){
+                tv_goods_pop_price.setText(goodsDetailBean.getIntegral()+"积分 + " + goodsDetailBean.getPrice() +"元");
+            }else {
+                tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
+            }
 
             final ArrayList<GoodsChooseBean> goodsChooseBeans1 = new ArrayList<>();
             ArrayList<String> strings1 = new ArrayList<>();
@@ -256,8 +272,11 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                     flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
-                        public void onLabelClick(TextView label, Object data, int position) {
+                        public void onLabelClick(TextView label, Object data, int position) {if (type.equals(WlmUtil.INTEGRAL)){
+                            tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
+                        }else {
                             tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
+                        }
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
                             tv_choose.setText(goodsChooseBean.getSpec1());
@@ -291,8 +310,11 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                         flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                             @Override
-                            public void onLabelClick(TextView label, Object data, int position) {
+                            public void onLabelClick(TextView label, Object data, int position) {if (type.equals(WlmUtil.INTEGRAL)){
+                                tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
+                            }else {
                                 tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
+                            }
                                 goodsChooseBean = (GoodsChooseBean) data;
                                 tv_size.setText("已选 ");
                                 tv_choose.setText(goodsChooseBean.getSpec1());
@@ -340,7 +362,11 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                     labael_size.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
                         public void onLabelClick(TextView label, Object data, int position) {
-                            tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
+                            if (type.equals(WlmUtil.INTEGRAL)){
+                                tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
+                            }else {
+                                tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
+                            }
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
                             tv_choose_size.setText("  " + goodsChooseBean.getSpec2());
@@ -373,7 +399,31 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
             }
         }
 
+
     }
+
+    private void changeBgColor(String type){
+
+        if (type.equals(WlmUtil.INTEGRAL)){
+
+            tv_money_icon.setVisibility(GONE);
+            ColorStateList colorStateList = getResources().getColorStateList(R.color.integral_label_text_color);
+            labael_size.setLabelTextColor(colorStateList);
+            labael_size.setLabelBackgroundDrawable(getResources().getDrawable(R.drawable.integral_label_bg));
+
+            flowLayout.setLabelTextColor(colorStateList);
+            flowLayout.setLabelBackgroundDrawable(getResources().getDrawable(R.drawable.integral_label_bg));
+
+            tv_buy_goods.setBackgroundColor(getResources().getColor(R.color.integral_bg));
+
+            tv_add_cart.setBackgroundColor(getResources().getColor(R.color.integral_add_cart));
+
+            tv_goods_pop_price.setTextColor(getResources().getColor(R.color.integral_bg));
+
+        }
+
+    }
+
 
     @Override
     public void onClick(View v) {

@@ -126,6 +126,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     TextView tv_macket_price;
     @BindView(R.id.ll_service)
     LinearLayout ll_service;
+    @BindView(R.id.ll_exchange)
+    LinearLayout ll_exchange;
+    @BindView(R.id.ll_shop_car)
+    LinearLayout ll_shop_car;
+    @BindView(R.id.ll_collect)
+    LinearLayout ll_collect;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -177,8 +183,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             rl_add_cart.setBackgroundColor(getResources().getColor(R.color.integral_add_cart));
             rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.integral_bg));
             ll_service.setVisibility(View.GONE);
+            ll_exchange.setVisibility(View.VISIBLE);
         }else if (type.equals(WlmUtil.VIP)){
             rl_add_cart.setVisibility(View.GONE);
+            ll_shop_car.setVisibility(View.GONE);
+            ll_collect.setVisibility(View.GONE);
         }
 
 
@@ -662,7 +671,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
-        selfGoodsPopLayout.setData(goodsDetailBean);
+        selfGoodsPopLayout.setData(goodsDetailBean,type);
         selfGoodsPopLayout.setListener(this);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

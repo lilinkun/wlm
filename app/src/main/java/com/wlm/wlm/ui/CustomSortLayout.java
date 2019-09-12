@@ -35,6 +35,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     private RecyclerView recyclerView;
     private TbHotGoodsAdapter tbHotGoodsAdapter = null;
     private ArrayList<GoodsListBean> goodsListBeans = null;
+    private String type ;
 
     public CustomSortLayout(Context context) {
         super(context);
@@ -83,11 +84,14 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     }
 
 
-    public void setData(ArrayList<GoodsListBean> goodsListBeans){
+    public void setData(ArrayList<GoodsListBean> goodsListBeans,String type){
+        this.type = type;
         this.goodsListBeans  = goodsListBeans;
         if(tbHotGoodsAdapter == null){
             tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
-            tbHotGoodsAdapter.setAdd_Integral();
+            if (type.equals(WlmUtil.INTEGRAL)) {
+                tbHotGoodsAdapter.setAdd_Integral();
+            }
             recyclerView.setAdapter(tbHotGoodsAdapter);
             tbHotGoodsAdapter.setItemClickListener(this);
         }else {
@@ -101,7 +105,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-        bundle.putString(WlmUtil.TYPE,WlmUtil.INTEGRAL);
+        bundle.putString(WlmUtil.TYPE,type);
         UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class,bundle);
     }
 }

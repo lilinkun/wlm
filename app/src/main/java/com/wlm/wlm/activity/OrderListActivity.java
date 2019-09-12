@@ -161,7 +161,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     private void initData() {
         mTitles = new ArrayList<>();
         mTitles.add("全部");
-        mTitles.add("待支付");
+        mTitles.add("待付款");
         mTitles.add("待发货");
         mTitles.add("待收货");
         mTitles.add("交易成功");
