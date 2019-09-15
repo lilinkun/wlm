@@ -258,7 +258,7 @@ public class DBManager {
     /**
      * 查询用户列表
      */
-    public List<CollectBean> queryCollectBean(String username) {
+    /*public List<CollectBean> queryCollectBean(String username) {
         DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         CollectBeanDao userDao = daoSession.getCollectBeanDao();
@@ -266,19 +266,19 @@ public class DBManager {
         qb.where(CollectBeanDao.Properties.User_id.eq(username)).orderAsc(CollectBeanDao.Properties.User_id);
         List<CollectBean> list = qb.list();
         return list;
-    }
+    }*/
 
     /**
      * 删除一条记录
      *
      * @param collectBean
      */
-    public void deleteOneCollectBean(CollectBean collectBean) {
+   /* public void deleteOneCollectBean(CollectBean collectBean) {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         CollectBeanDao collectBeanDao = daoSession.getCollectBeanDao();
-        collectBeanDao.deleteByKey(collectBean.getGoods_id());
-    }
+        collectBeanDao.deleteByKey(collectBean.getGoodsId());
+    }*/
 
 
     /**
@@ -374,7 +374,7 @@ public class DBManager {
         DaoSession daoSession = daoMaster.newSession();
         CollectBeanDao userDao = daoSession.getCollectBeanDao();
         QueryBuilder<CollectBean> qb = userDao.queryBuilder();
-        qb.where(CollectBeanDao.Properties.Goods_id.eq(goodsid)).orderAsc(CollectBeanDao.Properties.Goods_id);
+        qb.where(CollectBeanDao.Properties.GoodsId.eq(goodsid)).orderAsc(CollectBeanDao.Properties.GoodsId);
         List<CollectBean> list = qb.list();
         return list;
     }

@@ -191,7 +191,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
 
 
-//        selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
+        selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
 
 //        selfGoodsDetailPresenter.randomGoods(goodsid, ProApplication.SESSIONID(this));
 
@@ -231,11 +231,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                 case R.id.ll_collect:
 
                     if (isCollect) {
-                        if (!collectId.isEmpty()) {
-                            selfGoodsDetailPresenter.deleteCollect(collectId, ProApplication.SESSIONID(this));
-                        }
+                        selfGoodsDetailPresenter.deleteCollect(goodsDetailBean.getGoodsId(),"1", ProApplication.SESSIONID(this));
                     } else {
-                        selfGoodsDetailPresenter.onCollect(goodsDetailBean.getGoodsId(), ProApplication.SESSIONID(this));
+                        selfGoodsDetailPresenter.onCollect(goodsDetailBean.getGoodsId(),"1", ProApplication.SESSIONID(this));
 
                     }
 
@@ -551,11 +549,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void addCollectSuccess(CollectBean collectBean) {
-        toast("收藏成功");
+    public void addCollectSuccess(String collectBean) {
+        toast("已收藏");
         setCollectStatus(true);
         isCollect = true;
-        collectId = collectBean.getCollect_id();
+//        collectId = collectBean.getCollect_id();
     }
 
     @Override
@@ -565,12 +563,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
     @Override
     public void isGoodsCollectSuccess(String s) {
-        if (!s.equals("-1")) {
+            isCollect = true;
             setCollectStatus(true);
-            this.collectId = s;
-        } else {
-            setCollectStatus(false);
-        }
     }
 
     @Override

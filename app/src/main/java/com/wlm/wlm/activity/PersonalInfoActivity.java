@@ -3,6 +3,7 @@ package com.wlm.wlm.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -122,7 +123,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     }
 
-    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear})
+    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_head_title_info:
@@ -211,6 +212,12 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                     toast("清除缓存成功");
                 }
                 tv_clear.setText("");
+
+                break;
+
+            case R.id.tv_loginout:
+
+                personalInfoPresenter.LoginOut(ProApplication.SESSIONID(this));
 
                 break;
         }
@@ -358,5 +365,23 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     @Override
     public void uploadImageFail(String msg) {
         toast(msg + "");
+    }
+
+    @Override
+    public void LoginOutSuccess(String msg) {
+        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+
+        UiHelper.launcher(this, LoginActivity.class);
+
+        Intent intent = new Intent();
+        intent.putExtra("loginout",true);
+        setResult(RESULT_OK,intent);
+        finish();
+    }
+
+    @Override
+    public void LoginOutFail(String msg) {
+
     }
 }

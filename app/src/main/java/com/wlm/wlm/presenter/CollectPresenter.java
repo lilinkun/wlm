@@ -50,12 +50,13 @@ public class CollectPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
-    public void getCollectDataList(String PageIndex,String PageCount,String SessionId){
+    public void getCollectDataList(String PageIndex,String PageCount,String CollectType,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
         params.put("fun","CollectList");
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
+        params.put("CollectType",CollectType);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.GoodCollectList(params)
                 .subscribeOn(Schedulers.io())
@@ -82,14 +83,12 @@ public class CollectPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.DeleteCollectGood(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectBeans, String status,Object page) {
-                        if (collectBeans.getStatus() == 0) {
-                            collectContract.deleteCollectSuccess(collectBeans.getMessage());
-                        }else {
-                            collectContract.deleteCollectFail(collectBeans.getMessage());
-                        }
+                    public void onResponse(String collectBeans, String status,Object page) {
+
+                        collectContract.deleteCollectFail(collectBeans);
+
                     }
 
                     @Override

@@ -195,7 +195,7 @@ public class DataManager {
     /**
      * 增加自营商品收藏
      */
-    public Observable<ResultBean<CollectBean,Object>> addGoodCollect(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> addGoodCollect(HashMap<String,String> mHashMap){
         return mRetrofitService.addGoodCollect(mHashMap);
     }
 
@@ -230,7 +230,7 @@ public class DataManager {
     /**
      * 删除自营商品收藏列表
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> DeleteCollectGood(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> DeleteCollectGood(HashMap<String,String> mHashMap){
         return mRetrofitService.DeleteCollectGood(mHashMap);
     }
 

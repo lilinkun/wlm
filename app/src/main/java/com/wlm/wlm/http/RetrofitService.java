@@ -138,7 +138,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectBean,Object>> addGoodCollect(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> addGoodCollect(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -197,7 +197,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> DeleteCollectGood(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> DeleteCollectGood(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

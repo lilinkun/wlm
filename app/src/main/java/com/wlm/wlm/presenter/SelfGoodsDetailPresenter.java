@@ -92,19 +92,20 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
 
 
-    public void onCollect(String goodsId,String SessionId){
+    public void onCollect(String OtherId,String CollectType,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
         params.put("fun","CollectCreate");
-        params.put("goodsId",goodsId);
+        params.put("OtherId",OtherId);
+        params.put("CollectType",CollectType);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.addGoodCollect(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectBean, Object>() {
+                .subscribe(new HttpResultCallBack<String, Object>() {
 
                     @Override
-                    public void onResponse(CollectBean collectBean, String status,Object page) {
+                    public void onResponse(String collectBean, String status,Object page) {
                         selfGoodsDetailContract.addCollectSuccess(collectBean);
                     }
 
@@ -123,8 +124,8 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
     public void isCollect(String goodsId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
-        params.put("fun","Is_Collect");
-        params.put("goodsId",goodsId);
+        params.put("fun","IsCollect");
+        params.put("CollectId",goodsId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.isGoodCollect(params)
                 .subscribeOn(Schedulers.io())
@@ -150,21 +151,20 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
      * @param collectId
      * @param SessionId
      */
-    public void deleteCollect(String collectId,String SessionId){
+    public void deleteCollect(String goodsId,String CollectType,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
-        params.put("fun","ProjectCheckDelete");
-        params.put("collectId",collectId);
+        params.put("fun","CollectDeleteGoods");
+        params.put("OtherId",goodsId);
+        params.put("CollectType",CollectType);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.DeleteCollectGood(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectBeans, String status,Object page) {
-                        if (collectBeans.getStatus() == 0) {
-                            selfGoodsDetailContract.deleteCollectSuccess(collectBeans.getMessage());
-                        }
+                    public void onResponse(String collectBeans, String status,Object page) {
+                       selfGoodsDetailContract.deleteCollectSuccess(collectBeans);
                     }
 
                     @Override

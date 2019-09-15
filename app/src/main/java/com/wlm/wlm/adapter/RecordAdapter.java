@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.util.WlmUtil;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -75,10 +75,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         String Store_name = "";
         String Goods_name = "";
         if (type == 0){
-            url = collectBeans.get(position).getGoods_img();
-            shop_price = collectBeans.get(position).getShop_price();
-            Store_name = collectBeans.get(position).getStore_name();
-            Goods_name = collectBeans.get(position).getGoods_name();
+            url = collectBeans.get(position).getGoodsImg();
+            shop_price = collectBeans.get(position).getMarketPrice();
+            Goods_name = collectBeans.get(position).getGoodsName();
 
 //            holder.tv_collect_num.setText(collectBeans.get(position).get);
         }else if (type == 1){
@@ -94,7 +93,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 holder.ll_head.setVisibility(View.GONE);
             }
 
-            holder.tv_shop_name.setTextColor(context.getResources().getColor(R.color.setting_title_color));
         }
         Picasso.with(this.context).load(ProApplication.HEADIMG + url).error(R.color.line_bg).config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
 
@@ -139,11 +137,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                         if (type == 0) {
                             if (collectId.isEmpty()) {
                                 if (type == 0) {
-                                    collectId = collectBeans.get(position).getCollect_id();
+                                    collectId = collectBeans.get(position).getCollectId();
                                 }
                             } else {
                                 if (type == 0) {
-                                    collectId = collectId + "," + collectBeans.get(position).getCollect_id();
+                                    collectId = collectId + "," + collectBeans.get(position).getCollectId();
                                 }
                             }
                             onDeleteListener.delete(collectId);
@@ -153,13 +151,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                         }
                     } else {
                         if (type == 0) {
-                            if (collectId != null && collectId.contains(collectBeans.get(position).getCollect_id())) {
-                                if (collectId.contains("," + collectBeans.get(position).getCollect_id())) {
-                                    collectId = WlmUtil.redecuStr(collectId, "," + collectBeans.get(position).getCollect_id());
-                                } else if (collectId.contains(collectBeans.get(position).getCollect_id() + ",")) {
-                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id() + ",");
-                                } else if (collectId.contains(collectBeans.get(position).getCollect_id())) {
-                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollect_id());
+                            if (collectId != null && collectId.contains(collectBeans.get(position).getCollectId())) {
+                                if (collectId.contains("," + collectBeans.get(position).getCollectId())) {
+                                    collectId = WlmUtil.redecuStr(collectId, "," + collectBeans.get(position).getCollectId());
+                                } else if (collectId.contains(collectBeans.get(position).getCollectId() + ",")) {
+                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollectId() + ",");
+                                } else if (collectId.contains(collectBeans.get(position).getCollectId())) {
+                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollectId());
                                 }
                             }
                             onDeleteListener.delete(collectId);
@@ -174,7 +172,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             });
 //        }
 
-        holder.tv_shop_name.setText(Store_name);
 
         holder.tx_goods_msg.setText("¥" + newPrice + "");
         holder.tx_goods_title.setText(Goods_name + "");
@@ -215,13 +212,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
         if (type == 0) {
             if (collectId.isEmpty()) {
-                collectId = collectBeans.get(position).getCollect_id();
+                collectId = collectBeans.get(position).getCollectId();
                 if (checkBoxes.size() > 0) {
                     checkBoxes.get(position).setChecked(true);
                 }
             } else {
-                if (!collectId.contains(collectBeans.get(position).getCollect_id())) {
-                    collectId = collectId + "," + collectBeans.get(position).getCollect_id();
+                if (!collectId.contains(collectBeans.get(position).getCollectId())) {
+                    collectId = collectId + "," + collectBeans.get(position).getCollectId();
                     if (checkBoxes.size() > 0) {
                         checkBoxes.get(position).setChecked(true);
                     }
@@ -230,7 +227,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                     String str = "";
                     checkBoxes.get(position).setChecked(false);
                     for (int i = 0; i < strs.length; i++) {
-                        if (!strs[i].equals(collectBeans.get(position).getCollect_id())) {
+                        if (!strs[i].equals(collectBeans.get(position).getCollectId())) {
                             str += strs[i] + ",";
                         }
                     }
@@ -311,7 +308,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         public ImageView img_goods_icon;
         public TextView tx_goods_msg;
         public TextView tx_goods_title;
-        public TextView tv_shop_name;
         public CheckBox mCheckBox;
         public TextView tv_record_date;
         public TextView tv_collect_num;
@@ -322,7 +318,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             img_goods_icon = (ImageView) itemView.findViewById(R.id.img_goods_icon);
             tx_goods_msg = (TextView) itemView.findViewById(R.id.tx_goods_msg);
             tx_goods_title = (TextView) itemView.findViewById(R.id.tx_goods_title);
-            tv_shop_name = (TextView) itemView.findViewById(R.id.tv_shop_name);
             mCheckBox = (CheckBox) itemView.findViewById(R.id.store_checkBox);
             tv_record_date = (TextView) itemView.findViewById(R.id.tv_record_date);
             tv_collect_num = (TextView) itemView.findViewById(R.id.tv_collect_num);

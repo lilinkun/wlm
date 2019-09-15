@@ -21,7 +21,7 @@ public interface SelfGoodsDetailContract extends IView {
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean);
     public void getDataFail(String msg);
 
-    public void addCollectSuccess(CollectBean collectBean);
+    public void addCollectSuccess(String collectBean);
     public void addCollectFail(String msg);
 
     public void isGoodsCollectSuccess(String msg);

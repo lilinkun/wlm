@@ -84,7 +84,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
 
         if (position == 2) {
             customTitleBar.setTileName(getResources().getString(R.string.me_collection));
-            collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, ProApplication.SESSIONID(this));
+            collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(this));
         } else if (position == 1) {
             customTitleBar.setTileName(getResources().getString(R.string.me_record));
             customTitleBar.setRightText(getResources().getString(R.string.record_delete));
@@ -103,7 +103,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 if (position == 2) {
                     PageIndex = 1;
                     customTitleBar.setTileName(getResources().getString(R.string.me_collection));
-                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, ProApplication.SESSIONID(BrowseRecordsActivity.this));
+                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
                 }else if (position == 1){
                     browseRecordBeans = DBManager.getInstance(BrowseRecordsActivity.this).queryBrowseBean(MainFragmentActivity.username);
                     Collections.reverse(browseRecordBeans);
@@ -130,7 +130,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                             if (position == 2) {
                                 if (PageIndex < maxPage) {
                                     PageIndex++;
-                                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, ProApplication.SESSIONID(BrowseRecordsActivity.this));
+                                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
                                 }
                             }
                         }
@@ -226,7 +226,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
             } else {
                 Bundle bundle = new Bundle();
                 if (this.position == 2) {
-                    bundle.putString("goodsid", collectBeans.get(position).getGoods_id() + "");
+                    bundle.putString("goodsid", collectBeans.get(position).getGoodsId() + "");
                 }else {
                     bundle.putString("goodsid", browseRecordBeans.get(position).getGoods_id() + "");
                 }
@@ -243,7 +243,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 if (position == 2) {
                     isChange = 2;
                     PageIndex = 1;
-                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, ProApplication.SESSIONID(this));
+                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(this));
                 }
             }
         }
@@ -299,7 +299,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 for (int i = 0; i < strings.length; i++) {
                     for (int j = 0; j < collectBeans.size(); j++) {
 //                        CollectBean collectBean = iterator.next();
-                        if (collectBeans.get(j).getCollect_id().equals(strings[i])) {
+                        if (collectBeans.get(j).getCollectId().equals(strings[i])) {
 //                            iterator.remove();
                             collectBeans.remove(collectBeans.get(j));
                         }
@@ -307,7 +307,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 }
             } else {
                 for (int j = 0; j < collectBeans.size(); j++) {
-                    if (collectBeans.get(j).getCollect_id().equals(collectId)) {
+                    if (collectBeans.get(j).getCollectId().equals(collectId)) {
                         collectBeans.remove(j);
                     }
                 }

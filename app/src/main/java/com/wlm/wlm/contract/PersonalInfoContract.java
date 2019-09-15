@@ -15,4 +15,8 @@ public interface PersonalInfoContract extends IView{
 
     public void uploadImageSuccess(CollectDeleteBean collectDeleteBean);
     public void uploadImageFail(String msg);
+
+
+    public void LoginOutSuccess(String msg);
+    public void LoginOutFail(String msg);
 }
