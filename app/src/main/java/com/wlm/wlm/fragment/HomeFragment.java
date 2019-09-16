@@ -104,7 +104,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ArrayList<HomeCategoryBean> homeCategoryBeans;
     private ArrayList<HotHomeBean> hotHomeBeans;
     private HomeFragmentAdapter homeFragmentAdapter;
-    private HomeHeadBean homeHeadBean;
+    private ArrayList<FlashBean> flashBeans;
 
     @Override
     public int getlayoutId() {
@@ -277,23 +277,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             // （滑动距离 - 开始变化距离）：最大限制距离 = mAlpha ：255
             mAlpha = (scrollView.getScrollY() - minHeight) * 255 / (maxHeight - minHeight);
         }
-        // 初始状态 标题栏/导航栏透明等
-        /*if (mAlpha <= 0) {
-            setViewBackgroundAlpha(linearLayout, 0);
-            linearLayout.setBackgroundColor(Color.argb(0, 252, 55, 125));
-
-        }
-        //  终止状态：标题栏/导航栏 不在进行变化
-        else if (mAlpha >= 255) {
-            setViewBackgroundAlpha(linearLayout, 255);
-            linearLayout.setBackgroundColor(Color.argb(255, 252, 55, 125));
-
-        }
-        // 变化中状态：标题栏/导航栏随ScrollView 的滑动而产生相应变化
-        else {
-            setViewBackgroundAlpha(linearLayout, mAlpha);
-            linearLayout.setBackgroundColor(Color.argb(y, 252, 55, 125));
-        }*/
     }
 
     @Override
@@ -318,8 +301,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void getUrlSuccess(UrlBean urlBean) {
-        ProApplication.HEADIMG = urlBean.getGoodsImgUrl();
-        ProApplication.BANNERIMG = urlBean.getShopImgUrl();
+//        ProApplication.HEADIMG = urlBean.getGoodsImgUrl();
+//        ProApplication.BANNERIMG = urlBean.getShopImgUrl();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("img", ProApplication.HEADIMG).putString("shop", ProApplication.BANNERIMG).commit();
 
@@ -333,16 +316,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void onFlashSuccess(HomeHeadBean homeHeadBean) {
+    public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
 
-        this.homeHeadBean = homeHeadBean;
+        this.flashBeans = flashBeans;
 
         if (mPtrFrame.isRefreshing()) {
             mPtrFrame.refreshComplete();
         }
-
-        homeCategoryBeans = homeHeadBean.getCategory_list();
-        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
 
         if (homeFragmentAdapter == null) {
             homeFragmentAdapter = new HomeFragmentAdapter(getActivity(), homeCategoryBeans);
@@ -355,12 +335,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
 
 
-        startBanner(homeHeadBean.getFlash_list());
+        startBanner(flashBeans);
 
-        hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
-        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
-        mHotGridView.setAdapter(tbHotGoodsAdapter);
-        tbHotGoodsAdapter.setItemClickListener(this);
+//        hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
+//        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
+//        mHotGridView.setAdapter(tbHotGoodsAdapter);
+//        tbHotGoodsAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -375,15 +355,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+
+        for (int i = 0; i < flashBeans.size(); i++) {
             strings.add("asdads" + i);
+
+            FlashBean flashBean  = flashBeans.get(i);
+            flashBeans.add(flashBeans.get(i));
         }
-//        for (int i = 0; i < flashBeans.size(); i++) {
-//            strings.add("asdads" + i);
-//        }
-        FlashBean flashBean ;
-        flashBean = flashBeans.get(0);
-        flashBeans.add(flashBean);
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -424,7 +402,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void OnBannerClick(int position) {
-        FlashBean flashBean = homeHeadBean.getFlash_list().get(position);
+        FlashBean flashBean = flashBeans.get(position);
 //        if (flashBean.getUrl() != null && flashBean.getUrl().length() > 0  && PhoneFormatCheckUtils.isNumeric(flashBean.getUrl())){
 //            if (Integer.valueOf(flashBean.getUrl()) > 0){
 //                Bundle bundle = new Bundle();

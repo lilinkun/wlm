@@ -1,27 +1,29 @@
 package com.wlm.wlm.entity;
 
+import java.util.ArrayList;
+
 /**
  * Created by LG on 2018/12/13.
  */
 
 public class UrlBean {
 
-    private String goodsImgUrl;
-    private String shopImgUrl;
+    private ArrayList<FlashBean> flash;
+    private ArrayList<HomeCategoryBean> News;
 
-    public String getGoodsImgUrl() {
-        return goodsImgUrl;
+    public ArrayList<FlashBean> getFlash() {
+        return flash;
     }
 
-    public void setGoodsImgUrl(String goodsImgUrl) {
-        this.goodsImgUrl = goodsImgUrl;
+    public void setFlash(ArrayList<FlashBean> flash) {
+        this.flash = flash;
     }
 
-    public String getShopImgUrl() {
-        return shopImgUrl;
+    public ArrayList<HomeCategoryBean> getNews() {
+        return News;
     }
 
-    public void setShopImgUrl(String shopImgUrl) {
-        this.shopImgUrl = shopImgUrl;
+    public void setNews(ArrayList<HomeCategoryBean> news) {
+        News = news;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.wlm.wlm.contract.HomeContract;
+import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.TbMaterielBean;
@@ -50,20 +51,20 @@ public class HomePresenter extends BasePresenter {
 
     /**
      * 获取首页信息
-     * @param SessionId
+     * @param Style
      */
-    public void setFlash(String SessionId){
+    public void setFlash(String Style){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Home");
-        params.put("fun","FalshAndCategory_List");
-        params.put("SessionId",SessionId);
+        params.put("cls","Flash");
+        params.put("fun","FlashVipList");
+        params.put("Style",Style);
         mCompositeSubscription.add(manager.getFlash(params)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new HttpResultCallBack<HomeHeadBean,Object>() {
+        .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
             @Override
-            public void onResponse(HomeHeadBean homeHeadBean, String status,Object page) {
-                homeContract.onFlashSuccess(homeHeadBean);
+            public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
+                homeContract.onFlashSuccess(flashBeans);
             }
 
             @Override
@@ -71,10 +72,6 @@ public class HomePresenter extends BasePresenter {
                 homeContract.onFlashFail(msg);
             }
 
-            @Override
-            public void onNext(ResultBean<HomeHeadBean, Object> result) {
-                super.onNext(result);
-            }
         }));
     }
 
@@ -85,7 +82,7 @@ public class HomePresenter extends BasePresenter {
     public void getUrl(String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Home");
-        params.put("fun","GetUrl");
+        params.put("fun","Mobile");
         params.put("SessionId",SessionId);
 
         mCompositeSubscription.add(manager.getUrl(params)

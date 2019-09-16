@@ -15,6 +15,7 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
+import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
@@ -176,7 +177,7 @@ public class DataManager {
     /**
      * 获取flash
      */
-    public Observable<ResultBean<HomeHeadBean,Object>> getFlash(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<ArrayList<FlashBean>,Object>> getFlash(HashMap<String,String> mHashMap){
         return mRetrofitService.getFlash(mHashMap);
     }
 

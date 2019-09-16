@@ -5,49 +5,85 @@ package com.wlm.wlm.entity;
  * Created by LG on 2018/12/8.
  */
 public class FlashBean {
-    private String id;
-    private String name;
-    private String url;
-    private String backcolor;
-    private String flashpic;
+    private String FlashID;
+    private String FlashName;
+    private String FlashPic;
+    private String FlashOrder;
+    private String FlashUrl;
+    private String BackColor;
+    private String CreateDate;
+    private boolean Display;
+    private int Style;
 
-    public String getId() {
-        return id;
+    public String getFlashID() {
+        return FlashID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFlashID(String flashID) {
+        FlashID = flashID;
     }
 
-    public String getName() {
-        return name;
+    public String getFlashName() {
+        return FlashName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFlashName(String flashName) {
+        FlashName = flashName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getFlashPic() {
+        return FlashPic;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setFlashPic(String flashPic) {
+        FlashPic = flashPic;
     }
 
-    public String getBackcolor() {
-        return backcolor;
+    public String getFlashOrder() {
+        return FlashOrder;
     }
 
-    public void setBackcolor(String backcolor) {
-        this.backcolor = backcolor;
+    public void setFlashOrder(String flashOrder) {
+        FlashOrder = flashOrder;
     }
 
-    public String getFlashpic() {
-        return flashpic;
+    public String getFlashUrl() {
+        return FlashUrl;
     }
 
-    public void setFlashpic(String flashpic) {
-        this.flashpic = flashpic;
+    public void setFlashUrl(String flashUrl) {
+        FlashUrl = flashUrl;
+    }
+
+    public String getBackColor() {
+        return BackColor;
+    }
+
+    public void setBackColor(String backColor) {
+        BackColor = backColor;
+    }
+
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
+    }
+
+    public boolean isDisplay() {
+        return Display;
+    }
+
+    public void setDisplay(boolean display) {
+        Display = display;
+    }
+
+    public int getStyle() {
+        return Style;
+    }
+
+    public void setStyle(int style) {
+        Style = style;
     }
 }

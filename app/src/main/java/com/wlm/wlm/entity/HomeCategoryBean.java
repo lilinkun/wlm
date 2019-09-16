@@ -10,158 +10,199 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by LG on 2018/12/8.
  */
 @Entity
-public class HomeCategoryBean implements Serializable{
-    private int cat_id;
-    private String cat_name;
-    private String keywords;
-    private String cat_desc;
-    private String parent_id;
-    private String sort_order;
-    private String show_in_nav;
-    private String is_show;
-    private String cat_icon;
-    private String cat_indeximg;
-    private String cat_index_order;
-    private String is_leaf;
-    private String cat_level;
-    private String cat_type;
+public class HomeCategoryBean implements Serializable {
+    private String ArticleId;
+    private String CategoryId;
+    private String Title;
+    private String ArticleContent;
+    private String Author;
+    private int Flag;
+    private boolean IsLink;
+    private String Link;
+    private boolean IsAuditing;
+    private boolean IsDownLoad;
+    private String FileUrl;
+    private String Summary;
+    private String Thumbnail;
+    private String Color;
+    private int FontSize;
+    private String Font;
+    private String SortRank;
+    private String CreateDate;
+    private String CategoryName;
     public static final long serialVersionUID = 123227;
 
-    @Generated(hash = 1746791121)
-    public HomeCategoryBean(int cat_id, String cat_name, String keywords,
-            String cat_desc, String parent_id, String sort_order,
-            String show_in_nav, String is_show, String cat_icon,
-            String cat_indeximg, String cat_index_order, String is_leaf,
-            String cat_level, String cat_type) {
-        this.cat_id = cat_id;
-        this.cat_name = cat_name;
-        this.keywords = keywords;
-        this.cat_desc = cat_desc;
-        this.parent_id = parent_id;
-        this.sort_order = sort_order;
-        this.show_in_nav = show_in_nav;
-        this.is_show = is_show;
-        this.cat_icon = cat_icon;
-        this.cat_indeximg = cat_indeximg;
-        this.cat_index_order = cat_index_order;
-        this.is_leaf = is_leaf;
-        this.cat_level = cat_level;
-        this.cat_type = cat_type;
+    public HomeCategoryBean(String articleId, String categoryId, String title, String articleContent, String author, int flag, boolean isLink, String link, boolean isAuditing, boolean isDownLoad, String fileUrl, String summary, String thumbnail, String color, int fontSize, String font, String sortRank, String createDate, String categoryName) {
+        ArticleId = articleId;
+        CategoryId = categoryId;
+        Title = title;
+        ArticleContent = articleContent;
+        Author = author;
+        Flag = flag;
+        IsLink = isLink;
+        Link = link;
+        IsAuditing = isAuditing;
+        IsDownLoad = isDownLoad;
+        FileUrl = fileUrl;
+        Summary = summary;
+        Thumbnail = thumbnail;
+        Color = color;
+        FontSize = fontSize;
+        Font = font;
+        SortRank = sortRank;
+        CreateDate = createDate;
+        CategoryName = categoryName;
     }
 
-    @Generated(hash = 324617625)
-    public HomeCategoryBean() {
+    public String getArticleId() {
+        return ArticleId;
     }
 
-    public int getCat_id() {
-        return cat_id;
+    public void setArticleId(String articleId) {
+        ArticleId = articleId;
     }
 
-    public void setCat_id(int cat_id) {
-        this.cat_id = cat_id;
+    public String getCategoryId() {
+        return CategoryId;
     }
 
-    public String getCat_name() {
-        return cat_name;
+    public void setCategoryId(String categoryId) {
+        CategoryId = categoryId;
     }
 
-    public void setCat_name(String cat_name) {
-        this.cat_name = cat_name;
+    public String getTitle() {
+        return Title;
     }
 
-    public String getKeywords() {
-        return keywords;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public String getArticleContent() {
+        return ArticleContent;
     }
 
-    public String getCat_desc() {
-        return cat_desc;
+    public void setArticleContent(String articleContent) {
+        ArticleContent = articleContent;
     }
 
-    public void setCat_desc(String cat_desc) {
-        this.cat_desc = cat_desc;
+    public String getAuthor() {
+        return Author;
     }
 
-    public String getParent_id() {
-        return parent_id;
+    public void setAuthor(String author) {
+        Author = author;
     }
 
-    public void setParent_id(String parent_id) {
-        this.parent_id = parent_id;
+    public int getFlag() {
+        return Flag;
     }
 
-    public String getSort_order() {
-        return sort_order;
+    public void setFlag(int flag) {
+        Flag = flag;
     }
 
-    public void setSort_order(String sort_order) {
-        this.sort_order = sort_order;
+    public boolean isLink() {
+        return IsLink;
     }
 
-    public String getShow_in_nav() {
-        return show_in_nav;
+    public void setLink(boolean link) {
+        IsLink = link;
     }
 
-    public void setShow_in_nav(String show_in_nav) {
-        this.show_in_nav = show_in_nav;
+    public String getLink() {
+        return Link;
     }
 
-    public String getIs_show() {
-        return is_show;
+    public void setLink(String link) {
+        Link = link;
     }
 
-    public void setIs_show(String is_show) {
-        this.is_show = is_show;
+    public boolean isAuditing() {
+        return IsAuditing;
     }
 
-    public String getCat_icon() {
-        return cat_icon;
+    public void setAuditing(boolean auditing) {
+        IsAuditing = auditing;
     }
 
-    public void setCat_icon(String cat_icon) {
-        this.cat_icon = cat_icon;
+    public boolean isDownLoad() {
+        return IsDownLoad;
     }
 
-    public String getCat_indeximg() {
-        return cat_indeximg;
+    public void setDownLoad(boolean downLoad) {
+        IsDownLoad = downLoad;
     }
 
-    public void setCat_indeximg(String cat_indeximg) {
-        this.cat_indeximg = cat_indeximg;
+    public String getFileUrl() {
+        return FileUrl;
     }
 
-    public String getCat_index_order() {
-        return cat_index_order;
+    public void setFileUrl(String fileUrl) {
+        FileUrl = fileUrl;
     }
 
-    public void setCat_index_order(String cat_index_order) {
-        this.cat_index_order = cat_index_order;
+    public String getSummary() {
+        return Summary;
     }
 
-    public String getIs_leaf() {
-        return is_leaf;
+    public void setSummary(String summary) {
+        Summary = summary;
     }
 
-    public void setIs_leaf(String is_leaf) {
-        this.is_leaf = is_leaf;
+    public String getThumbnail() {
+        return Thumbnail;
     }
 
-    public String getCat_level() {
-        return cat_level;
+    public void setThumbnail(String thumbnail) {
+        Thumbnail = thumbnail;
     }
 
-    public void setCat_level(String cat_level) {
-        this.cat_level = cat_level;
+    public String getColor() {
+        return Color;
     }
 
-    public String getCat_type() {
-        return cat_type;
+    public void setColor(String color) {
+        Color = color;
     }
 
-    public void setCat_type(String cat_type) {
-        this.cat_type = cat_type;
+    public int getFontSize() {
+        return FontSize;
+    }
+
+    public void setFontSize(int fontSize) {
+        FontSize = fontSize;
+    }
+
+    public String getFont() {
+        return Font;
+    }
+
+    public void setFont(String font) {
+        Font = font;
+    }
+
+    public String getSortRank() {
+        return SortRank;
+    }
+
+    public void setSortRank(String sortRank) {
+        SortRank = sortRank;
+    }
+
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
+    }
+
+    public String getCategoryName() {
+        return CategoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        CategoryName = categoryName;
     }
 }
