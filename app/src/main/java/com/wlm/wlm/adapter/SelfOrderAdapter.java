@@ -73,6 +73,8 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         }
         holder.tv_goods_num.setText("共" + num +"件商品");
 
+        holder.tv_order_time.setText(selfOrderBeans.get(position).getCreateDate());
+
         if (selfOrderBeans.get(position).getOrderStatus() == 1){
             holder.tv_exit_order.setVisibility(View.GONE);
 
@@ -195,7 +197,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tv_store;
+        private TextView tv_order_time;
         private TextView tv_ship_pay;
         private TextView tv_order_amount;
         private RecyclerView tv_order_rv;
@@ -205,7 +207,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         private TextView tv_integral;
         public ViewHolder(View itemView) {
             super(itemView);
-            tv_store = (TextView) itemView.findViewById(R.id.tv_store);
+            tv_order_time = (TextView) itemView.findViewById(R.id.tv_order_time);
             tv_ship_pay = (TextView) itemView.findViewById(R.id.tv_ship_pay);
             tv_order_amount = (TextView) itemView.findViewById(R.id.tv_order_amount);
             tv_order_rv = (RecyclerView)itemView.findViewById(R.id.rv_order_goods);

@@ -136,7 +136,7 @@
                     android:layout_alignParentStart="true"
                     android:textColor="@color/me_goods_text_red_bg"
                     android:textSize="@dimen/textsize12"
-                    android:text="￥"/>
+                    android:text="¥"/>
 
 
                 <com.wlm.wlm.ui.PriceTextView

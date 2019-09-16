@@ -77,8 +77,8 @@ public class CollectPresenter extends BasePresenter {
     public void deleteCollect(String collectId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
-        params.put("fun","ProjectCheckDelete");
-        params.put("collectId",collectId);
+        params.put("fun","CollectDelete");
+        params.put("CollectId",collectId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.DeleteCollectGood(params)
                 .subscribeOn(Schedulers.io())
@@ -87,7 +87,7 @@ public class CollectPresenter extends BasePresenter {
                     @Override
                     public void onResponse(String collectBeans, String status,Object page) {
 
-                        collectContract.deleteCollectFail(collectBeans);
+                        collectContract.deleteCollectSuccess(collectBeans);
 
                     }
 

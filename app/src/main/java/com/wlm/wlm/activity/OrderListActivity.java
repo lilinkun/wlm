@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TabPageAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.OrderListContract;
@@ -88,6 +89,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     private IPayOrderClickListener payListener;
     private OrderListPresenter orderListPresenter = new OrderListPresenter();
     public final static String mlist = "https://wqs.jd.com/order/orderlist_merge.shtml";
+    private List<Fragment> fragments= new ArrayList<>();
 
     AllOrderFragment allOrderFragment = new AllOrderFragment();
     WaitPayFragment waitPayFragment = new WaitPayFragment();
@@ -118,7 +120,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 
         initData();
 
-        TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager());
+        TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(),fragments,mTitles);
         pageAdapter.setTitles(mTitles);
         orderListVp.setAdapter(pageAdapter);
         orderListTablayou.setupWithViewPager(orderListVp);
@@ -165,6 +167,13 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         mTitles.add("待发货");
         mTitles.add("待收货");
         mTitles.add("交易成功");
+
+        fragments = new ArrayList<>();
+        fragments.add(allOrderFragment);
+        fragments.add(waitPayFragment);
+        fragments.add(waitReceiveFragment);
+        fragments.add(completedOrderFragment);
+        fragments.add(overOrderFragment);
     }
 
     @OnClick({R.id.ll_back,R.id.ll_choose_order})
@@ -326,8 +335,6 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
     }
 
-
-
     @Override
     public void wxInfoFail(String msg) {
         toast(msg);
@@ -348,7 +355,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         toast("支付失败");
     }
 
-    class TabPageAdapter extends FragmentPagerAdapter{
+    /*class TabPageAdapter extends FragmentPagerAdapter{
         List<Fragment> fragments = new ArrayList<>();
         private List<String> titles;
 
@@ -392,7 +399,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 //            Fragment fragment = fragments.get(position);// 获取要销毁的fragment
 //            getSupportFragmentManager().beginTransaction().hide(fragment).commit();// 将其隐藏即可，并不需要真正销毁，这样fragment状态就得到了保存
         }
-    }
+    }*/
 
     public static boolean checkPackage(Context paramContext, String paramString)
     {

@@ -194,14 +194,12 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.addCartAdd(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectBeans, String status,Object page) {
-                        if (collectBeans.getStatus() == 0) {
-                            selfGoodsDetailContract.addCartSuccess(collectBeans.getMessage());
-                        }else {
-                            selfGoodsDetailContract.addCartFail("加入购物车失败"+collectBeans.getMessage());
-                        }
+                    public void onResponse(String collectBeans, String status,Object page) {
+
+                        selfGoodsDetailContract.addCartSuccess(collectBeans);
+
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

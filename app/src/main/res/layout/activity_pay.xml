@@ -153,8 +153,8 @@
                     android:id="@+id/tv_balance_wx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize20"
-                    android:textColor="#555555"
+                    android:textSize="@dimen/textsize16"
+                    android:textColor="@color/pay_text"
                     android:text="@string/pay_wx"
                     android:layout_marginLeft="@dimen/margin_15"/>
 

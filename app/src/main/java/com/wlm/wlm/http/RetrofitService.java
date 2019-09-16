@@ -2,6 +2,7 @@ package com.wlm.wlm.http;
 
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.Category1Bean;
@@ -17,6 +18,7 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -105,6 +107,10 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
+    Observable<ResultBean<ArrayList<GrouponListBean>,Object>> getMyGrouponData(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
     Observable<ResultBean> getCollect(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
@@ -181,7 +187,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> addCartAdd(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> addCartAdd(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -289,7 +295,11 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
+    Observable<ResultBean<WxInfo,Object>> sureWxGoodsOrder(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> sureGoodsOrder(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -298,6 +308,10 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<ArrayList<Category1Bean>,Object>> getCategoryList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<BalanceBean,Object>> getBalance(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

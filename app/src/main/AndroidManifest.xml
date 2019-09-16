@@ -56,7 +56,7 @@
         <activity android:name=".activity.ChooseAddressActivity" />
         <activity android:name=".activity.AddAddressActivity" />
         <activity android:name=".activity.SelfGoodsTypeActivity" />
-        <activity android:name=".activity.OrderActivity" />
+        <activity android:name=".activity.MyGrouponActivity" />
         <activity android:name=".activity.OrderListActivity" />
         <activity android:name=".activity.Category1Activity" />
         <activity android:name=".activity.ShoppingCarActivity" />

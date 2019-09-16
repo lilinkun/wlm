@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.PayContract;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -44,7 +45,7 @@ public class PayPresenter extends BasePresenter {
         }
     }
 
-    public void getPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String SessionId){
+    public void getWxPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
@@ -53,15 +54,49 @@ public class PayPresenter extends BasePresenter {
         params.put("OpenId",OpenId);
         params.put("OrderAmount",OrderAmount);
         params.put("Logo_ID",Logo_ID);
-        params.put("payType","1");
+        params.put("payType",payType);
         params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.sureGoodsOrder(params)
+        mCompositeSubscription.add(manager.sureWxGoodsOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<WxInfo,Object>() {
                     @Override
                     public void onResponse(WxInfo rightNows, String status, Object page) {
-                        payContract.sureOrderSuccess(rightNows);
+                        payContract.sureWxOrderSuccess(rightNows);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        payContract.sureWxOrderFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                }));
+    }
+
+    public void getPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String PassWordTwo,String SessionId){
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","OrderInfo");
+        params.put("fun","OrderInfoPay");
+        params.put("OrderSn",OrderSn);
+        params.put("OpenId",OpenId);
+        params.put("OrderAmount",OrderAmount);
+        params.put("Logo_ID",Logo_ID);
+        params.put("payType",payType);
+        params.put("PassWordTwo",PassWordTwo);
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.sureGoodsOrder(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<String,Object>() {
+                    @Override
+                    public void onResponse(String s, String status, Object page) {
+                        payContract.sureOrderSuccess(s);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -70,6 +105,34 @@ public class PayPresenter extends BasePresenter {
                     @Override
                     public void onErr(String msg, String status) {
                         payContract.sureOrderFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                }));
+    }
+
+    public void getBalance(String SessionId){
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","UserBase");
+        params.put("fun","BankBase_GetBalance");
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getBalance(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                    @Override
+                    public void onResponse(BalanceBean balanceBean, String status, Object page) {
+                        payContract.getBalanceSuccess(balanceBean);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        payContract.getBalanceFail(msg);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

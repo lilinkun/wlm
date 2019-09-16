@@ -7,12 +7,18 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.GrouponGoodsDetailContract;
+import com.wlm.wlm.entity.GoodsChooseBean;
+import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -22,7 +28,7 @@ import butterknife.OnClick;
  * Created by LG on 2019/8/21.
  */
 
-public class GrouponDetailActivity extends BaseActivity {
+public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsDetailContract {
 
     @BindView(R.id.tv_grouponing)
     TextView tv_grouponing;
@@ -39,7 +45,8 @@ public class GrouponDetailActivity extends BaseActivity {
     @BindView(R.id.tv_end_time)
     TextView tv_end_time;
 
-    GoodsListBean goodsListBean = null;
+    private String goodsId;
+    private GrouponGoodsDetailPresenter getGoodsDetail = new GrouponGoodsDetailPresenter();
 
     @Override
     public int getLayoutId() {
@@ -52,9 +59,32 @@ public class GrouponDetailActivity extends BaseActivity {
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
-        if (bundle != null && bundle.getSerializable("groupongoods") != null){
-            goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
+        getGoodsDetail.onCreate(this,this);
+
+        if (bundle != null && bundle.getString(WlmUtil.GOODSID) != null){
+            goodsId = bundle.getString(WlmUtil.GOODSID);
         }
+
+        getGoodsDetail.getGoodsDetail(goodsId, ProApplication.SESSIONID(this));
+
+
+    }
+
+    @OnClick({R.id.ll_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.ll_back:
+
+                finish();
+
+                break;
+        }
+    }
+
+    @Override
+    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsListBean) {
+
+
         tv_groupon_price.setText(goodsListBean.getPrice()+"");
 
         tv_goods_title.setText(goodsListBean.getGoodsName());
@@ -71,18 +101,10 @@ public class GrouponDetailActivity extends BaseActivity {
         }else {
             tv_grouponing.setVisibility(View.GONE);
         }
-
-
     }
 
-    @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.ll_back:
-
-                finish();
-
-                break;
-        }
+    @Override
+    public void getDataFail(String msg) {
+        toast(msg);
     }
 }

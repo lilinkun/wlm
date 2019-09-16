@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.Category1Bean;
@@ -19,6 +20,7 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -128,6 +130,13 @@ public class DataManager {
      */
     public Observable<ResultBean<PersonalInfoBean,Object>> getInfo(HashMap<String, String> mHashMap){
         return mRetrofitService.getInfo(mHashMap);
+    }
+
+    /**
+     * 获取个人信息
+     */
+    public Observable<ResultBean<ArrayList<GrouponListBean>,Object>> getMyGrouponData(HashMap<String, String> mHashMap){
+        return mRetrofitService.getMyGrouponData(mHashMap);
     }
 
     /**
@@ -281,7 +290,7 @@ public class DataManager {
     /**
      * 增加购物车
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> addCartAdd(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> addCartAdd(HashMap<String,String> mHashMap){
         return mRetrofitService.addCartAdd(mHashMap);
     }
 
@@ -470,9 +479,16 @@ public class DataManager {
 
 
     /**
+     * 支付微信订单信息
+     */
+    public Observable<ResultBean<WxInfo,Object>> sureWxGoodsOrder(HashMap<String,String> mHashMap){
+        return mRetrofitService.sureWxGoodsOrder(mHashMap);
+    }
+
+    /**
      * 支付订单信息
      */
-    public Observable<ResultBean<WxInfo,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> sureGoodsOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.sureGoodsOrder(mHashMap);
     }
 
@@ -489,6 +505,13 @@ public class DataManager {
      */
     public Observable<ResultBean<ArrayList<Category1Bean>,Object>> getCategoryList(HashMap<String,String> mHashMap){
         return mRetrofitService.getCategoryList(mHashMap);
+    }
+
+    /**
+     * 获取余额
+     */
+    public Observable<ResultBean<BalanceBean,Object>> getBalance(HashMap<String,String> mHashMap){
+        return mRetrofitService.getBalance(mHashMap);
     }
 
 

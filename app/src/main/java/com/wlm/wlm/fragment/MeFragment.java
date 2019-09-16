@@ -1,6 +1,5 @@
 package com.wlm.wlm.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,60 +7,41 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BindCardActivity;
 import com.wlm.wlm.activity.BrowseRecordsActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
 import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
-import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
-import com.wlm.wlm.activity.MyCouponActivity;
-import com.wlm.wlm.activity.OpinionActivity;
+import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.activity.OrderListActivity;
 import com.wlm.wlm.activity.PersonalInfoActivity;
-import com.wlm.wlm.activity.RechargeActivity;
-import com.wlm.wlm.activity.RecommendActivity;
-import com.wlm.wlm.activity.SettingActivity;
-import com.wlm.wlm.activity.WebViewActivity;
-import com.wlm.wlm.adapter.GetPagerAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.MeContract;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.MePresenter;
-import com.wlm.wlm.ui.BadgeView;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
 
 import butterknife.BindView;
@@ -79,16 +59,18 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     LinearLayout mLlMeSetting;
     @BindView(R.id.tsv_me)
     TranslucentScrollView translucentScrollView;
-    @BindView(R.id.tv_shopping_balance)
-    TextView mShoppingBalance;
-    @BindView(R.id.tv_integral_balance)
-    TextView mIntegralBalance;
     @BindView(R.id.tv_lzy_account)
     TextView mTvAccount;
     @BindView(R.id.riv_head_img)
     RoundImageView roundImageView;
     @BindView(R.id.iv_circle)
     ImageView iv_circle;
+    @BindView(R.id.tv_shopping_balance)
+    TextView tv_shopping_balance;
+    @BindView(R.id.tv_balance_wait_income)
+    TextView tv_balance_wait_income;
+    @BindView(R.id.tv_integral_balance)
+    TextView tv_integral_balance;
 
     private int result_int = 0x2121;
     private int result_person = 0x2212;
@@ -111,6 +93,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         translucentScrollView.init(this);
         mePresenter.onCreate(getActivity(),this);
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
+        mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
 
 //        BadgeView badgeView = new BadgeView(getActivity());
 //        badgeView.set
@@ -120,7 +103,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,R.id.ll_customer_service})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,R.id.ll_customer_service})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -174,6 +157,11 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     break;
 
+                case R.id.rl_me_tuan:
+
+                    UiHelper.launcher(getActivity(), MyGrouponActivity.class);
+
+                    break;
             }
         }
     }
@@ -262,12 +250,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     @Override
     public void getInfoSuccess(PersonalInfoBean personalInfoBean) {
         this.personalInfoBean = personalInfoBean;
-        mShoppingBalance.setText(personalInfoBean.getBank_data().getAmount() + "元");
+//        mShoppingBalance.setText(personalInfoBean.getBank_data().getAmount() + "元");
 
         double point = personalInfoBean.getBank_data().getPoint();
         BigDecimal b = new BigDecimal(point);
         point = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        mIntegralBalance.setText(point + "");
+//        mIntegralBalance.setText(point + "");
         mTvAccount.setText(personalInfoBean.getUser_data().getUserName());
         MainFragmentActivity.username = personalInfoBean.getUser_data().getUserName();
 
@@ -291,6 +279,18 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     @Override
     public void getInfoFail(String msg) {
         UToast.show(getActivity(), msg + "");
+    }
+
+    @Override
+    public void getBalanceSuccess(BalanceBean balanceBean) {
+        tv_shopping_balance.setText(balanceBean.getMoney5Balance()+"");
+        tv_balance_wait_income.setText(balanceBean.getMoney4Balance()+"");
+        tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
+    }
+
+    @Override
+    public void getBalanceFail(String msg) {
+
     }
 
 
