@@ -154,7 +154,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     }
 
     @Override
-    public void exitOrderSuccess(CollectDeleteBean collectDeleteBean) {
+    public void exitOrderSuccess(String collectDeleteBean) {
 
         for (int i = 0;i<selfOrderBeans.size();i++){
             if(selfOrderBeans.get(i).getOrderId().equals(orderId)){

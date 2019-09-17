@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -134,6 +135,7 @@ public class PayActivity extends BaseActivity implements PayContract {
 
             case R.id.ll_back:
 
+                setResult(RESULT_OK);
                 finish();
 
                 break;
@@ -182,4 +184,18 @@ public class PayActivity extends BaseActivity implements PayContract {
     public void getBalanceFail(String msg) {
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            Bundle bundle = new Bundle();
+            bundle.putInt("position",0);
+            UiHelper.launcherBundle(this, OrderListActivity.class,bundle);
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

@@ -158,6 +158,16 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         waitPayFragment.setPayListener(this);
         waitReceiveFragment.setPayListener(this);
         completedOrderFragment.setPayListener(this);
+
+
+        if (getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null ){
+
+            int position = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("position");
+
+            orderListVp.setCurrentItem(position,false);
+
+        }
+
     }
 
     private void initData() {
@@ -176,7 +186,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         fragments.add(overOrderFragment);
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_choose_order})
+    @OnClick({R.id.ll_back})
     public void onClick(View view){
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -186,69 +196,6 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 
                     break;
 
-                case R.id.ll_choose_order:
-                    if (popupWindow == null) {
-
-                        View popView = LayoutInflater.from(this).inflate(R.layout.popup_search_type, null);
-                        popupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        popupWindow.showAsDropDown(linearLayout);
-
-                        tvSelf = popView.findViewById(R.id.tv_home_self);
-                        tvTb = popView.findViewById(R.id.tv_home_tb);
-                        tvJd = popView.findViewById(R.id.tv_home_jd);
-                        tvSelf.setVisibility(View.GONE);
-                        tvSelf.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (popupWindow.isShowing()) {
-                                    popupWindow.dismiss();
-                                }
-                            }
-                        });
-
-                        tvTb.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (popupWindow.isShowing()) {
-                                    popupWindow.dismiss();
-                                }
-                                try {
-                                    if (checkPackage(OrderListActivity.this, "com.taobao.taobao")) {
-                                        Intent localIntent = new Intent();
-                                        localIntent.setAction("Android.intent.action.VIEW");
-                                        localIntent.setData(Uri.parse("http://uland.taobao.com/coupon/edetail?"));
-                                        localIntent.setClassName("com.taobao.taobao", "com.taobao.order.list.OrderListActivity");
-                                        startActivity(localIntent);
-                                    } else {
-                                        UToast.show(OrderListActivity.this, "您没有安装淘宝App");
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
-                        tvJd.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (popupWindow.isShowing()) {
-                                    popupWindow.dismiss();
-                                }
-
-
-
-                            }
-                        });
-
-                    } else {
-                        if (popupWindow.isShowing()) {
-                            popupWindow.dismiss();
-                        } else {
-                            popupWindow.showAsDropDown(linearLayout);
-                        }
-                    }
-
-                    break;
             }
         }
     }
@@ -302,14 +249,10 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     }
 
     @Override
-    public void selfPaySuccess(CollectDeleteBean collectDeleteBean) {
-        if (collectDeleteBean.getStatus() == 0){
+    public void selfPaySuccess(String collectDeleteBean) {
             payDialog.dismiss();
             allOrderFragment.setData();
             waitPayFragment.setData();
-        }else {
-            toast("支付失败");
-        }
     }
 
     @Override
@@ -318,7 +261,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     }
 
     @Override
-    public void sureReceiptSuccess(CollectDeleteBean collectDeleteBean) {
+    public void sureReceiptSuccess(String collectDeleteBean) {
         toast("确认收货成功");
         completedOrderFragment.setData();
         allOrderFragment.setData();

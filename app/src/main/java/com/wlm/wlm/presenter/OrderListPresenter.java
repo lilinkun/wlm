@@ -85,9 +85,9 @@ public class OrderListPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.selfPay(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         orderListContract.selfPaySuccess(collectDeleteBean);
                     }
 
@@ -111,9 +111,9 @@ public class OrderListPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.sureReceipt(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         orderListContract.sureReceiptSuccess(collectDeleteBean);
                     }
 

@@ -27,7 +27,6 @@ import butterknife.BindView;
 /**
  * Created by LG on 2018/12/5.
  */
-
 public class WaitPayFragment extends BasePagerFragment implements SelfOrderContract, SelfOrderAdapter.OnItemClick, SelfOrderAdapter.OnItemClickListener {
 
     @BindView(R.id.wait_pay_rv)
@@ -121,7 +120,7 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     }
 
     @Override
-    public void exitOrderSuccess(CollectDeleteBean collectDeleteBean) {
+    public void exitOrderSuccess(String deleteBean) {
 
         for (int i = 0;i<selfOrderBeans.size();i++){
             if(selfOrderBeans.get(i).getOrderId().equals(orderId)){

@@ -82,7 +82,7 @@
                     android:textSize="@dimen/textsize14"
                     android:textColor="@color/black_333333"
                     android:layout_marginRight="@dimen/margin_10"
-                    android:text="张三"/>
+                    />
         </RelativeLayout>
 
         <View
@@ -112,7 +112,7 @@
                     android:textColor="@color/black_333333"
                     android:textSize="@dimen/textsize14"
                     android:layout_marginRight="@dimen/margin_10"
-                    android:text="15111113333"/>
+                    />
 
         </RelativeLayout>
 

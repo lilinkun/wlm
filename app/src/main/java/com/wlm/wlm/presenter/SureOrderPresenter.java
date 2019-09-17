@@ -133,17 +133,16 @@ public class SureOrderPresenter extends BasePresenter {
     public void getFares(String CartId ,String AddressId ,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","更新邮费...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","GetCartFare");
-        params.put("CartId",CartId);
-        params.put("AddressId",AddressId);
+        params.put("cls","Cart");
+        params.put("fun","CartBuyShippingFreeGet");
+        params.put("AddressID",AddressId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getfares(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<FaresBean>,Object>() {
+                .subscribe(new HttpResultCallBack<RightNowBuyBean,Object>() {
                     @Override
-                    public void onResponse(ArrayList<FaresBean> fareBean, String status,Object page) {
+                    public void onResponse(RightNowBuyBean fareBean, String status,Object page) {
                         sureOrderContract.getOrderGetFaresSuccess(fareBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();

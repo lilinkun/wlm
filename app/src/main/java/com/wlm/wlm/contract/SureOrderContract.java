@@ -21,7 +21,7 @@ public interface SureOrderContract extends IView {
     public void getRightNowBuySuccess(RightNowBuyBean<CartBuyBean> buyBean);
     public void getRightNowBuyFail(String msg);
 
-    public void getOrderGetFaresSuccess(ArrayList<FaresBean> fareBean);
+    public void getOrderGetFaresSuccess(RightNowBuyBean fareBean);
     public void getOrderGetFaresFail(String msg);
 
     public void sureOrderSuccess(String orderid);

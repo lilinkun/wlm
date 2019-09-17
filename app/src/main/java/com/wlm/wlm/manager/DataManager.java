@@ -5,6 +5,7 @@ import android.content.Context;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.Category1Bean;
@@ -21,12 +22,14 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.OrderBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.entity.PageBean;
@@ -38,6 +41,7 @@ import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
+import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
@@ -203,6 +207,13 @@ public class DataManager {
     }
 
     /**
+     * 获取团购商品详情
+     */
+    public Observable<ResultBean<GrouponDetailBean,Object>> getGrouponDetailInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.getGrouponDetailInfo(mHashMap);
+    }
+
+    /**
      * 增加自营商品收藏
      */
     public Observable<ResultBean<String,Object>> addGoodCollect(HashMap<String,String> mHashMap){
@@ -283,7 +294,7 @@ public class DataManager {
     /**
      * 删除订单
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> exitOrder(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> exitOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.exitOrder(mHashMap);
     }
 
@@ -300,6 +311,20 @@ public class DataManager {
      */
     public Observable<ResultBean<ArrayList<AddressBean>,Object>> getConsigneeAddress(HashMap<String,String> mHashMap){
         return mRetrofitService.getConsigneeAddress(mHashMap);
+    }
+
+    /**
+     * 获取银行信息
+     */
+    public Observable<ResultBean<ArrayList<BankBean>,Object>> getBankInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.getBankInfo(mHashMap);
+    }
+
+    /**
+     * 提交银行信息
+     */
+    public Observable<ResultBean<String,Object>> upBankInfo(HashMap<String,String> mHashMap){
+        return mRetrofitService.upBankInfo(mHashMap);
     }
 
     /**
@@ -341,7 +366,7 @@ public class DataManager {
     /**
      * 获取订单详情
      */
-    public Observable<ResultBean<ArrayList<OrderDetailBean>,Object>> getOrderDetail(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<OrderDetailAddressBean,Object>> getOrderDetail(HashMap<String,String> mHashMap){
         return mRetrofitService.getOrderDetail(mHashMap);
     }
 
@@ -404,7 +429,7 @@ public class DataManager {
     /**
      * 获取多个邮费
      */
-    public Observable<ResultBean<ArrayList<FaresBean>,Object>> getfares(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<RightNowBuyBean,Object>> getfares(HashMap<String,String> mHashMap){
         return mRetrofitService.getfares(mHashMap);
     }
 
@@ -418,7 +443,7 @@ public class DataManager {
     /**
      * 余额支付
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> selfPay(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> selfPay(HashMap<String,String> mHashMap){
         return mRetrofitService.selfPay(mHashMap);
     }
     /**
@@ -431,14 +456,14 @@ public class DataManager {
     /**
      * 确认收货
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> sureReceipt(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> sureReceipt(HashMap<String,String> mHashMap){
         return mRetrofitService.sureReceipt(mHashMap);
     }
 
     /**
      *删除订单
      */
-    public Observable<ResultBean<CollectDeleteBean,Object>> deleteOrder(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<String,Object>> deleteOrder(HashMap<String,String> mHashMap){
         return mRetrofitService.deleteOrder(mHashMap);
     }
 

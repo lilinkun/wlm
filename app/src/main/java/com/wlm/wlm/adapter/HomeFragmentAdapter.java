@@ -73,10 +73,10 @@ public class HomeFragmentAdapter extends BaseAdapter {
 //        viewHolder.tbTypeImg.setImageResource(Integer.valueOf(tBbeans.get(position).getCate_icon()));
 //        viewHolder.tbTypeName.setText(tBbeans.get(position).getCate_name());
 //        viewHolder.tbTypeImg.setImageResource(ints[position]);
-        viewHolder.tbTypeName.setText(tBbeans.get(position).getCat_name());
+        viewHolder.tbTypeName.setText(tBbeans.get(position).getCategoryName());
 
 //        Picasso.with(context).load(ProApplication.BANNERIMG + tBbeans.get(position).getCat_icon()).into(viewHolder.tbTypeImg);
-        Picasso.with(this.context).load(ProApplication.BANNERIMG + tBbeans.get(position).getCat_indeximg()).resize(200, 200).centerCrop().config(Bitmap.Config.RGB_565).into(viewHolder.tbTypeImg);
+        Picasso.with(this.context).load(ProApplication.BANNERIMG + tBbeans.get(position).getIsLink()).resize(200, 200).centerCrop().config(Bitmap.Config.RGB_565).into(viewHolder.tbTypeImg);
 
         return convertView;
     }

@@ -26,12 +26,10 @@ import com.wlm.wlm.adapter.OrderAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.AllOrderContract;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.CountBean;
-import com.wlm.wlm.entity.OrderDetailBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
-import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.AllOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
@@ -42,7 +40,6 @@ import com.wlm.wlm.wxapi.WXPayEntryActivity;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -75,6 +72,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView tv_consignee_name;
     @BindView(R.id.tv_consignee_phone)
     TextView tv_consignee_phone;
+    @BindView(R.id.tv_no_address)
+    TextView tv_no_address;
     @BindView(R.id.tv_exit_order)
     TextView tv_exit_order;
     @BindView(R.id.tv_pay_order)
@@ -101,8 +100,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView logistics_information;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
-    private OrderDetailBean orderDetailBean;
-    private ArrayList<OrderDetailBean> orderDetailBeans;
+//    private OrderDetailBean orderDetailBean;
+    private OrderDetailAddressBean orderDetailBeans;
     private PopupWindow payPopupWindow;
     private String orderId = "";
     private String orderSn = "";
@@ -190,32 +189,32 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
     @Override
-    public void setDataSuccess(final ArrayList<OrderDetailBean> orderDetailBeans) {
-        this.orderDetailBean = orderDetailBeans.get(0);
+    public void setDataSuccess(final OrderDetailAddressBean orderDetailBeans) {
+//        this.orderDetailBean = orderDetailBeans.get(0);
         this.orderDetailBeans = orderDetailBeans;
         OrderAdapter orderAdapter = new OrderAdapter(this,orderDetailBeans);
         recyclerView.setAdapter(orderAdapter); //添加自定义分割线
 
-        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
-        recyclerView.addItemDecoration(divider);
-        order_date.setText(orderDetailBean.getConfirm_time());
+//        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+//        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
+//        recyclerView.addItemDecoration(divider);
+        order_date.setText(orderDetailBeans.getCreateDate());
 
-        for(int i = 0;i < orderDetailBeans.size();i++){
-            if (orderId.equals("")){
-                orderId = orderDetailBeans.get(i).getOrder_id();
+        for(int i = 0;i < orderDetailBeans.getOrderDetail().size();i++){
+            /*if (orderId.equals("")){
+                orderId = orderDetailBeans.getOrderId();
             }else {
-                orderId = orderId + "," + orderDetailBeans.get(i).getOrder_id();
-            }
-            order_amount += orderDetailBean.getMoney_payid();
+                orderId = orderId + "," + orderDetailBeans.getOrderDetail().get(i).getOrder_id();
+            }*/
+            order_amount += orderDetailBeans.getOrderAmount();
 
 
             BigDecimal b = new BigDecimal(order_amount);
             order_amount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-            useIntegral+= orderDetailBean.getUseIntegral();
-            shipping_fee += orderDetailBean.getShipping_fee();
-            payid+= orderDetailBean.getOrder_amount();
+            useIntegral+= orderDetailBeans.getIntegral();
+            shipping_fee += orderDetailBeans.getShippingFree();
+            payid+= orderDetailBeans.getOrderAmount();
         }
 
         goods_total_price.setText("¥"+payid + "");
@@ -224,13 +223,14 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         tv_total.setText("¥"+ order_amount + "");
         tv_order_pay_price.setText("¥"+ order_amount+"");
 
-        tv_consignee_address.setText(orderDetailBean.getAddressName() + orderDetailBean.getAddress());
-        tv_consignee_name.setText(orderDetailBean.getConsignee());
-        tv_consignee_phone.setText(orderDetailBean.getMobile());
+        tv_consignee_address.setText(orderDetailBeans.getAddressName() + orderDetailBeans.getAddress());
+        tv_consignee_name.setText(orderDetailBeans.getConsignee());
+        tv_consignee_phone.setText(orderDetailBeans.getMobile());
+        tv_no_address.setVisibility(View.GONE);
 
-        tv_pay_date.setText(orderDetailBean.getPay_time()+"");
-        send_out_date.setText(orderDetailBean.getShipping_time()+"");
-        logistics_information.setText(orderDetailBean.getLgs_name() + " " + orderDetailBean.getLgs_number());
+        tv_pay_date.setText(orderDetailBeans.getPayDate()+"");
+        send_out_date.setText(orderDetailBeans.getShippingFree()+"");
+        logistics_information.setText(orderDetailBeans.getLgsName() + " " + orderDetailBeans.getLgsNumber());
 
         tv_exit_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,9 +260,9 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                     if (status == 0) {
                         allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
-                        allOrderPresenter.sureReceipt(orderDetailBean.getOrder_id(), ProApplication.SESSIONID(AllOrderActivity.this));
+                        allOrderPresenter.sureReceipt(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 4) {
-                        allOrderPresenter.deleteOrder(orderDetailBean.getOrder_id(), ProApplication.SESSIONID(AllOrderActivity.this));
+                        allOrderPresenter.deleteOrder(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     }
                 }
             }
@@ -276,17 +276,14 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
     @Override
-    public void exitOrderSuccess(CollectDeleteBean collectDeleteBean) {
+    public void exitOrderSuccess(String collectDeleteBean) {
         if (!tv_pay_order.isClickable()){
             tv_pay_order.setClickable(true);
         }
-        if (collectDeleteBean.getStatus() == 0){
             toast("取消订单成功");
             setResult(RESULT_OK);
             finish();
-        }else {
-            toast(collectDeleteBean.getMessage());
-        }
+
     }
 
     @Override
@@ -308,18 +305,14 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
     @Override
-    public void selfPaySuccess(CollectDeleteBean collectDeleteBean) {
+    public void selfPaySuccess(String collectDeleteBean) {
         if (!tv_pay_order.isClickable()){
             tv_pay_order.setClickable(true);
         }
-        if (collectDeleteBean.getStatus() == 0){
             payDialog.dismiss();
             toast("支付成功");
             setResult(RESULT_OK);
             finish();
-        }else {
-            toast("支付失败");
-        }
     }
 
     @Override
@@ -331,15 +324,13 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
     @Override
-    public void sureReceiptSuccess(CollectDeleteBean collectDeleteBean) {
+    public void sureReceiptSuccess(String collectDeleteBean) {
         if (!tv_pay_order.isClickable()){
             tv_pay_order.setClickable(true);
         }
-        if (collectDeleteBean.getStatus() == 0){
             toast("收货成功");
             setResult(RESULT_OK);
             finish();
-        }
     }
 
     @Override
@@ -390,7 +381,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         CountdownView tv_time = view.findViewById(R.id.tv_time);
         TextView tv_right_now_pay = view.findViewById(R.id.tv_right_now_pay);
         tv_pay_self.setText(countBean.getAmount() + "");
-        String endTime = orderDetailBean.getEffective_Payment_Time();
+        String endTime = orderDetailBeans.getPayDate();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
         try {
@@ -445,7 +436,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                 }else if (check_wx.isChecked()){
                     payPopupWindow.dismiss();
 //                    toast("你瞅我干啥，暂时不能微信支付类");
-                    allOrderPresenter.setWxPay(orderDetailBean.getOrder_sn(),order_amount+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(AllOrderActivity.this));
+                    allOrderPresenter.setWxPay(orderDetailBeans.getOrderSn()+"",order_amount+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(AllOrderActivity.this));
                 }else {
                     toast("请选择支付方式");
                 }

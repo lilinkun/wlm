@@ -69,7 +69,14 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 //                UiHelper.launcher(this, RegisterActivity.class);
                 SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
                 if (sharedPreferences.getBoolean(WlmUtil.LOGIN,false)){
-                    loginPresenter.login(sharedPreferences.getString(WlmUtil.OPENID,""),sharedPreferences.getString(WlmUtil.UNIONID,""),"2",ProApplication.SESSIONID(this));
+                    if (!sharedPreferences.getString(WlmUtil.OPENID,"").equals("")) {
+                        loginPresenter.login(sharedPreferences.getString(WlmUtil.OPENID, ""), sharedPreferences.getString(WlmUtil.UNIONID, ""), "2", ProApplication.SESSIONID(this));
+                    }else {
+                        final SendAuth.Req req = new SendAuth.Req();
+                        req.scope = "snsapi_userinfo";
+                        req.state = "wechat_sdk_微信登录";
+                        iwxapi.sendReq(req);
+                    }
                 }else {
 //                    loginPresenter.login("o-Pjfvyivj1VphDd0OZYQH5Str3A","obdLtwjcQ-yXsVEhggAJnxrNu4A4","2",ProApplication.SESSIONID(this));
                     final SendAuth.Req req = new SendAuth.Req();
@@ -107,6 +114,13 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
+                .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName())
+                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
+
+
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();
     }
@@ -127,6 +141,10 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     public void setWxLoginSuccess(WxUserInfo wxSuccess) {
         this.wxUserInfo = wxSuccess;
+
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("wxinfo",wxUserInfo);
+//        UiHelper.launcherBundle(this, RegisterActivity.class,bundle);
         loginPresenter.login(wxSuccess.getOpenid(),wxSuccess.getUnionid(),"2",ProApplication.SESSIONID(this));
     }
 

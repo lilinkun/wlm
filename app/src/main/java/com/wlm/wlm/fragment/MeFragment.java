@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,7 @@ import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.activity.OrderListActivity;
 import com.wlm.wlm.activity.PersonalInfoActivity;
+import com.wlm.wlm.activity.VipActivity;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.MeContract;
@@ -40,6 +42,7 @@ import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -59,7 +62,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     LinearLayout mLlMeSetting;
     @BindView(R.id.tsv_me)
     TranslucentScrollView translucentScrollView;
-    @BindView(R.id.tv_lzy_account)
+    @BindView(R.id.tv_wlm_account)
     TextView mTvAccount;
     @BindView(R.id.riv_head_img)
     RoundImageView roundImageView;
@@ -71,6 +74,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     TextView tv_balance_wait_income;
     @BindView(R.id.tv_integral_balance)
     TextView tv_integral_balance;
+    @BindView(R.id.tv_me_vip)
+    TextView tv_me_vip;
+    @BindView(R.id.tv_open_vip)
+    TextView tv_open_vip;
+    @BindView(R.id.iv_me_vip)
+    ImageView iv_me_vip;
+
 
     private int result_int = 0x2121;
     private int result_person = 0x2212;
@@ -95,6 +105,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
 
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, getActivity().MODE_PRIVATE);
+
+        mTvAccount.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
+        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL,"").isEmpty()) {
+            Picasso.with(getActivity()).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(roundImageView);
+        }
 //        BadgeView badgeView = new BadgeView(getActivity());
 //        badgeView.set
     }
@@ -103,7 +120,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,R.id.ll_customer_service})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,
+            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -124,9 +142,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                 case R.id.ll_me_order:
 
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(), OrderListActivity.class);
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position",0);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle);
 
                     break;
 
@@ -160,6 +178,32 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.rl_me_tuan:
 
                     UiHelper.launcher(getActivity(), MyGrouponActivity.class);
+
+                    break;
+
+                case R.id.ll_wait_pay:
+
+                    Bundle bundle9 = new Bundle();
+                    bundle9.putInt("position",1);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle9);
+                    break;
+
+                case R.id.ll_wait_deliver:
+
+                    Bundle bundle6 = new Bundle();
+                    bundle6.putInt("position",2);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle6);
+                    break;
+                case R.id.ll_wait_receiver:
+
+                    Bundle bundle8 = new Bundle();
+                    bundle8.putInt("position",3);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle8);
+                    break;
+
+                case R.id.rl_vip:
+
+                    UiHelper.launcher(getActivity(), VipActivity.class);
 
                     break;
             }
@@ -286,6 +330,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         tv_shopping_balance.setText(balanceBean.getMoney5Balance()+"");
         tv_balance_wait_income.setText(balanceBean.getMoney4Balance()+"");
         tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
+
+        tv_me_vip.setText(balanceBean.getUserLevelName());
+        if (balanceBean.getUserLevel() <= 0){
+            iv_me_vip.setVisibility(View.GONE);
+        }else {
+            tv_open_vip.setText("立即续费");
+        }
     }
 
     @Override

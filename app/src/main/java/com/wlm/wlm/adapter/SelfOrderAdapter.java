@@ -77,12 +77,12 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
 
         if (selfOrderBeans.get(position).getOrderStatus() == 1){
             holder.tv_exit_order.setVisibility(View.GONE);
-
+            holder.tv_go_pay.setVisibility(View.GONE);
         }else if (selfOrderBeans.get(position).getOrderStatus() == 0){
             holder.tv_exit_order.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setVisibility(View.VISIBLE);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+            /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
             Date date = new Date(System.currentTimeMillis());
             Date str = new Date();
             try {
@@ -97,7 +97,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                 holder.tv_exit_order.setVisibility(View.GONE);
                 holder.tv_go_pay.setVisibility(View.GONE);
                 holder.tv_ship_pay.setText("已失效");
-            }
+            }*/
 
         }else if (selfOrderBeans.get(position).getOrderStatus() == 2){
             holder.tv_go_pay.setVisibility(View.VISIBLE);

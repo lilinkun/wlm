@@ -235,6 +235,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         bundle.putString(WlmUtil.ORDERID,orderid);
         bundle.putString(WlmUtil.ORDERAMOUNT,totalPrice+"");
         UiHelper.launcherBundle(this,PayActivity.class,bundle);
+        finish();
 
     }
 

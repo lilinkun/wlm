@@ -3,6 +3,7 @@ package com.wlm.wlm.http;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
 import com.wlm.wlm.entity.Category1Bean;
@@ -19,12 +20,14 @@ import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.OrderBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.PersonalInfoBean;
@@ -35,6 +38,7 @@ import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.entity.RushBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.SelfOrderBean;
+import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
@@ -145,6 +149,10 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
+    Observable<ResultBean<GrouponDetailBean,Object>> getGrouponDetailInfo(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
     Observable<ResultBean<String,Object>> addGoodCollect(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
@@ -184,7 +192,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> exitOrder(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> exitOrder(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -200,7 +208,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<ArrayList<FaresBean>,Object>> getfares(@FieldMap Map<String, String> params);
+    Observable<ResultBean<RightNowBuyBean,Object>> getfares(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -212,7 +220,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> selfPay(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> selfPay(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -220,11 +228,11 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> sureReceipt(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> sureReceipt(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<CollectDeleteBean,Object>> deleteOrder(@FieldMap Map<String, String> params);
+    Observable<ResultBean<String,Object>> deleteOrder(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -248,6 +256,14 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
+    Observable<ResultBean<ArrayList<BankBean>,Object>> getBankInfo(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> upBankInfo(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
     Observable<ResultBean<ArrayList<ProvinceBean>,Object>> getLocalData(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
@@ -264,7 +280,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<ArrayList<OrderDetailBean>,Object>> getOrderDetail(@FieldMap Map<String, String> params);
+    Observable<ResultBean<OrderDetailAddressBean,Object>> getOrderDetail(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

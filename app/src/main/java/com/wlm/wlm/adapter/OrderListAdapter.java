@@ -58,19 +58,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mShopName.setText(buyBeans.getStoremodel().get(position).getShop_name());
-
-        if (buyBeans.getUsermodel().getPoint()  > buyBeans.getStoremodel().get(position).getMax_use_Point()) {
-            holder.mIntegral.setText(buyBeans.getStoremodel().get(position).getMax_use_Point() + "");
-        }else {
-
-            BigDecimal b = new BigDecimal(buyBeans.getUsermodel().getPoint());
-            double po = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            holder.mIntegral.setText(po + "");
-        }
-//        holder.mFreight.setText(buyBeans.get(position).getStoremodel().getMax_use_Point());
-        point += (int)(Double.parseDouble(holder.mIntegral.getText().toString()));
-        Picasso.with(context).load(ProApplication.HEADIMG + buyBeans.getStoremodel().get(position).getShop_logo()).error(R.mipmap.ic_shop).into(holder.mShopIcon);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -83,20 +70,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             storeIds = storeIds + buyBeans.getStoremodel().get(position).getStore_id();
         }
 
-        textViews.add(holder.mFreight);
-
         OrderShopAdapter orderShopAdapter = new OrderShopAdapter(context,childListBeans);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setAdapter(orderShopAdapter);
 
-        holder.ll_shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("storeid",storeIds);
-                UiHelper.launcherBundle(context, StoreActivity.class,bundle);
-            }
-        });
 
         orderShopAdapter.setItemClickListener(new OrderShopAdapter.OnItemClickListener() {
             @Override
@@ -127,37 +104,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             onDataGetFare.onPoint(point);
         }
 
-        holder.rl_point.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = LayoutInflater.from(context).inflate(R.layout.layout_edittext,null);
-                final EditText editText = (EditText) view.findViewById(R.id.edit_num);
-                editText.setText(holder.mIntegral.getText().toString());
-                new AlertDialog.Builder(context).setMessage("修改使用积分").setView(view).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (!editText.getText().toString().isEmpty()){
-                            if (Integer.valueOf(editText.getText().toString()) > buyBeans.getUsermodel().getPoint()){
-                                UToast.show(context, "超出可使用积分");
-                            }else {
-                                if (Integer.valueOf(editText.getText().toString()) > buyBeans.getStoremodel().get(position).getMax_use_Point()) {
-                                    UToast.show(context, "超出最大使用积分");
-                                } else {
-                                    point += Integer.valueOf(editText.getText().toString()) - (int) (Double.parseDouble(holder.mIntegral.getText().toString()));
-                                    holder.mIntegral.setText(editText.getText().toString() + "");
-                                    onDataGetFare.onPoint(point);
-                                }
-                            }
-                        }
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).create().show();
-            }
-        });
+
 
     }
 
@@ -176,22 +123,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mShopName;
-        ImageView mShopIcon;
-        TextView mIntegral;
-        TextView mFreight;
         RecyclerView recyclerView;
-        RelativeLayout rl_point;
-        LinearLayout ll_shop;
         public ViewHolder(View itemView) {
             super(itemView);
-            mShopName = itemView.findViewById(R.id.tv_shop_name);
-            mShopIcon = itemView.findViewById(R.id.iv_shop_icon);
-            mIntegral = itemView.findViewById(R.id.tv_integral);
-            mFreight = itemView.findViewById(R.id.tv_freight);
             recyclerView = itemView.findViewById(R.id.rv_child);
-            rl_point = itemView.findViewById(R.id.rl_point);
-            ll_shop = itemView.findViewById(R.id.ll_shop);
         }
     }
 

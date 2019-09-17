@@ -7,8 +7,10 @@ import com.wlm.wlm.contract.AllOrderContract;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.CountBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -56,16 +58,16 @@ public class AllOrderPresenter extends BasePresenter {
      */
     public void cartBuy(String OrderSn,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","OrderInfoDetail");
+        params.put("cls","OrderInfo");
+        params.put("fun","OrderInfoGoodsDetail");
         params.put("OrderSn",OrderSn);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.getOrderDetail(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<OrderDetailBean>,Object>() {
+                .subscribe(new HttpResultCallBack<OrderDetailAddressBean,Object>() {
                     @Override
-                    public void onResponse(ArrayList<OrderDetailBean> orderDetailBeans, String status,Object page) {
+                    public void onResponse(OrderDetailAddressBean orderDetailBeans, String status, Object page) {
                         allOrderContract.setDataSuccess(orderDetailBeans);
                     }
 
@@ -85,10 +87,10 @@ public class AllOrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.exitOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>(){
+                .subscribe(new HttpResultCallBack<String,Object>(){
 
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         allOrderContract.exitOrderSuccess(collectDeleteBean);
                     }
 
@@ -140,9 +142,9 @@ public class AllOrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.selfPay(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         allOrderContract.selfPaySuccess(collectDeleteBean);
                     }
 
@@ -165,9 +167,9 @@ public class AllOrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.sureReceipt(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         allOrderContract.sureReceiptSuccess(collectDeleteBean);
                     }
 
@@ -189,9 +191,9 @@ public class AllOrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.deleteOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<String,Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         allOrderContract.sureReceiptSuccess(collectDeleteBean);
                     }
 

@@ -78,11 +78,13 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
     @Override
     public void onSendVcodeSuccess() {
-
+        toast("短信已发送");
     }
 
     @Override
     public void onSendVcodeFail(String msg) {
+        toast(msg);
+        customRegisterLayout.onFinish();
 
     }
 
@@ -93,7 +95,8 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 //        finish();
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid()).commit();
+                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid()).putString(WlmUtil.ACCOUNT,wxUserInfo.getNickname())
+                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
 
         UiHelper.launcher(this,MainFragmentActivity.class);
     }

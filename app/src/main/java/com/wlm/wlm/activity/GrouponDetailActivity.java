@@ -8,18 +8,13 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.GrouponGoodsDetailContract;
-import com.wlm.wlm.entity.GoodsChooseBean;
-import com.wlm.wlm.entity.GoodsDetailInfoBean;
-import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
+import com.wlm.wlm.contract.GrouponDetailContract;
+import com.wlm.wlm.entity.GrouponDetailBean;
+import com.wlm.wlm.presenter.GrouponDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +23,7 @@ import butterknife.OnClick;
  * Created by LG on 2019/8/21.
  */
 
-public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsDetailContract {
+public class GrouponDetailActivity extends BaseActivity implements GrouponDetailContract {
 
     @BindView(R.id.tv_grouponing)
     TextView tv_grouponing;
@@ -45,8 +40,8 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsD
     @BindView(R.id.tv_end_time)
     TextView tv_end_time;
 
-    private String goodsId;
-    private GrouponGoodsDetailPresenter getGoodsDetail = new GrouponGoodsDetailPresenter();
+    private String teamId;
+    private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
 
     @Override
     public int getLayoutId() {
@@ -61,11 +56,11 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsD
 
         getGoodsDetail.onCreate(this,this);
 
-        if (bundle != null && bundle.getString(WlmUtil.GOODSID) != null){
-            goodsId = bundle.getString(WlmUtil.GOODSID);
+        if (bundle != null && bundle.getString(WlmUtil.TEAMID) != null){
+            teamId = bundle.getString(WlmUtil.TEAMID);
         }
 
-        getGoodsDetail.getGoodsDetail(goodsId, ProApplication.SESSIONID(this));
+        getGoodsDetail.getGoodsDetail(teamId, ProApplication.SESSIONID(this));
 
 
     }
@@ -82,7 +77,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsD
     }
 
     @Override
-    public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsListBean) {
+    public void getDataSuccess(GrouponDetailBean goodsListBean) {
 
 
         tv_groupon_price.setText(goodsListBean.getPrice()+"");
@@ -92,7 +87,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponGoodsD
         tv_grouponing.setBackground(null);
         tv_grouponing.setText("拼团中");
 
-        tv_grounon_info.setText(goodsListBean.getGoodsTypeName());
+        tv_grounon_info.setText(goodsListBean.getGoodsSmallName());
 
         if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
             tv_end_time.setText("至开始");

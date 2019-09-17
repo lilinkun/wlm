@@ -42,12 +42,13 @@ public class MyGrouponPresenter extends BasePresenter {
 
     }
 
-    public void getMyGrouponData(String PageIndex,String PageCount,String SessionId){
+    public void getMyGrouponData(String PageIndex,String PageCount,String IsEnd,String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "GoodsTeamPublish");
         params.put("fun", "GoodsTeamPublishVipList");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
+        params.put("IsEnd",IsEnd);
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getMyGrouponData(params)
                 .subscribeOn(Schedulers.io())

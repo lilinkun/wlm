@@ -7,12 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -63,6 +65,8 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     RelativeLayout menu_bottom_2;
     @BindView(R.id.menu_bottom_3)
     RelativeLayout menu_bottom_3;
+    @BindView(R.id.bottom_bar)
+    LinearLayout bottom_bar;
 
     @BindView(R.id.top_vp)
     ViewPager mViewPager;

@@ -8,9 +8,13 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GrouponDetailActivity;
+import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.adapter.MyGrouponAdapter;
 import com.wlm.wlm.base.BaseFragment;
+import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.MyGrouponContrct;
 import com.wlm.wlm.entity.GrouponListBean;
+import com.wlm.wlm.presenter.MyGrouponPresenter;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -21,7 +25,7 @@ import butterknife.BindView;
 /**
  * Created by LG on 2019/9/16.
  */
-public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter.OnItemClickListener {
+public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter.OnItemClickListener , MyGrouponContrct {
 
     @BindView(R.id.rv_all_groupon)
     RecyclerView rv_all_groupon;
@@ -31,6 +35,8 @@ public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter
     private MyGrouponAdapter myGrouponAdapter;
     private Handler handler;
     private ArrayList<GrouponListBean> grouponListBeans;
+    private MyGrouponPresenter myGrouponPresenter = new MyGrouponPresenter();
+    private String isEnd = "";
 
     @Override
     public int getlayoutId() {
@@ -45,6 +51,9 @@ public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter
     @Override
     public void initEventAndData() {
 
+        myGrouponPresenter.onCreate(getActivity(),this);
+        myGrouponPresenter.getMyGrouponData("1","20",isEnd, ProApplication.SESSIONID(getActivity()));
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_all_groupon.setLayoutManager(linearLayoutManager);
@@ -52,13 +61,21 @@ public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                handler.sendEmptyMessage(0x111);
+                myGrouponPresenter.getMyGrouponData("1","20",isEnd, ProApplication.SESSIONID(getActivity()));
             }
         });
 
     }
 
-    public void setGrouponData(ArrayList<GrouponListBean> grouponListBeans){
+    @Override
+    public void onItemClick(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WlmUtil.TEAMID,grouponListBeans.get(position).getTeamId()+"");
+        UiHelper.launcherBundle(getActivity(), GrouponDetailActivity.class,bundle);
+    }
+
+    @Override
+    public void getGrouponDataSuccess(ArrayList<GrouponListBean> grouponListBeans) {
         this.grouponListBeans = grouponListBeans;
         if (refreshLayout != null && refreshLayout.isRefreshing()){
             refreshLayout.setRefreshing(false);
@@ -73,11 +90,8 @@ public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter
         }
     }
 
-
     @Override
-    public void onItemClick(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.GOODSID,grouponListBeans.get(position).getGoodsId());
-        UiHelper.launcherBundle(getActivity(), GrouponDetailActivity.class,bundle);
+    public void getGrouponDataFail(String msg) {
+
     }
 }

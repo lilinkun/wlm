@@ -74,9 +74,6 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null){
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_item,parent,false);
             groupViewHolder = new GroupViewHolder();
-            groupViewHolder.tvShopName = (TextView)convertView.findViewById(R.id.tv_shop_name);
-            groupViewHolder.tvFreight = (TextView)convertView.findViewById(R.id.tv_freight);
-            groupViewHolder.ivShopIc = (ImageView)convertView.findViewById(R.id.iv_shop_icon);
             convertView.setTag(groupViewHolder);
         }else {
             groupViewHolder = (GroupViewHolder)convertView.getTag();

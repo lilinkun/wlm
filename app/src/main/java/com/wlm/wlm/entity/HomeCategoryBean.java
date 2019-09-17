@@ -32,26 +32,31 @@ public class HomeCategoryBean implements Serializable {
     private String CategoryName;
     public static final long serialVersionUID = 123227;
 
-    public HomeCategoryBean(String articleId, String categoryId, String title, String articleContent, String author, int flag, boolean isLink, String link, boolean isAuditing, boolean isDownLoad, String fileUrl, String summary, String thumbnail, String color, int fontSize, String font, String sortRank, String createDate, String categoryName) {
-        ArticleId = articleId;
-        CategoryId = categoryId;
-        Title = title;
-        ArticleContent = articleContent;
-        Author = author;
-        Flag = flag;
-        IsLink = isLink;
-        Link = link;
-        IsAuditing = isAuditing;
-        IsDownLoad = isDownLoad;
-        FileUrl = fileUrl;
-        Summary = summary;
-        Thumbnail = thumbnail;
-        Color = color;
-        FontSize = fontSize;
-        Font = font;
-        SortRank = sortRank;
-        CreateDate = createDate;
-        CategoryName = categoryName;
+    @Generated(hash = 1660081269)
+    public HomeCategoryBean(String ArticleId, String CategoryId, String Title, String ArticleContent, String Author, int Flag, boolean IsLink, String Link, boolean IsAuditing, boolean IsDownLoad, String FileUrl, String Summary, String Thumbnail, String Color, int FontSize, String Font, String SortRank, String CreateDate, String CategoryName) {
+        this.ArticleId = ArticleId;
+        this.CategoryId = CategoryId;
+        this.Title = Title;
+        this.ArticleContent = ArticleContent;
+        this.Author = Author;
+        this.Flag = Flag;
+        this.IsLink = IsLink;
+        this.Link = Link;
+        this.IsAuditing = IsAuditing;
+        this.IsDownLoad = IsDownLoad;
+        this.FileUrl = FileUrl;
+        this.Summary = Summary;
+        this.Thumbnail = Thumbnail;
+        this.Color = Color;
+        this.FontSize = FontSize;
+        this.Font = Font;
+        this.SortRank = SortRank;
+        this.CreateDate = CreateDate;
+        this.CategoryName = CategoryName;
+    }
+
+    @Generated(hash = 324617625)
+    public HomeCategoryBean() {
     }
 
     public String getArticleId() {
@@ -204,5 +209,29 @@ public class HomeCategoryBean implements Serializable {
 
     public void setCategoryName(String categoryName) {
         CategoryName = categoryName;
+    }
+
+    public boolean getIsLink() {
+        return this.IsLink;
+    }
+
+    public void setIsLink(boolean IsLink) {
+        this.IsLink = IsLink;
+    }
+
+    public boolean getIsAuditing() {
+        return this.IsAuditing;
+    }
+
+    public void setIsAuditing(boolean IsAuditing) {
+        this.IsAuditing = IsAuditing;
+    }
+
+    public boolean getIsDownLoad() {
+        return this.IsDownLoad;
+    }
+
+    public void setIsDownLoad(boolean IsDownLoad) {
+        this.IsDownLoad = IsDownLoad;
     }
 }

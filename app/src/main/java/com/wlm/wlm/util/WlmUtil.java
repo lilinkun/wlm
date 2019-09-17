@@ -67,6 +67,10 @@ public class WlmUtil {
     public static final String ATTRID = "attr_id";
     public static final String ORDERID = "orderid";
     public static final String ORDERAMOUNT = "orderamount";
+    public static final String CATID = "catid";
+    public static final String ACCOUNT = "account";
+    public static final String HEADIMGURL = "headimgurl";
+    public static final String TEAMID = "teamid";
 
 
     public static String RESULT_SUCCESS = "success";

@@ -78,8 +78,8 @@ public class MenuItemAdapter extends BaseAdapter {
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        viewHold.tv_name.setText(homeCategoryBeans.get(position).getCat_name());
-        Picasso.with(context).load(ProApplication.BANNERIMG + homeCategoryBeans.get(position).getCat_indeximg()).into(viewHold.iv_icon);
+        viewHold.tv_name.setText(homeCategoryBeans.get(position).getCategoryName());
+        Picasso.with(context).load(ProApplication.BANNERIMG + homeCategoryBeans.get(position).getIsLink()).into(viewHold.iv_icon);
 
 
         convertView.setOnClickListener(new View.OnClickListener() {

@@ -61,8 +61,8 @@ public class ProApplication extends Application{
 
 
     public static String SESSIONID(Context mContext){
-      return  "wlm06afbb052494856945c98f32d8be2c45";
-//      return  "wlm" + DeviceData.getUniqueId(mContext);
+//      return  "wlm06afbb052494856945c98f32d8be2c45";
+      return  "wlm" + DeviceData.getUniqueId(mContext);
     }
 
     public static String HEADIMG = "";

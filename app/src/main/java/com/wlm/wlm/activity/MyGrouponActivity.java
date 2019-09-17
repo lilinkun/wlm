@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MyGrouponAdapter;
@@ -23,18 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by LG on 2019/9/16.
  */
-public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct {
+public class MyGrouponActivity extends BaseActivity {
 
     @BindView(R.id.order_list_groupon)
     TabLayout order_list_groupon;
     @BindView(R.id.order_list_vp_groupon)
     ViewPager order_list_vp_groupon;
 
-    private MyGrouponPresenter myGrouponPresenter = new MyGrouponPresenter();
     private MyGrouponAdapter myGrouponAdapter = null;
     private List<String> mTitles;
     private List<Fragment> fragments;
@@ -49,11 +50,9 @@ public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct 
             switch (msg.what){
                 case 0x110:
                     int position = msg.getData().getInt("position");
-                    myGrouponPresenter.getMyGrouponData("1","20", ProApplication.SESSIONID(MyGrouponActivity.this));
                     break;
 
                 case 0x111:
-                    myGrouponPresenter.getMyGrouponData("1","20", ProApplication.SESSIONID(MyGrouponActivity.this));
                     break;
             }
         }
@@ -69,7 +68,6 @@ public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct 
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
-        myGrouponPresenter.onCreate(this,this);
 
         initData();
 
@@ -79,8 +77,6 @@ public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct 
         order_list_groupon.setupWithViewPager(order_list_vp_groupon);
         order_list_groupon.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
 
-
-        myGrouponPresenter.getMyGrouponData("1","20", ProApplication.SESSIONID(MyGrouponActivity.this));
 
         order_list_vp_groupon.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -100,6 +96,18 @@ public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct 
         });
     }
 
+    @OnClick({R.id.ll_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.ll_back:
+
+                finish();
+
+                break;
+        }
+    }
+
+
     private void initData() {
         mTitles = new ArrayList<>();
         mTitles.add("全部");
@@ -111,23 +119,7 @@ public class MyGrouponActivity extends BaseActivity implements MyGrouponContrct 
         fragments.add(grouponUnOverFragment);
         fragments.add(grouponOverFragment);
 
-        grouponAllFragment.setHander(handler);
     }
-
-
-    @Override
-    public void getGrouponDataSuccess(ArrayList<GrouponListBean> grouponListBeans) {
-
-        grouponAllFragment.setGrouponData(grouponListBeans);
-        grouponUnOverFragment.setGrouponData(grouponListBeans);
-        grouponOverFragment.setGrouponData(grouponListBeans);
-    }
-
-    @Override
-    public void getGrouponDataFail(String msg) {
-
-    }
-
 
 
 

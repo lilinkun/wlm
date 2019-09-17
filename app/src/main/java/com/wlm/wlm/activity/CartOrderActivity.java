@@ -78,6 +78,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     TextView tv_goods_consignee_name;
     @BindView(R.id.tv_use_remarks)
     TextView tv_use_remarks;
+    @BindView(R.id.tv_old_use_point)
+    TextView tv_old_use_point;
 
     SureOrderPresenter sureOrderPresenter = new SureOrderPresenter();
     CartOrderListAdapter orderListAdapter;
@@ -133,9 +135,9 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                     break;
 
                 case R.id.rl_address:
-                    if (!isWxPay) {
-                        UiHelper.launcherForResult(this, ChooseAddressActivity.class, address_result);
-                    }
+
+                    UiHelper.launcherForResult(this, ChooseAddressActivity.class, address_result);
+
                     break;
 
 
@@ -178,6 +180,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
         tv_fare.setText(buyBean.getShippingFree() +"");
 
+        tv_old_use_point.setText(buyBean.getMoney2Balance()+"");
+
         mount = buyBean.getOrderAmount();
 
         tv_total.setText(mount +"");
@@ -210,16 +214,19 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     }
 
     @Override
-    public void getOrderGetFaresSuccess(ArrayList<FaresBean> fareBeans) {
-        double farePrice = 0;
+    public void getOrderGetFaresSuccess(RightNowBuyBean fareBeans) {
 
-        tv_fare.setText(farePrice + "");
-        total = mount + Double.parseDouble(tv_fare.getText().toString()) + Integer.valueOf(tv_use_point.getText().toString());
+        goods_total_price.setText(buyBean.getOrderAmount()+"");
 
-        BigDecimal b = new BigDecimal(total);
-        total = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        tv_total.setText("¥" + total);
-        tv_total_price.setText("¥" + total);
+        tv_use_point.setText(buyBean.getIntegral()+"");
+
+        tv_fare.setText(buyBean.getShippingFree() +"");
+
+        mount = buyBean.getOrderAmount();
+
+        tv_total.setText(mount +"");
+        tv_total_price.setText("" + mount);
+        tv_old_use_point.setText(buyBean.getMoney2Balance()+"");
 
     }
 
@@ -233,8 +240,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.ORDERID,orderid);
-        bundle.putString(WlmUtil.ORDERAMOUNT,total+"");
-        UiHelper.launcherBundle(this,PayActivity.class,bundle);
+        bundle.putString(WlmUtil.ORDERAMOUNT,mount+"");
+        UiHelper.launcherForResultBundle(this,PayActivity.class,0x144,bundle);
     }
 
     @Override
@@ -256,6 +263,11 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                 setAddress(addressBean);
                 getFare(addressBean.getProv(), addressBean.getCity());
             }
+
+            if (requestCode == 0x144){
+                setResult(RESULT_OK);
+                finish();
+            }
         }
     }
 
@@ -270,7 +282,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
     private void getFare(String provinceId, String cityId) {
 
-//        sureOrderPresenter.getFares(cartid, addressBean.getAddressID(), ProApplication.SESSIONID(this));
+        sureOrderPresenter.getFares(cartid, addressBean.getAddressID(), ProApplication.SESSIONID(this));
+
     }
 
     @Override

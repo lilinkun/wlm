@@ -44,6 +44,7 @@ import com.wlm.wlm.util.FileImageUpload;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,6 +121,11 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")).into(roundImageView);
+
+        nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
 
     }
 
@@ -382,6 +388,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public void LoginOutFail(String msg) {
-
+        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
     }
 }

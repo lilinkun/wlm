@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:clickable="false"
                 android:button="@drawable/checkbox_bg"/>
 
         </RelativeLayout>
@@ -167,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:clickable="false"
                 android:button="@drawable/checkbox_bg"/>
 
         </RelativeLayout>

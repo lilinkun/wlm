@@ -109,7 +109,7 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
     }
 
     @Override
-    public void exitOrderSuccess(CollectDeleteBean collectDeleteBean) {
+    public void exitOrderSuccess(String collectDeleteBean) {
 
     }
 

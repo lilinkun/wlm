@@ -16,10 +16,10 @@ public interface OrderListContract extends IView {
     public void InfoAccountSuccess(CountBean orderDetailBean);
     public void InfoAccountFail(String msg);
 
-    public void selfPaySuccess(CollectDeleteBean collectDeleteBean);
+    public void selfPaySuccess(String collectDeleteBean);
     public void selfPayFail(String msg);
 
-    public void sureReceiptSuccess(CollectDeleteBean collectDeleteBean);
+    public void sureReceiptSuccess(String collectDeleteBean);
     public void sureReceiptFail(String msg);
 
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean);

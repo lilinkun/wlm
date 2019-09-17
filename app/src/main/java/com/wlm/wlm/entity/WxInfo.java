@@ -14,7 +14,7 @@ public class WxInfo implements Serializable {
     private String partnerid;
 
     public String getAppId() {
-        return "wx11a116ef840f67f9";
+        return appId;
     }
 
     public void setAppId(String appId) {

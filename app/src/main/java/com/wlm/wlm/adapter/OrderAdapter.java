@@ -15,7 +15,9 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
+import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.util.UiHelper;
 import com.squareup.picasso.Picasso;
 
@@ -29,10 +31,10 @@ import java.util.ArrayList;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> implements View.OnClickListener {
 
     private Context mContext;
-    private ArrayList<OrderDetailBean> orderDetailBeans;
+    private OrderDetailAddressBean orderDetailBeans;
     private OnItemClickListener mItemClickListener;
 
-    public OrderAdapter(Context context, ArrayList<OrderDetailBean> orderDetailBeans){
+    public OrderAdapter(Context context, OrderDetailAddressBean orderDetailBeans){
         this.mContext = context;
         this.orderDetailBeans = orderDetailBeans;
     }
@@ -52,15 +54,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder,final int position) {
 
         holder.itemView.setTag(position);
-        holder.mShopName.setText(orderDetailBeans.get(position).getStoreModel().getShop_name());
-        if (orderDetailBeans.get(position).getShipping_fee() == 0){
-            holder.mFreight.setText("免邮");
-        }else {
-            holder.mFreight.setText(orderDetailBeans.get(position).getShipping_fee() + "");
-        }
-        holder.mIntegral.setText(orderDetailBeans.get(position).getUseIntegral()+"");
 
-        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(mContext,orderDetailBeans.get(position).getOrderGoodsItem());
+        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(mContext,orderDetailBeans.getOrderDetail());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -68,7 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onItemClick(int positionId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("goodsid",orderDetailBeans.get(position).getOrderGoodsItem().get(positionId).getGoodsId());
+                bundle.putString("goodsid",orderDetailBeans.getOrderDetail().get(position).getGoodsId());
                 UiHelper.launcherBundle(mContext,SelfGoodsDetailActivity.class,bundle);
             }
         });
@@ -76,13 +71,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setAdapter(orderChildAdapter);
 
-        Picasso.with(mContext).load(ProApplication.HEADIMG + orderDetailBeans.get(position).getStoreModel().getShop_logo()).into(holder.mShopIcon);
-
     }
 
     @Override
     public int getItemCount() {
-        return orderDetailBeans.size();
+        return orderDetailBeans.getOrderDetail().size();
     }
 
     @Override
@@ -102,20 +95,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mShopName;
-        ImageView mShopIcon;
-        TextView mIntegral;
-        TextView mFreight;
         RecyclerView recyclerView;
-        RelativeLayout rl_point;
         public ViewHolder(View itemView) {
             super(itemView);
-            mShopName = itemView.findViewById(R.id.tv_shop_name);
-            mShopIcon = itemView.findViewById(R.id.iv_shop_icon);
-            mIntegral = itemView.findViewById(R.id.tv_integral);
-            mFreight = itemView.findViewById(R.id.tv_freight);
             recyclerView = itemView.findViewById(R.id.rv_child);
-            rl_point = itemView.findViewById(R.id.rl_point);
         }
     }
 

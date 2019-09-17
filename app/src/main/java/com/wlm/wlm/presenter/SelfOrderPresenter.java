@@ -89,20 +89,25 @@ public class SelfOrderPresenter extends BasePresenter{
         );
     }
 
+    /**
+     * 取消订单
+     * @param OrderId
+     * @param SessionId
+     */
     public void exitOrder(String OrderId,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","取消订单中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "Order");
-        params.put("fun", "CancleOrder");
-        params.put("OrderId", OrderId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoVIPCancel");
+        params.put("OrderSn", OrderId);
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.exitOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>(){
+                .subscribe(new HttpResultCallBack<String,Object>(){
 
                     @Override
-                    public void onResponse(CollectDeleteBean collectDeleteBean, String status,Object page) {
+                    public void onResponse(String collectDeleteBean, String status,Object page) {
                         selfOrderContract.exitOrderSuccess(collectDeleteBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();

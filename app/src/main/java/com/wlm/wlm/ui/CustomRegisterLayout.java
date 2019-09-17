@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
@@ -32,7 +33,8 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     private Resources res;
     private TextView tv_send_vcode;
     private EditText mEtInputInvitation,mEtInputVcode,mEtInputPhone;
-    private LinearLayout mLlProtocol;
+    private LinearLayout mLlProtocol,ll_input_phone,ll_input_invitation;
+    private RelativeLayout rl_vcode,rl_input_invitation;
     private Button mOverBtn;
 
     private boolean isOpen = false;
@@ -40,7 +42,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     private Handler handler;
     private boolean isRegister = false;
 
-    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
+    public MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
 
     public CustomRegisterLayout(Context context) {
         super(context);
@@ -82,10 +84,17 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         mEtInputVcode = (EditText) view.findViewById(R.id.et_input_vcode);
         mEtInputPhone = (EditText) view.findViewById(R.id.et_input_phone);
         mLlProtocol = (LinearLayout) view.findViewById(R.id.ll_protocol);
+        rl_input_invitation = (RelativeLayout) view.findViewById(R.id.rl_input_invitation);
+        rl_vcode = (RelativeLayout) view.findViewById(R.id.rl_vcode);
+        ll_input_phone = (LinearLayout) view.findViewById(R.id.ll_input_phone);
+
         mOverBtn = (Button)view.findViewById(R.id.btn_over);
         tv_send_vcode.setOnClickListener(this);
         mOverBtn.setOnClickListener(this);
 
+        ll_input_phone.getBackground().setAlpha(33);
+        rl_input_invitation.getBackground().setAlpha(33);
+        rl_vcode.getBackground().setAlpha(33);
 
         this.addView(view , new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
@@ -145,6 +154,17 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         }
     }
 
+    public void onFinish(){
+        myCountDownTimer.cancel();
+        //重新给Button设置文字
+        tv_send_vcode.setText(R.string.register_send_vcoed);
+        //设置可点击
+        tv_send_vcode.setClickable(true);
+
+        tv_send_vcode.setTextColor(getResources().getColor(R.color.white));
+
+    }
+
     /**
      * 获取验证码倒计时
      */
@@ -171,7 +191,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
             //设置可点击
             tv_send_vcode.setClickable(true);
 
-            tv_send_vcode.setTextColor(getResources().getColor(R.color.register_vcode_bg));
+            tv_send_vcode.setTextColor(getResources().getColor(R.color.white));
         }
     }
 

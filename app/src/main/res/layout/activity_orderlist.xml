@@ -44,11 +44,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="自营商城"
+            android:text="@string/me_order"
             android:textColor="@color/pop_text_bg"
             android:gravity="center"
-            android:drawablePadding="3dp"
-            android:drawableRight="@mipmap/ic_self_order_sanjiao"
             android:textSize="18sp" />
 
         </LinearLayout>

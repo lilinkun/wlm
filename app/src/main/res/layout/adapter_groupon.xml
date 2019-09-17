@@ -6,11 +6,6 @@
     android:background="@drawable/member_item"
     android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line_bg" />
-
     <RelativeLayout
         android:id="@+id/rl_goods_pic"
         android:layout_width="132dp"

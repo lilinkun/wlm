@@ -96,16 +96,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_lzy_account"
+                    android:id="@+id/tv_wlm_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textsize16"
                     android:textColor="@color/white"
                     android:layout_marginTop="@dimen/margin_4"
-                    android:text="15122336655"/>
+                    />
 
                 <LinearLayout
-                    android:layout_width="44dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:orientation="horizontal"
                     android:gravity="center"
@@ -124,7 +124,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textsize12"
                         android:textColor="@color/setting_title_color"
-                        android:text="vip"/>
+                        android:layout_marginRight="2dp"
+                        />
 
 
                 </LinearLayout>
@@ -205,10 +206,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+
                 <com.wlm.wlm.ui.PriceTextView
                     android:id="@+id/tv_integral_balance"
                     android:layout_width="wrap_content"
@@ -217,14 +215,6 @@
                     android:textColor="@color/black_333333"
                     android:text="0"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textsize16"
-                        android:textColor="@color/black_333333"
-                        android:text="积分"/>
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,6 +231,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_vip"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/shape_me_vip_layout">
@@ -265,6 +256,7 @@
                 android:layout_marginRight="@dimen/margin_10">
 
             <TextView
+                android:id="@+id/tv_open_vip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/me_vip_text"

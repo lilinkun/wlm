@@ -125,8 +125,8 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         homeCategoryBean = (HomeCategoryBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("home");
-        if (homeCategoryBean != null && homeCategoryBean.getCat_id() != 0) {
-            catid = homeCategoryBean.getCat_id() + "";
+        if (homeCategoryBean != null && homeCategoryBean.getCategoryId() != null) {
+            catid = homeCategoryBean.getCategoryId() + "";
         }
         ActivityUtil.addActivity(this);
 
