@@ -34,6 +34,7 @@ public class OrderDetailAddressBean {
     private int District;
     private int MemberLevel;
     private int Zip;
+    private String EffectivePaymentDate;
     private ArrayList<SelfOrderInfoBean> orderDetail;
 
     public int getOrderId() {
@@ -266,5 +267,13 @@ public class OrderDetailAddressBean {
 
     public void setOrderDetail(ArrayList<SelfOrderInfoBean> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public String getEffectivePaymentDate() {
+        return EffectivePaymentDate;
+    }
+
+    public void setEffectivePaymentDate(String effectivePaymentDate) {
+        EffectivePaymentDate = effectivePaymentDate;
     }
 }

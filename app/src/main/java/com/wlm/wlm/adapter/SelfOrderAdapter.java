@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.OnItemClick;
+
 /**
  * Created by LG on 2018/12/18.
  */
@@ -82,11 +84,11 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             holder.tv_exit_order.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setVisibility(View.VISIBLE);
 
-            /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
             Date date = new Date(System.currentTimeMillis());
             Date str = new Date();
             try {
-                str = simpleDateFormat.parse(selfOrderBeans.get(position).getCreateDate());
+                str = simpleDateFormat.parse(selfOrderBeans.get(position).getEffectivePaymentDate());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -97,7 +99,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                 holder.tv_exit_order.setVisibility(View.GONE);
                 holder.tv_go_pay.setVisibility(View.GONE);
                 holder.tv_ship_pay.setText("已失效");
-            }*/
+            }
 
         }else if (selfOrderBeans.get(position).getOrderStatus() == 2){
             holder.tv_go_pay.setVisibility(View.VISIBLE);

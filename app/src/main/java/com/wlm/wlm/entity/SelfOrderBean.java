@@ -23,6 +23,7 @@ public class SelfOrderBean<T> {
     private double ShippingFee;
     private String ConfirmTime;
     private String CreateDate;
+    private String EffectivePaymentDate;
     private ArrayList<SelfOrderInfoBean> list;
 
     public String getOrderId() {
@@ -143,6 +144,14 @@ public class SelfOrderBean<T> {
 
     public void setCreateDate(String createDate) {
         CreateDate = createDate;
+    }
+
+    public String getEffectivePaymentDate() {
+        return EffectivePaymentDate;
+    }
+
+    public void setEffectivePaymentDate(String effectivePaymentDate) {
+        EffectivePaymentDate = effectivePaymentDate;
     }
 
     public ArrayList<SelfOrderInfoBean> getList() {
