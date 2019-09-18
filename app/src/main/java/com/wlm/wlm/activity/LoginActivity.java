@@ -108,16 +108,17 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     public void onLoginSuccess(LoginBean mLoginBean) {
 
         LoginBean loginBean = mLoginBean;
-        /*String datalife = null;
+        String datalife = "";
         try {
             datalife = WlmUtil.serialize(loginBean);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName())
+                .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
+                .putString(WlmUtil.LOGINBEAN,datalife)
                 .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
 
 

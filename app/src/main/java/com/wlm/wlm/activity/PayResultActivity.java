@@ -34,9 +34,9 @@ public class PayResultActivity extends BaseActivity {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.pop_text_bg));
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
 
-        String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("price");
+        String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.PRICE);
         tv_price.setText("¥ "  + price);
 
     }

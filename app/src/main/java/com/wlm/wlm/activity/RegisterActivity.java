@@ -33,6 +33,7 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
     private RegisterPresenter mRegisterPresenter = new RegisterPresenter();
     ProgressDialog progressDialog = null;
     WxUserInfo wxUserInfo = null;
+    private String telephone;
 
     @Override
     public int getLayoutId() {
@@ -68,6 +69,7 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
     @Override
     public void getOver(String phone,String vcode,String Referees) {
         if (wxUserInfo != null) {
+            telephone = phone;
             mRegisterPresenter.register(phone,wxUserInfo.getNickname(), vcode, Referees,wxUserInfo.getUnionid(),wxUserInfo.getOpenid(),wxUserInfo.getHeadimgurl(),"2", ProApplication.SESSIONID(this));
         }
     }
@@ -95,7 +97,8 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 //        finish();
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid()).putString(WlmUtil.ACCOUNT,wxUserInfo.getNickname())
+                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid())
+                .putString(WlmUtil.ACCOUNT,wxUserInfo.getNickname()).putString(WlmUtil.TELEPHONE,telephone)
                 .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
 
         UiHelper.launcher(this,MainFragmentActivity.class);

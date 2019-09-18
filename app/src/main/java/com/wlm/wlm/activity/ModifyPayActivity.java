@@ -42,7 +42,6 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
     CustomTitleBar titleBar;
 
     ModifyPayPsdPresenter modifyPayPsdPresenter = new ModifyPayPsdPresenter();
-    private int modifyInt = 0;
     private LoginBean loginBean;
 
     MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
@@ -59,16 +58,12 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
         modifyPayPsdPresenter.onCreate(this,this);
 
-        modifyInt = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("modify");
 
-        if (modifyInt == 1) {
-            titleBar.setTileName("修改密码");
-        }else {
-            titleBar.setTileName("修改支付密码");
-        }
+        titleBar.setTileName("修改支付密码");
+
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        String loginInfo = sharedPreferences.getString("logininfo","");
+        String loginInfo = sharedPreferences.getString(WlmUtil.LOGINBEAN,"");
         try {
             loginBean = (LoginBean) WlmUtil.unSerialization(loginInfo);
             textView.setText(PhoneFormatCheckUtils.phoneAddress(loginBean.getMobile()));
@@ -94,18 +89,16 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
                     toast("验证码不能为空");
                 }else if (ev_new_psd.getText().toString().isEmpty()){
                     toast("新密码不能为空");
-                }else if (ev_new_psd.getText().toString().length() < 6){
+                }else if (ev_new_psd.getText().toString().length() != 6){
                     toast(R.string.psd_limit);
                 }else if (ev_sure_psd.getText().toString().isEmpty()){
                     toast("确认密码不能为空");
                 }else if (!ev_new_psd.getText().toString().equals(ev_sure_psd.getText().toString())){
                     toast("两次密码不同，请确认");
                 }else {
-                    if (modifyInt == 1){
-                        modifyPayPsdPresenter.modify(loginBean.getMobile(),ev_vcode.getText().toString(),ev_new_psd.getText().toString(),ProApplication.SESSIONID(this));
-                    }else {
-                        modifyPayPsdPresenter.modifyPsd(ev_vcode.getText().toString(), ev_new_psd.getText().toString(), ProApplication.SESSIONID(this));
-                    }
+
+                   modifyPayPsdPresenter.modifyPsd(ev_vcode.getText().toString(), ev_new_psd.getText().toString(),ev_sure_psd.getText().toString(), ProApplication.SESSIONID(this));
+
                 }
 
                 break;
@@ -163,7 +156,6 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
             //防止计时过程中重复点击
             tv_send_vcode.setClickable(false);
             tv_send_vcode.setText(l/1000+"s");
-            tv_send_vcode.setTextColor(getResources().getColor(R.color.line_bg));
         }
 
         //计时完毕的方法

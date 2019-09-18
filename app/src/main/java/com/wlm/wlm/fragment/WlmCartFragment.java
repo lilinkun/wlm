@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.CartOrderActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
+import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.adapter.ShoppingCarAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.ManufactureStoreContract;
 import com.wlm.wlm.contract.OrderContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -191,7 +193,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
                     Bundle bundle = new Bundle();
                     bundle.putString("goodsname", "");
-                    UiHelper.launcherForResultBundle(this, SelfGoodsTypeActivity.class, goods_result, bundle);
+                    UiHelper.launcherForResultBundle(this, ManufactureStoreActivity.class, goods_result, bundle);
 
                     break;
             }

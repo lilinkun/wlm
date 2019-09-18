@@ -17,23 +17,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin_10"
-        android:background="@color/white"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_10">
+        android:layout_margin="@dimen/margin_10"
+        android:background="@drawable/shape_info_pop">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10"
-            android:orientation="horizontal">
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:paddingLeft="@dimen/margin_10"
                 android:textSize="@dimen/textsize16"
-                android:textColor="@color/pop_text_bg"
+                android:textColor="@color/black_333333"
                 android:text="手机号"/>
 
             <TextView
@@ -41,6 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/black_333333"
                 android:paddingLeft="@dimen/padding_10"
                 android:background="@null"/>
             </LinearLayout>
@@ -52,16 +53,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10"
-            android:orientation="horizontal">
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:paddingLeft="@dimen/margin_10"
                 android:textSize="@dimen/textsize16"
-                android:textColor="@color/pop_text_bg"
+                android:textColor="@color/black_333333"
                 android:text="验证码"/>
 
             <RelativeLayout
@@ -73,18 +75,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/tv_send_vcode"
+                android:layout_centerVertical="true"
                 android:layout_weight="3"
                 android:paddingLeft="@dimen/padding_10"
+                android:hint="@string/register_input_vcode"
                 android:background="@null"/>
 
             <TextView
                 android:id="@+id/tv_send_vcode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/textsize14"
+                android:gravity="center"
                 android:textColor="@color/register_vcode_bg"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
                 android:text="@string/register_send_vcoed"/>
 
             </RelativeLayout>
@@ -98,15 +105,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10"
-            android:orientation="horizontal">
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/margin_10"
                 android:textSize="@dimen/textsize16"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:textColor="@color/pop_text_bg"
                 android:text="新密码"/>
 
@@ -129,13 +137,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10"
-            android:orientation="horizontal">
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:paddingLeft="@dimen/margin_10"
                 android:textSize="@dimen/textsize16"
                 android:textColor="@color/pop_text_bg"
@@ -160,6 +169,12 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_15"
+        android:gravity="bottom">
     <TextView
         android:id="@+id/tv_modify_commit"
         android:layout_width="match_parent"
@@ -172,6 +187,6 @@
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="@dimen/textsize18"
-        android:background="@drawable/text_shape_commit"/>
-
+        android:background="@drawable/tv_bg_click"/>
+    </LinearLayout>
 </LinearLayout>

@@ -128,6 +128,7 @@
         android:background="@drawable/shape_info_pop">
 
         <RelativeLayout
+            android:id="@+id/rl_change_psd"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             >
@@ -157,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/list_divider"
                 android:textSize="@dimen/textsize14"
-                android:text="未设置"
+                android:text="修改"
                 android:layout_marginRight="@dimen/margin_10"/>
 
 

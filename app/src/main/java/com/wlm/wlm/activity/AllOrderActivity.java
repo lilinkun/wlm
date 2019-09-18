@@ -417,20 +417,20 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                         }
                     });
 
-                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
-                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
-                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
-
-                    textView.setText(order_amount+"");
-
-                    btn_sure.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!editText.getText().toString().isEmpty()){
-                                allOrderPresenter.selfPay(editText.getText().toString(),orderSn,ProApplication.SESSIONID(AllOrderActivity.this));
-                            }
-                        }
-                    });
+//                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
+//                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
+//                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
+//
+//                    textView.setText(order_amount+"");
+//
+//                    btn_sure.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            if (!editText.getText().toString().isEmpty()){
+//                                allOrderPresenter.selfPay(editText.getText().toString(),orderSn,ProApplication.SESSIONID(AllOrderActivity.this));
+//                            }
+//                        }
+//                    });
 
 
                 }else if (check_wx.isChecked()){

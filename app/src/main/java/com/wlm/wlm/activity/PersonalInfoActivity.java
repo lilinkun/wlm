@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -71,6 +72,8 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     TextView tv_phone;
     @BindView(R.id.tv_clear)
     TextView tv_clear;
+    @BindView(R.id.rl_change_psd)
+    RelativeLayout rl_change_psd;
 
     private PopupWindow popupWindow = null;
     private static final int IMAGEBUNDLE = 0x221;
@@ -126,10 +129,11 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")).into(roundImageView);
 
         nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
+        tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE,"")));
 
     }
 
-    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout})
+    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout,R.id.rl_change_psd})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_head_title_info:
@@ -224,6 +228,12 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             case R.id.tv_loginout:
 
                 personalInfoPresenter.LoginOut(ProApplication.SESSIONID(this));
+
+                break;
+
+            case R.id.rl_change_psd:
+
+                UiHelper.launcher(this,ModifyPayActivity.class);
 
                 break;
         }

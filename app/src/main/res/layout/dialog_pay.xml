@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:background="#20000000"
+    android:gravity="bottom|center_horizontal">
 
 
-    <TextView
+
+
+    <com.wlm.wlm.ui.PasswordView
+        android:id="@+id/pwd_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textsize17"
         android:layout_marginTop="@dimen/margin_10"
         android:textColor="@color/pop_text_bg"
         android:text="请输入支付密码"/>
-    
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -55,7 +63,7 @@
         android:layout_marginBottom="@dimen/margin_30"
         android:textColor="@color/white"
         android:background="@drawable/text_shape_commit"
-        android:text="@string/modify_sure" />
+        android:text="@string/modify_sure" />-->
 
 
-</LinearLayout>
+</RelativeLayout>

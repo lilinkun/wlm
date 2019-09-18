@@ -5,11 +5,13 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll_pay_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <com.wlm.wlm.ui.CustomTitleBar
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         app:text_title="支付订单"
@@ -123,6 +125,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:clickable="false"
+                android:checked="true"
                 android:button="@drawable/checkbox_bg"/>
 
         </RelativeLayout>

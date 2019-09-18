@@ -52,6 +52,7 @@ public class WlmUtil {
 
     public static final String TYPEID = "TYPEID";
     public static final String LOGIN = "login";
+    public static final String LOGINBEAN = "loginbean";
     public static final String OPENID = "openid";
     public static final String UNIONID = "unionid";
     public static final String GROUPONGOODS = "groupongoods";
@@ -71,6 +72,8 @@ public class WlmUtil {
     public static final String ACCOUNT = "account";
     public static final String HEADIMGURL = "headimgurl";
     public static final String TEAMID = "teamid";
+    public static final String TELEPHONE = "telephone";
+    public static final String PRICE = "price";
 
 
     public static String RESULT_SUCCESS = "success";

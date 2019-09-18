@@ -123,7 +123,6 @@
         <com.wlm.wlm.ui.CustomTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:img_left="@mipmap/ic_back"
             app:text_title="@string/shopping_car"
             app:text_color="@color/login_title_text"
             />

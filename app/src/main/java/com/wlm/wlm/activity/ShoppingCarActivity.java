@@ -202,7 +202,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
                     Bundle bundle = new Bundle();
                     bundle.putString("goodsname", "");
-                    UiHelper.launcherForResultBundle(this, SelfGoodsTypeActivity.class, goods_result, bundle);
+                    UiHelper.launcherForResultBundle(this, ManufactureStoreActivity.class, goods_result, bundle);
 
                     break;
 

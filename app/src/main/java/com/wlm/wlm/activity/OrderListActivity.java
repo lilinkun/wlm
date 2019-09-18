@@ -430,20 +430,20 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
                         }
                     });
 
-                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
-                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
-                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
-
-                    textView.setText(selfOrderBean.getOrderAmount()+"");
-
-                    btn_sure.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!editText.getText().toString().isEmpty()){
-                                orderListPresenter.selfPay(editText.getText().toString(),selfOrderBean.getOrderSn(),ProApplication.SESSIONID(OrderListActivity.this));
-                            }
-                        }
-                    });
+//                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
+//                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
+//                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
+//
+//                    textView.setText(selfOrderBean.getOrderAmount()+"");
+//
+//                    btn_sure.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            if (!editText.getText().toString().isEmpty()){
+//                                orderListPresenter.selfPay(editText.getText().toString(),selfOrderBean.getOrderSn(),ProApplication.SESSIONID(OrderListActivity.this));
+//                            }
+//                        }
+//                    });
 
 
                 }else if (check_wx.isChecked()){

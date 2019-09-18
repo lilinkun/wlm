@@ -117,7 +117,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             @Override
             public void onClick(View v) {
                 if (!ButtonUtils.isFastDoubleClick()) {
-                    new AlertDialog.Builder(context).setMessage("确认删除此订单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    new AlertDialog.Builder(context).setMessage("确认取消此订单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             onItemClick.exit_order(selfOrderBeans.get(position).getOrderId());

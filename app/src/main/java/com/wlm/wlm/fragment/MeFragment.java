@@ -26,6 +26,7 @@ import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.MyGrouponActivity;
+import com.wlm.wlm.activity.MyQrCodeActivity;
 import com.wlm.wlm.activity.OrderListActivity;
 import com.wlm.wlm.activity.PersonalInfoActivity;
 import com.wlm.wlm.activity.VipActivity;
@@ -121,7 +122,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     }
 
     @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,
-            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip})
+            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -204,6 +205,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.rl_vip:
 
                     UiHelper.launcher(getActivity(), VipActivity.class);
+
+                    break;
+
+                case R.id.ll_qrcode:
+
+                    UiHelper.launcher(getActivity(), MyQrCodeActivity.class);
 
                     break;
             }

@@ -52,7 +52,7 @@ public class ModifyPayPsdPresenter extends BasePresenter {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "SendSms");
-        params.put("fun", "UserSmsCode");
+        params.put("fun", "SendSafetyVerificationCode");
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
@@ -82,13 +82,14 @@ public class ModifyPayPsdPresenter extends BasePresenter {
      * 修改支付密码
      * @param sessionId
      */
-    public void modifyPsd(String Code,String BankPwd,String sessionId){
+    public void modifyPsd(String Code,String PassWord,String ConfirmPassWord,String sessionId){
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "BankChange");
-        params.put("fun", "UpdateBankChangePwd");
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseChangePassWord");
         params.put("Code",Code);
-        params.put("BankPwd",BankPwd);
+        params.put("PassWord",PassWord);
+        params.put("ConfirmPassWord",ConfirmPassWord);
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.modifyPsd(params)
                 .subscribeOn(Schedulers.io())
