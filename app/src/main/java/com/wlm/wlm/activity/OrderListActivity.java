@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
@@ -49,6 +50,7 @@ import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.OrderListPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.QRCodeUtil;
 import com.wlm.wlm.util.UToast;
@@ -203,7 +205,13 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     @Override
     public void payMode(SelfOrderBean selfOrderBean, int mode) {
         this.selfOrderBean = selfOrderBean;
-        orderListPresenter.getOrderData(ProApplication.SESSIONID(this));
+
+        Bundle bundle = new Bundle();
+        bundle.putString(WlmUtil.ORDERID,selfOrderBean.getOrderId());
+        bundle.putString(WlmUtil.ORDERAMOUNT,selfOrderBean.getOrderAmount()+"");
+        UiHelper.launcherBundle(this,PayActivity.class,bundle);
+
+//        orderListPresenter.getOrderData(ProApplication.SESSIONID(this));
     }
 
     @Override

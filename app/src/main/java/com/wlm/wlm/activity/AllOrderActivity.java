@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.AllOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
 
@@ -258,7 +260,12 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                 if (!ButtonUtils.isFastDoubleClick()) {
                     tv_pay_order.setClickable(false);
                     if (status == 0) {
-                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString(WlmUtil.ORDERID,orderDetailBeans.getOrderId()+"");
+                        bundle.putString(WlmUtil.ORDERAMOUNT,orderDetailBeans.getOrderAmount()+"");
+                        UiHelper.launcherBundle(AllOrderActivity.this,PayActivity.class,bundle);
+//                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
                         allOrderPresenter.sureReceipt(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 4) {
@@ -416,22 +423,6 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
                         }
                     });
-
-//                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
-//                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
-//                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
-//
-//                    textView.setText(order_amount+"");
-//
-//                    btn_sure.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (!editText.getText().toString().isEmpty()){
-//                                allOrderPresenter.selfPay(editText.getText().toString(),orderSn,ProApplication.SESSIONID(AllOrderActivity.this));
-//                            }
-//                        }
-//                    });
-
 
                 }else if (check_wx.isChecked()){
                     payPopupWindow.dismiss();
