@@ -2,6 +2,7 @@ package com.wlm.wlm.activity;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -10,14 +11,9 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MyGrouponAdapter;
 import com.wlm.wlm.adapter.TabPageAdapter;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.MyGrouponContrct;
-import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.fragment.GrouponAllFragment;
 import com.wlm.wlm.fragment.GrouponOverFragment;
 import com.wlm.wlm.fragment.GrouponUnOverFragment;
-import com.wlm.wlm.presenter.MyGrouponPresenter;
-import com.wlm.wlm.ui.tablayout.TabLayout;
 import com.wlm.wlm.util.Eyes;
 
 import java.util.ArrayList;

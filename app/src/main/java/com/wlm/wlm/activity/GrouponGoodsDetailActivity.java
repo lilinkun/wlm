@@ -79,7 +79,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
         if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null){
-            goodsListBean = (GoodsListBean) bundle.getSerializable("groupongoods");
+            goodsListBean = (GoodsListBean) bundle.getSerializable(WlmUtil.GROUPONGOODS);
 
         }
 

@@ -83,7 +83,8 @@
                     layout="@layout/layout_self_commodities"/>
 
                 <include
-                    layout="@layout/layout_brand_recommendation"/>
+                    layout="@layout/layout_brand_recommendation"
+                    android:visibility="gone"/>
 
                 <include
                     layout="@layout/layout_hot_commodities"/>

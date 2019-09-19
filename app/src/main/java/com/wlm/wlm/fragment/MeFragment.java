@@ -103,7 +103,6 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         Eyes.translucentStatusBar(getActivity());
         translucentScrollView.init(this);
         mePresenter.onCreate(getActivity(),this);
-        mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
 
 
@@ -118,7 +117,6 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     }
 
     public void setPoint(){
-        mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
     }
 
     @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,
@@ -293,7 +291,6 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     }
                 }
             }else if (requestCode == result_recharge){
-                mePresenter.getInfo(ProApplication.SESSIONID(getActivity()));
             }
         }
     }

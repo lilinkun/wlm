@@ -1,20 +1,29 @@
 package com.wlm.wlm.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.GrouponDetailAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.GrouponDetailContract;
 import com.wlm.wlm.entity.GrouponDetailBean;
+import com.wlm.wlm.entity.JoinGrouponBean;
 import com.wlm.wlm.presenter.GrouponDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.PriceTextView;
+import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,9 +48,14 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     TextView tv_grounon_info;
     @BindView(R.id.tv_end_time)
     TextView tv_end_time;
+    @BindView(R.id.tv_friends_num)
+    TextView tv_friends_num;
+    @BindView(R.id.riv_rc)
+    RoundImageView riv_rc;
 
     private String teamId;
     private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
+    private ArrayList<JoinGrouponBean> joinGrouponBeans;
 
     @Override
     public int getLayoutId() {
@@ -62,6 +76,8 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         getGoodsDetail.getGoodsDetail(teamId, ProApplication.SESSIONID(this));
 
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.ACCOUNT,"")).error(R.mipmap.ic_adapter_error).into(riv_rc);
 
     }
 
@@ -96,10 +112,27 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
         }else {
             tv_grouponing.setVisibility(View.GONE);
         }
+
+        if (goodsListBean.getListUser() != null){
+            joinGrouponBeans = goodsListBean.getListUser();
+            tv_friends_num.setText(joinGrouponBeans.size()+"");
+
+            GrouponDetailAdapter grouponParticipantAdapter = new GrouponDetailAdapter(this,joinGrouponBeans);
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this,7);
+            gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
+
+            rv_groupon_list.setLayoutManager(gridLayoutManager);
+            rv_groupon_list.setAdapter(grouponParticipantAdapter);
+        }
+
     }
 
     @Override
     public void getDataFail(String msg) {
         toast(msg);
     }
+
+
+
 }

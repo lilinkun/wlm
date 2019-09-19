@@ -40,6 +40,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_order_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_2"
@@ -273,29 +274,34 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_alignParentRight="true">
 
             <TextView
                 android:id="@+id/tv_exit_order"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/red"
-                android:textColor="@color/white"
+                android:layout_height="30dp"
+                android:background="@drawable/order_self_black_btn"
+                android:textColor="@color/grey_color2"
                 android:text="取消订单"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingRight="@dimen/margin_20"
+                android:textSize="@dimen/textsize14"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
                 android:gravity="center"/>
 
             <TextView
                 android:id="@+id/tv_pay_order"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/setting_title_color"
-                android:textColor="@color/white"
+                android:layout_height="30dp"
+                android:background="@drawable/order_self_red_btn"
+                android:textColor="@color/setting_title_color"
                 android:gravity="center"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingRight="@dimen/margin_20"
-                android:text="立即付款"/>
+                android:textSize="@dimen/textsize14"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:text="付款"/>
 
         </LinearLayout>
 

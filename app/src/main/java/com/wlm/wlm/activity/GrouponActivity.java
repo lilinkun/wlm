@@ -30,6 +30,7 @@ import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.GrouponType;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -160,7 +161,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("groupongoods",goodsListBeans.get(position));
+        bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
         UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
     }
 

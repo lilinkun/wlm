@@ -207,7 +207,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         this.selfOrderBean = selfOrderBean;
 
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.ORDERID,selfOrderBean.getOrderId());
+        bundle.putString(WlmUtil.ORDERID,selfOrderBean.getOrderSn());
         bundle.putString(WlmUtil.ORDERAMOUNT,selfOrderBean.getOrderAmount()+"");
         UiHelper.launcherBundle(this,PayActivity.class,bundle);
 

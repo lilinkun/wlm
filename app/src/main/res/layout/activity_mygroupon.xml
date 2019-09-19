@@ -7,17 +7,16 @@
 
     <com.wlm.wlm.ui.CustomTitleBar
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         app:text_title="我的拼团"
         app:img_left="@mipmap/ic_back"/>
 
 
-    <com.wlm.wlm.ui.tablayout.TabLayout
+    <android.support.design.widget.TabLayout
         android:id="@+id/order_list_groupon"
         style="@style/CustomerTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        app:tabGravity="center"
+        android:layout_height="wrap_content"
         app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager

@@ -2,6 +2,7 @@ package com.wlm.wlm.activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     private String orderid;
     private String totalPrice;
     private Dialog payDialog;
+    private PopupWindow popupWindow;
 
     @BindView(R.id.check_wx)
     CheckBox check_wx;
@@ -120,7 +122,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
 
 
-                        PopupWindow popupWindow = new PopupWindow(this);
+                        popupWindow = new PopupWindow(this);
 
                         popupWindow.setContentView(view1);
                         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -140,7 +142,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                             @Override
                             public void outfo() {
-
+                                popupWindow.dismiss();
                             }
 
                             @Override
@@ -155,31 +157,6 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
                                 
                             }
                         });
-//                        payDialog = new Dialog(this);
-//                        payDialog.setContentView(view1);
-//                        payDialog.show();
-//
-//                        payDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogInterface dialog) {
-//
-//                            }
-//                        });
-
-//                        final EditText editText = (EditText) view1.findViewById(R.id.et_pay_psd);
-//                        TextView textView = (TextView) view1.findViewById(R.id.tv_pay_price);
-//                        Button btn_sure = (Button) view1.findViewById(R.id.btn_sure);
-//
-//                        textView.setText(totalPrice+"");
-//
-//                        btn_sure.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                if (!editText.getText().toString().isEmpty()){
-//                                    payPresenter.getPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "", "0",editText.getText().toString(), ProApplication.SESSIONID(PayActivity.this));
-//                                }
-//                            }
-//                        });
                     }
                 }
 
@@ -215,11 +192,17 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void sureOrderSuccess(String wxInfo) {
-        payDialog.dismiss();
+
+//        payDialog.dismiss();
+
+        if (popupWindow != null && popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.PRICE,totalPrice);
-        UiHelper.launcherBundle(this,PayResultActivity.class,bundle);
+        bundle.putString(WlmUtil.ORDERID,orderid);
+        UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
 
     }
 
@@ -277,7 +260,8 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     public void setWxSuccess() {
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.PRICE,totalPrice);
-        UiHelper.launcherBundle(this,PayResultActivity.class,bundle);
+        bundle.putString(WlmUtil.ORDERID,orderid);
+        UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
     }
 
     @Override
@@ -289,5 +273,13 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
         setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 0x0987){
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

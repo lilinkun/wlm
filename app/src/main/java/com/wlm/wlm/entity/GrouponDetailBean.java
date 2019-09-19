@@ -1,9 +1,11 @@
 package com.wlm.wlm.entity;
 
+import java.util.ArrayList;
+
 /**
  * Created by LG on 2019/9/17.
  */
-public class GrouponDetailBean<T> {
+public class GrouponDetailBean {
     private int TeamId;
     private int UserId;
     private String UserName;
@@ -43,7 +45,7 @@ public class GrouponDetailBean<T> {
     private int SortRank;
     private String BeginDate;
     private String EndDate;
-    private T listUser;
+    private ArrayList<JoinGrouponBean> listUser;
 
     public int getTeamId() {
         return TeamId;
@@ -357,11 +359,11 @@ public class GrouponDetailBean<T> {
         EndDate = endDate;
     }
 
-    public T getListUser() {
+    public ArrayList<JoinGrouponBean> getListUser() {
         return listUser;
     }
 
-    public void setListUser(T listUser) {
+    public void setListUser(ArrayList<JoinGrouponBean> listUser) {
         this.listUser = listUser;
     }
 }

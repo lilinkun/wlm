@@ -5,17 +5,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -23,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.OrderAdapter;
+import com.wlm.wlm.adapter.OrderChildAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.AllOrderContract;
@@ -100,6 +96,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView send_out_date;
     @BindView(R.id.logistics_information)
     TextView logistics_information;
+    @BindView(R.id.iv_order_status)
+    ImageView iv_order_status;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -146,16 +144,20 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_order.setText("确认收货");
             tv_pay_style.setText("已发货");
             tv_pay_message.setText("您的商品正在运输中");
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
         }else if (status == 0){
             tv_exit_order.setText("取消订单");
             tv_pay_order.setText("立即付款");
             tv_pay_style.setText("未付款");
+            tv_pay_message.setText("您的订单已提交，请尽快完成支付，确保宝贝早日到达您的身边。");
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_unpay);
         } else if(status == 4){
             tv_pay_style.setText("交易完成");
             tv_pay_message.setText("您的交易已经完成");
             tv_pay_order.setText("删除订单");
             ll_price_status.setVisibility(View.GONE);
             tv_exit_order.setVisibility(View.GONE);
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
         } else if(status == 5){
             tv_pay_style.setText("交易失效");
             tv_pay_message.setText("");
@@ -194,30 +196,41 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     public void setDataSuccess(final OrderDetailAddressBean orderDetailBeans) {
 //        this.orderDetailBean = orderDetailBeans.get(0);
         this.orderDetailBeans = orderDetailBeans;
-        OrderAdapter orderAdapter = new OrderAdapter(this,orderDetailBeans);
-        recyclerView.setAdapter(orderAdapter); //添加自定义分割线
+//        OrderAdapter orderAdapter = new OrderAdapter(this,orderDetailBeans);
+
+        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(this,orderDetailBeans.getOrderDetail());
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//
+        orderChildAdapter.setItemClickListener(new OrderChildAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int positionId) {
+                Bundle bundle = new Bundle();
+                bundle.putString("goodsid",orderDetailBeans.getOrderDetail().get(positionId).getGoodsId());
+                UiHelper.launcherBundle(AllOrderActivity.this,SelfGoodsDetailActivity.class,bundle);
+            }
+        });
+//
+//        holder.recyclerView.setLayoutManager(linearLayoutManager);
+//        holder.recyclerView.setAdapter(orderChildAdapter);
+
+        recyclerView.setAdapter(orderChildAdapter); //添加自定义分割线
 
 //        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
 //        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
 //        recyclerView.addItemDecoration(divider);
         order_date.setText(orderDetailBeans.getCreateDate());
 
-        for(int i = 0;i < orderDetailBeans.getOrderDetail().size();i++){
-            /*if (orderId.equals("")){
-                orderId = orderDetailBeans.getOrderId();
-            }else {
-                orderId = orderId + "," + orderDetailBeans.getOrderDetail().get(i).getOrder_id();
-            }*/
-            order_amount += orderDetailBeans.getOrderAmount();
 
+        order_amount += orderDetailBeans.getOrderAmount();
 
-            BigDecimal b = new BigDecimal(order_amount);
-            order_amount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal b = new BigDecimal(order_amount);
+        order_amount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-            useIntegral+= orderDetailBeans.getIntegral();
-            shipping_fee += orderDetailBeans.getShippingFree();
-            payid+= orderDetailBeans.getOrderAmount();
-        }
+        useIntegral+= orderDetailBeans.getIntegral();
+        shipping_fee += orderDetailBeans.getShippingFree();
+        payid+= orderDetailBeans.getOrderAmount();
+
 
         goods_total_price.setText("¥"+payid + "");
         tv_use_point.setText("" + useIntegral);
@@ -239,6 +252,9 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             public void onClick(View v) {
 
                 if (!ButtonUtils.isFastDoubleClick()) {
+
+
+
                     new AlertDialog.Builder(AllOrderActivity.this).setTitle("温馨提示").setMessage("您确定要取消订单？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -262,7 +278,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                     if (status == 0) {
 
                         Bundle bundle = new Bundle();
-                        bundle.putString(WlmUtil.ORDERID,orderDetailBeans.getOrderId()+"");
+                        bundle.putString(WlmUtil.ORDERID,orderDetailBeans.getOrderSn()+"");
                         bundle.putString(WlmUtil.ORDERAMOUNT,orderDetailBeans.getOrderAmount()+"");
                         UiHelper.launcherBundle(AllOrderActivity.this,PayActivity.class,bundle);
 //                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));

@@ -114,7 +114,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 //        mFilePath = mFilePath + "/test/" + "temp.jpg";// 指定路径
 
         personalInfoPresenter.onCreate(this,this);
-        personalInfoPresenter.getInfo(ProApplication.SESSIONID(this));
+//        personalInfoPresenter.getInfo(ProApplication.SESSIONID(this));
 
         try {
             String cacheSize = DataCleanManager.getTotalCacheSize(this);
@@ -125,7 +125,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             e.printStackTrace();
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
         Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")).into(roundImageView);
 
         nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));

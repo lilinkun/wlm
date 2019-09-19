@@ -153,7 +153,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         orderPresenter.getList(ProApplication.SESSIONID(this));
     }
 
-    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.tv_cart_edit,R.id.go_pay,R.id.go_shopping,R.id.ll_title_back})
+    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.tv_cart_edit,R.id.go_pay,R.id.go_shopping,R.id.ll_title_back,R.id.ll_back})
     public void onClick(View view){
         AlertDialog dialog;
         if (!ButtonUtils.isFastDoubleClick(view.getId()) && view.getId() != R.id.all_checkBox) {
@@ -208,6 +208,12 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
                     break;
 
                 case R.id.ll_title_back:
+
+                    finish();
+
+                    break;
+
+                case R.id.ll_back:
 
                     finish();
 

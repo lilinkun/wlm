@@ -10,7 +10,7 @@
         android:orientation="vertical">
     <com.wlm.wlm.ui.CustomTitleBar
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         app:text_title="绑定银行卡"
         app:img_left="@mipmap/ic_back"/>
 

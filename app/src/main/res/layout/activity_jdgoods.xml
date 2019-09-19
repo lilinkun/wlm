@@ -7,7 +7,7 @@
 
     <com.wlm.wlm.ui.CustomTitleBar
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         lzy:text_title="京东商城"
         lzy:text_color="@color/pop_text_bg"
         ></com.wlm.wlm.ui.CustomTitleBar>
