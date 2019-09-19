@@ -187,6 +187,10 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
             case R.id.ll_back:
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("status", 0);
+                bundle.putString("order_sn", orderid);
+                UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
                 setResult(RESULT_OK);
                 finish();
 
@@ -254,9 +258,14 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("position",0);
+//            UiHelper.launcherBundle(this, OrderListActivity.class,bundle);
+
             Bundle bundle = new Bundle();
-            bundle.putInt("position",0);
-            UiHelper.launcherBundle(this, OrderListActivity.class,bundle);
+            bundle.putInt("status", 0);
+            bundle.putString("order_sn", orderid);
+            UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
             setResult(RESULT_OK);
             finish();
             return true;
@@ -273,6 +282,12 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void setWxFail() {
-        toast("微信支付失败");
+        toast("支付失败");
+        Bundle bundle = new Bundle();
+        bundle.putInt("status", 0);
+        bundle.putString("order_sn", orderid);
+        UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
+        setResult(RESULT_OK);
+        finish();
     }
 }

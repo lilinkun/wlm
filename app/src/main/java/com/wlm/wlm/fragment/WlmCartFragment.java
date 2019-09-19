@@ -17,6 +17,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.activity.CartOrderActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
+import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.adapter.ShoppingCarAdapter;
 import com.wlm.wlm.base.BaseFragment;
@@ -34,6 +35,7 @@ import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UtilTool;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -275,7 +277,22 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
             ry_goods_cart.setAdapter(myShoppingCarAdapter);
             myShoppingCarAdapter.setCheckInterface(this);
             myShoppingCarAdapter.setModifyCountInterface(this); //关键步骤2:设置增删减的接口
+            myShoppingCarAdapter.setItemClickListener(new ShoppingCarAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    String type = WlmUtil.MANUFACURE;
+                    if (orderListBeans.get(position).getGoodsType() == 1){
+                            type = WlmUtil.INTEGRAL;
+                    }else if (orderListBeans.get(position).getGoodsType() == 2){
+                            type = WlmUtil.MANUFACURE;
+                    }
 
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WlmUtil.GOODSID,orderListBeans.get(position).getGoodsId());
+                    bundle.putString(WlmUtil.TYPE,type);
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class,bundle);
+                }
+            });
 //            ry_goods_cart.setOnScrollListener(new AbsListView.OnScrollListener() {
 //                @Override
 //                public void onScrollStateChanged(AbsListView view, int scrollState) {

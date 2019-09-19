@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by LG on 2019/9/9.
  */
-public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.ViewHolder>{
+public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.ViewHolder> implements View.OnClickListener {
 
     private Context context;
     private ArrayList<OrderBean> orderListBeans = null;
@@ -34,6 +34,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     private ModifyCountInterface modifyCountInterface;
     private int sumGoodsNum = 0;
     private Map<String, OrderChildBean> map;
+    private OnItemClickListener mItemClickListener;
 
 
     public ShoppingCarAdapter(Context context, ArrayList<OrderBean> orderListBeans, Map<String, OrderChildBean> map){
@@ -49,11 +50,15 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
         ViewHolder viewHolder = new ViewHolder(view);
 
+        view.setOnClickListener(this);
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
+
+        holder.itemView.setTag(position);
 
         holder.goodsName.setText(orderListBeans.get(position).getGoodsName());
         holder.goodsPrice.setText("¥" + orderListBeans.get(position).getPrice() + "");
@@ -124,6 +129,21 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
     public void setCheckInterface(CheckInterface checkInterface) {
         this.checkInterface = checkInterface;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mItemClickListener!=null){
+            mItemClickListener.onItemClick((Integer) v.getTag());
+        }
+    }
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 
 
