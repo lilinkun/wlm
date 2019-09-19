@@ -9,6 +9,7 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import org.greenrobot.greendao.annotation.OrderBy;
 
@@ -54,6 +55,9 @@ public class ManufactureStorePresenter extends BasePresenter {
      * @param PageCount
      */
     public void getCategoryList(String PageIndex,String PageCount){
+
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Category");
         params.put("fun","CategoryVipList");
@@ -66,11 +70,17 @@ public class ManufactureStorePresenter extends BasePresenter {
                     @Override
                     public void onResponse(ArrayList<Category1Bean> integralBean, String status, Object page) {
                         manufactureStoreContract.getCategorySuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         manufactureStoreContract.getCategoryFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
                 }));
     }
@@ -83,6 +93,8 @@ public class ManufactureStorePresenter extends BasePresenter {
      */
     public void getData(String PageIndex, String PageCount, String GoodsType, String CategoryId,String OrderBy){
 
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListVip");
@@ -98,11 +110,17 @@ public class ManufactureStorePresenter extends BasePresenter {
                     @Override
                     public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
                         manufactureStoreContract.getSuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         manufactureStoreContract.getFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
                 }));
     }

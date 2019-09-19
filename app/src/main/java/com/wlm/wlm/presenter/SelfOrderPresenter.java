@@ -12,6 +12,7 @@ import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +52,10 @@ public class SelfOrderPresenter extends BasePresenter{
     }
 
     public void getOrderData(String PageIndex,String PageCount,String OrderStatus,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "OrderInfo");
         params.put("fun", "OrderInfoVipList");
@@ -67,16 +71,16 @@ public class SelfOrderPresenter extends BasePresenter{
                     @Override
                     public void onResponse(ArrayList<SelfOrderBean> selfGoodsBeans, String status,Object page) {
                         selfOrderContract.getDataSuccess(selfGoodsBeans);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         selfOrderContract.getDataFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 

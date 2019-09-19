@@ -8,6 +8,7 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +52,8 @@ public class IntegralStorePresenter extends BasePresenter {
      */
     public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy){
 
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListVip");
@@ -65,11 +68,17 @@ public class IntegralStorePresenter extends BasePresenter {
                     @Override
                     public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
                         integralStoreContract.getSuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         integralStoreContract.getFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
                     }
                 }));
     }

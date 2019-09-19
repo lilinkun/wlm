@@ -120,8 +120,6 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                         View view1 = LayoutInflater.from(this).inflate(R.layout.dialog_pay,null);
 
-
-
                         popupWindow = new PopupWindow(this);
 
                         popupWindow.setContentView(view1);
