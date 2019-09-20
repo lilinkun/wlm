@@ -76,6 +76,7 @@
         <activity android:name=".activity.StrategyActivity"/>
         <activity android:name=".activity.PayActivity"/>
         <activity android:name=".activity.MyQrCodeActivity"/>
+        <activity android:name=".activity.MyFansActivity"/>
 
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:theme="@android:style/Theme.Translucent"

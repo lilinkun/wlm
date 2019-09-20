@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
@@ -86,10 +87,17 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         grouponGoodsDetailPresenter.onCreate(this,this);
         grouponGoodsDetailPresenter.getGoodsDetail(goodsListBean.getGoodsId(), ProApplication.SESSIONID(this));
 
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("adssasd");
-        strings.add("afsdf");
 
+    }
+
+    public void startBanner(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean){
+        ArrayList<String> strings = new ArrayList<>();
+
+        String[] str = goodsDetailBean.getGoodsImgList().split(",");
+
+        for (int i = 0; i< str.length;i++) {
+            strings.add(str[i]);
+        }
 
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -142,6 +150,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         });
         wv_goods_detail.loadUrl(goodsDetailBean.getMobileDesc());
 
+        startBanner(goodsDetailBean);
+
         if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
             tv_right_now_groupon.setVisibility(View.GONE);
             tv_distance_ends.setText("距开始");
@@ -163,8 +173,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
 
-//            Picasso.with(context).load((String) path).into(imageView);
-            imageView.setImageResource(R.mipmap.ic_goods_pic);
+            Picasso.with(context).load((String) path).into(imageView);
+//            imageView.setImageResource(R.mipmap.ic_goods_pic);
 
         }
     }

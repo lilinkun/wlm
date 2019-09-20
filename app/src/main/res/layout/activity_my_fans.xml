@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.wlm.wlm.ui.CustomTitleBar
@@ -12,12 +13,16 @@
         app:img_left="@mipmap/ic_back"/>
 
     <EditText
+        android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@mipmap/ic_search_bg"
         android:background="@drawable/shape_myfans_search"
         android:layout_marginLeft="@dimen/margin_15"
         android:layout_marginRight="@dimen/margin_15"
+        android:paddingTop="@dimen/padding_5"
+        android:paddingBottom="@dimen/padding_5"
+        android:paddingLeft="@dimen/padding_10"
         android:textColorHint="#B7B7B7"
         android:hint="输入查询的微信名、微信号"/>
 

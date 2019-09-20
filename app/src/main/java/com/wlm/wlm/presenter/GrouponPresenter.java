@@ -3,6 +3,7 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.GrouponContract;
+import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -126,6 +127,32 @@ public class GrouponPresenter extends BasePresenter {
                     public void onErr(String msg, String status) {
                         grouponContract.getFail(msg);
                     }
+                }));
+    }
+
+    /**
+     * 获取团购flash
+     * @param Style
+     */
+    public void setFlash(String Style){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Flash");
+        params.put("fun","FlashVipList");
+        params.put("Style",Style);
+        mCompositeSubscription.add(manager.getFlash(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
+                        grouponContract.onFlashSuccess(flashBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        grouponContract.onFlashFail(msg);
+                    }
+
                 }));
     }
 

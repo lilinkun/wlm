@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.TbGoodsBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> {
 
     Context context;
-    List<TbGoodsBean> tbGoodsBeans = new ArrayList<>();
+    List<TbGoodsBean> tbGoodsBeans = null;
 
     public CouponAdapter(Context context,List<TbGoodsBean> tbGoodsBeans){
         this.context = context;
@@ -43,7 +45,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(this.context).load(tbGoodsBeans.get(position).getPic()).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
+        Picasso.with(this.context).load(ProApplication.HEADIMG+ WlmUtil.IMG_SMALL + tbGoodsBeans.get(position).getPic()).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
         holder.tx_goods_msg.setText("¥" + tbGoodsBeans.get(position).getYedh_price() + "");
         holder.tx_goods_title.setText(tbGoodsBeans.get(position).getD_title() + "");
         holder.tv_original_price.setText(tbGoodsBeans.get(position).getYuanjia() + "");

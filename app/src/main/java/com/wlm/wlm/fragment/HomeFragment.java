@@ -1,6 +1,5 @@
 package com.wlm.wlm.fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.wlm.wlm.activity.GoodsDetailActivity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
-import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
@@ -33,17 +31,13 @@ import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
-import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.FlashBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeCategoryBean;
-import com.wlm.wlm.entity.HomeHeadBean;
-import com.wlm.wlm.entity.HotHomeBean;
-import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
 import com.wlm.wlm.transform.BannerTransform;
 import com.wlm.wlm.ui.CusPtrClassicFrameLayout;
-import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.CustomerPtrHandler;
 import com.wlm.wlm.ui.MyGridView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
@@ -51,7 +45,6 @@ import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
@@ -100,9 +93,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private PopupWindow popupWindow;
     private int PAGE_INDEX = 1;
     int mAlpha = 0;
-    private TbHotGoodsAdapter tbHotGoodsAdapter;
-    private ArrayList<HomeCategoryBean> homeCategoryBeans;
-    private ArrayList<HotHomeBean> hotHomeBeans;
+    private ArrayList<GoodsListBean> hotHomeBeans;
     private HomeFragmentAdapter homeFragmentAdapter;
     private ArrayList<FlashBean> flashBeans;
 
@@ -122,7 +113,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         homePresenter.onCreate(getActivity(),this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
-        homePresenter.setFlash(ProApplication.SESSIONID(getActivity()));
 
         gridView.setOnItemClickListener(this);
 
@@ -156,7 +146,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             public void onRefreshBegin(PtrFrameLayout frame) {
 
                 homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
-                homePresenter.setFlash(ProApplication.SESSIONID(getActivity()));
+                homePresenter.setFlash("1");
 
             }
 
@@ -251,7 +241,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
             bundle.putInt("position", position);
-            bundle.putSerializable("home", homeCategoryBeans.get(position));
+//            bundle.putSerializable("home", homeCategoryBeans.get(position));
             UiHelper.launcherBundle(getActivity(), SelfGoodsTypeActivity.class, bundle);
         }
     }
@@ -300,12 +290,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void getUrlSuccess(UrlBean urlBean) {
-//        ProApplication.HEADIMG = urlBean.getGoodsImgUrl();
+    public void getUrlSuccess(String urlBean) {
+        ProApplication.HEADIMG = urlBean;
 //        ProApplication.BANNERIMG = urlBean.getShopImgUrl();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("img", ProApplication.HEADIMG).putString("shop", ProApplication.BANNERIMG).commit();
+        sharedPreferences.edit().putString("img", ProApplication.HEADIMG).commit();
 
+        homePresenter.setFlash("1");
+        homePresenter.getGoodsList("1");
     }
 
     @Override
@@ -320,22 +312,18 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         this.flashBeans = flashBeans;
 
-        if (mPtrFrame.isRefreshing()) {
+        if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
             mPtrFrame.refreshComplete();
         }
 
-        if (homeFragmentAdapter == null) {
-            homeFragmentAdapter = new HomeFragmentAdapter(getActivity(), homeCategoryBeans);
-            gridView.setAdapter(homeFragmentAdapter);
-        } else {
-            homeFragmentAdapter.setData(homeCategoryBeans);
-        }
-
-        DBManager.getInstance(getActivity()).deleteCategoryListBean();
-        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
-
 
         startBanner(flashBeans);
+
+
+//        DBManager.getInstance(getActivity()).deleteCategoryListBean();
+//        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
+
+
 
 //        hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
 //        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
@@ -353,14 +341,27 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
+    @Override
+    public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        this.hotHomeBeans = goodsListBeans;
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(),goodsListBeans,getLayoutInflater());
+        mHotGridView.setAdapter(tbHotGoodsAdapter);
+        tbHotGoodsAdapter.setItemClickListener(this);
+    }
+
+    @Override
+    public void onGoodsListFail(String msg) {
+
+    }
+
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
         ArrayList<String> strings = new ArrayList<>();
 
         for (int i = 0; i < flashBeans.size(); i++) {
             strings.add("asdads" + i);
 
-            FlashBean flashBean  = flashBeans.get(i);
-            flashBeans.add(flashBeans.get(i));
+//            FlashBean flashBean  = flashBeans.get(i);
+//            flashBeans.add(flashBean);
         }
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -395,7 +396,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
-            bundle.putString("goodsid", hotHomeBeans.get(position).getGoods_id());
+            bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE, hotHomeBeans.get(position).getGoodsType());
             UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
         }
     }

@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GrouponOrderActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
@@ -59,6 +61,9 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
         holder.tv_goods_title.setText(goodsListBeans.get(position).getGoodsName());
 
+        if (goodsListBeans.get(position).getGoodsImg() != null && !goodsListBeans.get(position).getGoodsImg().isEmpty()) {
+            Picasso.with(context).load(ProApplication.HEADIMG + WlmUtil.IMG_SMALL +goodsListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.iv_goods_pic);
+        }
 
         if(WlmUtil.isCountdown(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time) == 0){
             holder.tv_grouponing.setVisibility(View.GONE);

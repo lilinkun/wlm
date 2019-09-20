@@ -76,7 +76,6 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
-        startBanner(null);
 
         ll_top.setListener(this);
 
@@ -95,6 +94,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
         groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
 
+        groupon.setFlash("2");
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,20 +107,17 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+
+        for (int i = 0; i < flashBeans.size(); i++) {
             strings.add("asdads" + i);
         }
-//        for (int i = 0; i < flashBeans.size(); i++) {
-//            strings.add("asdads" + i);
-//        }
-
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器，图片加载器在下方
         banner.setImageLoader(new CustomRoundedImageLoader());
         //设置图片网址或地址的集合
-        banner.setImages(strings);
+        banner.setImages(flashBeans);
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
         banner.setBannerAnimation(Transformer.RotateDown);
 
@@ -270,6 +268,17 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void getFail(String msg) {
+
+    }
+
+    @Override
+    public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
+
+        startBanner(flashBeans);
+    }
+
+    @Override
+    public void onFlashFail(String msg) {
 
     }
 

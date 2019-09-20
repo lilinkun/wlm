@@ -82,8 +82,6 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     TextView tv_cart_edit;
     @BindView(R.id.ll_cart)
     LinearLayout ll_cart;
-    @BindView(R.id.rv_invalid)
-    RecyclerView rv_invalid;
 
 
     private OrderPresenter orderPresenter = new OrderPresenter();

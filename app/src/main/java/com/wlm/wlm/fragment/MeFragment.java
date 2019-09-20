@@ -124,7 +124,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     }
 
     @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,R.id.ll_bind_card,
-            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,R.id.ll_wlm_coin})
+            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,R.id.ll_wlm_coin,R.id.rl_fans})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {

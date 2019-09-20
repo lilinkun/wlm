@@ -78,6 +78,10 @@ public class WlmUtil {
     public static final String BALANCEBEAN = "balanceBean";
 
 
+    public static final String IMG_BIG = "imgdb/";
+    public static final String IMG_SMALL = "img/300/300/";
+
+
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";
 

@@ -15,6 +15,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
+import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.FlashBean;
@@ -541,5 +542,18 @@ public class DataManager {
         return mRetrofitService.getBalance(mHashMap);
     }
 
+    /**
+     * 获取粉丝数据
+     */
+    public Observable<ResultBean<ArrayList<FansBean>,PageBean>> getFansData(HashMap<String,String> mHashMap){
+        return  mRetrofitService.getFansData(mHashMap);
+    }
+
+    /**
+     * 获取热门推荐商品
+     */
+    public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> getGoodsList(HashMap<String,String> mHashMap){
+        return  mRetrofitService.getGoodsList(mHashMap);
+    }
 
 }

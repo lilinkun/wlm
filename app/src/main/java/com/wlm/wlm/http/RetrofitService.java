@@ -13,6 +13,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
+import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
 import com.wlm.wlm.entity.FlashBean;
@@ -330,6 +331,14 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<BalanceBean,Object>> getBalance(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<FansBean>,PageBean>> getFansData(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<GoodsListBean>,Object>> getGoodsList(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

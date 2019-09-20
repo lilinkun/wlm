@@ -5,21 +5,21 @@ package com.wlm.wlm.entity;
  * Created by LG on 2018/12/8.
  */
 public class FlashBean {
-    private String FlashID;
+    private int FlashID;
     private String FlashName;
     private String FlashPic;
-    private String FlashOrder;
+    private int FlashOrder;
     private String FlashUrl;
-    private String BackColor;
     private String CreateDate;
     private boolean Display;
     private int Style;
+    private String BackColor;
 
-    public String getFlashID() {
+    public int getFlashID() {
         return FlashID;
     }
 
-    public void setFlashID(String flashID) {
+    public void setFlashID(int flashID) {
         FlashID = flashID;
     }
 
@@ -39,11 +39,11 @@ public class FlashBean {
         FlashPic = flashPic;
     }
 
-    public String getFlashOrder() {
+    public int getFlashOrder() {
         return FlashOrder;
     }
 
-    public void setFlashOrder(String flashOrder) {
+    public void setFlashOrder(int flashOrder) {
         FlashOrder = flashOrder;
     }
 
@@ -53,14 +53,6 @@ public class FlashBean {
 
     public void setFlashUrl(String flashUrl) {
         FlashUrl = flashUrl;
-    }
-
-    public String getBackColor() {
-        return BackColor;
-    }
-
-    public void setBackColor(String backColor) {
-        BackColor = backColor;
     }
 
     public String getCreateDate() {
@@ -85,5 +77,13 @@ public class FlashBean {
 
     public void setStyle(int style) {
         Style = style;
+    }
+
+    public String getBackColor() {
+        return BackColor;
+    }
+
+    public void setBackColor(String backColor) {
+        BackColor = backColor;
     }
 }

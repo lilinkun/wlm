@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.wlm.wlm.contract.HomeContract;
+import com.wlm.wlm.entity.BalanceDetailBean;
+import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FlashBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeHeadBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
@@ -82,7 +86,7 @@ public class HomePresenter extends BasePresenter {
     public void getUrl(String SessionId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Home");
-        params.put("fun","Mobile");
+        params.put("fun","SettingParameter");
         params.put("SessionId",SessionId);
 
         mCompositeSubscription.add(manager.getUrl(params)
@@ -92,7 +96,7 @@ public class HomePresenter extends BasePresenter {
 
                     @Override
                     public void onResponse(UrlBean urlBean, String status,Object page) {
-                        homeContract.getUrlSuccess(urlBean);
+                        homeContract.getUrlSuccess(urlBean.getImgUrl());
 //                        homeContract.onSuccess(arrayListTbjsonBean.getResults()));
                     }
 
@@ -101,11 +105,34 @@ public class HomePresenter extends BasePresenter {
                         homeContract.getUrlFail(msg);
                     }
 
-                    @Override
-                    public void onNext(ResultBean<UrlBean, Object> result) {
-                        super.onNext(result);
-                    }
                 }));
 
     }
+
+    /*
+     * 获取首页热门商品
+     */
+
+    public void getGoodsList(String type){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Goods");
+        params.put("fun","GoodsListRecommendVip");
+        params.put("type",type);
+        mCompositeSubscription.add(manager.getGoodsList(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<GoodsListBean> balanceDetailBeans, String status,Object page) {
+                        homeContract.onGoodsListSuccess(balanceDetailBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        homeContract.onGoodsListFail(msg);
+                    }
+                }));
+    }
+
+
 }
