@@ -1,9 +1,11 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by LG on 2019/9/16.
  */
-public class BalanceBean {
+public class BalanceBean implements Serializable {
     private String UserId;
     private String UserName;
     private int UserLevel;

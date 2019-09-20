@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
@@ -24,7 +25,9 @@ import com.wlm.wlm.activity.BrowseRecordsActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
 import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
+import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
+import com.wlm.wlm.activity.MyFansActivity;
 import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.activity.MyQrCodeActivity;
 import com.wlm.wlm.activity.OrderListActivity;
@@ -90,6 +93,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     private Drawable drawable;
     private PersonalInfoBean personalInfoBean;
     private Dialog dialog;
+    private BalanceBean balanceBean;
 
     private MePresenter mePresenter = new MePresenter();
 
@@ -119,8 +123,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     public void setPoint(){
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.ll_me_order, R.id.riv_head_img,R.id.ll_bind_card,
-            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,R.id.ll_bind_card,
+            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,R.id.ll_wlm_coin})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -139,7 +143,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     UiHelper.launcherBundle(getActivity(), ChooseAddressActivity.class, bundle7);
                     break;
 
-                case R.id.ll_me_order:
+                case R.id.rl_my_all_order:
 
                     Bundle bundle = new Bundle();
                     bundle.putInt("position",0);
@@ -158,6 +162,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     Bundle bundle4 = new Bundle();
                     bundle4.putInt("style", 0);
+                    bundle4.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
                     UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle4);
 
                     break;
@@ -211,6 +216,22 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     UiHelper.launcher(getActivity(), MyQrCodeActivity.class);
 
                     break;
+
+                case R.id.ll_wlm_coin:
+
+                    Bundle bundle5 = new Bundle();
+                    bundle5.putInt("style", 1);
+                    bundle5.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+                    UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle5);
+
+                    break;
+
+                case R.id.rl_fans:
+
+                    UiHelper.launcher(getActivity(), MyFansActivity.class);
+
+                    break;
+
             }
         }
     }
@@ -331,6 +352,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
     @Override
     public void getBalanceSuccess(BalanceBean balanceBean) {
+        this.balanceBean = balanceBean;
         tv_shopping_balance.setText(balanceBean.getMoney5Balance()+"");
         tv_balance_wait_income.setText(balanceBean.getMoney4Balance()+"");
         tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
@@ -345,7 +367,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
     @Override
     public void getBalanceFail(String msg) {
-
+        if (msg.equals("登录已失效")){
+            UiHelper.launcher(getActivity(), LoginActivity.class);
+        }
     }
 
 

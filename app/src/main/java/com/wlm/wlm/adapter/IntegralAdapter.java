@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.PointListBean;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -19,18 +22,18 @@ import java.util.ArrayList;
 
 public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHolder> {
 
-    private ArrayList<PointListBean> integralBeans;
+    private ArrayList<BalanceDetailBean> balanceDetailBeans;
     private Context mContext;
     private int type = 0;
 
-    public IntegralAdapter(Context mContext,ArrayList<PointListBean> integralBeans,int type){
+    public IntegralAdapter(Context mContext, ArrayList<BalanceDetailBean> balanceDetailBeans, int type){
         this.mContext = mContext;
-        this.integralBeans = integralBeans;
+        this.balanceDetailBeans = balanceDetailBeans;
         this.type = type;
     }
 
-    public void setData(ArrayList<PointListBean> integralBeans){
-        this.integralBeans = integralBeans;
+    public void setData(ArrayList<BalanceDetailBean> integralBeans){
+        this.balanceDetailBeans = integralBeans;
     }
 
     @Override
@@ -45,30 +48,31 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_title.setText(integralBeans.get(position).getTradeTypeName());
-        holder.tv_date.setText(integralBeans.get(position).getCretateTime());
-        BigDecimal c = new BigDecimal(integralBeans.get(position).getExpenditureMoney());
+        holder.tv_title.setText(balanceDetailBeans.get(position).getTradeSay());
+        holder.tv_date.setText(balanceDetailBeans.get(position).getCretateTime());
+        BigDecimal c = new BigDecimal(balanceDetailBeans.get(position).getExpenditureMoney());
         double expenditureMoney = c.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        if (integralBeans.get(position).getReceiptsOrOut() == -1) {
+        if (balanceDetailBeans.get(position).getReceiptsOrOut() == -1) {
             if (type == 1) {
                 holder.tv_price.setText("-" + expenditureMoney + "元");
             }else {
                 holder.tv_price.setText("-" + expenditureMoney );
             }
-            holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.red_text));
+            holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.login_title_text));
         }else {
             if (type == 1) {
                 holder.tv_price.setText("+" + expenditureMoney + "元");
             }else {
                 holder.tv_price.setText("+" + expenditureMoney );
             }
-            holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.login_title_text));
+            holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.setting_title_color));
         }
 
 //        if (type == 1){
-            BigDecimal b = new BigDecimal(integralBeans.get(position).getBalance());
-            double balance = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+            String balance = WlmUtil.getPriceNum(balanceDetailBeans.get(position).getBalance());
+
             holder.tv_total.setText("总额：" + balance);
 //        }else {
 //            holder.tv_total.setVisibility(View.GONE);
@@ -78,7 +82,7 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return integralBeans.size();
+        return balanceDetailBeans.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

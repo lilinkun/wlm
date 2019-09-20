@@ -2,17 +2,13 @@ package com.wlm.wlm.presenter;
 
 import android.content.Context;
 
-import com.wlm.wlm.contract.IntegralContract;
-import com.wlm.wlm.entity.AmountPriceBean;
-import com.wlm.wlm.entity.BalanceDetailBean;
-import com.wlm.wlm.entity.IntegralBean;
-import com.wlm.wlm.entity.OrderBean;
-import com.wlm.wlm.entity.OrderListBean;
+import com.wlm.wlm.contract.ModifyPayPsdContract;
+import com.wlm.wlm.contract.MyFansContract;
+import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,21 +16,20 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by LG on 2018/12/29.
+ * Created by LG on 2019/9/20.
  */
-
-public class IntegralPresenter extends BasePresenter {
+public class MyFansPresenter extends BasePresenter {
     private DataManager manager;
     private CompositeSubscription mCompositeSubscription;
     private Context mContext;
-    private IntegralContract integralContract;
+    private MyFansContract myFansContract;
 
     @Override
     public void onCreate(Context context,IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
-        integralContract = (IntegralContract) view;
+        myFansContract = (MyFansContract) view;
     }
 
     @Override
@@ -50,27 +45,34 @@ public class IntegralPresenter extends BasePresenter {
     }
 
 
-    public void getPriceData(String PageIndex,String PageCount,String type,String SessionId){
+    public void getFansData(String PageIndex,String PageCount,String sessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankCurrency");
-        params.put("fun","CurrencyList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("type",type);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.getAmountPrice(params)
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseRefereesList_Vip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("SessionId", sessionId);
+        mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<BalanceDetailBean>,Object>() {
+                .subscribe(new HttpResultCallBack(){
+
                     @Override
-                    public void onResponse(ArrayList<BalanceDetailBean> balanceDetailBeans, String status,Object page) {
-                        integralContract.getDataSuccess(balanceDetailBeans);
+                    public void onResponse(Object o, String status,Object page) {
+                        myFansContract.getFansSuccess();
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
-                        integralContract.getDataFail(msg);
+                        myFansContract.getFansFail(msg);
                     }
-                }));
+
+                    @Override
+                    public void onNext(ResultBean o) {
+                        super.onNext(o);
+                    }
+
+                })
+        );
     }
 }

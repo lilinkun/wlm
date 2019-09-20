@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,6 +75,7 @@ public class WlmUtil {
     public static final String TEAMID = "teamid";
     public static final String TELEPHONE = "telephone";
     public static final String PRICE = "price";
+    public static final String BALANCEBEAN = "balanceBean";
 
 
     public static String RESULT_SUCCESS = "success";
@@ -252,6 +254,13 @@ public class WlmUtil {
         }else {
             return 2;
         }
+    }
+
+    public static String getPriceNum(double price){
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setGroupingUsed(false);
+        String balance = numberFormat.format(price);
+        return balance;
     }
 
 

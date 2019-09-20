@@ -117,7 +117,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
                             WxUserInfo wxInfomation = gson.fromJson(responses, WxUserInfo.class);
 
-
                             openid = jsonObject.getString("openid");
                             nickName = jsonObject.getString("nickname");
                             sex = jsonObject.getString("sex");

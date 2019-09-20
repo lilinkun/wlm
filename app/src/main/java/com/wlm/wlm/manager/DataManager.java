@@ -5,6 +5,7 @@ import android.content.Context;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
@@ -387,7 +388,7 @@ public class DataManager {
     /**
      * 获取购物金额
      */
-    public Observable<ResultBean<AmountPriceBean,Object>> getAmountPrice(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<ArrayList<BalanceDetailBean>,Object>> getAmountPrice(HashMap<String,String> mHashMap){
         return mRetrofitService.getAmountPrice(mHashMap);
     }
 

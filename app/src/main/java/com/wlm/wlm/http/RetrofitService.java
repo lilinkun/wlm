@@ -3,6 +3,7 @@ package com.wlm.wlm.http;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
@@ -292,7 +293,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<AmountPriceBean,Object>> getAmountPrice(@FieldMap Map<String, String> params);
+    Observable<ResultBean<ArrayList<BalanceDetailBean>,Object>> getAmountPrice(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
