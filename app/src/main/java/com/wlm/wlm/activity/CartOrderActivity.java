@@ -241,6 +241,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.ORDERID,orderid);
         bundle.putString(WlmUtil.ORDERAMOUNT,mount+"");
+        bundle.putString(WlmUtil.WHERE,WlmUtil.GOODS);
         UiHelper.launcherForResultBundle(this,PayActivity.class,0x144,bundle);
     }
 

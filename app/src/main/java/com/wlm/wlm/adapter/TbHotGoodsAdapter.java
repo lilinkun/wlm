@@ -81,7 +81,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             }
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
-                Picasso.with(context).load(ProApplication.HEADIMG + "img/300/300/"  + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
+                Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
             }
         }
     }

@@ -234,6 +234,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.ORDERID,orderid);
         bundle.putString(WlmUtil.ORDERAMOUNT,totalPrice+"");
+        bundle.putString(WlmUtil.WHERE,WlmUtil.GOODS);
         UiHelper.launcherBundle(this,PayActivity.class,bundle);
         finish();
 
@@ -259,7 +260,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 String goodsType = "";
                 if (type.equals(WlmUtil.GROUPONGOODS)){
                     goodsType = "2";
-                }else if (type.equals(WlmUtil.INTEGRAL)){
+                }else if (type.equals(WlmUtil.INTEGRAL) || type.equals(WlmUtil.MANUFACURE)){
                     goodsType = "1";
                 }else if (type.equals(WlmUtil.VIP)){
                     goodsType = "4";

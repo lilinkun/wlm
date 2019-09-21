@@ -19,8 +19,10 @@ import com.wlm.wlm.activity.CrowdFundingActivity;
 import com.wlm.wlm.activity.GoodsDetailActivity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
+import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
+import com.wlm.wlm.activity.OpinionActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
@@ -34,6 +36,7 @@ import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeCategoryBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
 import com.wlm.wlm.transform.BannerTransform;
@@ -111,8 +114,18 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         translucentScrollView.init(this);
         initPtrFrame();
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
+        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
+        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER,"");
+
         homePresenter.onCreate(getActivity(),this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
+
+        if (ProApplication.HEADIMG != null && !ProApplication.HEADIMG.isEmpty()) {
+            homePresenter.setFlash("1");
+            homePresenter.getGoodsList("1");
+        }
 
         gridView.setOnItemClickListener(this);
 
@@ -158,20 +171,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
-            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding,R.id.ll_strategy})
+            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding,R.id.ll_strategy,R.id.ll_home_opinion})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
                 case R.id.lin_list:
 
-//                showPopuWindow();
-                    UiHelper.launcher(getActivity(), Category1Activity.class);
+//                    UiHelper.launcher(getActivity(), Category1Activity.class);
 
                     break;
 
                 case R.id.text_search:
 
-                    UiHelper.launcher(getActivity(), SearchActivity.class);
+//                    UiHelper.launcher(getActivity(), SearchActivity.class);
 
                     break;
 
@@ -220,14 +232,20 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 case R.id.ll_crowd_funding:
 
-                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
+//                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
 
                     break;
 
                 case R.id.ll_strategy:
 
-                    UiHelper.launcher(getActivity(), StrategyActivity.class);
+//                    UiHelper.launcher(getActivity(), StrategyActivity.class);
 
+
+                    break;
+
+                case R.id.ll_home_opinion:
+
+                    UiHelper.launcher(getActivity(), OpinionActivity.class);
 
                     break;
 
@@ -290,21 +308,26 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void getUrlSuccess(String urlBean) {
-        ProApplication.HEADIMG = urlBean;
+    public void getUrlSuccess(UrlBean urlBean) {
 //        ProApplication.BANNERIMG = urlBean.getShopImgUrl();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("img", ProApplication.HEADIMG).commit();
 
-        homePresenter.setFlash("1");
-        homePresenter.getGoodsList("1");
+        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
+            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+            ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+            ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+            homePresenter.setFlash("1");
+            homePresenter.getGoodsList("1");
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
+                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).commit();
+        }
     }
 
     @Override
     public void getUrlFail(String msg) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", MODE_PRIVATE);
         ProApplication.HEADIMG = sharedPreferences.getString("img", ProApplication.HEADIMG);
-        ProApplication.BANNERIMG = sharedPreferences.getString("shop", ProApplication.BANNERIMG);
+        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG);
     }
 
     @Override
@@ -319,11 +342,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         startBanner(flashBeans);
 
-
 //        DBManager.getInstance(getActivity()).deleteCategoryListBean();
 //        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
-
-
 
 //        hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
 //        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
@@ -395,10 +415,25 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onItemClick(int position) {
 
         if (!ButtonUtils.isFastDoubleClick()) {
-            Bundle bundle = new Bundle();
-            bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
-            bundle.putString(WlmUtil.TYPE, hotHomeBeans.get(position).getGoodsType());
-            UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+            if (!hotHomeBeans.get(position).getGoodsType().equals("2")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
+                String type = "";
+                if (hotHomeBeans.get(position).getGoodsType().equals("1")){
+                    type = WlmUtil.INTEGRAL;
+                }else if (hotHomeBeans.get(position).getGoodsType().equals("4")){
+                    type = WlmUtil.VIP;
+                }else if (hotHomeBeans.get(position).getGoodsType().equals("8")){
+                    type = WlmUtil.MANUFACURE;
+                }
+
+                bundle.putString(WlmUtil.TYPE, type);
+                UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+            }else {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(WlmUtil.GROUPONGOODS,hotHomeBeans.get(position));
+                UiHelper.launcherBundle(getActivity(), GrouponGoodsDetailActivity.class,bundle);
+            }
         }
     }
 
@@ -413,7 +448,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //            }
 //        }
 
-        UiHelper.launcher(getActivity(), GoodsDetailActivity.class);
+//        UiHelper.launcher(getActivity(), GoodsDetailActivity.class);
     }
 
 

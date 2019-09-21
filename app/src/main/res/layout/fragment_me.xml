@@ -28,18 +28,20 @@
             android:paddingTop="@dimen/margin_35"
             android:paddingBottom="@dimen/margin_15"
             android:gravity="right"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/rl_me_message"
                 android:layout_width="40dp"
                 android:layout_height="40dp">
-            <ImageView
-                android:id="@+id/ic_me_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_me_message"
-                android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:id="@+id/ic_me_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_me_message" />
 
                 <ImageView
                     android:id="@+id/iv_circle"

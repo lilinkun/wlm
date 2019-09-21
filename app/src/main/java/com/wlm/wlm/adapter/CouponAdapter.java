@@ -45,7 +45,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(this.context).load(ProApplication.HEADIMG+ WlmUtil.IMG_SMALL + tbGoodsBeans.get(position).getPic()).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
+        Picasso.with(this.context).load(ProApplication.HEADIMG + tbGoodsBeans.get(position).getPic()).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
         holder.tx_goods_msg.setText("¥" + tbGoodsBeans.get(position).getYedh_price() + "");
         holder.tx_goods_title.setText(tbGoodsBeans.get(position).getD_title() + "");
         holder.tv_original_price.setText(tbGoodsBeans.get(position).getYuanjia() + "");

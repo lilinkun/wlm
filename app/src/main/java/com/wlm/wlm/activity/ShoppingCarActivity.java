@@ -117,6 +117,8 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         orderPresenter.onCreate(this,this);
         orderPresenter.getList(ProApplication.SESSIONID(this));
 
+        ActivityUtil.addHomeActivity(this);
+
         initPtrFrame();
     }
 

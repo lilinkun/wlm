@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/margin_10"
+        android:textSize="@dimen/textsize12"
         android:layout_alignBottom="@+id/riv_fans"
         android:textColor="@color/login_title_text"/>
 

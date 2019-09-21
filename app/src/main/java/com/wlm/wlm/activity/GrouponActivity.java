@@ -26,6 +26,7 @@ import com.wlm.wlm.ui.LoadRecyclerView;
 import com.wlm.wlm.ui.RecyclerViewScrollListener;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.GrouponType;
@@ -76,6 +77,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+
+        ActivityUtil.addHomeActivity(this);
 
         ll_top.setListener(this);
 

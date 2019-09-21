@@ -12,6 +12,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -46,7 +47,7 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
         holder.tv_goods_price.setText("¥" + selfOrderInfoBeans.get(position).getPrice());
         holder.tv_goods_spec1.setText(selfOrderInfoBeans.get(position).getAttrOne());
         holder.tv_goods_spec2.setText(selfOrderInfoBeans.get(position).getAttrTwo());
-        Picasso.with(context).load(ProApplication.HEADIMG + selfOrderInfoBeans.get(position).getGoodsImg()).into(holder.iv_goods_pic);
+        Picasso.with(context).load(ProApplication.HEADIMG + selfOrderInfoBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.iv_goods_pic);
 
     }
 

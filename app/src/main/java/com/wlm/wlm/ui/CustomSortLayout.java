@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -23,6 +25,7 @@ import com.wlm.wlm.util.WlmUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**

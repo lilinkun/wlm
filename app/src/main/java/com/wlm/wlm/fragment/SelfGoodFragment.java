@@ -113,9 +113,9 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
         this.selfGoodsBeans = selfGoodsBeans;
         this.isLoad = load;
         if (selfGoodsAdapter == null) {
-            selfGoodsAdapter = new SelfGoodsAdapter(getActivity(), selfGoodsBeans,2);
-            mSelfGoodsRv.setAdapter(selfGoodsAdapter);
-            selfGoodsAdapter.setItemClickListener(this);
+//            selfGoodsAdapter = new SelfGoodsAdapter(getActivity(), selfGoodsBeans,2);
+//            mSelfGoodsRv.setAdapter(selfGoodsAdapter);
+//            selfGoodsAdapter.setItemClickListener(this);
         }else {
 
         }

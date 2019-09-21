@@ -12,6 +12,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -56,7 +57,7 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
             holder.goodsSpec2.setText("，" + childListBeans.get(position).getAttrTwo());
         }
         holder.goodsnum.setText("X" + childListBeans.get(position).getGoodsNumber());
-        Picasso.with(mContext).load(ProApplication.HEADIMG + childListBeans.get(position).getGoodsImg()).into(holder.childImg);
+        Picasso.with(mContext).load(ProApplication.HEADIMG + childListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.childImg);
     }
 
     @Override

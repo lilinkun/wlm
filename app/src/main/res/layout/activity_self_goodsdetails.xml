@@ -325,6 +325,8 @@
                         android:id="@+id/rv_recommend"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:paddingRight="@dimen/margin_10"
                         android:background="@color/white"></com.wlm.wlm.ui.CommendRecyclerView>
 
                 </LinearLayout>

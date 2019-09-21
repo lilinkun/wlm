@@ -6,6 +6,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
@@ -31,7 +32,7 @@ public interface SelfGoodsDetailContract extends IView {
     public void addCartSuccess(String msg);
     public void addCartFail(String msg);
 
-    public void getCommendGoodsSuccess(ArrayList<SelfGoodsBean> selfGoodsBean);
+    public void getCommendGoodsSuccess(ArrayList<GoodsListBean> selfGoodsBean);
     public void getCommendGoodsFail(String msg);
 
     public void isAddressSuccess(ArrayList<AddressBean> msg);

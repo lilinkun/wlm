@@ -86,7 +86,7 @@ public class ModifyPayPsdPresenter extends BasePresenter {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
-        params.put("fun", "UserBaseChangePassWord");
+        params.put("fun", "UserBaseChangePassWord_Two");
         params.put("Code",Code);
         params.put("PassWord",PassWord);
         params.put("ConfirmPassWord",ConfirmPassWord);

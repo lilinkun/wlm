@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class UrlBean {
 
     private String imgUrl;
+    private String ServiesUrl;
 
     public String getImgUrl() {
         return imgUrl;
@@ -15,5 +16,13 @@ public class UrlBean {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getServiesUrl() {
+        return ServiesUrl;
+    }
+
+    public void setServiesUrl(String serviesUrl) {
+        ServiesUrl = serviesUrl;
     }
 }

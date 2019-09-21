@@ -15,6 +15,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.DownloadBean;
+import com.wlm.wlm.entity.ErrorBean;
 import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FareBean;
 import com.wlm.wlm.entity.FaresBean;
@@ -130,6 +131,13 @@ public class DataManager {
      */
     public Observable<ResultBean> opinion(HashMap<String, String> mHashMap){
         return mRetrofitService.opinion(mHashMap);
+    }
+
+    /**
+     * 反馈类型
+     */
+    public Observable<ResultBean<ArrayList<ErrorBean>,Object>> getErrorType(HashMap<String, String> mHashMap){
+        return mRetrofitService.getErrorType(mHashMap);
     }
 
     /**

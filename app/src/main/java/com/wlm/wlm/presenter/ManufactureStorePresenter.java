@@ -91,7 +91,7 @@ public class ManufactureStorePresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex, String PageCount, String GoodsType, String CategoryId,String OrderBy){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String CategoryId,String GoodsName,String OrderBy){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
@@ -103,6 +103,7 @@ public class ManufactureStorePresenter extends BasePresenter {
         params.put("GoodsType",GoodsType);
         params.put("CategoryId",CategoryId);
         params.put("OrderBy",OrderBy);
+        params.put("GoodsName",GoodsName);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

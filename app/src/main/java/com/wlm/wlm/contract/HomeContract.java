@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public interface HomeContract extends IView{
-        public void getUrlSuccess(String urlBean);
+        public void getUrlSuccess(UrlBean urlBean);
         public void getUrlFail(String msg);
 
         public void onFlashSuccess(ArrayList<FlashBean> flashBeans);

@@ -15,4 +15,8 @@ public interface BindCardContract extends IView {
 
     public void upBankInfoSuccess(String info);
     public void upBankInfoFail(String msg);
+
+
+    public void onSendVcodeSuccess();
+    public void onSendVcodeFail(String str);
 }

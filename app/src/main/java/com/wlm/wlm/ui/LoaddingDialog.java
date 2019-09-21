@@ -24,5 +24,8 @@ public class LoaddingDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_loadding);
+
+        setCancelable(false);
+        setCanceledOnTouchOutside(false);
     }
 }

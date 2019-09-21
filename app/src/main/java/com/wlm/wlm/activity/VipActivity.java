@@ -2,20 +2,17 @@ package com.wlm.wlm.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
-import com.wlm.wlm.adapter.VipAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.VipContract;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.presenter.VipPresenter;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
-import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -30,8 +27,6 @@ import butterknife.OnClick;
  */
 public class VipActivity extends BaseActivity implements VipContract, TbHotGoodsAdapter.OnItemClickListener {
 
-    @BindView(R.id.rv_vip)
-    RecyclerView rv_vip;
     @BindView(R.id.rv_vip_goods)
     RecyclerView rv_vip_goods;
 
@@ -52,23 +47,6 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
 
         vipPresenter.onCreate(this,this);
         vipPresenter.getData("1","20",goodsType,"0","0");
-
-        FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this,3);
-        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-
-        int spanCount = 2; // 2 columns
-        int spacing = 0; // 50px
-
-        boolean includeEdge = false;
-        rv_vip.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
-
-
-        rv_vip.setLayoutManager(gridLayoutManager);
-
-        VipAdapter vipAdapter = new VipAdapter(this);
-
-        rv_vip.setAdapter(vipAdapter);
-
 
         FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);

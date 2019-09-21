@@ -12,19 +12,38 @@
         app:text_title="我的粉丝"
         app:img_left="@mipmap/ic_back"/>
 
-    <EditText
-        android:id="@+id/et_search"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@mipmap/ic_search_bg"
+        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@drawable/shape_myfans_search"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:paddingTop="@dimen/padding_5"
-        android:paddingBottom="@dimen/padding_5"
-        android:paddingLeft="@dimen/padding_10"
-        android:textColorHint="#B7B7B7"
-        android:hint="输入查询的微信名、微信号"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:src="@mipmap/ic_search_bg"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入查询的微信名、微信号"
+            android:textColor="@color/white"
+            android:textColorHint="#B7B7B7"
+            android:background="@null"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:textSize="@dimen/textsize15"
+            />
+
+    </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView

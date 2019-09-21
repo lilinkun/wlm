@@ -76,10 +76,11 @@ public class WlmUtil {
     public static final String TELEPHONE = "telephone";
     public static final String PRICE = "price";
     public static final String BALANCEBEAN = "balanceBean";
-
-
-    public static final String IMG_BIG = "imgdb/";
-    public static final String IMG_SMALL = "img/300/300/";
+    public static final String IMG = "img";
+    public static final String BANNERIMG = "bannerimg";
+    public static final String WHERE = "where";
+    public static final String GOODS = "goods";
+    public static final String CUSTOMER = "customer";
 
 
     public static String RESULT_SUCCESS = "success";

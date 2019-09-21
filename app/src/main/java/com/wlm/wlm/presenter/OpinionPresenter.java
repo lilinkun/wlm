@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.wlm.wlm.contract.OpinionContract;
+import com.wlm.wlm.entity.CountBean;
+import com.wlm.wlm.entity.ErrorBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -45,12 +48,14 @@ public class OpinionPresenter extends BasePresenter {
         }
     }
 
-    public void upload(String contents,String sessionId){
+    public void upload(String Type,String Title,String Question,String SessionId){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("cls","FeedBack");
-        hashMap.put("fun","FeedBackCreate");
-        hashMap.put("contents",contents);
-        hashMap.put("SessionId",sessionId);
+        hashMap.put("cls","Message");
+        hashMap.put("fun","MessageCreate");
+        hashMap.put("Type",Type);
+        hashMap.put("Title",Title);
+        hashMap.put("Question",Question);
+        hashMap.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.opinion(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,4 +78,28 @@ public class OpinionPresenter extends BasePresenter {
                     }
                 }));
     }
+
+
+    public void getErrorType(String SessionId){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("cls","Message");
+        hashMap.put("fun","MessageType");
+        hashMap.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getErrorType(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<ErrorBean>,Object>() {
+
+                    @Override
+                    public void onResponse(ArrayList<ErrorBean> errorBeans, String status,Object page) {
+                        opinionContract.getTypeSuccess(errorBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        opinionContract.getTypeFail(msg);
+                    }
+                }));
+    }
+
 }

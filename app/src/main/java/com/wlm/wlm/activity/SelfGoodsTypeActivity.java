@@ -338,20 +338,20 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
         if (refreshLayout != null  && refreshLayout.isRefreshing()){
             refreshLayout.setRefreshing(false);
         }
-        if (selfGoodsAdapter == null) {
-            this.selfGoodsBeans = selfGoodsBeans;
-            selfGoodsAdapter = new SelfGoodsAdapter(this, selfGoodsBeans,2);
-            mSelfGoodsRv.setAdapter(selfGoodsAdapter);
-            selfGoodsAdapter.setItemClickListener(this);
-        }else {
-            if (PAGE_INDEX == 1) {
-                this.selfGoodsBeans = selfGoodsBeans;
-                selfGoodsAdapter.setData(selfGoodsBeans);
-            }else {
-                this.selfGoodsBeans.addAll(selfGoodsBeans);
-                selfGoodsAdapter.setData(this.selfGoodsBeans);
-            }
-        }
+//        if (selfGoodsAdapter == null) {
+//            this.selfGoodsBeans = selfGoodsBeans;
+//            selfGoodsAdapter = new SelfGoodsAdapter(this, selfGoodsBeans,2);
+//            mSelfGoodsRv.setAdapter(selfGoodsAdapter);
+//            selfGoodsAdapter.setItemClickListener(this);
+//        }else {
+//            if (PAGE_INDEX == 1) {
+//                this.selfGoodsBeans = selfGoodsBeans;
+//                selfGoodsAdapter.setData(selfGoodsBeans);
+//            }else {
+//                this.selfGoodsBeans.addAll(selfGoodsBeans);
+//                selfGoodsAdapter.setData(this.selfGoodsBeans);
+//            }
+//        }
     }
 
     @Override

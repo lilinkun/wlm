@@ -15,6 +15,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
             sumGoodsNum = 0;
         }
 
-        Picasso.with(context).load(ProApplication.HEADIMG + orderListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsImage);
+        Picasso.with(context).load(ProApplication.HEADIMG  + orderListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsImage);
 
         holder.increaseGoodsNum.setOnClickListener(new View.OnClickListener() {
             @Override

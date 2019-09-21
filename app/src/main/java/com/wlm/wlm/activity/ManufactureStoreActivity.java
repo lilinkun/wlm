@@ -1,10 +1,16 @@
 package com.wlm.wlm.activity;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
@@ -21,6 +27,7 @@ import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -41,6 +48,8 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     TopLinearlayout ll_top;
     @BindView(R.id.custom_sort)
     CustomSortLayout custom_sort;
+    @BindView(R.id.et_store_search)
+    EditText editText;
 
 //    String[] strs = {"精选","护肤套装", "防晒脱毛", "彩妆香水", "面部精华", "男士服饰", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
     ArrayList<String> strings = new ArrayList<>();
@@ -57,7 +66,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
                 case 0x110:
                     int position = msg.getData().getInt("position");
                     category1Bean = category1Beans.get(position);
-                    manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"0");
+                    manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
                     break;
             }
         }
@@ -72,6 +81,8 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.store_bg));
 
+        ActivityUtil.addHomeActivity(this);
+
         FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
@@ -79,8 +90,33 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         manufactureStorePresenter.getCategoryList("1","100");
 
-
         ll_top.setListener(this);
+
+        editText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        editText.setSingleLine();
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // 先隐藏键盘
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(ManufactureStoreActivity.this
+                                            .getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (editText.getText().toString().isEmpty()) {
+                        toast("搜索栏不能为空！");
+                    } else {
+                        //搜索
+                        doSearch(editText.getText().toString());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.ll_back})
@@ -94,37 +130,41 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
         }
     }
 
+    public void doSearch(String goodsName){
+        manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),goodsName,"0");
+    }
+
     @Override
     public void getSortType(int sortType) {
         switch (sortType){
             case 1:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"0");
+                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
 
                 break;
 
 
             case 3:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"1");
+                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","1");
 
                 break;
 
             case 4:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"2");
+                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","2");
 
                 break;
 
             case 5:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"3");
+                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","3");
 
                 break;
 
             case 6:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"4");
+                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","4");
 
                 break;
 
@@ -134,12 +174,17 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.goodsListBeans = goodsListBeans;
+
+        custom_sort.setVisibility(View.VISIBLE);
         custom_sort.setData(goodsListBeans, WlmUtil.MANUFACURE);
+
     }
 
     @Override
     public void getFail(String msg) {
-
+        if (msg.contains("查无数据")){
+            custom_sort.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -151,7 +196,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         category1Bean = category1Beans.get(0);
         pagerSlidingTabStrip.setTitles(strings, 0, handler);
-        manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"0");
+        manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
     }
 
     @Override

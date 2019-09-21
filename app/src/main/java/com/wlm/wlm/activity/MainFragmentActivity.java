@@ -95,6 +95,8 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     private CheckBean bean;
     private BroadcastReceiver broadcastReceiver = new NetReceiver();
 
+    public static boolean isHome = false;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_mainfragment;
@@ -225,6 +227,15 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             }else {
                 relativeLayout.setSelected(false);
             }
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (isHome){
+            mViewPager.setCurrentItem(0,true);
+            isHome = false;
         }
     }
 

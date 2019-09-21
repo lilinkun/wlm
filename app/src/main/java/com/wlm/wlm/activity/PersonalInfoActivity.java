@@ -138,7 +138,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         switch (view.getId()){
             case R.id.rl_head_title_info:
 
-                View v = LayoutInflater.from(this).inflate(R.layout.pop_head_info,null);
+                /*View v = LayoutInflater.from(this).inflate(R.layout.pop_head_info,null);
 
                 popupWindow = new PopupWindow(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,true);
 
@@ -197,15 +197,15 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, IMAGEBUNDLE);
                     }
-                });
+                });*/
 
 
                 break;
 
             case R.id.rl_nickname_info:
-                Bundle bundle = new Bundle();
-                bundle.putString("nick",nickName.getText().toString());
-                UiHelper.launcherForResultBundle(this,MyNickNameActivity.class,RESULT_MYNICK,bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("nick",nickName.getText().toString());
+//                UiHelper.launcherForResultBundle(this,MyNickNameActivity.class,RESULT_MYNICK,bundle);
 
                 break;
 

@@ -3,6 +3,7 @@ package com.wlm.wlm.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.AllOrderPresenter;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
@@ -98,6 +100,14 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView logistics_information;
     @BindView(R.id.iv_order_status)
     ImageView iv_order_status;
+    @BindView(R.id.rl_need_integral)
+    RelativeLayout rl_need_integral;
+    @BindView(R.id.rl_surplus_integral)
+    RelativeLayout rl_surplus_integral;
+    @BindView(R.id.view_need_integral)
+    View view_need_integral;
+    @BindView(R.id.view_surplus_integral)
+    View view_surplus_integral;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -123,6 +133,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         orderSn = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("order_sn");
         status = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("status");
         order_sn.setText(orderSn);
+
+        ActivityUtil.addHomeActivity(this);
 
         allOrderPresenter.onCreate(this,this);
 
@@ -231,6 +243,12 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         shipping_fee += orderDetailBeans.getShippingFree();
         payid+= orderDetailBeans.getOrderAmount();
 
+        if (useIntegral == 0){
+            rl_need_integral.setVisibility(View.GONE);
+            rl_surplus_integral.setVisibility(View.GONE);
+            view_need_integral.setVisibility(View.GONE);
+            view_surplus_integral.setVisibility(View.GONE);
+        }
 
         goods_total_price.setText("¥"+payid + "");
         tv_use_point.setText("" + useIntegral);
@@ -280,7 +298,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                         Bundle bundle = new Bundle();
                         bundle.putString(WlmUtil.ORDERID,orderDetailBeans.getOrderSn()+"");
                         bundle.putString(WlmUtil.ORDERAMOUNT,orderDetailBeans.getOrderAmount()+"");
-                        UiHelper.launcherBundle(AllOrderActivity.this,PayActivity.class,bundle);
+                        bundle.putString(WlmUtil.WHERE,"allorder");
+                        UiHelper.launcherForResultBundle(AllOrderActivity.this,PayActivity.class,0x1231,bundle);
 //                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
                         allOrderPresenter.sureReceipt(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
@@ -504,4 +523,15 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK && requestCode == 0x1231){
+            setResult(RESULT_OK);
+            finish();
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

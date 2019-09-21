@@ -10,6 +10,7 @@ import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RightNowGoodsBean;
@@ -17,6 +18,7 @@ import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +60,11 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
 
     public void getGoodsDetail(String goodsId,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsGet");
@@ -73,16 +79,16 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
                     @Override
                     public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status,Object page) {
                         selfGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         selfGoodsDetailContract.getDataFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
@@ -148,7 +154,6 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 删除收藏
-     * @param collectId
      * @param SessionId
      */
     public void deleteCollect(String goodsId,String CollectType,String SessionId){
@@ -216,23 +221,22 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
     }
 
     /**
-     * 随机商品
+     * 随机推荐商品
      * @param GoodsId
-     * @param SessionId
      */
-    public void randomGoods(String GoodsId,String SessionId){
+    public void randomGoods(String type,String GoodsId){
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
-        params.put("fun","RandomGoodsList");
+        params.put("fun","GoodsListRecommendVip");
+        params.put("type",type);
         params.put("GoodsId",GoodsId);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.getselfGoodList(params)
+        mCompositeSubscription.add(manager.getGoodsList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<SelfGoodsBean>,PageBean>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
                     @Override
-                    public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status,PageBean page) {
-                        selfGoodsDetailContract.getCommendGoodsSuccess(selfGoodsBeans);
+                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status,Object page) {
+                        selfGoodsDetailContract.getCommendGoodsSuccess(goodsListBeans);
                     }
 
                     @Override

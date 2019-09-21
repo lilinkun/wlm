@@ -1,6 +1,8 @@
 package com.wlm.wlm.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponDetailAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -18,11 +25,14 @@ import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.JoinGrouponBean;
 import com.wlm.wlm.presenter.GrouponDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
+import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.ui.RoundImageView;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -52,10 +62,13 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     TextView tv_friends_num;
     @BindView(R.id.riv_rc)
     RoundImageView riv_rc;
+    @BindView(R.id.iv_goods_pic)
+    CustomRoundAngleImageView iv_goods_pic;
 
     private String teamId;
     private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
     private ArrayList<JoinGrouponBean> joinGrouponBeans;
+    IWXAPI iwxapi = null;
 
     @Override
     public int getLayoutId() {
@@ -65,6 +78,11 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+
+        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi.registerApp(WlmUtil.APP_ID);
+
+        ActivityUtil.addHomeActivity(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
@@ -81,7 +99,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
     }
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.tv_join_groupon})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
@@ -89,12 +107,43 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
                 finish();
 
                 break;
+
+            case R.id.tv_join_groupon:
+
+            case R.id.iv_head_right:
+
+            WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+            miniProgramObj.webpageUrl = "http://www.qq.com"; // 兼容低版本的网页链接
+            miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
+            miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
+            miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId=2&UserName=";
+            //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+            WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
+            msg.title = "小程序消息Title";                    // 小程序消息title
+            msg.description = "小程序消息Desc";               // 小程序消息desc
+
+            Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_adapter_error);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            thumbBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+            msg.thumbData = baos.toByteArray();
+
+//                msg.thumbData = getThumb();                      // 小程序消息封面图片，小于128k
+
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
+            req.transaction = "";
+            req.message = msg;
+            req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+            iwxapi.sendReq(req);
+
+            break;
         }
     }
 
     @Override
     public void getDataSuccess(GrouponDetailBean goodsListBean) {
 
+        Picasso.with(this).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
 
         tv_groupon_price.setText(goodsListBean.getPrice()+"");
 

@@ -58,6 +58,8 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
         rv_myfans.setLayoutManager(linearLayoutManager);
 
 
+        et_search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        et_search.setSingleLine();
         et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override

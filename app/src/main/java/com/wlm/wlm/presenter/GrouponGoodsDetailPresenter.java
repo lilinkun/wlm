@@ -13,6 +13,7 @@ import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +49,9 @@ public class GrouponGoodsDetailPresenter extends BasePresenter {
     }
 
     public void getGoodsDetail(String goodsId,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsGet");
@@ -62,16 +65,16 @@ public class GrouponGoodsDetailPresenter extends BasePresenter {
                     @Override
                     public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status,Object page) {
                         grouponGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         grouponGoodsDetailContract.getDataFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 

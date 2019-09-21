@@ -24,31 +24,29 @@ import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.RecordAdapter;
 import com.wlm.wlm.adapter.SelfGoodsAdapter;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseGoodsActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
 import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BrowseRecordBean;
-import com.wlm.wlm.entity.BuyBean;
-import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
-import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
-import com.wlm.wlm.entity.RightNowBuyBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
 import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.ui.SelfGoodsPopLayout;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -68,7 +66,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/12/8.
  */
 
-public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, RecordAdapter.OnItemClickListener, SelfGoodsAdapter.OnItemClickListener, OnScrollChangedListener {
+public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, RecordAdapter.OnItemClickListener, TbHotGoodsAdapter.OnItemClickListener, OnScrollChangedListener {
 
     @BindView(R.id.tv_goods_name)
     TextView mGoodsNameTv;
@@ -140,7 +138,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     private String collectId = "";
     private PopupWindow popupWindow;
     private SelfGoodsPopLayout selfGoodsPopLayout;
-    private ArrayList<SelfGoodsBean> selfGoodsBeans;
+    private ArrayList<GoodsListBean> goodsListBeans;
     private GoodsChooseBean goodsChooseBean;
     private String num = "";
     private int self_address_result = 0x2213;
@@ -166,6 +164,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
+        ActivityUtil.addHomeActivity(this);
         goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSID);
         if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE) != null) {
             type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
@@ -193,16 +192,16 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
 
-//        selfGoodsDetailPresenter.randomGoods(goodsid, ProApplication.SESSIONID(this));
+        selfGoodsDetailPresenter.randomGoods("2",goodsid);
 
-        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 3);
+        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
-        int spanCount = 2; // 2 columns
-        int spacing = 0; // 50px
+        int spanCount = 5; // 2 columns
+        int spacing = 20; // 50px
 
         boolean includeEdge = false;
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
         recyclerView.setLayoutManager(fullyGridLayoutManager);
 
         translucentScrollView.init(this);
@@ -386,7 +385,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
 
         for (int i = 0; i < strings.length; i++) {
-            list_path.add(ProApplication.HEADIMG + strings[i]);
+            list_path.add(strings[i]);
         }
 
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
@@ -499,10 +498,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
-            bundle.putString("goodsid", selfGoodsBeans.get(position).getGoods_id());
+            bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE,goodsListBeans.get(position).getGoodsType());
             UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
-            if (ActivityUtil.activityList.size() > 1) {
+            if (ActivityUtil.activityList.size() > 2) {
                 ActivityUtil.removeOldActivity();
             }
         }
@@ -539,7 +539,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
 
-            Picasso.with(context).load((String) path).into(imageView);
+            Picasso.with(context).load(ProApplication.BANNERIMG+(String) path).error(R.mipmap.ic_adapter_error).into(imageView);
         }
     }
 
@@ -590,11 +590,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
     @Override
-    public void getCommendGoodsSuccess(ArrayList<SelfGoodsBean> selfGoodsBean) {
-        this.selfGoodsBeans = selfGoodsBean;
-        selfGoodsAdapter = new SelfGoodsAdapter(this, selfGoodsBean, 3);
-        recyclerView.setAdapter(selfGoodsAdapter);
-        selfGoodsAdapter.setItemClickListener(this);
+    public void getCommendGoodsSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        this.goodsListBeans = goodsListBeans;
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,goodsListBeans,getLayoutInflater());
+        recyclerView.setAdapter(tbHotGoodsAdapter);
+        tbHotGoodsAdapter.setItemClickListener(this);
     }
 
     @Override

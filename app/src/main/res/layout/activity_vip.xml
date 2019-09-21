@@ -132,16 +132,9 @@
                         android:textColor="#dbb292"
                         android:text="会员权益"/>
 
-                    
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_vip"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/margin_15"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:layout_marginRight="@dimen/margin_15">
 
-                    </android.support.v7.widget.RecyclerView>
+                    <include
+                        layout="@layout/layout_vip"/>
 
 
                 </LinearLayout>

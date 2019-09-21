@@ -15,6 +15,7 @@ import com.wlm.wlm.fragment.TBAllFragment;
 import com.wlm.wlm.presenter.IntegralStorePresenter;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -58,6 +59,8 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.integral_bg));
+
+        ActivityUtil.addHomeActivity(this);
 
         integralStorePresenter.onCreate(this,this);
 

@@ -11,6 +11,7 @@ import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,8 @@ public class ChooseAddressPresenter extends BasePresenter {
      * @param SessionId
      */
     public void getAddress(String PageIndex,String PageCount,String SessionId){
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","ReceiptAddress");
         params.put("fun","ReceiptAddressList");
@@ -69,12 +72,18 @@ public class ChooseAddressPresenter extends BasePresenter {
 
                     @Override
                     public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
-                            chooseAddressContract.setDataSuccess(addressBeans);
+                        chooseAddressContract.setDataSuccess(addressBeans);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()){
+                            loaddingDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
-                            chooseAddressContract.setDataFail(msg);
+                        chooseAddressContract.setDataFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()){
+                            loaddingDialog.dismiss();
+                        }
                     }
                 })
         );

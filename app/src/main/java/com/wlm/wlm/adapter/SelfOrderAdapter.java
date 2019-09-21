@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderBean;
+import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.ShipStatusEnum;
 import com.squareup.picasso.Picasso;
@@ -70,8 +71,10 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         holder.tv_integral.setText("(含运费"+ selfOrderBeans.get(position).getShippingFee() + "、" + selfOrderBeans.get(position).getIntegral()+"积分)");
         holder.tv_order_amount.setText("¥" + price);
         int num = 0;
-        for (int i = 0;i<selfOrderBeans.get(position).getList().size();i++){
-//            num += selfOrderBeans.get(position).getList().get(i).getGoods_number();
+        ArrayList<SelfOrderInfoBean> selfOrderInfoBeans = selfOrderBeans.get(position).getList();
+        for (int i = 0;i<selfOrderInfoBeans.size();i++){
+            num += selfOrderInfoBeans.get(i).getGoodsNumber();
+//            num += (SelfOrderInfoBean)(selfOrderBeans.get(position).getList().get(i));
         }
         holder.tv_goods_num.setText("共" + num +"件商品");
 

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
@@ -38,6 +40,7 @@ public class PayResultActivity extends BaseActivity {
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        ActivityUtil.addHomeActivity(this);
 
         String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.PRICE);
         orderid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.ORDERID);
@@ -65,9 +68,16 @@ public class PayResultActivity extends BaseActivity {
 
             case R.id.tv_back_home:
 
-                Intent intent = new Intent(PayResultActivity.this, MainFragmentActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                MainFragmentActivity.isHome = true;
+
+                setResult(RESULT_OK);
+                finish();
+                ActivityUtil.finishHomeAll();
+
+
+//                Intent intent = new Intent(PayResultActivity.this, MainFragmentActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
                 break;
 
             case R.id.ll_back:

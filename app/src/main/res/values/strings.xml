@@ -236,4 +236,7 @@
     <string name="groupon_num">拼团人数</string>
     <string name="groupon_all">全部</string>
     <string name="groupon_invitation">邀请好友拼团</string>
+
+    <!--绑定银行卡-->
+    <string name="input_bank_card">请输入身份证号码</string>
 </resources>

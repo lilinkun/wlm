@@ -63,6 +63,8 @@
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginRight="@dimen/margin_10"
             android:gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:background="@drawable/shape_store_search"
             android:orientation="horizontal">
 
@@ -72,13 +74,17 @@
                 android:layout_marginLeft="@dimen/margin_10"
                 android:src="@mipmap/ic_search_icon"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_store_search"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="积雪草奇迹软膜面膜"
+                android:hint="积雪草奇迹软膜面膜"
                 android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:background="@null"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:textSize="@dimen/textsize15"
+                android:imeOptions="actionDone"
                 />
 
         </LinearLayout>
@@ -188,7 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/bg_list"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.wlm.wlm.ui.TopLinearlayout
                 android:id="@+id/ll_top"
@@ -203,7 +209,8 @@
             <com.wlm.wlm.ui.CustomSortLayout
                 android:id="@+id/custom_sort"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/bg_list">
 
             </com.wlm.wlm.ui.CustomSortLayout>
         </LinearLayout>

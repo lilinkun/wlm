@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.widget.TextViewBeforeTextChangeEvent;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -22,18 +24,18 @@ import java.util.ArrayList;
 
 public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.ViewHolder> implements View.OnClickListener {
 
-    private ArrayList<SelfGoodsBean> selfGoodsBeans ;
+    private ArrayList<GoodsListBean> selfGoodsBeans ;
     private Context context;
     private OnItemClickListener mItemClickListener;
     private int num =0;
 
-    public SelfGoodsAdapter(Context context,ArrayList<SelfGoodsBean> selfGoodsBeans,int num){
+    public SelfGoodsAdapter(Context context, ArrayList<GoodsListBean> selfGoodsBeans, int num){
         this.context = context;
         this.selfGoodsBeans = selfGoodsBeans;
         this.num = num;
     }
 
-    public void setData(ArrayList<SelfGoodsBean> selfGoodsBeans){
+    public void setData(ArrayList<GoodsListBean> selfGoodsBeans){
         this.selfGoodsBeans = selfGoodsBeans;
         notifyDataSetChanged();
     }
@@ -57,16 +59,16 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setTag(position);
 
-        holder.tvself_title.setText(selfGoodsBeans.get(position).getGoods_name());
-        holder.tvself_price.setText( "¥"+selfGoodsBeans.get(position).getShop_price());
+        holder.tvself_title.setText(selfGoodsBeans.get(position).getGoodsName());
+        holder.tvself_price.setText( "¥"+selfGoodsBeans.get(position).getPrice());
 
-        holder.tv_goods_volume.setText(selfGoodsBeans.get(position).getUse_number());
+        holder.tv_goods_volume.setText(selfGoodsBeans.get(position).getUseNumber()+"");
         if (num == 2){
             holder.tv_integral.setVisibility(View.VISIBLE);
-            holder.tv_integral.setText("可用积分抵扣" + selfGoodsBeans.get(position).getGive_integral());
+            holder.tv_integral.setText("可用积分抵扣" + selfGoodsBeans.get(position).getIntegral());
         }
 
-        Picasso.with(context).load(ProApplication.HEADIMG+selfGoodsBeans.get(position).getGoods_img()).error(R.color.white).into(holder.ivself_goods);
+        Picasso.with(context).load(ProApplication.HEADIMG+selfGoodsBeans.get(position).getGoodsImg()).error(R.color.white).into(holder.ivself_goods);
     }
 
     @Override

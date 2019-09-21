@@ -47,6 +47,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     private String orderid;
     private String totalPrice;
+    private String where;
     private Dialog payDialog;
     private PopupWindow popupWindow;
 
@@ -84,6 +85,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         if (bundle != null){
             orderid = bundle.getString(WlmUtil.ORDERID);
             totalPrice = bundle.getString(WlmUtil.ORDERAMOUNT);
+            where = bundle.getString(WlmUtil.WHERE);
         }
         tv_amount.setText(totalPrice+"");
         payPresenter.getBalance(ProApplication.SESSIONID(this));
@@ -162,10 +164,12 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
             case R.id.ll_back:
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("status", 0);
-                bundle.putString("order_sn", orderid);
-                UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
+                if (where.equals(WlmUtil.GOODS)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("status", 0);
+                    bundle.putString("order_sn", orderid);
+                    UiHelper.launcherForResultBundle(this, AllOrderActivity.class, 0x0987, bundle);
+                }
                 setResult(RESULT_OK);
                 finish();
 

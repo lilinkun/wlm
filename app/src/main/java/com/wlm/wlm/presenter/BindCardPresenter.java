@@ -6,6 +6,7 @@ import com.wlm.wlm.contract.BindCardContract;
 import com.wlm.wlm.contract.ChooseAddressContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BankBean;
+import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -96,6 +97,41 @@ public class BindCardPresenter extends BasePresenter {
                     public void onErr(String msg, String status) {
                         bindCardContract.upBankInfoFail(msg);
                     }
+                })
+        );
+    }
+
+
+    /**
+     * 发送短信验证码
+     * @param sessionId
+     */
+    public void SendSms(String sessionId){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls", "SendSms");
+        params.put("fun", "SendSafetyVerificationCode");
+        params.put("SessionId", sessionId);
+        mCompositeSubscription.add(manager.register(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack(){
+
+                    @Override
+                    public void onResponse(Object o, String status,Object page) {
+                        bindCardContract.onSendVcodeSuccess();
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        bindCardContract.onSendVcodeFail(msg);
+                    }
+
+                    @Override
+                    public void onNext(ResultBean o) {
+                        super.onNext(o);
+                    }
+
                 })
         );
     }

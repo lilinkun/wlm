@@ -19,6 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BindCardActivity;
 import com.wlm.wlm.activity.BrowseRecordsActivity;
@@ -48,6 +53,7 @@ import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.math.BigDecimal;
 
@@ -96,6 +102,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     private BalanceBean balanceBean;
 
     private MePresenter mePresenter = new MePresenter();
+    IWXAPI iwxapi = null;
 
     @Override
     public int getlayoutId() {
@@ -109,6 +116,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         mePresenter.onCreate(getActivity(),this);
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
 
+        iwxapi = WXAPIFactory.createWXAPI(getActivity(),WlmUtil.APP_ID,true);
+        iwxapi.registerApp(WlmUtil.APP_ID);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, getActivity().MODE_PRIVATE);
 
@@ -123,8 +132,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     public void setPoint(){
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,R.id.ll_bind_card,
-            R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,R.id.ll_wlm_coin,R.id.rl_fans})
+    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,
+            R.id.ll_bind_card,R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,
+            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -229,6 +239,34 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.rl_fans:
 
                     UiHelper.launcher(getActivity(), MyFansActivity.class);
+
+                    break;
+
+                case R.id.ll_shared:
+
+                    WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+                    miniProgramObj.webpageUrl = "http://www.qq.com"; // 兼容低版本的网页链接
+                    miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
+                    miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
+                    miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId=2&UserName=";
+                    //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+                    WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
+                    msg.title = "小程序消息Title";                    // 小程序消息title
+                    msg.description = "小程序消息Desc";               // 小程序消息desc
+
+                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_adapter_error);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                    msg.thumbData = baos.toByteArray();
+
+//                msg.thumbData = getThumb();                      // 小程序消息封面图片，小于128k
+
+                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+                    req.transaction = "";
+                    req.message = msg;
+                    req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+                    iwxapi.sendReq(req);
 
                     break;
 

@@ -12,6 +12,7 @@ import java.util.List;
 public class ActivityUtil {
 
     public static List<Activity> activityList = new ArrayList<>();
+    public static List<Activity> activityLists = new ArrayList<>();
 
     // 添加Activity
     public static void addActivity(Activity activity){
@@ -37,4 +38,30 @@ public class ActivityUtil {
             }
         }
     }
+
+    // 添加Activity
+    public static void addHomeActivity(Activity activity){
+        activityLists.add(activity);
+    }
+
+    // 移除Activity
+    public static void removeHomeActivity(Activity activity){
+        activityLists.remove(activity);
+    }
+
+    // 结束并移除最底的Activity
+    public static void removeOldHomeActivity(){
+        activityLists.get(0).finish();
+        activityLists.remove(0);
+    }
+
+    // 移除所有Activity
+    public static void finishHomeAll(){
+        for (Activity activity : activityLists){
+            if(!activity.isFinishing()){
+                activity.finish();
+            }
+        }
+    }
 }
+

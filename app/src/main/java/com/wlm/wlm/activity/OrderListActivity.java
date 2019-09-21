@@ -48,6 +48,7 @@ import com.wlm.wlm.fragment.WaitReceiveFragment;
 import com.wlm.wlm.interf.IPayOrderClickListener;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.OrderListPresenter;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
@@ -119,6 +120,8 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
         orderListPresenter.onCreate(this,this);
+
+        ActivityUtil.addHomeActivity(this);
 
         initData();
 
@@ -209,7 +212,8 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.ORDERID,selfOrderBean.getOrderSn());
         bundle.putString(WlmUtil.ORDERAMOUNT,selfOrderBean.getOrderAmount()+"");
-        UiHelper.launcherBundle(this,PayActivity.class,bundle);
+        bundle.putString(WlmUtil.WHERE,"order");
+        UiHelper.launcherForResultBundle(this,PayActivity.class,0x0987,bundle);
 
 //        orderListPresenter.getOrderData(ProApplication.SESSIONID(this));
     }

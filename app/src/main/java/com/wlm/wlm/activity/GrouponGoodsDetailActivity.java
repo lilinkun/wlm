@@ -23,6 +23,7 @@ import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.PriceTextView;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -76,6 +77,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void initEventAndData() {
         Eyes.translucentStatusBar(this,false);
+
+        ActivityUtil.addHomeActivity(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
@@ -173,8 +176,8 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
 
-            Picasso.with(context).load((String) path).into(imageView);
-//            imageView.setImageResource(R.mipmap.ic_goods_pic);
+            Picasso.with(context).load(ProApplication.BANNERIMG+(String) path).error(R.mipmap.ic_adapter_error).into(imageView);
+//            imageView.setImageResource(R.mipmap.ic_goods_pic);90
 
         }
     }

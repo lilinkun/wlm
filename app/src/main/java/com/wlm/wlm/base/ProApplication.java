@@ -69,6 +69,14 @@ public class ProApplication extends Application{
 
     public static String BANNERIMG = "";
 
+    public static String CUSTOMERIMG = "";
+
+
+    public static final String IMG_BIG = "imgdb/";
+    public static final String IMG_SMALL = "img/300/300/";
+    public static final String IMG_SMALL_ = "img/150/150/";
+
+
     public static synchronized ProApplication context() {
         return (ProApplication) mContext;
     }
