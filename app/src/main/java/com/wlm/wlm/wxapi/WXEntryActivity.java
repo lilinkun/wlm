@@ -48,6 +48,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     public void onReq(BaseReq baseReq) {
     }
 
+    private static final int RETURN_MSG_TYPE_SHARE = 2;
 
     //请求回调结果处理
     @Override
@@ -68,8 +69,11 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             case BaseResp.ErrCode.ERR_BAN:
                 Toast.makeText(this,"签名错误",Toast.LENGTH_LONG).show();
                 break;
+            case RETURN_MSG_TYPE_SHARE:
+                finish();
+                break;
+
             default:
-//                finish();
                 break;
         }
     }
