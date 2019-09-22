@@ -6,6 +6,7 @@ import com.wlm.wlm.contract.IntegralStoreContract;
 import com.wlm.wlm.contract.ManufactureStoreContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -94,7 +95,9 @@ public class ManufactureStorePresenter extends BasePresenter {
     public void getData(String PageIndex, String PageCount, String GoodsType, String CategoryId,String GoodsName,String OrderBy){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
-        loaddingDialog.show();
+        if (Integer.valueOf(PageIndex) > 1) {
+            loaddingDialog.show();
+        }
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListVip");
@@ -107,10 +110,10 @@ public class ManufactureStorePresenter extends BasePresenter {
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
-                        manufactureStoreContract.getSuccess(integralBean);
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
+                        manufactureStoreContract.getSuccess(integralBean,page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }

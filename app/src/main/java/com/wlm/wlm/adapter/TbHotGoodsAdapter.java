@@ -1,6 +1,7 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,9 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             holder.goodsPriceTv.setText("" + homeBean.getPrice());
             holder.goodsBuyCountTv.setText(homeBean.getUseNumber() + "");
 
-            holder.tv_add_integral.setText(homeBean.getReturnIntegral());
+            holder.tv_add_integral.setText(homeBean.getIntegral()+"");
+            holder.tv_old_price.setText("￥"+homeBean.getMarketPrice());
+            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
             if (isAdd_Integral){
                 holder.ll_add_integral.setVisibility(View.VISIBLE);
@@ -88,7 +91,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
 
     @Override
     public int getItemCount() {
-        return hotHomeBeans != null ? hotHomeBeans.size() : 8;
+        return hotHomeBeans != null ? hotHomeBeans.size() : 0;
     }
 
     @Override
@@ -119,6 +122,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         private CustomRoundAngleImageView goodsPicImg;
         private LinearLayout ll_add_integral;
         private TextView tv_add_integral;
+        private TextView tv_old_price;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -128,6 +132,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             goodsPriceTv = (TextView) itemView.findViewById(R.id.tv_goods_price);
             goodsPicImg = (CustomRoundAngleImageView) itemView.findViewById(R.id.iv_goods_pic);
             ll_add_integral = (LinearLayout) itemView.findViewById(R.id.ll_add_integral);
+            tv_old_price = (TextView) itemView.findViewById(R.id.tv_old_price);
 
         }
     }

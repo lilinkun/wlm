@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -346,7 +348,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         getpopup();
         if (type.equals(WlmUtil.INTEGRAL)) {
             tv_title_name.setText(goodsDetailBean.getGoodsName());
-            tv_details_goods_add_integral.setText(goodsDetailBean.getReturnIntegral());
+            tv_details_goods_add_integral.setText(goodsDetailBean.getIntegral()+"");
             tv_details_goods_add_price.setText(goodsDetailBean.getPrice()+"");
             tv_macket_price.setText("¥"+goodsDetailBean.getMarketPrice()+"");
             tv_macket_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -368,13 +370,18 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });
-        webView.loadUrl(goodsDetailBean.getMobileDesc());
+        webView.getSettings().setDisplayZoomControls(false);
+        String mobileDesc = goodsDetailBean.getMobileDesc();
 
+//        webView.loadUrl("http://manage.boos999.com/goods/mobiledetail/1345");
+        webView.loadUrl(mobileDesc);
 
         String[] strings ;
         if (goodsDetailBean.getGoodsImgList().contains(",")) {
@@ -411,38 +418,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                 .start();
 
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-        String time = simpleDateFormat.format(date);
-        collectBean = new BrowseRecordBean();
-        collectBean.setGoods_img(goodsDetailBean.getGoodsImg());
-//        collectBean.setAdd_time(goodsDetailBean.getGoodsItem().getAdd_time());
-        collectBean.setGoods_id(Long.valueOf(goodsDetailBean.getGoodsId()));
-        collectBean.setGoods_name(goodsDetailBean.getGoodsName());
-        collectBean.setShop_price(goodsDetailBean.getPrice());
-        collectBean.setUser_id(MainFragmentActivity.username);
-        collectBean.setBrowse_date(time);
-        List<BrowseRecordBean> beanList =  DBManager.getInstance(this).queryBrowseBean(MainFragmentActivity.username);
-        long id = 0;
-        if (beanList.size() > 0){
-            id =  beanList.get(beanList.size()-1).getId() + (long)1;
-        }
-        collectBean.setId(id);
-
-        List<BrowseRecordBean> browseRecordBeans = DBManager.getInstance(this).queryBrowseBean(collectBean);
-        if (browseRecordBeans.size() == 0) {
-            DBManager.getInstance(this).insertBrowseBean(collectBean);
-        } else {
-            DBManager.getInstance(this).deleteOneBrowseBean(browseRecordBeans.get(0));
-            DBManager.getInstance(this).insertBrowseBean(collectBean);
-        }
-
-//        if(DBManager.getInstance(this).queryGoodRecordBean(recordBean.getGoods_id()).size() == 0) {
-//            DBManager.getInstance(this).insertRecordBean(recordBean);
-//        }else {
-//            DBManager.getInstance(this).deleteOneRecordBean(recordBean);
-//            DBManager.getInstance(this).insertRecordBean(recordBean);
-//        }
 
     }
 

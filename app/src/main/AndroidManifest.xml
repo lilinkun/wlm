@@ -78,6 +78,8 @@
         <activity android:name=".activity.MyQrCodeActivity"/>
         <activity android:name=".activity.MyFansActivity"/>
 
+        <activity android:name=".activity.TestActivity"/>
+
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:theme="@android:style/Theme.Translucent"
             android:exported="true"/>
@@ -92,6 +94,11 @@
         <activity android:name=".activity.GrouponGoodsDetailActivity"/>
         <activity android:name=".activity.CrowdFundingActivity"/>
         <activity android:name=".activity.GrouponOrderActivity"/>
+        <activity android:name=".activity.GetCashActivity"/>
+
+
+
+
         <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>
 

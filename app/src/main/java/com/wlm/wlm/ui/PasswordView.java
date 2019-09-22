@@ -30,6 +30,8 @@ public class PasswordView extends LinearLayout {
     private ArrayList<Map<String, String>> valueList; // 要用Adapter中适配，用数组不能往adapter中填充
     private ImageView tvCancel;//取消按钮
     private TextView tvForget;//忘记密码按钮
+    private TextView tv_cash_amount;
+    private TextView tv_cash_service_amount;
     private int currentIndex = -1; // 用于记录当前输入密码格位置
 
     public PasswordView(Context context) {
@@ -52,6 +54,8 @@ public class PasswordView extends LinearLayout {
         tvList[3] = (TextView) view.findViewById(R.id.tv_pass4);
         tvList[4] = (TextView) view.findViewById(R.id.tv_pass5);
         tvList[5] = (TextView) view.findViewById(R.id.tv_pass6);
+        tv_cash_amount = (TextView) view.findViewById(R.id.tv_cash_amount);
+        tv_cash_service_amount = (TextView) view.findViewById(R.id.tv_cash_service_amount);
 
         //初始化键盘
         gridView = (GridView) view.findViewById(R.id.gv_keybord);
@@ -206,6 +210,12 @@ public class PasswordView extends LinearLayout {
         }
 
     };
+
+    public void gettext(double a,double b){
+        tv_cash_amount.setText(a+"");
+        tv_cash_service_amount.setText(b+"");
+    }
+
 
     public final class ViewHolder {
         public TextView btnKey;

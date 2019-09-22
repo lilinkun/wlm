@@ -49,6 +49,7 @@ import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.RetrofitHelper;
@@ -402,6 +403,13 @@ public class DataManager {
     }
 
     /**
+     * 获取银行卡信息
+     */
+    public Observable<ResultBean<UserBankBean,Object>> getBankBean(HashMap<String,String> mHashMap){
+        return mRetrofitService.getBankBean(mHashMap);
+    }
+
+    /**
      * 删除购物车
      */
     public Observable<ResultBean<String ,Object>> deleteGoods(HashMap<String,String> mHashMap){
@@ -480,7 +488,7 @@ public class DataManager {
     /**
      * 获取团购数据
      */
-    public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<ArrayList<GoodsListBean>,PageBean>> grouponData(HashMap<String,String> mHashMap){
         return  mRetrofitService.grouponData(mHashMap);
     }
 
@@ -488,7 +496,7 @@ public class DataManager {
      * 获取团购订单数据
      */
     public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponOrder(HashMap<String,String> mHashMap){
-        return  mRetrofitService.grouponData(mHashMap);
+        return  mRetrofitService.grouponData1(mHashMap);
     }
 
     /**
@@ -562,6 +570,14 @@ public class DataManager {
      */
     public Observable<ResultBean<ArrayList<GoodsListBean>,Object>> getGoodsList(HashMap<String,String> mHashMap){
         return  mRetrofitService.getGoodsList(mHashMap);
+    }
+
+
+    /**
+     * 获取提现支付
+     */
+    public Observable<ResultBean<String,Object>> getCash(HashMap<String,String> mHashMap){
+        return mRetrofitService.getCash(mHashMap);
     }
 
 }

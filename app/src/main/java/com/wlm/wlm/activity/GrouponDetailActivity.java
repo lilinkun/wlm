@@ -68,6 +68,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     private String teamId;
     private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
     private ArrayList<JoinGrouponBean> joinGrouponBeans;
+    private GrouponDetailBean grouponDetailBean;
     IWXAPI iwxapi = null;
 
     @Override
@@ -97,6 +98,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
         Picasso.with(this).load(sharedPreferences.getString(WlmUtil.ACCOUNT,"")).error(R.mipmap.ic_adapter_error).into(riv_rc);
 
+
     }
 
     @OnClick({R.id.ll_back,R.id.tv_join_groupon})
@@ -112,15 +114,17 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
             case R.id.iv_head_right:
 
+            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+
             WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
-            miniProgramObj.webpageUrl = "http://www.qq.com"; // 兼容低版本的网页链接
+            miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
             miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
             miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
-            miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId=2&UserName=";
+            miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponDetailBean.getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
             //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
             WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
-            msg.title = "小程序消息Title";                    // 小程序消息title
-            msg.description = "小程序消息Desc";               // 小程序消息desc
+            msg.title = grouponDetailBean.getGoodsName();                    // 小程序消息title
+            msg.description = grouponDetailBean.getGoodsName();               // 小程序消息desc
 
             Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_adapter_error);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -142,6 +146,8 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
     @Override
     public void getDataSuccess(GrouponDetailBean goodsListBean) {
+
+        this.grouponDetailBean = goodsListBean;
 
         Picasso.with(this).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
 

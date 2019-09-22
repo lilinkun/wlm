@@ -96,9 +96,9 @@ public class ChooseAddressPresenter extends BasePresenter {
      */
     public void deletAddress(String userAddressId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","UserAddressDelete");
-        params.put("userAddressId",userAddressId);
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressDelete");
+        params.put("AddressID",userAddressId);
         params.put("SessionId",SessionId);
 
         mCompositeSubscription.add(manager.getDeleteAddress(params)

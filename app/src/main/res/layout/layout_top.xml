@@ -8,9 +8,9 @@
     android:gravity="center_vertical">
 
     <RelativeLayout
-        android:layout_width="0.0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0">
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/tx_moren"
@@ -32,9 +32,9 @@
 
     <RelativeLayout
         android:id="@+id/rl_host"
-        android:layout_width="0.0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0">
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/tx_host"
@@ -66,9 +66,9 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="0.0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0">
+        android:layout_weight="1">
 
         <RelativeLayout
             android:id="@+id/rel_top"
@@ -121,9 +121,9 @@
 
     <RelativeLayout
         android:id="@+id/rel_offer"
-        android:layout_width="0.0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0">
+        android:layout_weight="1">
 
         <RelativeLayout
             android:id="@+id/rel_price"

@@ -107,31 +107,38 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     public void onLoginSuccess(LoginBean mLoginBean) {
 
-        LoginBean loginBean = mLoginBean;
+        /*LoginBean loginBean = mLoginBean;
         String datalife = "";
         try {
             datalife = WlmUtil.serialize(loginBean);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
-                .putString(WlmUtil.LOGINBEAN,datalife)
-                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
-
+                .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
+                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();
+
     }
 
 
     @Override
     public void onLoginFail(String msg) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("wxinfo",wxUserInfo);
-        UiHelper.launcherBundle(this, RegisterActivity.class,bundle);
+        if (wxUserInfo == null){
+            final SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "wechat_sdk_微信登录";
+            iwxapi.sendReq(req);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("wxinfo", wxUserInfo);
+            UiHelper.launcherBundle(this, RegisterActivity.class, bundle);
+        }
     }
 
     @Override

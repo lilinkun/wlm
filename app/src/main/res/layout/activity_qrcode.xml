@@ -18,6 +18,7 @@
         android:orientation="vertical">
 
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,7 +102,6 @@
 
 
         <LinearLayout
-            android:id="@+id/ll_wx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
@@ -110,6 +110,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_wx"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,6 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:gravity="center">
 

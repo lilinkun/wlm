@@ -102,12 +102,10 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     ImageView iv_order_status;
     @BindView(R.id.rl_need_integral)
     RelativeLayout rl_need_integral;
-    @BindView(R.id.rl_surplus_integral)
-    RelativeLayout rl_surplus_integral;
     @BindView(R.id.view_need_integral)
     View view_need_integral;
-    @BindView(R.id.view_surplus_integral)
-    View view_surplus_integral;
+    @BindView(R.id.ll_point)
+    LinearLayout ll_point;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -245,9 +243,11 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
         if (useIntegral == 0){
             rl_need_integral.setVisibility(View.GONE);
-            rl_surplus_integral.setVisibility(View.GONE);
             view_need_integral.setVisibility(View.GONE);
-            view_surplus_integral.setVisibility(View.GONE);
+        }
+
+        if (ll_point != null){
+            ll_point.setVisibility(View.GONE);
         }
 
         goods_total_price.setText("¥"+payid + "");

@@ -14,19 +14,15 @@ import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.Category1Activity;
-import com.wlm.wlm.activity.CrowdFundingActivity;
-import com.wlm.wlm.activity.GoodsDetailActivity;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
+import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.OpinionActivity;
-import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
-import com.wlm.wlm.activity.StrategyActivity;
 import com.wlm.wlm.activity.VipActivity;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
@@ -35,7 +31,6 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.HomeCategoryBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
@@ -118,6 +113,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
         ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
         ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER,"");
+        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG,"");
 
         homePresenter.onCreate(getActivity(),this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
@@ -315,12 +311,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+            ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
             homePresenter.setFlash("1");
             homePresenter.getGoodsList("1");
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
                     .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).commit();
         }
+
     }
 
     @Override
@@ -328,6 +326,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", MODE_PRIVATE);
         ProApplication.HEADIMG = sharedPreferences.getString("img", ProApplication.HEADIMG);
         ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG);
+
+        if (msg.equals("登录已失效")){
+            UiHelper.launcher(getActivity(), LoginActivity.class);
+        }
     }
 
     @Override

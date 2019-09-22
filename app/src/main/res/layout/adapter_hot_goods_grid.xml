@@ -104,10 +104,19 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/tv_old_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey_color3"
+                        android:textSize="@dimen/textsize11"
+                        />
+
                     <LinearLayout
                         android:id="@+id/ll_buy_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:orientation="horizontal">
 

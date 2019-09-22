@@ -15,10 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -39,6 +41,11 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     private TbHotGoodsAdapter tbHotGoodsAdapter = null;
     private ArrayList<GoodsListBean> goodsListBeans = null;
     private String type ;
+    private SwipeRefreshLayout refreshLayout;
+    private SortListerner sortListerner;
+    private int lastVisibleItem = 0;
+    private int PAGE_INDEX = 0;
+    private PageBean pageBean;
 
     public CustomSortLayout(Context context) {
         super(context);
@@ -60,13 +67,14 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
         View view = LayoutInflater.from(context).inflate(R.layout.layout_sort,null);
 
+        refreshLayout = view.findViewById(R.id.refreshLayout);
 
         recyclerView = view.findViewById(R.id.rv_goods);
 
         int spanCount1 = 5; // 2 columns
         int spacing1 = 20; // 50px
 
-        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
+        final FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -76,6 +84,39 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
         addView(view);
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sortListerner.onRefresh();
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (tbHotGoodsAdapter != null) {
+                        if (lastVisibleItem + 1 == tbHotGoodsAdapter.getItemCount()) {
+                            if (PAGE_INDEX  > Integer.valueOf(pageBean.getMaxPage())){
+
+                            }else {
+                                PAGE_INDEX++;
+                                sortListerner.onLoadding(PAGE_INDEX);
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+            }
+        });
+
     }
 
     /**
@@ -84,6 +125,15 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
      */
     public void setType(int position){
 
+    }
+
+
+    public void setPageIndex(int pageIndex, PageBean pageBean){
+        if (refreshLayout != null && refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
+        this.pageBean = pageBean;
+        this.PAGE_INDEX = pageIndex;
     }
 
 
@@ -110,5 +160,15 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
         bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
         bundle.putString(WlmUtil.TYPE,type);
         UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class,bundle);
+    }
+
+    public void setListener(SortListerner listener){
+        this.sortListerner = listener;
+    }
+
+
+    public interface SortListerner{
+        public void onRefresh();
+        public void onLoadding(int page);
     }
 }

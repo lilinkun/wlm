@@ -28,13 +28,13 @@
             android:paddingTop="@dimen/margin_35"
             android:paddingBottom="@dimen/margin_15"
             android:gravity="right"
-            android:visibility="gone"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/rl_me_message"
                 android:layout_width="40dp"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/ic_me_message"
@@ -179,6 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <com.wlm.wlm.ui.PriceTextView

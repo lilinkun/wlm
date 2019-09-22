@@ -46,6 +46,7 @@ import com.wlm.wlm.entity.SelfStoreBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.entity.WxRechangeBean;
 
@@ -303,7 +304,15 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData(@FieldMap Map<String, String> params);
+    Observable<ResultBean<UserBankBean,Object>> getBankBean(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<GoodsListBean>,PageBean>> grouponData(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<GoodsListBean>,Object>> grouponData1(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -344,6 +353,10 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<ArrayList<GoodsListBean>,Object>> getGoodsList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<String,Object>> getCash(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

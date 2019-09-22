@@ -187,8 +187,8 @@
                 android:gravity="center"
                 android:text="@string/groupon_invitation"
                 android:textSize="@dimen/textsize15"
-                android:textColor="@color/login_title_text"
-                android:background="@drawable/order_self_black_btn"/>
+                android:textColor="@color/setting_title_color"
+                android:background="@drawable/order_self_red_btn"/>
 
         </LinearLayout>
 

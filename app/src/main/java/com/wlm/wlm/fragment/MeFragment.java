@@ -95,6 +95,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     private int result_int = 0x2121;
     private int result_person = 0x2212;
     private int result_recharge = 0x1121;
+    private int result_coin = 0x1234;
     int mAlpha = 0;
     private Drawable drawable;
     private PersonalInfoBean personalInfoBean;
@@ -134,7 +135,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
     @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,
             R.id.ll_bind_card,R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,
-            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared})
+            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared,R.id.ll_wlm_income_coin})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -232,7 +233,17 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     Bundle bundle5 = new Bundle();
                     bundle5.putInt("style", 1);
                     bundle5.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
-                    UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle5);
+                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class,result_coin, bundle5);
+
+                    break;
+
+                case R.id.ll_wlm_income_coin:
+
+                    Bundle bundle10 = new Bundle();
+                    bundle10.putInt("style", 2);
+                    bundle10.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+                    UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle10);
+
 
                     break;
 
@@ -350,6 +361,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     }
                 }
             }else if (requestCode == result_recharge){
+            }else if (requestCode == result_coin){
+                balanceBean = (BalanceBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.BALANCEBEAN);
             }
         }
     }
@@ -405,9 +418,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
     @Override
     public void getBalanceFail(String msg) {
-        if (msg.equals("登录已失效")){
-            UiHelper.launcher(getActivity(), LoginActivity.class);
-        }
+
     }
 
 

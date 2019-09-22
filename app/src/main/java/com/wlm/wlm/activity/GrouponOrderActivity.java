@@ -82,6 +82,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     TextView tv_goods_consignee_name;
     @BindView(R.id.tv_use_remarks)
     TextView tv_use_remarks;
+    @BindView(R.id.tv_old_use_point)
+    TextView tv_old_use_point;
 
     private GrouponOrderPresenter grouponOrderPresenter = new GrouponOrderPresenter();
 
@@ -174,7 +176,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         surplus_balance = rightNowBuyBean.getMoney5Balance();
         surplus_integral = rightNowBuyBean.getMoney2Balance();
 
-        if (rightNowBuyBean.getAddress() != null) {
+        if (rightNowBuyBean.getAddress() != null && rightNowBuyBean.getAddress().size() != 0) {
             isAddressSuccess(rightNowBuyBean.getAddress().get(0));
             getFare(rightNowBuyBean.getShippingFree()+"");
             tv_no_address.setVisibility(View.GONE);
@@ -184,7 +186,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         if (addressBean != null){
             isAddressSuccess(addressBean);
         }
-
+        tv_old_use_point.setText(surplus_integral + "");
         tv_goods_title.setText(rightNowGoodsBean.getGoodsName());
         Picasso.with(this).load(ProApplication.HEADIMG + rightNowGoodsBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
         tv_goods_price.setText(rightNowGoodsBean.getPrice()+"");
@@ -309,8 +311,13 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == address_result && resultCode == RESULT_OK){
             AddressBean addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).get("address");
-            isAddressSuccess(addressBean);
-            grouponOrderPresenter.getFare(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),rightNowGoodsBean.getGoodsNumber()+"",ProApplication.SESSIONID(this));
+            if (addressBean != null && !addressBean.getAddressID().isEmpty()) {
+                isAddressSuccess(addressBean);
+                if (tv_no_address != null && tv_no_address.isShown()) {
+                    tv_no_address.setVisibility(View.GONE);
+                }
+                grouponOrderPresenter.getFare(rightNowGoodsBean.getGoodsId(), addressBean.getAddressID(), rightNowGoodsBean.getGoodsNumber() + "", ProApplication.SESSIONID(this));
+            }
         }
     }
 

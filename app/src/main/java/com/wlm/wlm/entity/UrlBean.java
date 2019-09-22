@@ -9,6 +9,7 @@ public class UrlBean {
 
     private String imgUrl;
     private String ServiesUrl;
+    private String SharedWebUrl;
 
     public String getImgUrl() {
         return imgUrl;
@@ -24,5 +25,13 @@ public class UrlBean {
 
     public void setServiesUrl(String serviesUrl) {
         ServiesUrl = serviesUrl;
+    }
+
+    public String getSharedWebUrl() {
+        return SharedWebUrl;
+    }
+
+    public void setSharedWebUrl(String sharedWebUrl) {
+        SharedWebUrl = sharedWebUrl;
     }
 }

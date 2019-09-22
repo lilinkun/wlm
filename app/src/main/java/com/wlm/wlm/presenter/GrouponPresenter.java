@@ -5,6 +5,7 @@ import android.content.Context;
 import com.wlm.wlm.contract.GrouponContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -70,9 +71,9 @@ public class GrouponPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
                         grouponContract.getSuccess(integralBean);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();

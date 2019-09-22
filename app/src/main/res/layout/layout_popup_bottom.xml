@@ -42,6 +42,54 @@
             android:layout_height="0.5dp"
             android:background="#33000000" />
 
+        <LinearLayout
+            android:id="@+id/ll_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_10"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize14"
+            android:textColor="@color/pop_text_bg"
+            android:text="提现金额"/>
+
+        <TextView
+            android:id="@+id/tv_cash_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize14"
+            android:textColor="@color/pop_text_bg"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/pop_text_bg"
+                android:text=" (含服务费"/>
+
+
+            <TextView
+                android:id="@+id/tv_cash_service_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/pop_text_bg"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize14"
+                android:textColor="@color/pop_text_bg"
+                android:text=")"/>
+
+        </LinearLayout>
+
         <!-- 6位密码框布局，需要一个圆角边框的shape作为layout的背景 -->
         <LinearLayout
             android:layout_width="match_parent"

@@ -19,6 +19,7 @@ import com.wlm.wlm.contract.IntegralStoreContract;
 import com.wlm.wlm.contract.ManufactureStoreContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.IntegralStorePresenter;
 import com.wlm.wlm.presenter.ManufactureStorePresenter;
@@ -40,7 +41,7 @@ import butterknife.OnClick;
  * 制造商称
  * Created by LG on 2019/8/15.
  */
-public class ManufactureStoreActivity extends BaseActivity implements IGoodsTypeListener, ManufactureStoreContract {
+public class ManufactureStoreActivity extends BaseActivity implements IGoodsTypeListener, ManufactureStoreContract, CustomSortLayout.SortListerner {
 
     @BindView(R.id.tab_strip)
     PagerSlidingTabStrip pagerSlidingTabStrip;
@@ -58,6 +59,8 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     private ArrayList<GoodsListBean> goodsListBeans = null;
     private Category1Bean category1Bean  = null ;
     private ArrayList<Category1Bean> category1Beans = null;
+    private int PAGEINDEX = 1;
+    private PageBean pageBean;
 
     private Handler handler = new Handler(){
         @Override
@@ -66,7 +69,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
                 case 0x110:
                     int position = msg.getData().getInt("position");
                     category1Bean = category1Beans.get(position);
-                    manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
+                    manufactureStorePresenter.getData(PAGEINDEX + "","20",goodstype,category1Bean.getCategoryID(),"","0");
                     break;
             }
         }
@@ -117,6 +120,9 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
                 return false;
             }
         });
+
+
+        custom_sort.setListener(this);
     }
 
     @OnClick({R.id.ll_back})
@@ -131,7 +137,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     }
 
     public void doSearch(String goodsName){
-        manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),goodsName,"0");
+        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),goodsName,"0");
     }
 
     @Override
@@ -139,32 +145,32 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
         switch (sortType){
             case 1:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","0");
 
                 break;
 
 
             case 3:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","1");
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","1");
 
                 break;
 
             case 4:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","2");
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","2");
 
                 break;
 
             case 5:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","3");
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","3");
 
                 break;
 
             case 6:
 
-                manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","4");
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","4");
 
                 break;
 
@@ -172,12 +178,13 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     }
 
     @Override
-    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans,PageBean pageBean) {
         this.goodsListBeans = goodsListBeans;
+        this.pageBean = pageBean;
 
         custom_sort.setVisibility(View.VISIBLE);
         custom_sort.setData(goodsListBeans, WlmUtil.MANUFACURE);
-
+        custom_sort.setPageIndex(PAGEINDEX,pageBean);
     }
 
     @Override
@@ -196,11 +203,23 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         category1Bean = category1Beans.get(0);
         pagerSlidingTabStrip.setTitles(strings, 0, handler);
-        manufactureStorePresenter.getData("1","20",goodstype,category1Bean.getCategoryID(),"","0");
+        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","0");
     }
 
     @Override
     public void getCategoryFail(String msg) {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        PAGEINDEX = 1;
+        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","0");
+    }
+
+    @Override
+    public void onLoadding(int page) {
+        this.PAGEINDEX = page;
+        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","0");
     }
 }

@@ -52,8 +52,9 @@ public class WlmUtil {
     public static final int GOODS_MOTION = 3766;
 
     public static final String TYPEID = "TYPEID";
+    public static final String USERNAME = "username";
+    public static final String USERID = "userid";
     public static final String LOGIN = "login";
-    public static final String LOGINBEAN = "loginbean";
     public static final String OPENID = "openid";
     public static final String UNIONID = "unionid";
     public static final String GROUPONGOODS = "groupongoods";
@@ -81,6 +82,10 @@ public class WlmUtil {
     public static final String WHERE = "where";
     public static final String GOODS = "goods";
     public static final String CUSTOMER = "customer";
+    public static final String SHAREDIMG = "shared";
+    public static final String VIPVALIDITY = "VipValidity";
+    public static final String WLMCOIN = "wlmcoin";
+    public static final String USERBANKBEAN = "UserBankBean";
 
 
     public static String RESULT_SUCCESS = "success";

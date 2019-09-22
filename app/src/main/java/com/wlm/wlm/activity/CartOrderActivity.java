@@ -260,9 +260,15 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
         if (resultCode == RESULT_OK) {
             if (requestCode == address_result) {
                 addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
-                linearLayout.setVisibility(View.VISIBLE);
-                setAddress(addressBean);
-                getFare(addressBean.getProv(), addressBean.getCity());
+                if (addressBean != null && !addressBean.getAddressID().isEmpty()) {
+                    linearLayout.setVisibility(View.VISIBLE);
+                    setAddress(addressBean);
+                    if (tv_no_address != null && tv_no_address.isShown()) {
+                        tv_no_address.setVisibility(View.GONE);
+                    }
+                    getFare(addressBean.getProv(), addressBean.getCity());
+                }
+
             }
 
             if (requestCode == 0x144){

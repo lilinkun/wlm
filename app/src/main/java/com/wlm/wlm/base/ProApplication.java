@@ -1,14 +1,19 @@
 package com.wlm.wlm.base;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.wlm.wlm.util.DeviceData;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Created by LG on 2018/11/29.
@@ -24,6 +29,25 @@ public class ProApplication extends Application{
         mContext = this;
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         displayMetrics.scaledDensity = displayMetrics.density;
+        disableAPIDialog();
+    }
+
+    /**
+     * 反射 禁止弹窗
+     */
+    private void disableAPIDialog(){
+        if (Build.VERSION.SDK_INT < 28)return;
+        try {
+            Class clazz = Class.forName("android.app.ActivityThread");
+            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+            currentActivityThread.setAccessible(true);
+            Object activityThread = currentActivityThread.invoke(null);
+            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -70,6 +94,10 @@ public class ProApplication extends Application{
     public static String BANNERIMG = "";
 
     public static String CUSTOMERIMG = "";
+
+    public static String SHAREDIMG = "";
+
+    public static String VIPVALIDITY = "";
 
 
     public static final String IMG_BIG = "imgdb/";

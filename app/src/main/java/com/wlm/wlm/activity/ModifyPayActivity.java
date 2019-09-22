@@ -63,15 +63,9 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        String loginInfo = sharedPreferences.getString(WlmUtil.LOGINBEAN,"");
-        try {
-            loginBean = (LoginBean) WlmUtil.unSerialization(loginInfo);
-            textView.setText(PhoneFormatCheckUtils.phoneAddress(loginBean.getMobile()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        String loginInfo = sharedPreferences.getString(WlmUtil.TELEPHONE,"");
+        textView.setText(PhoneFormatCheckUtils.phoneAddress(loginInfo));
+
     }
 
     @OnClick({R.id.tv_send_vcode,R.id.ev_new_psd,R.id.tv_modify_commit,R.id.iv_head_left})

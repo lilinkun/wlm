@@ -2,8 +2,10 @@ package com.wlm.wlm.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -146,11 +148,13 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         wv_goods_detail.getSettings().setJavaScriptEnabled(true);
+
         wv_goods_detail.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });
+//        wv_goods_detail.loadUrl("http://manage.boos999.com/goods/mobiledetail/1345");
         wv_goods_detail.loadUrl(goodsDetailBean.getMobileDesc());
 
         startBanner(goodsDetailBean);

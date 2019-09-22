@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:paddingLeft="@dimen/padding_10"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:hint="@string/psd_limit"
                 android:background="@null"/>
         </LinearLayout>
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:paddingLeft="@dimen/padding_10"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:hint="@string/psd_sure"
                 android:background="@null"/>
         </LinearLayout>

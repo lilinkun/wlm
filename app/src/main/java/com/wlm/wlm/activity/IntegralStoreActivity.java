@@ -11,6 +11,7 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.IntegralStoreContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.fragment.TBAllFragment;
 import com.wlm.wlm.presenter.IntegralStorePresenter;
 import com.wlm.wlm.ui.CustomSortLayout;
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  * 积分商城
  * Created by LG on 2019/8/15.
  */
-public class IntegralStoreActivity extends BaseActivity implements IntegralStoreContract {
+public class IntegralStoreActivity extends BaseActivity implements IntegralStoreContract, CustomSortLayout.SortListerner {
 
     @BindView(R.id.custom_sort)
     CustomSortLayout custom_sort;
@@ -38,6 +39,7 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     private IntegralStorePresenter integralStorePresenter = new IntegralStorePresenter();
     private GrouponAdapter grouponAdapter = null;
     private String goodstype = "1";
+    private int PAGEINDEX = 1;
 
     private Handler handler = new Handler(){
         @Override
@@ -64,7 +66,9 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
 
         integralStorePresenter.onCreate(this,this);
 
-        integralStorePresenter.getData("1","20",goodstype,"0");
+        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,"0");
+
+        custom_sort.setListener(this);
     }
 
     @OnClick({R.id.ll_back})
@@ -79,9 +83,10 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     }
 
     @Override
-    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean) {
         this.goodsListBeans = goodsListBeans;
         custom_sort.setData(goodsListBeans, WlmUtil.INTEGRAL);
+        custom_sort.setPageIndex(PAGEINDEX,pageBean);
     }
 
     @Override
@@ -89,4 +94,15 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
         toast(msg);
     }
 
+    @Override
+    public void onRefresh() {
+        this.PAGEINDEX = 1;
+        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,"0");
+    }
+
+    @Override
+    public void onLoadding(int page) {
+        this.PAGEINDEX = page;
+        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,"0");
+    }
 }

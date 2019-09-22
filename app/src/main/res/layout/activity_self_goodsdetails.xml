@@ -80,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="@dimen/textsize35"
-                            android:text="60"/>
+                            android:text="0"/>
 
 
                         <com.wlm.wlm.ui.MyTextView
@@ -91,7 +91,6 @@
                             android:includeFontPadding="false"
                             android:textColor="#f8f8f8"
                             android:textSize="@dimen/textsize14"
-                            android:text="¥90"
                             />
 
                         </LinearLayout>
@@ -141,90 +140,7 @@
                         android:background="@color/white"
                         android:orientation="vertical">
 
-                        <!--<RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone">
 
-                            <LinearLayout
-                                android:id="@+id/ll_goods_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_10"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="¥"
-                                    android:textColor="@color/setting_title_color"
-                                    android:textSize="@dimen/margin_20" />
-
-                                <TextView
-                                    android:id="@+id/tv_goods_price"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/setting_title_color"
-                                    android:textSize="@dimen/margin_20" />
-
-
-                                <RelativeLayout
-                                    android:id="@+id/rl_rush_org"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/margin_10"
-                                    android:layout_marginBottom="@dimen/margin_5">
-
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true">
-
-                                        <TextView
-                                            android:id="@+id/tv_org_price"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:text="¥"
-                                            android:textColor="@color/list_divider"
-                                            android:textSize="@dimen/textsize14" />
-
-
-                                        <View
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="0.5dp"
-                                            android:layout_alignLeft="@+id/tv_org_price"
-                                            android:layout_alignRight="@+id/tv_org_price"
-                                            android:layout_centerVertical="true"
-                                            android:background="@color/list_divider" />
-                                    </RelativeLayout>
-                                </RelativeLayout>
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/tv_integral"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/ll_goods_price"
-                                android:textColor="@color/hot_red"
-                                android:textSize="@dimen/textsize12"
-                                android:layout_marginTop="@dimen/margin_2"
-                                android:layout_marginStart="@dimen/margin_10"
-                                />
-
-                            <TextView
-                                android:id="@+id/tv_integral_pv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_integral"
-                                android:textColor="@color/hot_red"
-                                android:textSize="@dimen/textsize12"
-                                android:layout_marginTop="@dimen/margin_2"
-                                android:layout_marginStart="@dimen/margin_10"
-                                />
-
-                        </RelativeLayout>-->
 
                         <TextView
                             android:id="@+id/tv_goods_name"
@@ -312,13 +228,6 @@
                             android:textColor="@color/pop_text_bg"
                             android:textSize="@dimen/textsize15" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_self_goods"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white">
-
-                        </android.support.v7.widget.RecyclerView>
                     </LinearLayout>
 
                     <com.wlm.wlm.ui.CommendRecyclerView
