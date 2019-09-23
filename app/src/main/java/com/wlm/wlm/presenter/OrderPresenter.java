@@ -14,6 +14,8 @@ import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
+import com.wlm.wlm.ui.LoadingDialog;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -57,7 +59,9 @@ public class OrderPresenter extends BasePresenter {
      * @param SessionId
      */
     public void getList(String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Cart");
         params.put("fun","Cart_GetLitsByUserId");
@@ -69,16 +73,16 @@ public class OrderPresenter extends BasePresenter {
                     @Override
                     public void onResponse(GoodsCartbean orderListBeans, String status,Object page) {
                         orderContract.OrderListSuccess(orderListBeans);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         orderContract.OrderListFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
                 }));

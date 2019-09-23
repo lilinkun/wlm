@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.wlm.wlm.contract.PayContract;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -45,7 +46,7 @@ public class PayPresenter extends BasePresenter {
         }
     }
 
-    public void getWxPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String SessionId){
+    public void getWxPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String Integral,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
@@ -54,6 +55,7 @@ public class PayPresenter extends BasePresenter {
         params.put("OpenId",OpenId);
         params.put("OrderAmount",OrderAmount);
         params.put("Logo_ID",Logo_ID);
+        params.put("Integral",Integral);
         params.put("payType",payType);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureWxGoodsOrder(params)
@@ -78,7 +80,7 @@ public class PayPresenter extends BasePresenter {
                 }));
     }
 
-    public void getPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String PassWordTwo,String SessionId){
+    public void getPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String Integral,String PassWordTwo,String SessionId){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","OrderInfo");
@@ -88,6 +90,7 @@ public class PayPresenter extends BasePresenter {
         params.put("OrderAmount",OrderAmount);
         params.put("Logo_ID",Logo_ID);
         params.put("payType",payType);
+        params.put("Integral",Integral);
         params.put("PassWordTwo",PassWordTwo);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureGoodsOrder(params)
@@ -136,6 +139,33 @@ public class PayPresenter extends BasePresenter {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
+                    }
+                }));
+    }
+
+    /**
+     *　订单详情
+     * @param OrderSn
+     * @param SessionId
+     */
+    public void orderDetail(String OrderSn,String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","OrderInfo");
+        params.put("fun","OrderInfoGoodsDetail");
+        params.put("OrderSn",OrderSn);
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getOrderDetail(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<OrderDetailAddressBean,Object>() {
+                    @Override
+                    public void onResponse(OrderDetailAddressBean orderDetailBeans, String status, Object page) {
+                        payContract.setDataSuccess(orderDetailBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        payContract.setDataFail(msg);
                     }
                 }));
     }

@@ -11,6 +11,8 @@ import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
+import com.wlm.wlm.entity.WxInfo;
+import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -79,10 +81,11 @@ public class AllOrderPresenter extends BasePresenter {
     }
 
     public void exitOrder(String OrderId,String SessionId){
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","取消订单中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "Order");
-        params.put("fun", "CancleOrder");
-        params.put("OrderId", OrderId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoVIPCancel");
+        params.put("OrderSn", OrderId);
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.exitOrder(params)
                 .subscribeOn(Schedulers.io())
@@ -92,11 +95,17 @@ public class AllOrderPresenter extends BasePresenter {
                     @Override
                     public void onResponse(String collectDeleteBean, String status,Object page) {
                         allOrderContract.exitOrderSuccess(collectDeleteBean);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         allOrderContract.exitOrderFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
@@ -160,9 +169,9 @@ public class AllOrderPresenter extends BasePresenter {
      */
     public void sureReceipt(String OrderId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","ConfirmReceipt");
-        params.put("OrderId",OrderId);
+        params.put("cls","OrderInfo");
+        params.put("fun","OrderInfoVIPConfirm");
+        params.put("OrderSn",OrderId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureReceipt(params)
                 .subscribeOn(Schedulers.io())
@@ -220,10 +229,10 @@ public class AllOrderPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.wxPay(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<WxRechangeBean,Object>() {
+                .subscribe(new HttpResultCallBack<WxInfo,Object>() {
                     @Override
-                    public void onResponse(WxRechangeBean fareBean, String status,Object page) {
-                        allOrderContract.wxInfoSuccess(fareBean);
+                    public void onResponse(WxInfo fareBean, String status, Object page) {
+//                        allOrderContract.wxInfoSuccess(fareBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

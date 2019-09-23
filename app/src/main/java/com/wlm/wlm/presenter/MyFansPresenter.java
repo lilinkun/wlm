@@ -49,6 +49,7 @@ public class MyFansPresenter extends BasePresenter {
 
     public void getFansData(String PageIndex,String PageCount,String NickName,String sessionId){
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "UserBaseRefereesList_Vip");

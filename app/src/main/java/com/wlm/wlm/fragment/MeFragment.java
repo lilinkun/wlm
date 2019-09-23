@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +33,7 @@ import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
+import com.wlm.wlm.activity.MessageActivity;
 import com.wlm.wlm.activity.MyFansActivity;
 import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.activity.MyQrCodeActivity;
@@ -45,6 +47,8 @@ import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.PersonalInfoBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.MePresenter;
+import com.wlm.wlm.ui.CusPtrClassicFrameLayout;
+import com.wlm.wlm.ui.CustomerPtrHandler;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
@@ -52,6 +56,7 @@ import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
+import com.wlm.wlm.wxapi.WXEntryActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -59,6 +64,11 @@ import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+
+import static in.srain.cube.views.ptr.util.PtrLocalDisplay.dp2px;
 
 /**
  * Created by LG on 2018/11/10.
@@ -90,6 +100,10 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     TextView tv_open_vip;
     @BindView(R.id.iv_me_vip)
     ImageView iv_me_vip;
+    @BindView(R.id.ll_me_vip)
+    LinearLayout ll_me_vip;
+    @BindView(R.id.mPtrframe)
+    CusPtrClassicFrameLayout mPtrFrame;
 
 
     private int result_int = 0x2121;
@@ -120,6 +134,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         iwxapi = WXAPIFactory.createWXAPI(getActivity(),WlmUtil.APP_ID,true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
+        WXEntryActivity.wxType(WlmUtil.WXTYPE_SHARED);
+        initPtrFrame();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, getActivity().MODE_PRIVATE);
 
         mTvAccount.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
@@ -130,12 +147,38 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 //        badgeView.set
     }
 
+    private void initPtrFrame() {
+        final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
+        header.setPadding(dp2px(20), dp2px(20), 0, 0);
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_ptr_head,null);
+
+        CustomerPtrHandler customerPtrHandler = new CustomerPtrHandler(getActivity());
+
+        mPtrFrame.setHeaderView(customerPtrHandler);
+        mPtrFrame.addPtrUIHandler(customerPtrHandler);
+        mPtrFrame.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+
+                mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
+
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
+    }
+
     public void setPoint(){
+        mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
     }
 
     @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,
             R.id.ll_bind_card,R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,
-            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared,R.id.ll_wlm_income_coin})
+            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared,R.id.ll_wlm_income_coin,R.id.rl_me_message})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -174,7 +217,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     Bundle bundle4 = new Bundle();
                     bundle4.putInt("style", 0);
                     bundle4.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
-                    UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle4);
+                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class,0x1987, bundle4);
 
                     break;
 
@@ -283,6 +326,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     break;
 
+                case R.id.rl_me_message:
+
+                    UiHelper.launcher(getActivity(), MessageActivity.class);
+
+                    break;
+
             }
         }
     }
@@ -328,25 +377,11 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == result_int) {
-                /*if (!data.getBooleanExtra("loginout", false)) {
-                    if (drawable != null) {
-                        final File file = new File(getActivity().getExternalCacheDir(), "crop.jpg");
-                        if (file.exists()) {
-                            Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
-                            drawable = new BitmapDrawable(bm);
-                            roundImageView.setImageDrawable(drawable);
-                        }
-                    } else {
-                        if (personalInfoBean.getUser_data().getHeadPic() != null) {
-                            Picasso.with(getActivity()).load(personalInfoBean.getUser_data().getHeadPic()).into(roundImageView);
-                        } else {
-                            roundImageView.setImageResource(R.mipmap.ic_head);
-                        }
-                    }
-                } else {
-                    getActivity().finish();
-                }*/
+            if (requestCode == 0x1987) {
+
+                this.balanceBean = (BalanceBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.BALANCEBEAN);
+                getBalanceSuccess(balanceBean);
+
             } else if (requestCode == result_person) {
                 if (drawable != null) {
                     final File file = new File(getActivity().getExternalCacheDir(), "crop.jpg");
@@ -410,11 +445,17 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         tv_balance_wait_income.setText(balanceBean.getMoney4Balance()+"");
         tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
 
-        tv_me_vip.setText(balanceBean.getUserLevelName());
         if (balanceBean.getUserLevel() <= 0){
-            iv_me_vip.setVisibility(View.GONE);
+            ll_me_vip.setVisibility(View.GONE);
         }else {
             tv_open_vip.setText("立即续费");
+            tv_me_vip.setText(balanceBean.getUserLevelName());
+            ll_me_vip.setVisibility(View.VISIBLE);
+        }
+
+
+        if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
+            mPtrFrame.refreshComplete();
         }
     }
 

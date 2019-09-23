@@ -123,7 +123,7 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     public void exitOrderSuccess(String deleteBean) {
 
         for (int i = 0;i<selfOrderBeans.size();i++){
-            if(selfOrderBeans.get(i).getOrderId().equals(orderId)){
+            if(selfOrderBeans.get(i).getOrderSn().equals(orderId)){
                 selfOrderBeans.remove(i);
                 if (selfOrderAdapter != null) {
                     selfOrderAdapter.setData(selfOrderBeans);

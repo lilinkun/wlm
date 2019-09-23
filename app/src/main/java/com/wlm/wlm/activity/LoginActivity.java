@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
         iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
         iwxapi.registerApp(WlmUtil.APP_ID);
-
+        WXEntryActivity.wxType(WlmUtil.WXTYPE_LOGIN);
         WXEntryActivity.setLoginListener(this);
 
         loginPresenter.onCreate(this,this);

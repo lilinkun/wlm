@@ -50,8 +50,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     RelativeLayout mSearchTopLayout;
     @BindView(R.id.search_line)
     View mSearchTopLine;
-    @BindView(R.id.tv_search_goods_type)
-    TextView mSearchGoodsType;
     @BindView(R.id.flow_search_history)
     FlowLayout mFlowLayout;
     @BindView(R.id.flow_search_recommend)
@@ -160,77 +158,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
 
 
-        View popView = LayoutInflater.from(this).inflate(R.layout.popup_search_type, null);
-        popupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        tvSelf = popView.findViewById(R.id.tv_home_self);
-        tvTb = popView.findViewById(R.id.tv_home_tb);
-        tvJd = popView.findViewById(R.id.tv_home_jd);
-        tvSelf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 1;
-                tvSelf.setTextColor(getResources().getColor(R.color.white));
-                tvTb.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvJd.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvSelf.setBackgroundResource(R.drawable.search_text_bg_select);
-                tvTb.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                tvJd.setBackgroundResource(R.drawable.search_text_bg_unselect);
-
-                if (popupWindow.isShowing()){
-                    popupWindow.dismiss();
-                }
-                mSearchGoodsType.setText(R.string.home_self_goods);
-            }
-        });
-
-        tvTb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 2;
-                tvSelf.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvTb.setTextColor(getResources().getColor(R.color.white));
-                tvJd.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvSelf.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                tvTb.setBackgroundResource(R.drawable.search_text_bg_select);
-                tvJd.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                if (popupWindow.isShowing()){
-                    popupWindow.dismiss();
-                }
-                mSearchGoodsType.setText(R.string.home_tb);
-            }
-        });
-
-        tvJd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 3;
-                tvSelf.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvTb.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvJd.setTextColor(getResources().getColor(R.color.white));
-                tvSelf.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                tvTb.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                tvJd.setBackgroundResource(R.drawable.search_text_bg_select);
-                if (popupWindow.isShowing()){
-                    popupWindow.dismiss();
-                }
-                mSearchGoodsType.setText(R.string.home_jd);
-            }
-        });
-        if (getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search") != null && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search").isEmpty()){
-            if(getIntent().getBundleExtra(WlmUtil.TYPEID).getString("search").equals("taobao")) {
-                type = 2;
-                tvSelf.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvTb.setTextColor(getResources().getColor(R.color.white));
-                tvJd.setTextColor(getResources().getColor(R.color.login_title_text));
-                tvSelf.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                tvTb.setBackgroundResource(R.drawable.search_text_bg_select);
-                tvJd.setBackgroundResource(R.drawable.search_text_bg_unselect);
-                if (popupWindow.isShowing()) {
-                    popupWindow.dismiss();
-                }
-                mSearchGoodsType.setText(R.string.home_tb);
-            }
-        }
 
 
     }
@@ -255,15 +182,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                         }
                     }
 
-
-//                    TextView tv = new TextView(this);
-//                    tv.setPadding(28, 10, 28, 10);
-//                    tv.setText(mEtSearch.getText().toString());
-//                    tv.setMaxEms(10);
-//                    tv.setSingleLine();
-//                    tv.setBackgroundResource(R.drawable.shape_search_item_select);
-//                    tv.setLayoutParams(layoutParams);
-//                    mFlowLayout.addView(tv, layoutParams);
 
                     switch (type){
                         case 1:

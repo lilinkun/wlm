@@ -119,7 +119,7 @@ public class WaitReceiveFragment extends BasePagerFragment implements SelfOrderC
     public void exitOrderSuccess(String collectDeleteBean) {
 
         for (int i = 0;i<selfOrderBeans.size();i++){
-            if(selfOrderBeans.get(i).getOrderId().equals(orderId)){
+            if(selfOrderBeans.get(i).getOrderSn().equals(orderId)){
                 selfOrderBeans.remove(i);
                 if (selfOrderAdapter != null) {
                     selfOrderAdapter.setData(selfOrderBeans);

@@ -122,18 +122,20 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
                     return;
                 }
 
-                try {
-                    if (et_bank_card_id.getText().toString().trim().length() == 0 || !PhoneFormatCheckUtils.IDCardValidate(et_bank_card_id.getText().toString())){
+//                try {
+                    if (et_bank_card_id.getText().toString().trim().length() == 15 || et_bank_card_id.getText().toString().trim().length() == 18) {
+                    }else {
                         toast(R.string.input_bank_card);
                         return;
                     }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
 
 
-                if (et_bank_card_num.getText().toString().trim().length() == 0 || !PhoneFormatCheckUtils.checkBankCard(et_bank_card_num.getText().toString())){
-                    toast("请填写正确银行卡号码");
+                if (et_bank_card_num.getText().toString().trim().length() == 0 ){
+//                if (et_bank_card_num.getText().toString().trim().length() == 0 || !PhoneFormatCheckUtils.checkBankCard(et_bank_card_num.getText().toString())){
+                    toast("请输入银行卡号码");
                     return;
                 }
 

@@ -276,7 +276,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                     new AlertDialog.Builder(AllOrderActivity.this).setTitle("温馨提示").setMessage("您确定要取消订单？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            allOrderPresenter.exitOrder(orderId, ProApplication.SESSIONID(AllOrderActivity.this));
+                            allOrderPresenter.exitOrder(orderDetailBeans.getOrderSn(), ProApplication.SESSIONID(AllOrderActivity.this));
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
@@ -302,7 +302,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                         UiHelper.launcherForResultBundle(AllOrderActivity.this,PayActivity.class,0x1231,bundle);
 //                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
-                        allOrderPresenter.sureReceipt(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
+                        allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 4) {
                         allOrderPresenter.deleteOrder(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     }

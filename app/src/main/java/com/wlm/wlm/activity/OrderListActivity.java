@@ -213,6 +213,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         bundle.putString(WlmUtil.ORDERID,selfOrderBean.getOrderSn());
         bundle.putString(WlmUtil.ORDERAMOUNT,selfOrderBean.getOrderAmount()+"");
         bundle.putString(WlmUtil.WHERE,"order");
+        bundle.putString(WlmUtil.POINT,selfOrderBean.getIntegral()+"");
         UiHelper.launcherForResultBundle(this,PayActivity.class,0x0987,bundle);
 
 //        orderListPresenter.getOrderData(ProApplication.SESSIONID(this));

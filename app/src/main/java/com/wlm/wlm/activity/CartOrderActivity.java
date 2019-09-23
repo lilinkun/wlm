@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
@@ -80,11 +81,15 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
     TextView tv_use_remarks;
     @BindView(R.id.tv_old_use_point)
     TextView tv_old_use_point;
+    @BindView(R.id.rl_need_integral)
+    RelativeLayout rl_need_integral;
+    @BindView(R.id.view_need_integral)
+    View view_need_integral;
 
     SureOrderPresenter sureOrderPresenter = new SureOrderPresenter();
     CartOrderListAdapter orderListAdapter;
     private AddressBean addressBean;
-    private Dialog dialog;
+//    private Dialog dialog;
     private RightNowBuyBean buyBean;
     private double isFare = 0;
     private double total;
@@ -144,7 +149,8 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                 case R.id.tv_place_order:
 
                     if (addressBean == null) {
-                        dialog.show();
+//                        dialog.show();
+                        toast("请填写收货地址");
                     } else {
                         int point = Integer.valueOf(tv_use_point.getText().toString());
 
@@ -220,6 +226,12 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
 
         tv_use_point.setText(buyBean.getIntegral()+"");
 
+        if (buyBean.getIntegral() == 0){
+            rl_need_integral.setVisibility(View.GONE);
+            view_need_integral.setVisibility(View.GONE);
+        }
+
+
         tv_fare.setText(buyBean.getShippingFree() +"");
 
         mount = buyBean.getOrderAmount();
@@ -242,6 +254,7 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
         bundle.putString(WlmUtil.ORDERID,orderid);
         bundle.putString(WlmUtil.ORDERAMOUNT,mount+"");
         bundle.putString(WlmUtil.WHERE,WlmUtil.GOODS);
+        bundle.putString(WlmUtil.POINT,buyBean.getIntegral()+"");
         UiHelper.launcherForResultBundle(this,PayActivity.class,0x144,bundle);
     }
 
@@ -262,8 +275,9 @@ public class CartOrderActivity extends BaseActivity implements SureOrderContract
                 addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable("address");
                 if (addressBean != null && !addressBean.getAddressID().isEmpty()) {
                     linearLayout.setVisibility(View.VISIBLE);
+                    tv_goods_consignee_name.setVisibility(View.VISIBLE);
                     setAddress(addressBean);
-                    if (tv_no_address != null && tv_no_address.isShown()) {
+                    if (tv_no_address != null) {
                         tv_no_address.setVisibility(View.GONE);
                     }
                     getFare(addressBean.getProv(), addressBean.getCity());

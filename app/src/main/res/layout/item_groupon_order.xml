@@ -3,7 +3,8 @@
     android:id="@+id/rl_goods_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/margin_10"
+    android:background="@drawable/shape_info_pop"
+    android:layout_margin="@dimen/margin_10"
     android:orientation="horizontal">
 
     <View
@@ -16,15 +17,14 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="fitXY"
-        android:layout_marginLeft="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_10"/>
+        android:layout_margin="@dimen/margin_10"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignBottom="@+id/iv_goods_pic"
         android:layout_alignTop="@+id/iv_goods_pic"
-        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_5"
         android:layout_toRightOf="@+id/iv_goods_pic"
         android:orientation="vertical">
 
@@ -41,6 +41,7 @@
                 android:textSize="@dimen/textsize14"
                 android:textColor="@color/pop_text_bg"
                 android:layout_toLeftOf="@+id/tv_coupon_price"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_10"/>
 
             <TextView

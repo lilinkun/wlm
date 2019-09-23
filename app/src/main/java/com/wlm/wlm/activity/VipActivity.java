@@ -16,6 +16,7 @@ import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.VipPresenter;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -57,14 +58,14 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         vipPresenter.onCreate(this,this);
         vipPresenter.getData("1","20",goodsType,"0","0");
 
-        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
+        GridLayoutManager fullyGridLayoutManager = new GridLayoutManager(this, 2);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
-        int spanCount1 = 5; // 2 columns
-        int spacing1 = 20; // 50px
+        int spanCount = 5; // 2 columns
+        int spacing = 20; // 50px
         rv_vip_goods.setLayoutManager(fullyGridLayoutManager);
 
-        rv_vip_goods.addItemDecoration(new GridSpacingItemDecoration(spanCount1, spacing1,false));
+        rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
 

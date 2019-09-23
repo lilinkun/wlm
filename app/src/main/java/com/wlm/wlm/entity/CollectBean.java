@@ -10,7 +10,6 @@ import org.greenrobot.greendao.annotation.Id;
  * 收藏实体类
  * Created by LG on 2018/12/11.
  */
-@Entity
 public class CollectBean implements Serializable{
     private String CollectId;
     private String GoodsId;
@@ -32,40 +31,33 @@ public class CollectBean implements Serializable{
     private String GoodsDesc;
     private String GoodsImg;
     private String GoodsImgList;
+    private int Integral;
+    private int GoodsType;
     public static final long serialVersionUID = 123237;
 
-
-    @Generated(hash = 1377041116)
-    public CollectBean(String CollectId, String GoodsId, String CategoryId,
-            String CategoryPath, String BrandId, String GoodsSn, String GoodsName,
-            String GoodsSmallName, String GoodsSpec1, String GoodsSpec2,
-            int BrowserCount, int GoodsNumber, int UseNumber, double GoodsWeight,
-            double MarketPrice, double Price, String GoodsBrief, String GoodsDesc,
-            String GoodsImg, String GoodsImgList) {
-        this.CollectId = CollectId;
-        this.GoodsId = GoodsId;
-        this.CategoryId = CategoryId;
-        this.CategoryPath = CategoryPath;
-        this.BrandId = BrandId;
-        this.GoodsSn = GoodsSn;
-        this.GoodsName = GoodsName;
-        this.GoodsSmallName = GoodsSmallName;
-        this.GoodsSpec1 = GoodsSpec1;
-        this.GoodsSpec2 = GoodsSpec2;
-        this.BrowserCount = BrowserCount;
-        this.GoodsNumber = GoodsNumber;
-        this.UseNumber = UseNumber;
-        this.GoodsWeight = GoodsWeight;
-        this.MarketPrice = MarketPrice;
-        this.Price = Price;
-        this.GoodsBrief = GoodsBrief;
-        this.GoodsDesc = GoodsDesc;
-        this.GoodsImg = GoodsImg;
-        this.GoodsImgList = GoodsImgList;
-    }
-
-    @Generated(hash = 420494524)
-    public CollectBean() {
+    public CollectBean(String collectId, String goodsId, String categoryId, String categoryPath, String brandId, String goodsSn, String goodsName, String goodsSmallName, String goodsSpec1, String goodsSpec2, int browserCount, int goodsNumber, int useNumber, double goodsWeight, double marketPrice, double price, String goodsBrief, String goodsDesc, String goodsImg, String goodsImgList, int integral, int goodsType) {
+        CollectId = collectId;
+        GoodsId = goodsId;
+        CategoryId = categoryId;
+        CategoryPath = categoryPath;
+        BrandId = brandId;
+        GoodsSn = goodsSn;
+        GoodsName = goodsName;
+        GoodsSmallName = goodsSmallName;
+        GoodsSpec1 = goodsSpec1;
+        GoodsSpec2 = goodsSpec2;
+        BrowserCount = browserCount;
+        GoodsNumber = goodsNumber;
+        UseNumber = useNumber;
+        GoodsWeight = goodsWeight;
+        MarketPrice = marketPrice;
+        Price = price;
+        GoodsBrief = goodsBrief;
+        GoodsDesc = goodsDesc;
+        GoodsImg = goodsImg;
+        GoodsImgList = goodsImgList;
+        Integral = integral;
+        GoodsType = goodsType;
     }
 
 
@@ -227,5 +219,21 @@ public class CollectBean implements Serializable{
 
     public void setGoodsImgList(String goodsImgList) {
         GoodsImgList = goodsImgList;
+    }
+
+    public int getIntegral() {
+        return Integral;
+    }
+
+    public void setIntegral(int integral) {
+        Integral = integral;
+    }
+
+    public int getGoodsType() {
+        return GoodsType;
+    }
+
+    public void setGoodsType(int goodsType) {
+        GoodsType = goodsType;
     }
 }

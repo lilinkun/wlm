@@ -5,16 +5,9 @@ import android.content.Context;
 
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
 import com.wlm.wlm.entity.AddressBean;
-import com.wlm.wlm.entity.BuyBean;
-import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.entity.RightNowBuyBean;
-import com.wlm.wlm.entity.RightNowGoodsBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;

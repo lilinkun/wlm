@@ -11,6 +11,7 @@ import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.HashMap;
 
@@ -77,7 +78,9 @@ public class MePresenter extends BasePresenter {
     }
 
     public void getBalance(String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","UserBase");
         params.put("fun","BankBase_GetBalance");
@@ -89,16 +92,16 @@ public class MePresenter extends BasePresenter {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         meContract.getBalanceSuccess(balanceBean);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
                         meContract.getBalanceFail(msg);
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
                         }
                     }
                 }));

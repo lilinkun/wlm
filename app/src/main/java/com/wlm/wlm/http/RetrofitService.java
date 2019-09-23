@@ -2,6 +2,8 @@ package com.wlm.wlm.http;
 
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
+import com.wlm.wlm.entity.ArticleBean;
+import com.wlm.wlm.entity.ArticleDetailBean;
 import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.BankBean;
@@ -48,6 +50,7 @@ import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.entity.WxInfo;
+import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 
 import java.util.ArrayList;
@@ -232,7 +235,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Api/")
-    Observable<ResultBean<WxRechangeBean,Object>> wxPay(@FieldMap Map<String, String> params);
+    Observable<ResultBean<WxInfo,Object>> wxPay(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")
@@ -357,6 +360,14 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<String,Object>> getCash(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<ArticleBean>,PageBean>> getArticleList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArticleDetailBean,Object>> getArticleDetail(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

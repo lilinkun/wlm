@@ -29,10 +29,17 @@
 
     </LinearLayout>
 
-        <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/tsv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +150,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@drawable/shape_vip_layout">
 
@@ -156,24 +163,24 @@
                         android:textColor="@color/black_333333"
                         android:gravity="center"/>
 
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_vip_goods"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:nestedScrollingEnabled="false"
                         android:paddingLeft="@dimen/padding_10"
                         android:paddingRight="@dimen/padding_10"
                         />
 
 
+
                 </LinearLayout>
 
-
-
             </LinearLayout>
+        </RelativeLayout>
 
-
-        </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 

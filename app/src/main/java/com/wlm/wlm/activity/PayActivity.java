@@ -22,6 +22,7 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.PayContract;
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.interf.OnPasswordInputFinish;
@@ -50,6 +51,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     private String where;
     private Dialog payDialog;
     private PopupWindow popupWindow;
+    private String point;
 
     @BindView(R.id.check_wx)
     CheckBox check_wx;
@@ -90,6 +92,8 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         tv_amount.setText(totalPrice+"");
         payPresenter.getBalance(ProApplication.SESSIONID(this));
 
+        payPresenter.orderDetail(orderid,ProApplication.SESSIONID(this));
+
     }
 
     @OnClick({R.id.rl_wx,R.id.rl_self,R.id.tv_right_now_pay,R.id.ll_back})
@@ -114,7 +118,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                 if (check_wx.isChecked()) {
 
-                    payPresenter.getWxPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "11","1",ProApplication.SESSIONID(this));
+                    payPresenter.getWxPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "11","1",point,ProApplication.SESSIONID(this));
 
                 }else {
 //                    toast("暂时不支持余额支付，不要点了");
@@ -137,7 +141,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
                         passwordView.setOnFinishInput(new OnPasswordInputFinish() {
                             @Override
                             public void inputFinish() {
-                                payPresenter.getPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "", "0",passwordView.getStrPassword(), ProApplication.SESSIONID(PayActivity.this));
+                                payPresenter.getPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "", "0",point,passwordView.getStrPassword(), ProApplication.SESSIONID(PayActivity.this));
                             }
 
                             @Override
@@ -237,6 +241,16 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void getBalanceFail(String msg) {
+
+    }
+
+    @Override
+    public void setDataSuccess(OrderDetailAddressBean orderDetailBeans) {
+        this.point = orderDetailBeans.getIntegral()+"";
+    }
+
+    @Override
+    public void setDataFail(String msg) {
 
     }
 

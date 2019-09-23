@@ -1,10 +1,11 @@
 package com.wlm.wlm.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -19,18 +20,15 @@ import com.wlm.wlm.adapter.IntegralAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.IntegralContract;
-import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BalanceDetailBean;
-import com.wlm.wlm.entity.IntegralBean;
-import com.wlm.wlm.entity.PointListBean;
 import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.presenter.IntegralPresenter;
+import com.wlm.wlm.ui.tablayout.TabLayout;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -76,6 +74,13 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
     private BalanceBean balanceBean;
     private String type ;
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_integral;
@@ -93,6 +98,12 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
         init();
 
+//        CustomPagerAdapter pageAdapter = new CustomPagerAdapter(this,strings);
+//        pageAdapter.setTitles(strings);
+//        vp_style.setAdapter(pageAdapter);
+//        tab_strip.setupWithViewPager(vp_style);
+//        tab_strip.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -106,19 +117,13 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (integralAdapter != null) {
                         if (lastVisibleItem + 1 == integralAdapter.getItemCount()) {
-//                            mHandler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
+
                             if (PAGE_INDEX * Integer.valueOf(WlmUtil.PAGE_COUNT) > pointListBeans.size()){
-                                toast("已到末尾");
+//                                toast("已到末尾");
                             }else {
                                 PAGE_INDEX++;
-
                                 integralPresenter.getPriceData(PAGE_INDEX+"", WlmUtil.PAGE_COUNT,type, ProApplication.SESSIONID(IntegralActivity.this));
-
                             }
-//                                }
-//                            }, 200);
                         }
 
                     }
@@ -139,7 +144,7 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
-                intent.putExtra(WlmUtil.TYPE,bundle);
+                intent.putExtra(WlmUtil.TYPEID,bundle);
                 setResult(RESULT_OK,intent);
                 finish();
 
@@ -147,7 +152,13 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
             case R.id.tv_name:
 
-                integralPresenter.getBankCard(ProApplication.SESSIONID(this));
+                if (mListStyle == 0){
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+                    UiHelper.launcherForResultBundle(this,RechargeActivity.class,0x1122,bundle1);
+                }else {
+                    integralPresenter.getBankCard(ProApplication.SESSIONID(this));
+                }
 
                 break;
 
@@ -199,7 +210,11 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
             if (mListStyle == 0){
                 integralAdapter = new IntegralAdapter(this, amountPriceBean, 0);
             }else {
-                integralAdapter = new IntegralAdapter(this, amountPriceBean, 1);
+                if (type.equals("4")) {
+                    integralAdapter = new IntegralAdapter(this, amountPriceBean, 2);
+                }else {
+                    integralAdapter = new IntegralAdapter(this, amountPriceBean, 1);
+                }
             }
             rv_style.setAdapter(integralAdapter);
 //            sizeInt = amountPriceBean.getAmount_list().size();
@@ -213,8 +228,11 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
     @Override
     public void getDataFail(String msg) {
-        if (!msg.contains("查无数据")) {
+        if (msg.contains("查无数据")) {
             rv_style.setVisibility(View.GONE);
+            if (pointListBeans != null && pointListBeans.size() > 0) {
+                pointListBeans.clear();
+            }
         }
     }
 
@@ -275,6 +293,9 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
             integralPresenter.getBalance(ProApplication.SESSIONID(this));
             PAGE_INDEX = 1;
             init();
+        }else if (resultCode == RESULT_OK && requestCode == 0x1122){
+            this.balanceBean = (BalanceBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.BALANCEBEAN);
+            integralPresenter.getBalance(ProApplication.SESSIONID(this));
         }
 
 
@@ -290,10 +311,10 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
             iv_head_left.setImageResource(R.mipmap.ic_back_white);
             tv_balance_name.setTextColor(getResources().getColor(R.color.white));
             tv_balance_amount.setTextColor(getResources().getColor(R.color.white));
-            tv_name.setVisibility(View.GONE);
+            tv_name.setText("充值");
             tv_balance_amount.setText(balanceBean.getMoney2Balance()+"");
-            rl_wait_receiver.setVisibility(View.GONE);
-            rl_list.setVisibility(View.GONE);
+            rl_wait_receiver.setVisibility(View.INVISIBLE);
+            rl_list.setVisibility(View.INVISIBLE);
         }else if(mListStyle == 1){
             type = "5";
             integralPresenter.getPriceData(PAGE_INDEX+"", WlmUtil.PAGE_COUNT,type, ProApplication.SESSIONID(this));

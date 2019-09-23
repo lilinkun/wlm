@@ -29,6 +29,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     private IWXAPI iwxapi;
     private String unionid;
     private String openid;
+    public static int wxType = 0;
     public static IWxLoginListener iWxResult;
 
     @Override
@@ -56,9 +57,13 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         //登录回调
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                String code = ((SendAuth.Resp) baseResp).code;
-                //获取用户信息
-                getAccessToken(code);
+                if (wxType == WlmUtil.WXTYPE_LOGIN) {
+                    String code = ((SendAuth.Resp) baseResp).code;
+                    //获取用户信息
+                    getAccessToken(code);
+                }else {
+                    finish();
+                }
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED://用户拒绝授权
                 finish();
@@ -174,6 +179,10 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
     public static void setLoginListener(IWxLoginListener iWxResultListener){
         iWxResult = iWxResultListener;
+    }
+
+    public static void wxType(int type){
+        wxType = type;
     }
 
 }

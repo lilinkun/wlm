@@ -56,9 +56,9 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/textsize14"
             android:textColor="@color/pop_text_bg"
-            android:text="提现金额"/>
+            android:text="到账金额"/>
 
-        <TextView
+        <com.wlm.wlm.ui.PriceTextView
             android:id="@+id/tv_cash_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,10 +71,10 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize14"
                 android:textColor="@color/pop_text_bg"
-                android:text=" (含服务费"/>
+                android:text=" (服务费"/>
 
 
-            <TextView
+            <com.wlm.wlm.ui.PriceTextView
                 android:id="@+id/tv_cash_service_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -966,7 +966,7 @@ public class CountdownView extends View {
      */
     public void start(String mill) {
         long millisecond = 0;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date = new Date();
 

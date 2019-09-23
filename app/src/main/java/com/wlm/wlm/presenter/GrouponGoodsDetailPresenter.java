@@ -81,5 +81,32 @@ public class GrouponGoodsDetailPresenter extends BasePresenter {
                 }));
 
     }
+
+
+    /**
+     * 随机推荐商品
+     * @param GoodsId
+     */
+    public void randomGoods(String type,String GoodsId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Goods");
+        params.put("fun","GoodsListRecommendVip");
+        params.put("type",type);
+        params.put("GoodsId",GoodsId);
+        mCompositeSubscription.add(manager.getGoodsList(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status,Object page) {
+                        grouponGoodsDetailContract.getCommendGoodsSuccess(goodsListBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        grouponGoodsDetailContract.getCommendGoodsFail(msg);
+                    }
+                }));
+    }
     
 }

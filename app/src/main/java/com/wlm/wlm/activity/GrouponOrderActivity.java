@@ -84,6 +84,10 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     TextView tv_use_remarks;
     @BindView(R.id.tv_old_use_point)
     TextView tv_old_use_point;
+    @BindView(R.id.rl_need_integral)
+    RelativeLayout rl_need_integral;
+    @BindView(R.id.view_need_integral)
+    View view_need_integral;
 
     private GrouponOrderPresenter grouponOrderPresenter = new GrouponOrderPresenter();
 
@@ -176,9 +180,10 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         surplus_balance = rightNowBuyBean.getMoney5Balance();
         surplus_integral = rightNowBuyBean.getMoney2Balance();
 
+        getFare(rightNowBuyBean.getShippingFree()+"");
+
         if (rightNowBuyBean.getAddress() != null && rightNowBuyBean.getAddress().size() != 0) {
             isAddressSuccess(rightNowBuyBean.getAddress().get(0));
-            getFare(rightNowBuyBean.getShippingFree()+"");
             tv_no_address.setVisibility(View.GONE);
             tv_goods_consignee_name.setVisibility(View.VISIBLE);
         }
@@ -196,6 +201,9 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         goods_total_price.setText(price);
         if (!type.equals(WlmUtil.VIP) && !type.equals(WlmUtil.GROUPONGOODS)) {
             tv_use_point.setText(rightNowBuyBean.getIntegral() + "");
+        }else {
+            rl_need_integral.setVisibility(View.GONE);
+            view_need_integral.setVisibility(View.GONE);
         }
 
         if (rightNowGoodsBean.getQty() == 2){
@@ -268,13 +276,19 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                     goodsType = "4";
                 }
 
+                if (addressBean == null){
+                    toast("请您填写收货地址");
+                    return;
+                }
+
+
                 String sttr_id = "";
                 if (goodsChooseBean != null && goodsChooseBean.getAttr_id() != 0){
                     sttr_id = goodsChooseBean.getAttr_id() + "";
                 }
 
-                grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),"1",totalPrice+""
-                        ,fareStr,rightNowGoodsBean.getIntegral()+"",tv_use_remarks.getText().toString(),goodsType,sttr_id,ProApplication.SESSIONID(this));
+                grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),goodsnum+"",totalPrice+""
+                        ,fareStr,rightNowBuyBean.getIntegral()+"",tv_use_remarks.getText().toString(),goodsType,sttr_id,ProApplication.SESSIONID(this));
 
 
                 break;
@@ -313,7 +327,8 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
             AddressBean addressBean = (AddressBean) data.getBundleExtra(WlmUtil.TYPEID).get("address");
             if (addressBean != null && !addressBean.getAddressID().isEmpty()) {
                 isAddressSuccess(addressBean);
-                if (tv_no_address != null && tv_no_address.isShown()) {
+                tv_goods_consignee_name.setVisibility(View.VISIBLE);
+                if (tv_no_address != null) {
                     tv_no_address.setVisibility(View.GONE);
                 }
                 grouponOrderPresenter.getFare(rightNowGoodsBean.getGoodsId(), addressBean.getAddressID(), rightNowGoodsBean.getGoodsNumber() + "", ProApplication.SESSIONID(this));
@@ -323,11 +338,9 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
     @Override
     public void setWxSuccess() {
-        toast("asdasda");
     }
 
     @Override
     public void setWxFail() {
-        toast("222222");
     }
 }

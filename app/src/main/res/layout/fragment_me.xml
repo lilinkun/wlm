@@ -6,6 +6,17 @@
     android:background="@color/bg_list"
     android:orientation="vertical">
 
+    <com.wlm.wlm.ui.CusPtrClassicFrameLayout
+        android:id="@+id/mPtrframe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close="3000"
+        app:ptr_duration_to_close_header="2000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="1.7">
+
     <com.wlm.wlm.ui.TranslucentScrollView
         android:id="@+id/tsv_me"
         android:layout_width="match_parent"
@@ -33,8 +44,7 @@
             <RelativeLayout
                 android:id="@+id/rl_me_message"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:visibility="gone">
+                android:layout_height="40dp">
 
                 <ImageView
                     android:id="@+id/ic_me_message"
@@ -107,6 +117,7 @@
                     />
 
                 <LinearLayout
+                    android:id="@+id/ll_me_vip"
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:orientation="horizontal"
@@ -340,4 +351,6 @@
         </LinearLayout>
 
     </com.wlm.wlm.ui.TranslucentScrollView>
+
+    </com.wlm.wlm.ui.CusPtrClassicFrameLayout>
 </RelativeLayout>

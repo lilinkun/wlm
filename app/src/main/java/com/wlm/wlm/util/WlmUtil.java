@@ -33,6 +33,9 @@ public class WlmUtil {
 //    public static final int PAGE_HEALTHHOME = 2;
     public static final int PAGE_ME = 2;
 
+    public static final int WXTYPE_LOGIN = 1;
+    public static final int WXTYPE_SHARED = 2;
+
     public static  final String PAGE_COUNT = "20";
 
 //    public static final String APP_ID = "wx7b154709878a1cbe";
@@ -72,6 +75,7 @@ public class WlmUtil {
     public static final String ORDERAMOUNT = "orderamount";
     public static final String CATID = "catid";
     public static final String ACCOUNT = "account";
+    public static final String POINT = "point";
     public static final String HEADIMGURL = "headimgurl";
     public static final String TEAMID = "teamid";
     public static final String TELEPHONE = "telephone";
@@ -246,7 +250,7 @@ public class WlmUtil {
 
 
     public static int isCountdown(String startStr, String endStr, CountdownView countdownView){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long startTime = 0;
         long endTime = 0;
         try {

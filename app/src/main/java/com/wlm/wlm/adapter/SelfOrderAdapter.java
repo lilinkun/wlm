@@ -123,7 +123,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                     new AlertDialog.Builder(context).setMessage("确认取消此订单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            onItemClick.exit_order(selfOrderBeans.get(position).getOrderId());
+                            onItemClick.exit_order(selfOrderBeans.get(position).getOrderSn());
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
@@ -142,7 +142,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                     if (selfOrderBeans.get(position).getOrderStatus() == 0) {
                         onItemClick.go_pay(selfOrderBeans.get(position));
                     } else if (selfOrderBeans.get(position).getOrderStatus() == 2) {
-                        onItemClick.sureReceipt(selfOrderBeans.get(position).getOrderId());
+                        onItemClick.sureReceipt(selfOrderBeans.get(position).getOrderSn());
                     } else if(selfOrderBeans.get(position).getOrderStatus() == 1){
 //                        onItemClick.getQrcode(selfOrderBeans.get(position).getErm());
                     }

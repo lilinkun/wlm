@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.GrouponGoodsDetailContract;
@@ -22,10 +24,14 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
 import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
+import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.ui.CountdownView;
+import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.PriceTextView;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
+import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -46,7 +52,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/8/27.
  */
-public class GrouponGoodsDetailActivity extends BaseActivity implements OnBannerListener, GrouponGoodsDetailContract {
+public class GrouponGoodsDetailActivity extends BaseActivity implements OnBannerListener, GrouponGoodsDetailContract, TbHotGoodsAdapter.OnItemClickListener {
 
     @BindView(R.id.banner_good_pic)
     Banner mBanner;
@@ -66,10 +72,14 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     TextView tv_distance_ends;
     @BindView(R.id.wv_goods_detail)
     WebView wv_goods_detail;
+    @BindView(R.id.rv_recommend)
+    CommendRecyclerView recyclerView;
+
 
     GoodsListBean goodsListBean = null;
     GrouponGoodsDetailPresenter grouponGoodsDetailPresenter = new GrouponGoodsDetailPresenter();
     private GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean;
+    private ArrayList<GoodsListBean> goodsListBeans;
 
     @Override
     public int getLayoutId() {
@@ -81,6 +91,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         Eyes.translucentStatusBar(this,false);
 
         ActivityUtil.addHomeActivity(this);
+        ActivityUtil.addActivity(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
@@ -91,6 +102,19 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         grouponGoodsDetailPresenter.onCreate(this,this);
         grouponGoodsDetailPresenter.getGoodsDetail(goodsListBean.getGoodsId(), ProApplication.SESSIONID(this));
+
+        grouponGoodsDetailPresenter.randomGoods("2",goodsListBean.getGoodsId());
+
+
+        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
+        fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        int spanCount = 5; // 2 columns
+        int spacing = 20; // 50px
+
+        boolean includeEdge = false;
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        recyclerView.setLayoutManager(fullyGridLayoutManager);
 
 
     }
@@ -172,6 +196,33 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void getDataFail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void getCommendGoodsSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        this.goodsListBeans = goodsListBeans;
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,goodsListBeans,getLayoutInflater());
+        recyclerView.setAdapter(tbHotGoodsAdapter);
+        tbHotGoodsAdapter.setItemClickListener(this);
+    }
+
+    @Override
+    public void getCommendGoodsFail(String msg) {
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if (!ButtonUtils.isFastDoubleClick()) {
+            Bundle bundle = new Bundle();
+            bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE,goodsListBeans.get(position).getGoodsType());
+            UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
+
+            if (ActivityUtil.activityList.size() > 2) {
+                ActivityUtil.removeOldActivity();
+            }
+        }
     }
 
 

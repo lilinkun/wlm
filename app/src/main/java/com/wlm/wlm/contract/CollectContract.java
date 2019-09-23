@@ -14,6 +14,4 @@ public interface CollectContract extends IView {
     public void getCollectDataSuccess(ArrayList<CollectBean> collectBeans, String pageCount);
     public void getCollectFail(String msg);
 
-    public void deleteCollectSuccess(String msg);
-    public void deleteCollectFail(String msg);
 }

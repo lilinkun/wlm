@@ -74,27 +74,5 @@ public class CollectPresenter extends BasePresenter {
                 }));
     }
 
-    public void deleteCollect(String collectId,String SessionId){
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectDelete");
-        params.put("CollectId",collectId);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.DeleteCollectGood(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
-                    @Override
-                    public void onResponse(String collectBeans, String status,Object page) {
 
-                        collectContract.deleteCollectSuccess(collectBeans);
-
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-                        collectContract.deleteCollectFail(msg);
-                    }
-                }));
-    }
 }

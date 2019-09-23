@@ -15,4 +15,6 @@ public interface GrouponGoodsDetailContract extends IView {
     public void getDataFail(String msg);
 
 
+    public void getCommendGoodsSuccess(ArrayList<GoodsListBean> selfGoodsBean);
+    public void getCommendGoodsFail(String msg);
 }

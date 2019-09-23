@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Gravity;
@@ -24,13 +23,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.RecordAdapter;
 import com.wlm.wlm.adapter.SelfGoodsAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseGoodsActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfGoodsDetailContract;
-import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.GoodsChooseBean;
@@ -40,7 +37,6 @@ import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
 import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
-import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.ui.SelfGoodsPopLayout;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
@@ -56,9 +52,7 @@ import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoader;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,7 +62,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/12/8.
  */
 
-public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, RecordAdapter.OnItemClickListener, TbHotGoodsAdapter.OnItemClickListener, OnScrollChangedListener {
+public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGoodsDetailContract, OnBannerListener, SelfGoodsPopLayout.OnAddCart, TbHotGoodsAdapter.OnItemClickListener, OnScrollChangedListener {
 
     @BindView(R.id.tv_goods_name)
     TextView mGoodsNameTv;

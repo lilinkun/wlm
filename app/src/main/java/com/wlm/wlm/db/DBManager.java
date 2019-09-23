@@ -5,8 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.BrowseRecordBeanDao;
-import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.CollectBeanDao;
 import com.wlm.wlm.entity.DaoMaster;
 import com.wlm.wlm.entity.DaoSession;
 import com.wlm.wlm.entity.HomeCategoryBean;
@@ -243,17 +241,6 @@ public class DBManager {
         newsInfoDao.deleteAll();
     }
 
-    /**
-     * 插入一条记录
-     *
-     * @param collectBean
-     */
-    public void insertCollectBean(CollectBean collectBean) {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        CollectBeanDao userDao = daoSession.getCollectBeanDao();
-        userDao.insert(collectBean);
-    }
 
     /**
      * 查询用户列表
@@ -351,42 +338,6 @@ public class DBManager {
         DaoSession daoSession = daoMaster.newSession();
         BrowseRecordBeanDao browseRecordBeanDao = daoSession.getBrowseRecordBeanDao();
         browseRecordBeanDao.deleteAll();
-    }
-
-    /**
-     * 更新一条记录
-     *
-     * @param collectBean
-     */
-    public void updateOneCollectBean(CollectBean collectBean) {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        CollectBeanDao collectBeanDao = daoSession.getCollectBeanDao();
-        collectBeanDao.update(collectBean);
-    }
-
-
-    /**
-     * 查询用户列表
-     */
-    public List<CollectBean> queryGoodCollectBean(Long goodsid) {
-        DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        CollectBeanDao userDao = daoSession.getCollectBeanDao();
-        QueryBuilder<CollectBean> qb = userDao.queryBuilder();
-        qb.where(CollectBeanDao.Properties.GoodsId.eq(goodsid)).orderAsc(CollectBeanDao.Properties.GoodsId);
-        List<CollectBean> list = qb.list();
-        return list;
-    }
-
-    /**
-     * 删除所有记录
-     */
-    public void deleteAllCollectBean() {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        CollectBeanDao userDao = daoSession.getCollectBeanDao();
-        userDao.deleteAll();
     }
 
 

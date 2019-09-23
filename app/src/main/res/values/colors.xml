@@ -64,7 +64,7 @@
 
     <color name="rush_color">#F42A2A</color>
 
-    <color name="recharge_bg">#ECECEC</color>
+    <color name="recharge_bg">#F0F0F0</color>
 
     <!--register-->
     <color name="register_vcode_bg">#FE744A</color>

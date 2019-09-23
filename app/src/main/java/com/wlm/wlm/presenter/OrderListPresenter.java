@@ -10,6 +10,8 @@ import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderDetailBean;
 import com.wlm.wlm.entity.OrderListBean;
+import com.wlm.wlm.entity.WxInfo;
+import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -104,9 +106,9 @@ public class OrderListPresenter extends BasePresenter {
      */
     public void sureReceipt(String OrderId,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","ConfirmReceipt");
-        params.put("OrderId",OrderId);
+        params.put("cls","OrderInfo");
+        params.put("fun","OrderInfoVIPConfirm");
+        params.put("OrderSn",OrderId);
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.sureReceipt(params)
                 .subscribeOn(Schedulers.io())
@@ -139,10 +141,10 @@ public class OrderListPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.wxPay(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<WxRechangeBean,Object>() {
+                .subscribe(new HttpResultCallBack<WxInfo,Object>() {
                     @Override
-                    public void onResponse(WxRechangeBean fareBean, String status,Object page) {
-                        orderListContract.wxInfoSuccess(fareBean);
+                    public void onResponse(WxInfo fareBean, String status, Object page) {
+//                        orderListContract.wxInfoSuccess(fareBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

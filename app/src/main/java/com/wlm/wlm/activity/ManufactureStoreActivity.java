@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -13,20 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.contract.IntegralStoreContract;
 import com.wlm.wlm.contract.ManufactureStoreContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
-import com.wlm.wlm.presenter.IntegralStorePresenter;
 import com.wlm.wlm.presenter.ManufactureStorePresenter;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
-import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
@@ -146,6 +141,12 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
             case 1:
 
                 manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","0");
+
+                break;
+
+            case 2:
+
+                manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"","5");
 
                 break;
 

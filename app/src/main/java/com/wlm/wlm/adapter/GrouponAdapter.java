@@ -57,7 +57,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         holder.tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.tv_groupon_old_price.setText("¥"+goodsListBeans.get(position).getMarketPrice());
         holder.tv_groupon_price.setText(goodsListBeans.get(position).getPrice()+"");
-        holder.tv_grounon_info.setText(goodsListBeans.get(position).getGoodsSmallName());
+        holder.tv_grounon_info.setText(goodsListBeans.get(position).getTeamTypeName());
 
         holder.tv_goods_title.setText(goodsListBeans.get(position).getGoodsName());
 

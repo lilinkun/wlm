@@ -1,6 +1,7 @@
 package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.BalanceBean;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.WxInfo;
 import com.wlm.wlm.mvp.IView;
 
@@ -28,4 +29,8 @@ public interface PayContract extends IView {
     public void getBalanceSuccess(BalanceBean balanceBean);
     public void getBalanceFail(String msg);
 
+
+
+    public void setDataSuccess(OrderDetailAddressBean orderDetailBeans);
+    public void setDataFail(String msg);
 }

@@ -2,6 +2,7 @@ package com.wlm.wlm.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
+import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
@@ -30,35 +32,20 @@ import java.util.List;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> implements View.OnClickListener {
 
     Context context;
-    List<CollectBean> collectBeans = new ArrayList<>();
-    List<BrowseRecordBean> browseRecordBeans = new ArrayList<>();
+    List<CollectBean> collectBeans ;
+    CollectBean collectBean;
     private OnItemClickListener mItemClickListener;
-    private OnDeleteListener onDeleteListener;
-    private boolean isDelete = false;
-    private boolean isDeleteSuccess = false;
-    private ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     private String collectId = "";
-    private int type = 0;
-    private String curDate = "";
-    ArrayList<Long> longs = new ArrayList<>();
 
-    public RecordAdapter(Context context, List<CollectBean> collectBeans, OnDeleteListener onDeleteListener, List<BrowseRecordBean> browseRecordBeans,int type){
+    public RecordAdapter(Context context, List<CollectBean> collectBeans){
         this.context = context;
         this.collectBeans = collectBeans;
-        this.onDeleteListener = onDeleteListener;
-        this.browseRecordBeans = browseRecordBeans;
-        this.type = type;
-    }
-
-    public void setBrowseData(List<BrowseRecordBean> browseRecordBeans){
-        this.browseRecordBeans = browseRecordBeans;
-        notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_record_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_hot_goods_grid,null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         view.setOnClickListener(this);
@@ -70,201 +57,30 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.itemView.setTag(position);
-        String url = "";
-        double shop_price = 0;
-        String Store_name = "";
-        String Goods_name = "";
-        if (type == 0){
-            url = collectBeans.get(position).getGoodsImg();
-            shop_price = collectBeans.get(position).getMarketPrice();
-            Goods_name = collectBeans.get(position).getGoodsName();
 
-//            holder.tv_collect_num.setText(collectBeans.get(position).get);
-        }else if (type == 1){
-            url = browseRecordBeans.get(position).getGoods_img();
-            shop_price = browseRecordBeans.get(position).getShop_price();
-            Store_name = browseRecordBeans.get(position).getStore_name();
-            Goods_name = browseRecordBeans.get(position).getGoods_name();
-            if (!curDate.equals(browseRecordBeans.get(position).getBrowse_date())) {
-                holder.ll_head.setVisibility(View.VISIBLE);
-                holder.tv_record_date.setText(browseRecordBeans.get(position).getBrowse_date());
-                curDate = browseRecordBeans.get(position).getBrowse_date();
-            }else {
-                holder.ll_head.setVisibility(View.GONE);
-            }
+        if (collectBeans != null) {
 
-        }
-        Picasso.with(this.context).load(ProApplication.HEADIMG + url).error(R.color.line_bg).config(Bitmap.Config.RGB_565).into(holder.img_goods_icon);
+            collectBean = collectBeans.get(position);
 
-        BigDecimal zkFinalPrice = new BigDecimal(shop_price);
-        BigDecimal couponInfo = new BigDecimal(0.0);
-        double newPrice = zkFinalPrice.subtract(couponInfo).doubleValue();
+            holder.goodsTitleNameTv.setText(collectBean.getGoodsName());
 
-        /*BigDecimal couponInfo = new BigDecimal(collectBeans.get(position).getCouponInfo());
-        double newPrice = zkFinalPrice.subtract(couponInfo).doubleValue();
-        String price = "";
-        if(Math.round(newPrice) - newPrice == 0){
-            price = String.valueOf((long) newPrice);
-        }else {
-            price = String.valueOf(newPrice);
-        }*/
-        if (isDelete){
-            holder.mCheckBox.setVisibility(View.VISIBLE);
-        }else {
-            holder.mCheckBox.setVisibility(View.GONE);
-        }
+            holder.goodsPriceTv.setText("" + collectBean.getPrice());
+            holder.goodsBuyCountTv.setText(collectBean.getUseNumber() + "");
 
-//        if (type == 0) {
-            if (isDeleteSuccess) {
-                holder.mCheckBox.setChecked(false);
-            }
-            if (type == 0) {
-                if (position == collectBeans.size() - 1) {
-                    isDeleteSuccess = false;
-                }
-            }else {
-                if (position == browseRecordBeans.size() - 1) {
-                    isDeleteSuccess = false;
-                }
-            }
+            holder.tv_add_integral.setText(collectBean.getIntegral()+"");
+            holder.tv_old_price.setText("￥"+collectBean.getMarketPrice());
+            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
-            checkBoxes.add(holder.mCheckBox);
-
-            holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        if (type == 0) {
-                            if (collectId.isEmpty()) {
-                                if (type == 0) {
-                                    collectId = collectBeans.get(position).getCollectId();
-                                }
-                            } else {
-                                if (type == 0) {
-                                    collectId = collectId + "," + collectBeans.get(position).getCollectId();
-                                }
-                            }
-                            onDeleteListener.delete(collectId);
-                        } else {
-                            longs.add(browseRecordBeans.get(position).getId());
-                            onDeleteListener.deleteBrowse(longs);
-                        }
-                    } else {
-                        if (type == 0) {
-                            if (collectId != null && collectId.contains(collectBeans.get(position).getCollectId())) {
-                                if (collectId.contains("," + collectBeans.get(position).getCollectId())) {
-                                    collectId = WlmUtil.redecuStr(collectId, "," + collectBeans.get(position).getCollectId());
-                                } else if (collectId.contains(collectBeans.get(position).getCollectId() + ",")) {
-                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollectId() + ",");
-                                } else if (collectId.contains(collectBeans.get(position).getCollectId())) {
-                                    collectId = WlmUtil.redecuStr(collectId, collectBeans.get(position).getCollectId());
-                                }
-                            }
-                            onDeleteListener.delete(collectId);
-                        }else {
-                            if (longs.contains(browseRecordBeans.get(position).getId())) {
-                                longs.remove(browseRecordBeans.get(position).getId());
-                                onDeleteListener.deleteBrowse(longs);
-                            }
-                        }
-                    }
-                }
-            });
-//        }
-
-
-        holder.tx_goods_msg.setText("¥" + newPrice + "");
-        holder.tx_goods_title.setText(Goods_name + "");
-
-    }
-
-    public void setDelete(boolean delete){
-        this.isDelete = delete;
-        if (checkBoxes.size() > 0) {
-            for (int i = 0; i < checkBoxes.size(); i++) {
-                if (isDelete){
-                    checkBoxes.get(i).setVisibility(View.VISIBLE);
-                }else {
-                    checkBoxes.get(i).setVisibility(View.GONE);
-                }
-            }
-        }
-//        notifyDataSetChanged();
-    }
-
-    public void onAllClick(){
-        if (checkBoxes.size() > 0) {
-            for (int i = 0; i < checkBoxes.size(); i++) {
-                checkBoxes.get(i).setChecked(true);
-            }
-
-            if (type == 0) {
-                for (int i = 0; i < collectBeans.size(); i++) {
-                    collectId = collectBeans.get(i) + ",";
-                }
-
-                collectId = collectId.substring(0, collectId.length());
+            if (collectBean.getGoodsImg() != null && !collectBean.getGoodsImg().isEmpty()) {
+                Picasso.with(context).load(ProApplication.HEADIMG + collectBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
             }
         }
     }
 
-    public void onClick(int position){
 
-        if (type == 0) {
-            if (collectId.isEmpty()) {
-                collectId = collectBeans.get(position).getCollectId();
-                if (checkBoxes.size() > 0) {
-                    checkBoxes.get(position).setChecked(true);
-                }
-            } else {
-                if (!collectId.contains(collectBeans.get(position).getCollectId())) {
-                    collectId = collectId + "," + collectBeans.get(position).getCollectId();
-                    if (checkBoxes.size() > 0) {
-                        checkBoxes.get(position).setChecked(true);
-                    }
-                } else {
-                    String[] strs = collectId.split(",");
-                    String str = "";
-                    checkBoxes.get(position).setChecked(false);
-                    for (int i = 0; i < strs.length; i++) {
-                        if (!strs[i].equals(collectBeans.get(position).getCollectId())) {
-                            str += strs[i] + ",";
-                        }
-                    }
-                    collectId = str.substring(0, str.length());
-                }
-            }
-        }else {
-            if (longs.contains(browseRecordBeans.get(position).getId())){
-                checkBoxes.get(position).setChecked(false);
-            }else {
-                checkBoxes.get(position).setChecked(true);
-            }
-        }
-    }
-
-    public void onAllUnSecletClick(){
-        collectId = "";
-        if (checkBoxes.size() > 0) {
-            for (int i = 0; i < checkBoxes.size(); i++) {
-                checkBoxes.get(i).setChecked(false);
-            }
-        }
-    }
-
-    public void setData(List<CollectBean> collectBeans){
-        this.collectBeans = collectBeans;
-        checkBoxes.clear();
-        notifyDataSetChanged();
-    }
-
-
-    public void setDeleteData(List<CollectBean> collectBeans){
-        this.collectBeans = collectBeans;
-        collectId = "";
-        checkBoxes.clear();
-        isDeleteSuccess = true;
-        notifyDataSetChanged();
+    @Override
+    public int getItemCount() {
+        return collectBeans != null ? collectBeans.size() : 0;
     }
 
     @Override
@@ -272,13 +88,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         return position;
     }
 
-    @Override
-    public int getItemCount() {
-        if (type == 0) {
-            return collectBeans.size();
-        }else {
-            return browseRecordBeans.size();
-        }
+
+    public void setData(List<CollectBean> collectBeans){
+        this.collectBeans = collectBeans;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -297,38 +110,28 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     }
 
 
-//    public void setDeleteData(){
-//        collectBeans.clear();
-//        notifyDataSetChanged();
-//    }
-
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView img_goods_icon;
-        public TextView tx_goods_msg;
-        public TextView tx_goods_title;
-        public CheckBox mCheckBox;
-        public TextView tv_record_date;
-        public TextView tv_collect_num;
-        public LinearLayout ll_head;
+        private TextView goodsTitleNameTv;
+        private TextView goodsPriceTv;
+        private TextView goodsBuyCountTv;
+        private CustomRoundAngleImageView goodsPicImg;
+        private LinearLayout ll_add_integral;
+        private TextView tv_add_integral;
+        private TextView tv_old_price;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            img_goods_icon = (ImageView) itemView.findViewById(R.id.img_goods_icon);
-            tx_goods_msg = (TextView) itemView.findViewById(R.id.tx_goods_msg);
-            tx_goods_title = (TextView) itemView.findViewById(R.id.tx_goods_title);
-            mCheckBox = (CheckBox) itemView.findViewById(R.id.store_checkBox);
-            tv_record_date = (TextView) itemView.findViewById(R.id.tv_record_date);
-            tv_collect_num = (TextView) itemView.findViewById(R.id.tv_collect_num);
-            ll_head = (LinearLayout) itemView.findViewById(R.id.ll_head);
+            goodsBuyCountTv = (TextView) itemView.findViewById(R.id.tv_buy_count);
+            tv_add_integral = (TextView) itemView.findViewById(R.id.tv_add_integral);
+            goodsTitleNameTv = (TextView) itemView.findViewById(R.id.tv_goods_title_name);
+            goodsPriceTv = (TextView) itemView.findViewById(R.id.tv_goods_price);
+            goodsPicImg = (CustomRoundAngleImageView) itemView.findViewById(R.id.iv_goods_pic);
+            ll_add_integral = (LinearLayout) itemView.findViewById(R.id.ll_add_integral);
+            tv_old_price = (TextView) itemView.findViewById(R.id.tv_old_price);
+
         }
     }
 
-
-
-    public interface OnDeleteListener{
-        public void delete(String collectId);
-        public void deleteBrowse(ArrayList<Long> longs);
-    }
 }

@@ -66,7 +66,6 @@
         android:paddingLeft="@dimen/margin_25"
         android:paddingRight="@dimen/margin_25"/>
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,16 +142,11 @@
 
     </LinearLayout>
 
-
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@+id/ll_left"
-        android:layout_marginTop="@dimen/margin_10"
-        android:background="@color/comm_bg"/>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shape_qrcode_bg">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_style"
@@ -162,5 +156,5 @@
         android:layout_marginRight="@dimen/padding_15">
 
     </android.support.v7.widget.RecyclerView>
-
+</LinearLayout>
 </LinearLayout>

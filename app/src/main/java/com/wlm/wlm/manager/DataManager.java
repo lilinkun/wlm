@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.AmountPriceBean;
+import com.wlm.wlm.entity.ArticleBean;
+import com.wlm.wlm.entity.ArticleDetailBean;
 import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.BankBean;
@@ -51,6 +53,7 @@ import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.entity.WxInfo;
+import com.wlm.wlm.entity.WxInfoBean;
 import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.RetrofitHelper;
 import com.wlm.wlm.http.RetrofitService;
@@ -467,7 +470,7 @@ public class DataManager {
     /**
      * 微信支付
      */
-    public Observable<ResultBean<WxRechangeBean,Object>> wxPay(HashMap<String,String> mHashMap){
+    public Observable<ResultBean<WxInfo,Object>> wxPay(HashMap<String,String> mHashMap){
         return mRetrofitService.wxPay(mHashMap);
     }
 
@@ -578,6 +581,20 @@ public class DataManager {
      */
     public Observable<ResultBean<String,Object>> getCash(HashMap<String,String> mHashMap){
         return mRetrofitService.getCash(mHashMap);
+    }
+
+    /**
+     * 获取消息
+     */
+    public Observable<ResultBean<ArrayList<ArticleBean>,PageBean>> getArticleList(HashMap<String,String> mHashMap){
+        return mRetrofitService.getArticleList(mHashMap);
+    }
+
+    /**
+     * 获取消息详情
+     */
+    public Observable<ResultBean<ArticleDetailBean,Object>> getArticleDetail(HashMap<String,String> mHashMap){
+        return mRetrofitService.getArticleDetail(mHashMap);
     }
 
 }

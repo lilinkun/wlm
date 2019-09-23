@@ -61,7 +61,7 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
             }
             holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.login_title_text));
         }else {
-            if (type == 1) {
+            if (type == 1 ) {
                 holder.tv_price.setText("+" + expenditureMoney + "元");
             }else {
                 holder.tv_price.setText("+" + expenditureMoney );
@@ -73,7 +73,7 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
 
             String balance = WlmUtil.getPriceNum(balanceDetailBeans.get(position).getBalance());
 
-            holder.tv_total.setText("总额：" + balance);
+            holder.tv_total.setText("剩余：" + balance);
 //        }else {
 //            holder.tv_total.setVisibility(View.GONE);
 //        }

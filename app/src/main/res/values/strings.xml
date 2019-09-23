@@ -118,7 +118,7 @@
     <string name="search_recommond">推荐搜索</string>
     
     <!--充值-->
-    <string name="recharge_account">充值</string>
+    <string name="recharge_account">积分充值</string>
     <string name="recharge_sum">充值金额</string>
 
     <!--意见反馈-->
@@ -238,5 +238,5 @@
     <string name="groupon_invitation">邀请好友拼团</string>
 
     <!--绑定银行卡-->
-    <string name="input_bank_card">请输入身份证号码</string>
+    <string name="input_bank_card">请输入正确身份证号码</string>
 </resources>

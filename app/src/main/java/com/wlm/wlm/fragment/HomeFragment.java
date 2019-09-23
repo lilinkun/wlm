@@ -21,6 +21,7 @@ import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.OpinionActivity;
+import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.activity.VipActivity;
@@ -179,7 +180,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 case R.id.text_search:
 
-//                    UiHelper.launcher(getActivity(), SearchActivity.class);
+                    UiHelper.launcher(getActivity(), SearchActivity.class);
 
                     break;
 

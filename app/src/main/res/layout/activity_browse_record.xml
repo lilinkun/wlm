@@ -14,8 +14,7 @@
         lzy:img_left="@mipmap/ic_back"
         lzy:right_color="@color/login_title_text"
         lzy:text_color="@color/login_title_text"
-        lzy:text_right="@string/collect_manager"
-        lzy:text_title="@string/me_record"
+        lzy:text_title="@string/me_collection"
         lzy:title_color="@color/white"></com.wlm.wlm.ui.CustomTitleBar>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -23,59 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_record"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10">
 
             </android.support.v7.widget.RecyclerView>
 
-            <RelativeLayout
-                android:id="@+id/rl_collect"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/white"
-                android:visibility="gone">
 
-
-                <CheckBox
-                    android:id="@+id/all_checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:background="@null"
-                    android:button="@null"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/checkbox_bg"
-                    android:drawablePadding="10dp"
-                    android:minHeight="64dp"
-                    android:text="@string/all"
-                    android:textSize="16sp" />
-
-
-                <TextView
-                    android:id="@+id/tv_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/setting_title_color"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/margin_25"
-                    android:paddingRight="@dimen/margin_25"
-                    android:text="@string/goods_delete"
-                    android:textColor="@color/white" />
-
-
-            </RelativeLayout>
-
-        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

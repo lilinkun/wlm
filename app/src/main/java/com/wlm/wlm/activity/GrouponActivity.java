@@ -255,6 +255,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        rv_groupon.setVisibility(View.VISIBLE);
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
             grouponAdapter = new GrouponAdapter(this,goodsListBeans);
@@ -271,7 +272,9 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void getFail(String msg) {
-
+        if (msg.contains("查无数据")){
+            rv_groupon.setVisibility(View.GONE);
+        }
     }
 
     @Override
