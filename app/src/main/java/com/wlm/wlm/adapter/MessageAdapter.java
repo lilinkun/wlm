@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.entity.ArticleBean;
 import com.wlm.wlm.ui.RoundImageView;
+import com.wlm.wlm.util.MessageType;
 
 import java.util.ArrayList;
 
@@ -19,12 +20,11 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> implements View.OnClickListener {
 
     private Context context;
-    private ArrayList<ArticleBean> articleBeans;
     private OnItemClickListener mItemClickListener;
+    private MessageType messageType;
 
-    public MessageAdapter(Context context,ArrayList<ArticleBean> articleBeans){
+    public MessageAdapter(Context context){
         this.context = context;
-        this.articleBeans = articleBeans;
     }
 
     @Override
@@ -40,22 +40,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setTag(position);
-        if (position == 0 || position == 1){
-            holder.riv_message.setImageResource(R.mipmap.ic_news_2);
-        }else if (position == 2){
-            holder.riv_message.setImageResource(R.mipmap.ic_news_3);
-        }else if (position == 3){
-            holder.riv_message.setImageResource(R.mipmap.ic_news_4);
-        }
+        messageType = MessageType.values()[position];
 
-        holder.tv_title.setText(articleBeans.get(position).getTitle());
-        holder.tv_message_content.setText(articleBeans.get(position).getCategoryName());
-        holder.tv_message_date.setText(articleBeans.get(position).getCreateDate());
+        holder.riv_message.setImageResource(messageType.getDrawBg());
+        holder.tv_title.setText(messageType.getTypeName());
+        holder.tv_message_content.setText(messageType.getContent());
     }
 
     @Override
     public int getItemCount() {
-        return articleBeans.size();
+        return MessageType.values().length;
     }
 
     @Override
@@ -77,7 +71,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         private RoundImageView riv_message;
         private TextView tv_title;
-        private TextView tv_message_date;
         private TextView tv_message_content;
 
         public ViewHolder(View itemView) {
@@ -85,7 +78,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             riv_message = itemView.findViewById(R.id.riv_message);
             tv_title = itemView.findViewById(R.id.tv_title);
-            tv_message_date = itemView.findViewById(R.id.tv_message_date);
             tv_message_content = itemView.findViewById(R.id.tv_message_content);
         }
     }

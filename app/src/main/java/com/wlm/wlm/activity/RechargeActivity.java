@@ -238,6 +238,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void setWxSuccess() {
         toast("充值成功");
+        et_amount.setText("");
         rechargePresenter.getBalance(ProApplication.SESSIONID(this));
     }
 

@@ -116,6 +116,7 @@
     <string name="search_hint">抢大额神券</string>
     <string name="search_history">搜索历史</string>
     <string name="search_recommond">推荐搜索</string>
+    <string name="search_all_mall">全部商城</string>
     
     <!--充值-->
     <string name="recharge_account">积分充值</string>

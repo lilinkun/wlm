@@ -369,6 +369,10 @@ public interface RetrofitService {
     @POST("Api/")
     Observable<ResultBean<ArticleDetailBean,Object>> getArticleDetail(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<LoginBean,Object>> getUpdataData(@FieldMap Map<String, String> params);
+
     /**
      * 上传图片
      * @return

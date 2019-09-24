@@ -1,24 +1,33 @@
 package com.wlm.wlm.fragment;
 
+import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.LoginActivity;
+import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.OpinionActivity;
 import com.wlm.wlm.activity.SearchActivity;
@@ -30,6 +39,7 @@ import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
+import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.UrlBean;
@@ -38,6 +48,7 @@ import com.wlm.wlm.presenter.HomePresenter;
 import com.wlm.wlm.transform.BannerTransform;
 import com.wlm.wlm.ui.CusPtrClassicFrameLayout;
 import com.wlm.wlm.ui.CustomerPtrHandler;
+import com.wlm.wlm.ui.DownloadingDialog;
 import com.wlm.wlm.ui.MyGridView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
@@ -45,19 +56,28 @@ import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.update.BGAUpgradeUtil;
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import okhttp3.Call;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+import rx.Subscriber;
 
 import static android.content.Context.MODE_PRIVATE;
 import static in.srain.cube.views.ptr.util.PtrLocalDisplay.dp2px;
@@ -95,6 +115,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ArrayList<GoodsListBean> hotHomeBeans;
     private HomeFragmentAdapter homeFragmentAdapter;
     private ArrayList<FlashBean> flashBeans;
+
+    /*
+     * 下载文件权限请求码
+     */
+    private static final int RC_PERMISSION_DOWNLOAD = 1;
+    /**
+     * 删除文件权限请求码
+     */
+    private static final int RC_PERMISSION_DELETE = 2;
+    private String mApkUrl = "";
+
+    private DownloadingDialog mDownloadingDialog;
+    private String mNewVersion = "2";
 
     @Override
     public int getlayoutId() {
@@ -308,6 +341,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void getUrlSuccess(UrlBean urlBean) {
 //        ProApplication.BANNERIMG = urlBean.getShopImgUrl();
 
+        update(urlBean);
+
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
@@ -317,8 +352,58 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             homePresenter.getGoodsList("1");
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
-                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).commit();
+                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
         }
+
+    }
+
+    private CheckBean bean;
+    private void update(UrlBean urlBean){
+        String url = urlBean.getUpgradeUrl();
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("api_token", urlBean.getUpgradeToken())
+                .build()
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                        Log.d("err===========", e + "");
+                    }
+
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        Log.d("ok===========", response);
+
+                        Gson gson = new Gson();
+                        bean = gson.fromJson(response, CheckBean.class);
+
+                        if (bean.getVersionShort() > UpdateManager.getInstance().getVersionName(getActivity())) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage("请升级更新app").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    mApkUrl = bean.getInstall_url();
+                                    deleteApkFile();
+                                    downloadApkFile();
+                                }
+                            });
+                            builder.create().setCanceledOnTouchOutside(false);
+                            //  builder.setCancelable(false);
+                            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    getActivity().finish();
+                                }
+                            });
+                            builder.show();
+
+                        }
+                    }
+                });
 
     }
 
@@ -328,9 +413,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.HEADIMG = sharedPreferences.getString("img", ProApplication.HEADIMG);
         ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG);
 
-        if (msg.equals("登录已失效")){
-            UiHelper.launcher(getActivity(), LoginActivity.class);
-        }
+
     }
 
     @Override
@@ -421,14 +504,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             if (!hotHomeBeans.get(position).getGoodsType().equals("2")) {
                 Bundle bundle = new Bundle();
                 bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
-                String type = "";
-                if (hotHomeBeans.get(position).getGoodsType().equals("1")){
-                    type = WlmUtil.INTEGRAL;
-                }else if (hotHomeBeans.get(position).getGoodsType().equals("4")){
-                    type = WlmUtil.VIP;
-                }else if (hotHomeBeans.get(position).getGoodsType().equals("8")){
-                    type = WlmUtil.MANUFACURE;
-                }
+                String type = WlmUtil.getType(hotHomeBeans.get(position).getGoodsType());
 
                 bundle.putString(WlmUtil.TYPE, type);
                 UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
@@ -454,5 +530,96 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        UiHelper.launcher(getActivity(), GoodsDetailActivity.class);
     }
 
+    /**
+     * 删除之前升级时下载的老的 apk 文件
+     */
+    @AfterPermissionGranted(RC_PERMISSION_DELETE)
+    public void deleteApkFile() {
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(getActivity(), perms)) {
+            // 删除之前升级时下载的老的 apk 文件
+            BGAUpgradeUtil.deleteOldApk();
+        } else {
+            EasyPermissions.requestPermissions(this, "使用 BGAUpdateDemo 需要授权读写外部存储权限!", RC_PERMISSION_DELETE, perms);
+        }
+    }
+
+    /**
+     * 下载新版 apk 文件
+     */
+    @AfterPermissionGranted(RC_PERMISSION_DOWNLOAD)
+    public void downloadApkFile() {
+
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(getActivity(), perms)) {
+            downNewApk();
+        } else {
+            EasyPermissions.requestPermissions(this, "使用 BGAUpdateDemo 需要授权读写外部存储权限!", RC_PERMISSION_DOWNLOAD, perms);
+        }
+    }
+
+    private void downNewApk(){
+        // 如果新版 apk 文件已经下载过了，直接 return，此时不需要开发者调用安装 apk 文件的方法，在 isApkFileDownloaded 里已经调用了安装」
+        if (BGAUpgradeUtil.isApkFileDownloaded(mNewVersion)) {
+            return;
+        }
+
+        // 下载新版 apk 文件
+        BGAUpgradeUtil.downloadApkFile(mApkUrl, mNewVersion)
+                .subscribe(new Subscriber<File>() {
+                    @Override
+                    public void onStart() {
+                        showDownloadingDialog();
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        dismissDownloadingDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dismissDownloadingDialog();
+                    }
+
+                    @Override
+                    public void onNext(File apkFile) {
+                        if (apkFile != null) {
+                            BGAUpgradeUtil.installApk(apkFile);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 显示下载对话框
+     */
+    private void showDownloadingDialog() {
+        if (mDownloadingDialog == null) {
+            mDownloadingDialog = new DownloadingDialog(getActivity());
+        }
+        mDownloadingDialog.setUpdateMessage(bean.getChangelog() + "");
+        mDownloadingDialog.show();
+    }
+
+    /**
+     * 隐藏下载对话框
+     */
+    private void dismissDownloadingDialog() {
+        if (mDownloadingDialog != null) {
+            mDownloadingDialog.dismiss();
+            Dialog dialog = new Dialog(getActivity());
+            TextView textView = new TextView(getActivity());
+            ViewGroup.LayoutParams layoutParams = textView.getLayoutParams();
+            layoutParams.height = 500;
+            layoutParams.width = 500;
+            textView.setLayoutParams(layoutParams);
+            textView.setText("请升级安装最新版本");
+            dialog.setContentView(textView);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+    }
 
 }

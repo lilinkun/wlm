@@ -1,33 +1,51 @@
 package com.wlm.wlm.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.adapter.ChooseGrouponAdapter;
+import com.wlm.wlm.adapter.SearchAdapter;
 import com.wlm.wlm.adapter.TbAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfSearchContract;
 import com.wlm.wlm.db.DBManager;
+import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HotHomeBean;
 import com.wlm.wlm.entity.SearchBean;
 import com.wlm.wlm.entity.TbMaterielBean;
+import com.wlm.wlm.interf.IGoodsTypeListener;
+import com.wlm.wlm.presenter.SearchResultPresenter;
 import com.wlm.wlm.presenter.SelfSearchPresenter;
 import com.wlm.wlm.ui.FlowLayout;
+import com.wlm.wlm.ui.SpaceItemDecoration;
+import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.MallType;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
 
@@ -42,7 +60,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/11/21.
  */
 
-public class SearchActivity extends BaseActivity implements SelfSearchContract, TbHotGoodsAdapter.OnItemClickListener, TbAdapter.OnItemClickListener {
+public class SearchActivity extends BaseActivity implements SelfSearchContract, TbHotGoodsAdapter.OnItemClickListener, TbAdapter.OnItemClickListener, IGoodsTypeListener, SearchAdapter.OnItemClickListener {
 
     @BindView(R.id.et_search)
     EditText mEtSearch;
@@ -54,10 +72,21 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     FlowLayout mFlowLayout;
     @BindView(R.id.flow_search_recommend)
     FlowLayout flow_search_recommend;
+    @BindView(R.id.ll_result)
+    LinearLayout ll_result;
+    @BindView(R.id.iv_back)
+    ImageView iv_back;
+    @BindView(R.id.ll_search_goods_type)
+    LinearLayout ll_search_goods_type;
+    @BindView(R.id.ll_top)
+    TopLinearlayout ll_top;
+    @BindView(R.id.rv_search_goods)
+    RecyclerView rv_search_goods;
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
 
     SelfSearchPresenter selfSearchPresenter = new SelfSearchPresenter();
     private PopupWindow popupWindow;
-    private TextView tvSelf,tvTb,tvJd;
     private List<String> list = new ArrayList<>();
     private String SortField = "add_time";
     private TbHotGoodsAdapter tbHotGoodsAdapter;
@@ -65,11 +94,10 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     private TbAdapter tbAdapter;
     private ArrayList<HotHomeBean> hotHomeBeans = new ArrayList<>();
     private LinearLayout.LayoutParams layoutParams;
-
-    /*
-    *  type 中　１为自营　２为淘宝　３为京东
-    * */
-    private int type = 1;
+    private String goodsType = "";
+    private String orderby = "0";
+    private SearchAdapter searchAdapter;
+    private ArrayList<GoodsListBean> goodsListBeans;
 
     @Override
     public int getLayoutId() {
@@ -79,6 +107,11 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     @Override
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+
+        if(getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id") != null){
+            goodsType = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id");
+        }
+
 
         selfSearchPresenter.onCreate(this,this);
 
@@ -102,6 +135,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 tv.setText(searchBean.get(i).getSearchname());
                 tv.setTextColor(getResources().getColor(R.color.pop_text_bg));
                 tv.setMaxEms(10);
+                tv.setTextSize(12);
                 tv.setSingleLine();
                 tv.setBackgroundResource(R.drawable.shape_search_item_select);
                 tv.setLayoutParams(layoutParams);
@@ -111,31 +145,30 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     @Override
                     public void onClick(View v) {
                         mEtSearch.setText(((TextView)v).getText());
-
-                        if (type == 1) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("goodsname", ((TextView) v).getText().toString());
-                            UiHelper.launcherForResultBundle(SearchActivity.this, SelfGoodsTypeActivity.class,0x4432, bundle);
-
-                            if (ActivityUtil.activityList.size() > 1){
-                                ActivityUtil.removeOldActivity();
-                            }
-                        }else if(type == 2){
-//                            selfSearchPresenter.setList("1", PAGE_COUNT,"",mEtSearch.getText().toString(),LzyydUtil.strs[0], ProApplication.SESSIONID(SearchActivity.this));
-                            Bundle bundle1 = new Bundle();
-                            bundle1.putInt("position",20);
-                            bundle1.putString("str",mEtSearch.getText().toString());
-                            UiHelper.launcherBundle(SearchActivity.this,GoodsTypeActivity.class,bundle1);
-                        }
-
-//                        selfSearchPresenter.selfSearch("1",PAGE_COUNT,"132",SortField,mEtSearch.getText().toString(), ProApplication.SESSIONID(SearchActivity.this));
+                        doSearch();
                     }
                 });
             }
-
             mFlowLayout.specifyLines(6);
-
         }
+
+        ll_top.setListener(this);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+            }
+        });
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
+        int spanCount = 5; // 2 columns
+        int spacing = 20; // 50px
+        boolean includeEdge = false;
+        rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+
+        rv_search_goods.setLayoutManager(gridLayoutManager);
 
         mEtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -144,6 +177,11 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0){
+                    ll_result.setVisibility(View.GONE);
+                    ll_search_goods_type.setVisibility(View.GONE);
+                    goodsType = "";
+                }
             }
 
             @Override
@@ -156,14 +194,38 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
             }
         });
 
+        mEtSearch.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        mEtSearch.setSingleLine();
+        mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
-
-
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // 先隐藏键盘
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(SearchActivity.this
+                                            .getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (!mEtSearch.getText().toString().isEmpty()) {
+                        //搜索
+                        doSearch();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
+    private void doSearch(){
+        ll_result.setVisibility(View.VISIBLE);
+        ll_search_goods_type.setVisibility(View.VISIBLE);
+        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+    }
 
-    @OnClick({R.id.tv_search,R.id.ic_search_history_delete})
+    @OnClick({R.id.tv_search,R.id.ic_search_history_delete,R.id.ll_search_goods_type})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_search:
@@ -172,70 +234,14 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     popupWindow.dismiss();
                 }
 
-                if(!mEtSearch.getText().toString().isEmpty()){
-                    if (DBManager.getInstance(this).querySearch(mEtSearch.getText().toString()).size() == 0) {
-                        SearchBean searchBean = new SearchBean();
-                        searchBean.setUsername(MainFragmentActivity.username);
-                        searchBean.setSearchname(mEtSearch.getText().toString());
-                        if ( DBManager.getInstance(this).querySearch(mEtSearch.getText().toString()).size() == 0) {
-                            DBManager.getInstance(this).insertSearchBean(searchBean);
-                        }
-                    }
+                doSearch();
 
-
-                    switch (type){
-                        case 1:
-
-                            Bundle bundle = new Bundle();
-                            bundle.putString("goodsname",mEtSearch.getText().toString());
-                            UiHelper.launcherForResultBundle(SearchActivity.this,SelfGoodsTypeActivity.class,0x4432,bundle);
-
-                            if (ActivityUtil.activityList.size() > 1){
-                                ActivityUtil.removeOldActivity();
-                            }
-//                            selfSearchPresenter.selfSearch("1",PAGE_COUNT,"132",SortField,mEtSearch.getText().toString(), ProApplication.SESSIONID(this));
-                            break;
-                        case 2:
-
-                            Bundle bundle1 = new Bundle();
-                            bundle1.putInt("position",20);
-                            bundle1.putString("str",mEtSearch.getText().toString());
-                            UiHelper.launcherForResultBundle(this,GoodsTypeActivity.class,0x4431,bundle1);
-
-                            if (ActivityUtil.activityList.size() > 1){
-                                ActivityUtil.removeOldActivity();
-                            }
-//                            selfSearchPresenter.setList("1", PAGE_COUNT,"",mEtSearch.getText().toString(),LzyydUtil.strs[0], ProApplication.SESSIONID(this));
-                            break;
-                        case 3:
-
-                            break;
-
-                    }
-
-                }else {
-                    toast(R.string.input_search_word);
-                }
 
                 break;
 
             case R.id.ll_search_goods_type:
 
-                if (popupWindow == null) {
-
-                    popupWindow.showAsDropDown(mSearchTopLine);
-
-
-
-
-                }else {
-                    if (popupWindow.isShowing()){
-                        popupWindow.dismiss();
-                    }else {
-                        popupWindow.showAsDropDown(mSearchTopLine);
-                    }
-                }
-
+                finish();
 
                 break;
 
@@ -245,6 +251,8 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 mFlowLayout.removeAllViews();
 
                 break;
+
+
         }
     }
 
@@ -252,27 +260,15 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     public void onSuccess(final ArrayList<TbMaterielBean> tbMaterielBeans) {
         if (tbAdapter == null) {
 
-            Bundle bundle = new Bundle();
-            bundle.putInt("position",20);
-            bundle.putString("str",mEtSearch.getText().toString());
-            UiHelper.launcherBundle(this,GoodsTypeActivity.class,bundle);
+            Bundle bundle1 = new Bundle();
+            bundle1.putInt("position", 20);
+            bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
+            UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
+            if (ActivityUtil.activityList.size() > 1){
+                ActivityUtil.removeOldActivity();
+            }
 
-           /* tbAdapter = new TbAdapter(this, tbMaterielBeans);
-            tbAdapter.setItemClickListener(new TbAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("discount",tbMaterielBeans.get(position));
-                    UiHelper.launcherBundle(SearchActivity.this, BuyGoodsActivity.class,bundle);
-                }
-            });
-            recyclerView.setAdapter(tbAdapter);
-        }else {
-            tbHotGoodsAdapter.setData(hotHomeBeans);*/
         }
-        /*if (tbMaterielBeans.size() > 0) {
-            recyclerView.setVisibility(View.VISIBLE);
-        }*/
 
     }
 
@@ -289,7 +285,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     @Override
     public void onSelfSuccess(ArrayList<String> selfGoodsBeans) {
-
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(10, 15, 10, 10);
@@ -313,22 +308,13 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     public void onClick(View v) {
                         mEtSearch.setText(((TextView) v).getText());
 
-                        if (type == 1) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("goodsname", ((TextView) v).getText().toString());
-                            UiHelper.launcherForResultBundle(SearchActivity.this, SelfGoodsTypeActivity.class, 0x4432, bundle);
-
-                            if (ActivityUtil.activityList.size() > 1) {
-                                ActivityUtil.removeOldActivity();
-                            }
-                        } else if (type == 2) {
-//                            selfSearchPresenter.setList("1", PAGE_COUNT,"",mEtSearch.getText().toString(),LzyydUtil.strs[0], ProApplication.SESSIONID(SearchActivity.this));
-                            Bundle bundle1 = new Bundle();
-                            bundle1.putInt("position", 20);
-                            bundle1.putString("str", mEtSearch.getText().toString());
-                            UiHelper.launcherBundle(SearchActivity.this, GoodsTypeActivity.class, bundle1);
-                        }
-//                        selfSearchPresenter.selfSearch("1",PAGE_COUNT,"132",SortField,mEtSearch.getText().toString(), ProApplication.SESSIONID(SearchActivity.this));
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("position", 20);
+                    bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
+                    UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
+                    if (ActivityUtil.activityList.size() > 1){
+                        ActivityUtil.removeOldActivity();
+                    }
                     }
                 });
             }
@@ -341,12 +327,40 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void getSearchResultSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+        if (refreshLayout != null && refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
+        rv_search_goods.setVisibility(View.VISIBLE);
 
-        if (!ButtonUtils.isFastDoubleClick()) {
-            Bundle bundle = new Bundle();
-            bundle.putString("goodsid", hotHomeBeans.get(position).getGoods_id());
-            UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
+        this.goodsListBeans = goodsListBeans;
+        if(searchAdapter == null){
+            searchAdapter = new SearchAdapter(this,goodsListBeans);
+            searchAdapter.setItemClickListener(this);
+            rv_search_goods.setAdapter(searchAdapter);
+        }
+    }
+
+    @Override
+    public void getSearchResultFail(String msg) {
+        if (msg.contains("查无数据")){
+            rv_search_goods.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if (goodsListBeans != null){
+            if (goodsListBeans.get(position).getGoodsType().equals("2")){
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
+                UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
+            }else {
+                Bundle bundle = new Bundle();
+                bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
+                bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
+                UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
+            }
         }
     }
 
@@ -382,22 +396,13 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                             public void onClick(View v) {
                                 mEtSearch.setText(((TextView) v).getText());
 
-                                if (type == 1) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("goodsname", ((TextView) v).getText().toString());
-                                    UiHelper.launcherForResultBundle(SearchActivity.this, SelfGoodsTypeActivity.class, 0x4432, bundle);
-
-                                    if (ActivityUtil.activityList.size() > 1) {
-                                        ActivityUtil.removeOldActivity();
-                                    }
-                                } else if (type == 2) {
-//                            selfSearchPresenter.setList("1", PAGE_COUNT,"",mEtSearch.getText().toString(),LzyydUtil.strs[0], ProApplication.SESSIONID(SearchActivity.this));
-                                    Bundle bundle1 = new Bundle();
-                                    bundle1.putInt("position", 20);
-                                    bundle1.putString("str", mEtSearch.getText().toString());
-                                    UiHelper.launcherBundle(SearchActivity.this, GoodsTypeActivity.class, bundle1);
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putInt("position", 20);
+                                bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
+                                UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
+                                if (ActivityUtil.activityList.size() > 1){
+                                    ActivityUtil.removeOldActivity();
                                 }
-//                        selfSearchPresenter.selfSearch("1",PAGE_COUNT,"132",SortField,mEtSearch.getText().toString(), ProApplication.SESSIONID(SearchActivity.this));
                             }
                         });
                     }
@@ -407,5 +412,88 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void getSortType(int sortType) {
+        switch (sortType){
+            case 1://默认排序
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                ll_top.setText(getString(R.string.groupon_all));
+                break;
+
+            case 2://选择商城
+
+                View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
+                RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
+
+                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this,1);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                });
+
+                recyclerView.setAdapter(chooseGrouponAdapter);
+
+                final PopupWindow popupWindow = new PopupWindow(view,
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.showAsDropDown(ll_top);
+                chooseGrouponAdapter.setOnItemClick(new ChooseGrouponAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        ll_top.setText(MallType.values()[position].getTypeName());
+                        goodsType = MallType.values()[position].getTypeId();
+                        if (goodsType.equals("0")){
+                            goodsType = "";
+                        }
+                        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                        popupWindow.dismiss();
+                    }
+                });
+
+                break;
+
+
+            case 3://销量上
+                orderby = "1";
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+
+                break;
+
+
+            case 4://销量下
+
+                orderby = "2";
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+
+                break;
+
+            case 5://价格上
+
+                orderby = "3";
+//                isGrouponType = false;
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+
+                break;
+
+            case 6://价格下
+
+                orderby = "4";
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+
+                break;
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

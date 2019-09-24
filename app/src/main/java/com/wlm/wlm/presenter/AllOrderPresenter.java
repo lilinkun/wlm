@@ -188,30 +188,6 @@ public class AllOrderPresenter extends BasePresenter {
                     }
                 }));
     }
-    /**
-     * 收货订单
-     */
-    public void deleteOrder(String OrderId,String SessionId){
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Order");
-        params.put("fun","OrderInfoDelete");
-        params.put("OrderId",OrderId);
-        params.put("SessionId",SessionId);
-        mCompositeSubscription.add(manager.deleteOrder(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
-                    @Override
-                    public void onResponse(String collectDeleteBean, String status,Object page) {
-                        allOrderContract.sureReceiptSuccess(collectDeleteBean);
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-                        allOrderContract.sureReceiptFail(msg);
-                    }
-                }));
-    }
 
 
     public void setWxPay(String Batch_No,String Charge_Amt,String Logo_ID,String Charge_Type,String apptype,String apppackage,String SessionId){

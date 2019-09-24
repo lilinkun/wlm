@@ -60,6 +60,9 @@
         app:page_margin="20dp"/>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <com.wlm.wlm.ui.TopLinearlayout
             android:id="@+id/ll_top"
             android:layout_width="match_parent"
@@ -70,7 +73,7 @@
             app:down_arrow="@mipmap/ic_store_dot_down"
             app:type="2"
             />
-
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 

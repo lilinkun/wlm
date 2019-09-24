@@ -15,6 +15,7 @@ public class ArticleBean implements Serializable {
     private String SortRank;
     private String CreateDate;
     private String CategoryName;
+    private String Link;
 
     public String getArticleId() {
         return ArticleId;
@@ -78,5 +79,13 @@ public class ArticleBean implements Serializable {
 
     public void setCategoryName(String categoryName) {
         CategoryName = categoryName;
+    }
+
+    public String getLink() {
+        return Link;
+    }
+
+    public void setLink(String link) {
+        Link = link;
     }
 }

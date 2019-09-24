@@ -87,6 +87,9 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
             iv_host_arrow.setVisibility(VISIBLE);
         }else if (type == 3){
             rl_host.setVisibility(GONE);
+        }else if (type == 4){
+            tx_host.setText(getResources().getString(R.string.search_all_mall));
+            iv_host_arrow.setVisibility(VISIBLE);
         }
 
         img1 = view.findViewById(R.id.img1);

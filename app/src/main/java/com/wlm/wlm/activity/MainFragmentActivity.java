@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -24,9 +25,11 @@ import com.wlm.wlm.adapter.FragmentsAdapter;
 import com.wlm.wlm.adapter.MyShoppingCarAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.BaseFragment;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.MainFragmentContract;
 import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.DownloadBean;
+import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.fragment.HomeFragment;
 import com.wlm.wlm.fragment.LzyMallFragment;
 import com.wlm.wlm.fragment.MeFragment;
@@ -34,6 +37,7 @@ import com.wlm.wlm.fragment.WlmCartFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UpdateManager;
 
@@ -177,6 +181,9 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
                     }
                 });
 
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        mainFragmentPresenter.login(sharedPreferences.getString(WlmUtil.OPENID, ""), sharedPreferences.getString(WlmUtil.UNIONID, ""), "2", ProApplication.SESSIONID(this));
+
     }
 
     @OnClick({R.id.menu_bottom_1,R.id.menu_bottom_2,R.id.menu_bottom_3})
@@ -309,6 +316,27 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     @Override
     public void getUpdateFail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void onLoginSuccess(LoginBean loginBean) {
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
+                .putString(WlmUtil.ACCOUNT,loginBean.getNickName()).putString(WlmUtil.TELEPHONE,loginBean.getMobile())
+                .putString(WlmUtil.USERNAME,loginBean.getUserName()).putString(WlmUtil.USERID,loginBean.getUserId())
+                .putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
+
+        ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
+        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
+        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER,"");
+        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG,"");
+    }
+
+    @Override
+    public void onLoginFail(String msg) {
+        if (msg.equals("登录已失效")){
+            UiHelper.launcher(this, LoginActivity.class);
+        }
     }
 
     /**

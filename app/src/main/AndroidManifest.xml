@@ -97,8 +97,8 @@
         <activity android:name=".activity.GetCashActivity"/>
         <activity android:name=".activity.MessageActivity"/>
         <activity android:name=".activity.ArticleActivity"/>
-
-
+        <activity android:name=".activity.MessageDetitleActivity"/>
+        <activity android:name=".activity.SearchResultActivity"/>
 
 
         <activity android:name=".wxapi.WXEntryActivity"

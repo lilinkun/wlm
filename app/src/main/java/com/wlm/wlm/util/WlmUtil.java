@@ -56,6 +56,7 @@ public class WlmUtil {
 
     public static final String TYPEID = "TYPEID";
     public static final String USERNAME = "username";
+    public static final String GOODSNAME = "goodsname";
     public static final String USERID = "userid";
     public static final String LOGIN = "login";
     public static final String OPENID = "openid";
@@ -275,6 +276,17 @@ public class WlmUtil {
         numberFormat.setGroupingUsed(false);
         String balance = numberFormat.format(price);
         return balance;
+    }
+
+    public static String getType(String type){
+        if (type.equals("1")){
+            type = WlmUtil.INTEGRAL;
+        }else if (type.equals("4")){
+            type = WlmUtil.VIP;
+        }else if (type.equals("8")){
+            type = WlmUtil.MANUFACURE;
+        }
+        return type;
     }
 
 

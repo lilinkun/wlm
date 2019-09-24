@@ -468,7 +468,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
             bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
-            bundle.putString(WlmUtil.TYPE,goodsListBeans.get(position).getGoodsType());
+            bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
             UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
             if (ActivityUtil.activityList.size() > 2) {

@@ -1,5 +1,6 @@
 package com.wlm.wlm.activity;
 
+import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 
 import butterknife.BindView;
@@ -9,11 +10,13 @@ import butterknife.BindView;
  */
 public class TestActivity extends BaseActivity {
 
-//    @BindView()
+
+
+
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.layout_top;
     }
 
     @Override

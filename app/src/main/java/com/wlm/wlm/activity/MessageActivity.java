@@ -16,6 +16,7 @@ import com.wlm.wlm.entity.ArticleBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.MessagePresenter;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.MessageType;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -27,15 +28,13 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/9/23.
  */
-public class MessageActivity extends BaseActivity implements MessageContract, MessageAdapter.OnItemClickListener {
+public class MessageActivity extends BaseActivity implements  MessageAdapter.OnItemClickListener {
 
     @BindView(R.id.rv_message)
     RecyclerView rv_message;
 
 
-    private MessagePresenter messagePresenter = new MessagePresenter();
     private MessageAdapter messageAdapter;
-    private ArrayList<ArticleBean> articleBeans;
 
     @Override
     public int getLayoutId() {
@@ -46,31 +45,17 @@ public class MessageActivity extends BaseActivity implements MessageContract, Me
     public void initEventAndData() {
 
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        messagePresenter.onCreate(this,this);
-        messagePresenter.getArticleList("1", WlmUtil.PAGE_COUNT, ProApplication.SESSIONID(this));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
 
         rv_message.setLayoutManager(linearLayoutManager);
 
+        messageAdapter = new MessageAdapter(this);
+        rv_message.setAdapter(messageAdapter);
+        messageAdapter.setItemClickListener(this);
     }
 
-
-    @Override
-    public void getArticleSuccess(ArrayList<ArticleBean> articleBeans, PageBean pageBean) {
-        this.articleBeans = articleBeans;
-        if (messageAdapter == null){
-            messageAdapter = new MessageAdapter(this,articleBeans);
-            rv_message.setAdapter(messageAdapter);
-            messageAdapter.setItemClickListener(this);
-        }
-    }
-
-    @Override
-    public void getArticleFail(String msg) {
-
-    }
 
     @OnClick({R.id.ll_back})
     public void onClick(View view){
@@ -85,7 +70,8 @@ public class MessageActivity extends BaseActivity implements MessageContract, Me
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("url",articleBeans.get(position));
-        UiHelper.launcherBundle(this,ArticleActivity.class,bundle);
+        bundle.putString("CategoryId", MessageType.values()[position].getCategoryId());
+        bundle.putSerializable("title",MessageType.values()[position].getTypeName());
+        UiHelper.launcherBundle(this,MessageDetitleActivity.class,bundle);
     }
 }

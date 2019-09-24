@@ -57,7 +57,7 @@
                     android:layout_height="103dp"
                     android:background="@drawable/shape_vip_info">
 
-                    <ImageView
+                    <com.wlm.wlm.ui.RoundImageView
                         android:id="@+id/iv_vip_face"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

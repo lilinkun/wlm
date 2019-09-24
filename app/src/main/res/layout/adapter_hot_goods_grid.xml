@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginBottom="@dimen/margin_14"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:paddingLeft="@dimen/margin_10"
                 android:paddingRight="@dimen/margin_10">
 
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_goods_title_name"
-                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 

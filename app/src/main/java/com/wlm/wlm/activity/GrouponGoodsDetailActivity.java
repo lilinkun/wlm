@@ -167,7 +167,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         tv_goods_name.setText(goodsListBean.getGoodsName());
 
-        tv_grounon_info.setText(goodsListBean.getGoodsTypeName());
+        tv_grounon_info.setText(goodsListBean.getGoodsSmallName());
 
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 

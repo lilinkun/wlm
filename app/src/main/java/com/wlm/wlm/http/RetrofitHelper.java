@@ -25,15 +25,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 public class RetrofitHelper {
     private Context mCntext;
     //    接口根地址
-    //    public static final String BASE_URL = "https://appapi.100zt.com/api/WebService/";
-    //    public static final String BASE_URL = "http://192.168.0.142:8080/FirstWebProject/servlet/";
-//        public static final String BASE_URL = "http://oa.lzyyd.com:81/api/WebService/";
-//        public static final String BASE_URL = "http://lyb.mmibb.net:98/api/WebService/";
-//        public static final String BASE_URL = "http://api.boos999.com/api/WebService/";
-          public static final String BASE_URL = "http://wlm.mmibb.net:99/api/WebService/";
-//        public static final String BASE_URL = "http://192.168.0.167:81/api/WebService/";
+//          public static final String BASE_URL = "http://wlm.mmibb.net:99/api/WebService/";
+    public static final String BASE_URL = "https://api.vlmei.com/api/WebService/";
 
-    //    public static final String ImageUrl = "http://lyb.mmibb.net:98/api/ClearImg/Upload";
     public static final String ImageUrl = "http://api.boos999.com/api/ClearImg/Upload";
     //    设置超时时间
     private static final long DEFAULT_TIMEOUT = 15_000L;

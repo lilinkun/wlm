@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.util.GrouponType;
+import com.wlm.wlm.util.MallType;
 
 import java.util.ArrayList;
 
@@ -19,9 +20,12 @@ public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdap
 
     private Context context;
     private OnItemClickListener mItemClickListener;
+    private int type = 0;
 
-    public ChooseGrouponAdapter(Context context){
+
+    public ChooseGrouponAdapter(Context context,int type){
         this.context = context;
+        this.type = type;
     }
 
     @Override
@@ -41,12 +45,16 @@ public class ChooseGrouponAdapter extends RecyclerView.Adapter<ChooseGrouponAdap
 
         holder.itemView.setTag(position);
 
-        holder.tv_groupon.setText(GrouponType.values()[position].getTypeName());
+        if (type == 0) {
+            holder.tv_groupon.setText(GrouponType.values()[position].getTypeName());
+        }else {
+            holder.tv_groupon.setText(MallType.values()[position].getTypeName());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return GrouponType.values().length;
+        return type == 0 ? GrouponType.values().length : MallType.values().length;
     }
 
     @Override

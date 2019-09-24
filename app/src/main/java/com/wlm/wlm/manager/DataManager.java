@@ -597,4 +597,11 @@ public class DataManager {
         return mRetrofitService.getArticleDetail(mHashMap);
     }
 
+    /**
+     * 获取更新数据
+     */
+    public Observable<ResultBean<LoginBean,Object>> getUpdataData(HashMap<String,String> mHashMap){
+        return mRetrofitService.getUpdataData(mHashMap);
+    }
+
 }

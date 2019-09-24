@@ -119,7 +119,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
                 .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
-                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity()).commit();
+                .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();

@@ -20,6 +20,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.MyQrCodeContract;
+import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.presenter.MyQrCodePresenter;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.QRCodeUtil;
@@ -38,7 +41,7 @@ import okhttp3.internal.Util;
 /**
  * Created by LG on 2019/9/18.
  */
-public class MyQrCodeActivity extends BaseActivity {
+public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 
     @BindView(R.id.tv_qr_name)
     TextView tv_qr_name;
@@ -50,6 +53,8 @@ public class MyQrCodeActivity extends BaseActivity {
     LinearLayout ll_pic;
 
     IWXAPI iwxapi = null;
+
+    private MyQrCodePresenter myQrCodePresenter = new MyQrCodePresenter();
 
     @Override
     public int getLayoutId() {
@@ -69,9 +74,12 @@ public class MyQrCodeActivity extends BaseActivity {
 
         Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")).error(R.mipmap.ic_adapter_error).into(ic_head);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher1);
-        Bitmap bitmap1 = QRCodeUtil.createQRCodeWithLogo("大王叫"+tv_qr_name.getText().toString()+"来巡山",bitmap);
-        ic_qrcode.setImageBitmap(bitmap1);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher1);
+//        Bitmap bitmap1 = QRCodeUtil.createQRCodeWithLogo("大王叫"+tv_qr_name.getText().toString()+"来巡山",bitmap);
+//        ic_qrcode.setImageBitmap(bitmap1);
+
+        myQrCodePresenter.onCreate(this,this);
+        myQrCodePresenter.getUpdataData(ProApplication.SESSIONID(this));
     }
 
 
@@ -99,7 +107,7 @@ public class MyQrCodeActivity extends BaseActivity {
                 msg.title = "唯乐美商城";                    // 小程序消息title
                 msg.description = "唯乐美商城";               // 小程序消息desc
 
-                Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_adapter_error);
+                Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 thumbBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
@@ -155,4 +163,14 @@ public class MyQrCodeActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void getQrCodeSuccess(LoginBean loginBean) {
+
+        Picasso.with(this).load(loginBean.getSharedErm()).error(R.mipmap.ic_adapter_error).into(ic_qrcode);
+    }
+
+    @Override
+    public void getQrCodeFail(String msg) {
+
+    }
 }

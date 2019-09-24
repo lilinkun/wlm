@@ -52,10 +52,9 @@ public class MessagePresenter extends BasePresenter {
 
 
     /**
-     * 发送短信验证码
      * @param sessionId
      */
-    public void getArticleList(String PageIndex,String PageCount,String sessionId){
+    public void getArticleList(String PageIndex,String PageCount,String CategoryId,String sessionId){
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
@@ -63,6 +62,7 @@ public class MessagePresenter extends BasePresenter {
         params.put("fun", "ArticleVipList");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
+        params.put("CategoryId", CategoryId);
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.getArticleList(params)
                 .subscribeOn(Schedulers.io())

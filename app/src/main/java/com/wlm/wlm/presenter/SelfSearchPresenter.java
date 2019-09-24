@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.wlm.wlm.contract.SelfSearchContract;
 import com.wlm.wlm.contract.TbAllContract;
+import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.TbMaterielBean;
@@ -11,6 +13,7 @@ import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,5 +111,47 @@ public class SelfSearchPresenter extends BasePresenter {
 
                 })
         );
+    }
+
+    /**
+     * 获取查询商品信息
+     * @param PageIndex
+     * @param PageCount
+     * @param GoodsType
+     */
+    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String GoodsName){
+
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Goods");
+        params.put("fun","GoodsListVip");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
+        params.put("GoodsName",GoodsName);
+        if (!GoodsType.equals("")) {
+            params.put("GoodsType", GoodsType);
+        }
+        params.put("OrderBy",OrderBy);
+        mCompositeSubscription.add(manager.grouponData(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
+                    @Override
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
+                        selfSearchContract.getSearchResultSuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        selfSearchContract.getSearchResultFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+                }));
     }
 }

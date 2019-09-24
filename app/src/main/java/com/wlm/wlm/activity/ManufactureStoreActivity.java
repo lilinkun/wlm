@@ -1,6 +1,7 @@
 package com.wlm.wlm.activity;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,6 +26,7 @@ import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
@@ -132,7 +134,10 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     }
 
     public void doSearch(String goodsName){
-        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),goodsName,"0");
+//        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),goodsName,"0");
+        Bundle bundle = new Bundle();
+        bundle.putString("id","8");
+        UiHelper.launcherBundle(this,SearchActivity.class,bundle);
     }
 
     @Override

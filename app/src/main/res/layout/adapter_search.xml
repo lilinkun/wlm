@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        lzy:cardBackgroundColor="@android:color/white"
+        lzy:cardCornerRadius="10dp"
+        lzy:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.wlm.wlm.ui.CustomRoundAngleImageView
+                android:id="@+id/iv_goods_pic"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_goods_pic"
+                lzy:left_top_radius="5dp"
+                lzy:right_top_radius="5dp"
+                lzy:right_bottom_radius="0dp"
+                lzy:left_bottom_radius="0dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:id="@+id/tv_goods_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize12"/>
+
+                <TextView
+                    android:id="@+id/tv_goods_title_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:layout_toRightOf="@+id/tv_goods_type"
+                    android:layout_marginLeft="@dimen/margin_4"
+                    android:textColor="@color/pop_text_bg"
+                    android:textSize="@dimen/textsize12" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_goods_title_name"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥"
+                        android:textColor="@color/red_price"
+                        android:textSize="@dimen/textsize12"/>
+
+                    <com.wlm.wlm.ui.PriceTextView
+                        android:id="@+id/tv_goods_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@+id/tv_goods_type_price"
+                        android:textColor="@color/red_price"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/textsize15" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+                        <com.wlm.wlm.ui.PriceTextView
+                            android:id="@+id/tv_add_integral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize15"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/me_integral"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_old_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey_color3"
+                        android:textSize="@dimen/textsize11"
+                        />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

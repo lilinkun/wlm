@@ -1,13 +1,16 @@
 package com.wlm.wlm.presenter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.VipContract;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,6 +76,38 @@ public class VipPresenter extends BasePresenter {
                         vipContract.getDataFail(msg);
                     }
                 }));
+    }
+
+    public void getUpdataData(String SessionId){
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","UserBase");
+        params.put("fun","UserBaseGet");
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getUpdataData(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<LoginBean, Object>() {
+
+                    @Override
+                    public void onResponse(LoginBean loginBean, String status, Object page) {
+                        vipContract.getQrCodeSuccess(loginBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        vipContract.getQrCodeFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+
+                }));
+
     }
 
 }

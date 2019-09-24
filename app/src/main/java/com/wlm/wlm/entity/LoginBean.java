@@ -21,6 +21,7 @@ public class LoginBean  implements Serializable {
     private String VipValidity;
     private String ActivationTime;
     private String RefereesName;
+    private String SharedErm;
 
     public String getUserId() {
         return UserId;
@@ -126,6 +127,14 @@ public class LoginBean  implements Serializable {
         RefereesName = refereesName;
     }
 
+    public String getSharedErm() {
+        return SharedErm;
+    }
+
+    public void setSharedErm(String sharedErm) {
+        SharedErm = sharedErm;
+    }
+
     @Override
     public String toString() {
         return "LoginBean{" +
@@ -142,6 +151,7 @@ public class LoginBean  implements Serializable {
                 ", VipValidity='" + VipValidity + '\'' +
                 ", ActivationTime='" + ActivationTime + '\'' +
                 ", RefereesName='" + RefereesName + '\'' +
+                ", SharedErm='" + SharedErm + '\'' +
                 '}';
     }
 }

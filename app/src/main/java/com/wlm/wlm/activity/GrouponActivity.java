@@ -181,7 +181,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
                     View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
                     RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
 
-                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this);
+                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this,0);
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

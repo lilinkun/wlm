@@ -5,17 +5,22 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.VipContract;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.VipPresenter;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
+import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
@@ -39,6 +44,8 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     TextView tv_userid;
     @BindView(R.id.tv_username)
     TextView tv_username;
+    @BindView(R.id.iv_vip_face)
+    RoundImageView iv_vip_face;
 
     private VipPresenter vipPresenter = new VipPresenter();
     private String goodsType = "4";
@@ -58,6 +65,8 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         vipPresenter.onCreate(this,this);
         vipPresenter.getData("1","20",goodsType,"0","0");
 
+        vipPresenter.getUpdataData(ProApplication.SESSIONID(this));
+
         GridLayoutManager fullyGridLayoutManager = new GridLayoutManager(this, 2);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
@@ -69,10 +78,17 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
 
-        tv_vipvalidity.setText("有效期至 " + sharedPreferences.getString(WlmUtil.VIPVALIDITY,""));
+        if (sharedPreferences.getString(WlmUtil.VIPVALIDITY,"") != null && !sharedPreferences.getString(WlmUtil.VIPVALIDITY,"").equals("")) {
+            tv_vipvalidity.setText("有效期至 " + sharedPreferences.getString(WlmUtil.VIPVALIDITY, ""));
+        }else {
+            tv_vipvalidity.setVisibility(View.GONE);
+        }
 
         tv_username.setText(sharedPreferences.getString(WlmUtil.USERNAME,"") + "");
-        tv_userid.setText(sharedPreferences.getString(WlmUtil.USERID,"") + "");
+        if (tv_username.getText().toString().trim().length() > 3) {
+            String str = tv_username.getText().toString();
+            tv_userid.setText(str.substring(3,str.length()-1));
+        }
     }
 
     @OnClick({R.id.ll_back})
@@ -104,6 +120,24 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
 
     @Override
     public void getDataFail(String msg) {
+
+    }
+
+    @Override
+    public void getQrCodeSuccess(LoginBean loginBean) {
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        sharedPreferences.edit().putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
+        Picasso.with(this).load(loginBean.getPortrait()).error(R.mipmap.ic_adapter_error).into(iv_vip_face);
+        if (loginBean.getVipValidity() != null && !loginBean.getVipValidity().equals("")) {
+            tv_vipvalidity.setText("有效期至 " + loginBean.getVipValidity());
+        }else {
+            tv_vipvalidity.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void getQrCodeFail(String msg) {
 
     }
 

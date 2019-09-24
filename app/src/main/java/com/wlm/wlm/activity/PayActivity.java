@@ -67,6 +67,8 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     LinearLayout ll_pay_order;
     @BindView(R.id.titlebar)
     CustomTitleBar titlebar;
+    @BindView(R.id.tv_point)
+    TextView tv_point;
 
     @Override
     public int getLayoutId() {
@@ -247,6 +249,11 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public void setDataSuccess(OrderDetailAddressBean orderDetailBeans) {
         this.point = orderDetailBeans.getIntegral()+"";
+        if (orderDetailBeans.getIntegral() == 0){
+            tv_point.setVisibility(View.GONE);
+        }else {
+            tv_point.setText("+" + point);
+        }
     }
 
     @Override

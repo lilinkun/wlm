@@ -106,6 +106,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     View view_need_integral;
     @BindView(R.id.ll_point)
     LinearLayout ll_point;
+    @BindView(R.id.ll_lgs)
+    LinearLayout ll_lgs;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -154,6 +156,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_order.setText("确认收货");
             tv_pay_style.setText("已发货");
             tv_pay_message.setText("您的商品正在运输中");
+            ll_lgs.setVisibility(View.VISIBLE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
         }else if (status == 0){
             tv_exit_order.setText("取消订单");
@@ -165,8 +168,10 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_style.setText("交易完成");
             tv_pay_message.setText("您的交易已经完成");
             tv_pay_order.setText("删除订单");
-            ll_price_status.setVisibility(View.GONE);
-            tv_exit_order.setVisibility(View.GONE);
+            ll_lgs.setVisibility(View.VISIBLE);
+//            ll_price_status.setVisibility(View.GONE);
+//            tv_exit_order.setVisibility(View.GONE);
+            rl_bottom.setVisibility(View.GONE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
         } else if(status == 5){
             tv_pay_style.setText("交易失效");
@@ -304,7 +309,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                     } else if (status == 2) {
                         allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 4) {
-                        allOrderPresenter.deleteOrder(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
+//                        allOrderPresenter.deleteOrder(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     }
                 }
             }

@@ -34,6 +34,7 @@ import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.MessageActivity;
+import com.wlm.wlm.activity.MessageDetitleActivity;
 import com.wlm.wlm.activity.MyFansActivity;
 import com.wlm.wlm.activity.MyGrouponActivity;
 import com.wlm.wlm.activity.MyQrCodeActivity;
@@ -53,6 +54,7 @@ import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.MessageType;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -229,7 +231,10 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                 case R.id.ll_customer_service:
 
-                    UiHelper.launcher(getActivity(), CustomerServiceActivity.class);
+                    Bundle csBundle = new Bundle();
+                    csBundle.putString("CategoryId", MessageType.values()[2].getCategoryId());
+                    csBundle.putSerializable("title",MessageType.values()[2].getTypeName());
+                    UiHelper.launcherBundle(getActivity(),MessageDetitleActivity.class,csBundle);
 
                     break;
 
@@ -310,9 +315,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     msg.title = "唯乐美商城";                    // 小程序消息title
                     msg.description = "唯乐美商城";               // 小程序消息desc
 
-                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_adapter_error);
+                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
                     msg.thumbData = baos.toByteArray();
 
