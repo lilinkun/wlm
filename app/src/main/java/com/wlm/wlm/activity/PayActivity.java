@@ -252,7 +252,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         if (orderDetailBeans.getIntegral() == 0){
             tv_point.setVisibility(View.GONE);
         }else {
-            tv_point.setText("+" + point);
+            tv_point.setText("+" + point + "积分");
         }
     }
 

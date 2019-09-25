@@ -16,7 +16,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.layout_top;
+        return R.layout.layout_ttt;
     }
 
     @Override

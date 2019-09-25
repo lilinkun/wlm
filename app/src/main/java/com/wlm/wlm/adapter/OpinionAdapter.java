@@ -15,13 +15,13 @@ import java.util.ArrayList;
 /**
  * Created by LG on 2019/9/21.
  */
-public class OpinonAdapter extends RecyclerView.Adapter<OpinonAdapter.ViewHolder> implements View.OnClickListener {
+public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHolder> implements View.OnClickListener {
 
     private ArrayList<ErrorBean> errorBeans = null;
     private Context context;
     private OnItemClickListener mItemClickListener;
 
-    public OpinonAdapter(Context context,ArrayList<ErrorBean> errorBeans){
+    public OpinionAdapter(Context context, ArrayList<ErrorBean> errorBeans){
         this.context = context;
         this.errorBeans = errorBeans;
     }

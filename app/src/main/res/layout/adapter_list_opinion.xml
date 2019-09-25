@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/margin_10">
+
+    <com.wlm.wlm.ui.RoundImageView
+        android:id="@+id/riv_opinion"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/margin_10"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_opinion_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_color3"
+                android:textSize="@dimen/textsize12"/>
+
+            <TextView
+                android:id="@+id/tv_opinion_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:textColor="@color/grey_color3"
+                android:textSize="@dimen/textsize12"
+                />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_opinion_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/login_title_text"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_retry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_opinion"
+            android:layout_marginTop="@dimen/margin_10">
+
+            <TextView
+                android:id="@+id/tv_retry_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:textColor="@color/grey_color3"/>
+
+            <TextView
+                android:id="@+id/tv_retry_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_retry_name"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:textColor="@color/login_title_text"/>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+    
+    
+</LinearLayout>

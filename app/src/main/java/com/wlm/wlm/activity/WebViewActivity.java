@@ -45,12 +45,24 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
 
         title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type");
         if (title.equals("2")){
-            titleBar.setTileName("常见问题");
+            titleBar.setTileName("服务协议");
         }else if (title.equals("3")){
             titleBar.setTileName("关于我们");
         }
 
-        webviewPresenter.getNewUrl(title, ProApplication.SESSIONID(this));
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient()
+        {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
+            {
+                return false;
+            }
+        });
+        if (ProApplication.REGISTERREQUIREMENTS != null && !ProApplication.REGISTERREQUIREMENTS.equals("")){
+            webView.loadUrl(ProApplication.REGISTERREQUIREMENTS);
+        }
+
+//        webviewPresenter.getNewUrl(title, ProApplication.SESSIONID(this));
 
     }
 

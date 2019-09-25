@@ -3,6 +3,7 @@ package com.wlm.wlm.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,8 +21,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.WebViewActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UToast;
+import com.wlm.wlm.util.UiHelper;
 
 /**
  * Created by LG on 2018/11/13.
@@ -149,6 +153,14 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
                 }else {
                     onRegisterListener.getModify(mEtInputPhone.getText().toString(), mEtInputVcode.getText().toString(), mEtInputInvitation.getText().toString());
                 }
+
+                break;
+
+            case R.id.ll_protocol:
+
+                Bundle bundle = new Bundle();
+                bundle.putString("type","2");
+                UiHelper.launcherBundle(context, WebViewActivity.class,bundle);
 
                 break;
         }

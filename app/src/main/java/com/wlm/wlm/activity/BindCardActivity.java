@@ -19,6 +19,7 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.BindCardContract;
 import com.wlm.wlm.entity.BankBean;
+import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.presenter.BindCardPresenter;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
@@ -76,6 +77,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
 
         bindCardPresenter.onCreate(this,this);
 
+        bindCardPresenter.getBankCard(ProApplication.SESSIONID(this));
 
         bindCardPresenter.getBankInfo(ProApplication.SESSIONID(this));
 
@@ -198,6 +200,18 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
 
     @Override
     public void onSendVcodeFail(String str) {
+
+    }
+
+    @Override
+    public void getBankSuccess(UserBankBean userBankBean) {
+//        et_bank_name.setText(userBankBean.getUserName());
+//        et_bank_card_num.setText(userBankBean.getBankNo()+"");
+//        tv_bank_name.setText(userBankBean.getBankName());
+    }
+
+    @Override
+    public void getBankFail(String msg) {
 
     }
 

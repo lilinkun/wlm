@@ -1,6 +1,7 @@
 package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.ErrorBean;
+import com.wlm.wlm.entity.OpinionBean;
 import com.wlm.wlm.mvp.IView;
 
 import java.util.ArrayList;
@@ -15,4 +16,7 @@ public interface OpinionContract extends IView {
 
     public void getTypeSuccess(ArrayList<ErrorBean> errorBeans);
     public void getTypeFail(String msg);
+
+    public void getOpinionListSuccess(ArrayList<OpinionBean> opinionBeans);
+    public void getOpinionListFail(String msg);
 }

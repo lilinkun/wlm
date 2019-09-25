@@ -10,6 +10,7 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -96,6 +97,33 @@ public class LoginPresenter extends BasePresenter {
                     }
                 })
         );
+    }
+
+    /**
+     * 获取图片地址前缀
+     */
+    public void getUrl(){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Home");
+        params.put("fun","SettingParameter");
+
+        mCompositeSubscription.add(manager.getUrl(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<UrlBean,Object>(){
+
+                    @Override
+                    public void onResponse(UrlBean urlBean, String status,Object page) {
+                        mLoginView.getUrlSuccess(urlBean);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        mLoginView.getUrlFail(msg);
+                    }
+
+                }));
+
     }
 
 

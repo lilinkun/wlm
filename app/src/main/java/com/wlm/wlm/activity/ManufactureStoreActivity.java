@@ -46,8 +46,8 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     TopLinearlayout ll_top;
     @BindView(R.id.custom_sort)
     CustomSortLayout custom_sort;
-    @BindView(R.id.et_store_search)
-    EditText editText;
+    @BindView(R.id.tv_store_search)
+    TextView tv_store_search;
 
 //    String[] strs = {"精选","护肤套装", "防晒脱毛", "彩妆香水", "面部精华", "男士服饰", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
     ArrayList<String> strings = new ArrayList<>();
@@ -92,10 +92,10 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         ll_top.setListener(this);
 
-        editText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        editText.setSingleLine();
+       /* tv_store_search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        tv_store_search.setSingleLine();
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        tv_store_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId,
@@ -116,18 +116,27 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
                 }
                 return false;
             }
-        });
+        });*/
 
 
         custom_sort.setListener(this);
+
     }
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.ll_search})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
 
                 finish();
+
+                break;
+
+            case R.id.ll_search:
+
+                Bundle bundle = new Bundle();
+                bundle.putString("id","8");
+                UiHelper.launcherBundle(this,SearchActivity.class,bundle);
 
                 break;
         }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.wlm.wlm.contract.OpinionContract;
 import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.ErrorBean;
+import com.wlm.wlm.entity.OpinionBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -98,6 +99,38 @@ public class OpinionPresenter extends BasePresenter {
                     @Override
                     public void onErr(String msg, String status) {
                         opinionContract.getTypeFail(msg);
+                    }
+                }));
+    }
+
+    /**
+     * 获取留言历史列表
+     * @param Type
+     * @param SessionId
+     */
+    public void getList(String PageIndex,String PageCount,String Type,String SessionId){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("cls","Message");
+        hashMap.put("fun","MessageList");
+        hashMap.put("PageIndex",PageIndex);
+        hashMap.put("PageCount",PageCount);
+        if (!Type.equals("")) {
+            hashMap.put("Type", Type);
+        }
+        hashMap.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.opinionHistory(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<OpinionBean>,Object>() {
+
+                    @Override
+                    public void onResponse(ArrayList<OpinionBean> errorBeans, String status,Object page) {
+                        opinionContract.getOpinionListSuccess(errorBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        opinionContract.getOpinionListFail(msg);
                     }
                 }));
     }

@@ -1,6 +1,7 @@
 package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.BankBean;
+import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.mvp.IView;
 
 import java.util.ArrayList;
@@ -19,4 +20,8 @@ public interface BindCardContract extends IView {
 
     public void onSendVcodeSuccess();
     public void onSendVcodeFail(String str);
+
+
+    public void getBankSuccess(UserBankBean userBankBean);
+    public void getBankFail(String msg);
 }

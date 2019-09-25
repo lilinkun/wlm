@@ -219,6 +219,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_update"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginLeft="@dimen/margin_10"
@@ -250,12 +251,14 @@
                 android:id="@+id/tv_new_edition"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:background="@drawable/new_edition"
-                android:text="有新版本"
+                android:textColorHint="@color/line_bg"
+                android:text="最新版本"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize12"/>
 
+<!--            android:background="@drawable/new_edition"-->
+<!--            android:text="有新版本"-->
 
             <ImageView
                 android:layout_width="wrap_content"

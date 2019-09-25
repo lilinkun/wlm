@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -15,6 +16,7 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.IWxLoginListener;
 import com.wlm.wlm.interf.IWxResultListener;
@@ -37,6 +39,8 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
     @BindView(R.id.ll_wx_login)
     LinearLayout ll_wx_login;
+    @BindView(R.id.tv_service_agreement)
+    TextView tv_service_agreement;
 
     private LoginPresenter loginPresenter = new LoginPresenter();
     IWXAPI iwxapi = null;
@@ -59,10 +63,10 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         WXEntryActivity.setLoginListener(this);
 
         loginPresenter.onCreate(this,this);
-
+        loginPresenter.getUrl();
     }
 
-    @OnClick({R.id.ll_wx_login})
+    @OnClick({R.id.ll_wx_login,R.id.tv_service_agreement})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_wx_login:
@@ -86,6 +90,14 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
                 }
                 break;
 
+            case R.id.tv_service_agreement:
+
+                Bundle bundle = new Bundle();
+                bundle.putString("type","2");
+                UiHelper.launcherBundle(this,WebViewActivity.class,bundle);
+
+
+                break;
         }
     }
 
@@ -119,6 +131,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
                 .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
+                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl())
                 .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);
@@ -144,6 +157,25 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     public void showPromptMessage(int str) {
         toast(str);
+    }
+
+    @Override
+    public void getUrlSuccess(UrlBean urlBean) {
+
+            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+            ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+            ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+            ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
+            ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
+            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
+                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
+
+    }
+
+    @Override
+    public void getUrlFail(String msg) {
+
     }
 
     @Override

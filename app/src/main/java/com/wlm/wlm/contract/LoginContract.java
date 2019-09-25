@@ -1,6 +1,7 @@
 package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.mvp.IView;
 
 /**
@@ -12,5 +13,8 @@ public interface LoginContract extends IView {
     public void onLoginFail(String msg);
 
     public void showPromptMessage(int str);
+
+    public void getUrlSuccess(UrlBean urlBean);
+    public void getUrlFail(String msg);
 
 }

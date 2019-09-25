@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +85,14 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     RecyclerView rv_search_goods;
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.tv_search)
+    TextView tv_search;
+    @BindView(R.id.ll_search)
+    LinearLayout ll_search;
+    @BindView(R.id.tv_search_et)
+    TextView tv_search_et;
+    @BindView(R.id.ic_search_icon)
+    ImageView ic_search_icon;
 
     SelfSearchPresenter selfSearchPresenter = new SelfSearchPresenter();
     private PopupWindow popupWindow;
@@ -91,7 +100,6 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     private String SortField = "add_time";
     private TbHotGoodsAdapter tbHotGoodsAdapter;
     private TbMaterielBean tbDisCountBean;
-    private TbAdapter tbAdapter;
     private ArrayList<HotHomeBean> hotHomeBeans = new ArrayList<>();
     private LinearLayout.LayoutParams layoutParams;
     private String goodsType = "";
@@ -110,6 +118,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
         if(getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id") != null){
             goodsType = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id");
+            ll_top.setText(MallType.getVipById(goodsType).getTypeName());
         }
 
 
@@ -181,6 +190,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     ll_result.setVisibility(View.GONE);
                     ll_search_goods_type.setVisibility(View.GONE);
                     goodsType = "";
+                    tv_search.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -220,12 +230,33 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     }
 
     private void doSearch(){
+
+
+        if(!mEtSearch.getText().toString().isEmpty()) {
+            if (DBManager.getInstance(this).querySearch(mEtSearch.getText().toString()).size() == 0) {
+                SearchBean searchBean = new SearchBean();
+                searchBean.setUsername(MainFragmentActivity.username);
+                searchBean.setSearchname(mEtSearch.getText().toString());
+                if (DBManager.getInstance(this).querySearch(mEtSearch.getText().toString()).size() == 0) {
+                    DBManager.getInstance(this).insertSearchBean(searchBean);
+                }
+            }
+        }
+
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.setting_title_color));
+        tv_search.setVisibility(View.GONE);
+        ll_search.setVisibility(View.VISIBLE);
+        tv_search_et.setText(mEtSearch.getText().toString());
+        mEtSearch.setVisibility(View.INVISIBLE);
+        ic_search_icon.setVisibility(View.GONE);
+
         ll_result.setVisibility(View.VISIBLE);
         ll_search_goods_type.setVisibility(View.VISIBLE);
         selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
     }
 
-    @OnClick({R.id.tv_search,R.id.ic_search_history_delete,R.id.ll_search_goods_type})
+    @OnClick({R.id.tv_search,R.id.ic_search_history_delete,R.id.ll_search_goods_type,R.id.ll_search,R.id.rl_search_top})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_search:
@@ -233,6 +264,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 if (popupWindow != null && popupWindow.isShowing()){
                     popupWindow.dismiss();
                 }
+
 
                 doSearch();
 
@@ -252,23 +284,40 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
                 break;
 
+            case R.id.ll_search:
 
+                mEtSearch.setVisibility(View.VISIBLE);
+                ll_search.setVisibility(View.GONE);
+                ll_result.setVisibility(View.GONE);
+                ll_search_goods_type.setVisibility(View.GONE);
+                tv_search.setVisibility(View.VISIBLE);
+                ic_search_icon.setVisibility(View.VISIBLE);
+                mEtSearch.setText("");
+                Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+                mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.white));
+
+                break;
+
+            case R.id.rl_search_top:
+
+                if (mEtSearch != null && mEtSearch.getText().toString().length() > 0){
+                    ll_search.setVisibility(View.GONE);
+                    ll_search_goods_type.setVisibility(View.GONE);
+                    tv_search.setVisibility(View.VISIBLE);
+                    ll_result.setVisibility(View.GONE);
+                    mEtSearch.setVisibility(View.VISIBLE);
+                    ic_search_icon.setVisibility(View.VISIBLE);
+                    Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+                    mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.white));
+                    mEtSearch.setSelection(mEtSearch.getText().toString().length());
+                }
+
+                break;
         }
     }
 
     @Override
     public void onSuccess(final ArrayList<TbMaterielBean> tbMaterielBeans) {
-        if (tbAdapter == null) {
-
-            Bundle bundle1 = new Bundle();
-            bundle1.putInt("position", 20);
-            bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
-            UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
-            if (ActivityUtil.activityList.size() > 1){
-                ActivityUtil.removeOldActivity();
-            }
-
-        }
 
     }
 

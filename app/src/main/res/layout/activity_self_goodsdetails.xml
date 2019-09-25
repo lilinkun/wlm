@@ -348,7 +348,7 @@
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="3.0"
-            android:background="@color/goods_car_bg">
+            android:background="@color/goods_add_cart">
 
             <TextView
                 android:id="@+id/tx_go_TB"
@@ -358,7 +358,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/goods_add_shoppingcar"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textsize13" />
+                android:textSize="@dimen/textsize15" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -375,7 +375,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/goods_buy_now"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textsize14" />
+                android:textSize="@dimen/textsize15" />
         </RelativeLayout>
     </LinearLayout>
 

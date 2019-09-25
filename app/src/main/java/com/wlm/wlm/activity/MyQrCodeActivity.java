@@ -72,7 +72,9 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 
         tv_qr_name.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
 
-        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")).error(R.mipmap.ic_adapter_error).into(ic_head);
+        if (sharedPreferences.getString(WlmUtil.HEADIMGURL,"") != null && !sharedPreferences.getString(WlmUtil.HEADIMGURL,"").equals("")) {
+            Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(ic_head);
+        }
 
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher1);
 //        Bitmap bitmap1 = QRCodeUtil.createQRCodeWithLogo("大王叫"+tv_qr_name.getText().toString()+"来巡山",bitmap);

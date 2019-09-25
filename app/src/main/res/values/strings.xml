@@ -10,7 +10,7 @@
     <string name="register_protocol">用户使用协议</string>
     <string name="register_input_vcode">请输入验证码</string>
     <string name="register_input_pwd">请输入邀请码</string>
-    <string name="register_input_invitation">请输入邀请码</string>
+    <string name="register_input_invitation">请输入邀请码(选填)</string>
     <string name="register_send_vcoed">获取验证码</string>
     <string name="register_input_account">请输入帐号，暂不识别中文</string>
     <string name="register_input_name">请输入您的真实姓名</string>

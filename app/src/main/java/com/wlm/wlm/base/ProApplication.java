@@ -1,6 +1,5 @@
 package com.wlm.wlm.base;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -8,7 +7,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import com.wlm.wlm.util.DeviceData;
 
@@ -96,6 +94,12 @@ public class ProApplication extends Application{
     public static String CUSTOMERIMG = "";
 
     public static String SHAREDIMG = "";
+
+    public static String REGISTERREQUIREMENTS = "";
+
+    public static String UPGRADEURL = "";
+
+    public static String UPGRADETOKEN = "";
 
     public static String VIPVALIDITY = "";
 

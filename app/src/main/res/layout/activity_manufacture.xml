@@ -58,6 +58,7 @@
             android:orientation="vertical"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
         <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="@dimen/margin_10"
@@ -74,8 +75,8 @@
                 android:layout_marginLeft="@dimen/margin_10"
                 android:src="@mipmap/ic_search_icon"/>
 
-            <EditText
-                android:id="@+id/et_store_search"
+            <TextView
+                android:id="@+id/tv_store_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="积雪草奇迹软膜面膜"
@@ -206,6 +207,10 @@
                 app:down_arrow="@mipmap/ic_store_dot_down"
                 />
 
+            <!--<android.support.v4.view.ViewPager
+                android:id="@+id/vp_sort"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>-->
 
             <com.wlm.wlm.ui.CustomSortLayout
                 android:id="@+id/custom_sort"

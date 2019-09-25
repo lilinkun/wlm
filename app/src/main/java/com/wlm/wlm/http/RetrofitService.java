@@ -31,6 +31,7 @@ import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.OpinionBean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
@@ -112,6 +113,10 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean> opinion(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<OpinionBean> ,Object>> opinionHistory(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

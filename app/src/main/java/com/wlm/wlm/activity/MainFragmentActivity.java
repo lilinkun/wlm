@@ -324,6 +324,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.ACCOUNT,loginBean.getNickName()).putString(WlmUtil.TELEPHONE,loginBean.getMobile())
                 .putString(WlmUtil.USERNAME,loginBean.getUserName()).putString(WlmUtil.USERID,loginBean.getUserId())
+                .putString(WlmUtil.HEADIMGURL,loginBean.getPortrait())
                 .putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
 
         ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");

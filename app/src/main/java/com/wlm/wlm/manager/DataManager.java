@@ -33,6 +33,7 @@ import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.OpinionBean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.OrderDetailBean;
@@ -135,6 +136,13 @@ public class DataManager {
      */
     public Observable<ResultBean> opinion(HashMap<String, String> mHashMap){
         return mRetrofitService.opinion(mHashMap);
+    }
+
+    /**
+     * 意见历史反馈
+     */
+    public Observable<ResultBean<ArrayList<OpinionBean> ,Object>> opinionHistory(HashMap<String, String> mHashMap){
+        return mRetrofitService.opinionHistory(mHashMap);
     }
 
     /**

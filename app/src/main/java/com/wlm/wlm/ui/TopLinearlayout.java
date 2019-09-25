@@ -62,7 +62,7 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
         type = a.getInteger(R.styleable.TopLayout_type,1);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_top,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_top,this,false);
 
         tx_moren = view.findViewById(R.id.tx_moren);
         tx_host = view.findViewById(R.id.tx_host);

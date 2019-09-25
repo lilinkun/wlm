@@ -7,6 +7,7 @@ import com.wlm.wlm.contract.ChooseAddressContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -46,6 +47,30 @@ public class BindCardPresenter extends BasePresenter {
         mCompositeSubscription.unsubscribe();
     }
 
+    /**
+     * 获取银行卡信息
+     * @param SessionId
+     */
+    public void getBankCard(String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","UserBase");
+        params.put("fun","UserBaseBankGet");
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getBankBean(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<UserBankBean,Object>() {
+                    @Override
+                    public void onResponse(UserBankBean balanceDetailBeans, String status,Object page) {
+                        bindCardContract.getBankSuccess(balanceDetailBeans);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        bindCardContract.getBankFail(msg);
+                    }
+                }));
+    }
 
     public void getBankInfo(String SessionId){
         HashMap<String, String> params = new HashMap<>();

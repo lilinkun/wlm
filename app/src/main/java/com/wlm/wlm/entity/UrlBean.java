@@ -12,6 +12,7 @@ public class UrlBean {
     private String SharedWebUrl;
     private String UpgradeUrl;
     private String UpgradeToken;
+    private String RegisterRequirements;
 
     public String getImgUrl() {
         return imgUrl;
@@ -51,5 +52,13 @@ public class UrlBean {
 
     public void setUpgradeToken(String upgradeToken) {
         UpgradeToken = upgradeToken;
+    }
+
+    public String getRegisterRequirements() {
+        return RegisterRequirements;
+    }
+
+    public void setRegisterRequirements(String registerRequirements) {
+        RegisterRequirements = registerRequirements;
     }
 }

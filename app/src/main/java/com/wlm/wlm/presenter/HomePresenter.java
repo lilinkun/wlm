@@ -97,7 +97,6 @@ public class HomePresenter extends BasePresenter {
                     @Override
                     public void onResponse(UrlBean urlBean, String status,Object page) {
                         homeContract.getUrlSuccess(urlBean);
-//                        homeContract.onSuccess(arrayListTbjsonBean.getResults()));
                     }
 
                     @Override
