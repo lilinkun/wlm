@@ -157,5 +157,35 @@ public class PersonalInfoPresenter extends BasePresenter {
         );
     }
 
+    /*public void update(String sessionid){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("fun", "Update");
+        params.put("cls", "Home");
+        params.put("SessionId", sessionid);
+        mCompositeSubscription.add(manager.update(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<DownloadBean , Object>() {
+
+                    @Override
+                    public void onResponse(DownloadBean downloadBean, String status,Object pageBean) {
+                        settingView.updateSuccess(downloadBean);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        settingView.updateFail(msg);
+                    }
+
+
+                    @Override
+                    public void onNext(ResultBean resultBean) {
+                        super.onNext(resultBean);
+                    }
+                })
+        );
+
+    }*/
+
 
 }

@@ -1,10 +1,13 @@
 package com.wlm.wlm.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -111,7 +114,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 
                 Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                thumbBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
                 msg.thumbData = baos.toByteArray();
 
@@ -146,13 +149,15 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
         v.draw(canvas);
         String TAG = "TIKTOK";
         Log.e(TAG, "保存图片");
-        File f = new File("/sdcard/DCIM/Screenshots/", fileName);
+        String dir = Environment.getExternalStorageDirectory().getAbsolutePath() +  "/tencent/MicroMsg/WeiXin/";
+        File f = new File( dir,fileName);
+//        File f = new File("/sdcard/DCIM/Screenshots/", fileName);
         if (f.exists()) {
             f.delete();
         }
         try {
             FileOutputStream out = new FileOutputStream(f);
-            bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+            bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
             Log.i(TAG, "已经保存");
@@ -163,6 +168,13 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
     // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        toast("保存成功");
+
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(f);
+        intent.setData(uri);
+        sendBroadcast(intent);
     }
 
     @Override
