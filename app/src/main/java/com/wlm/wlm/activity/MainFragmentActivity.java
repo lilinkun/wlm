@@ -4,13 +4,17 @@ package com.wlm.wlm.activity;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.trycath.myupdateapklibrary.UpdateApk;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.FragmentsAdapter;
@@ -30,6 +35,7 @@ import com.wlm.wlm.contract.MainFragmentContract;
 import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.fragment.HomeFragment;
 import com.wlm.wlm.fragment.LzyMallFragment;
 import com.wlm.wlm.fragment.MeFragment;
@@ -37,9 +43,12 @@ import com.wlm.wlm.fragment.WlmCartFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
+import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UpdateManager;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,6 +61,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.update.BGADownloadProgressEvent;
 import cn.bingoogolapple.update.BGAUpgradeUtil;
+import okhttp3.Call;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import rx.Subscriber;
@@ -114,52 +124,6 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver,filter);
 
-//        mainFragmentPresenter.update(ProApplication.SESSIONID(this));
-        String url = "http://api.fir.im/apps/latest/5c2c765a959d696162a55d44";
-        /*OkHttpUtils.get()
-                .url(url)
-                .addParams("api_token", "51ac2356b46338ac2d5704d1a8ef446d")
-                .build()
-                .execute(new StringCallback() {
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                        Log.d("err===========", e + "");
-                    }
-
-
-                    @Override
-                    public void onResponse(String response, int id) {
-
-                        Log.d("ok===========", response);
-
-                        Gson gson = new Gson();
-                        bean = gson.fromJson(response, CheckBean.class);
-
-                        if (bean.getVersionShort() > UpdateManager.getInstance().getVersionName(MainFragmentActivity.this)) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainFragmentActivity.this).setMessage("请升级更新app").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    mApkUrl = bean.getInstall_url();
-                                    deleteApkFile();
-                                    downloadApkFile();
-                                }
-                            });
-                            builder.create().setCanceledOnTouchOutside(false);
-                            //  builder.setCancelable(false);
-                            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    finish();
-                                }
-                            });
-                            builder.show();
-
-                        }
-                    }
-                });*/
 
         onPageBind();
 
@@ -184,6 +148,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         mainFragmentPresenter.login(sharedPreferences.getString(WlmUtil.OPENID, ""), sharedPreferences.getString(WlmUtil.UNIONID, ""), "2", ProApplication.SESSIONID(this));
 
+        mainFragmentPresenter.getUrl();
     }
 
     @OnClick({R.id.menu_bottom_1,R.id.menu_bottom_2,R.id.menu_bottom_3})
@@ -340,6 +305,79 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         }
     }
 
+    @Override
+    public void getUrlSuccess(UrlBean urlBean) {
+        update(urlBean);
+
+        ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
+        ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
+
+        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
+            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+            ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+            ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+            ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
+            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
+                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
+        }
+    }
+
+    private CheckBean bean1;
+    private void update(UrlBean urlBean){
+        String url = urlBean.getUpgradeUrl();
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("api_token", urlBean.getUpgradeToken())
+                .build()
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                        Log.d("err===========", e + "");
+                    }
+
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        Log.d("ok===========", response);
+
+                        Gson gson = new Gson();
+                        bean1 = gson.fromJson(response, CheckBean.class);
+
+                        if (bean1.getVersionShort() > UpdateManager.getInstance().getVersionName(MainFragmentActivity.this)) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainFragmentActivity.this).setMessage("请升级更新app").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    mApkUrl = bean1.getInstall_url();
+                                    deleteApkFile();
+                                    downloadApkFile();
+                                }
+                            });
+                            builder.create().setCanceledOnTouchOutside(false);
+                            //  builder.setCancelable(false);
+                            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    finish();
+                                }
+                            });
+                            builder.show();
+
+                        }
+                    }
+                });
+
+    }
+
+    @Override
+    public void getUrlFail(String msg) {
+
+    }
+
     /**
      * 删除之前升级时下载的老的 apk 文件
      */
@@ -367,6 +405,22 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             EasyPermissions.requestPermissions(this, "使用 BGAUpdateDemo 需要授权读写外部存储权限!", RC_PERMISSION_DOWNLOAD, perms);
         }
     }
+
+    /*public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case RC_PERMISSION_DOWNLOAD:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    downNewApk();
+                } else if (grantResults[0] == RC_PERMISSION_DELETE){
+                    // 删除之前升级时下载的老的 apk 文件
+                    BGAUpgradeUtil.deleteOldApk();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }*/
+
 
     private void downNewApk(){
         // 如果新版 apk 文件已经下载过了，直接 return，此时不需要开发者调用安装 apk 文件的方法，在 isApkFileDownloaded 里已经调用了安装」
@@ -408,7 +462,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         if (mDownloadingDialog == null) {
             mDownloadingDialog = new DownloadingDialog(this);
         }
-        mDownloadingDialog.setUpdateMessage(bean.getChangelog() + "");
+        mDownloadingDialog.setUpdateMessage(bean1.getChangelog() + "");
         mDownloadingDialog.show();
     }
 

@@ -2,6 +2,7 @@ package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.LoginBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.mvp.IView;
 
 /**
@@ -15,5 +16,8 @@ public interface MainFragmentContract extends IView {
 
     public void onLoginSuccess(LoginBean loginBean);
     public void onLoginFail(String msg);
+
+    public void getUrlSuccess(UrlBean urlBean);
+    public void getUrlFail(String msg);
 
 }

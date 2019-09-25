@@ -75,7 +75,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @BindView(R.id.rv_recommend)
     CommendRecyclerView recyclerView;
 
-
+    private String goodsid = "";
     GoodsListBean goodsListBean = null;
     GrouponGoodsDetailPresenter grouponGoodsDetailPresenter = new GrouponGoodsDetailPresenter();
     private GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean;
@@ -97,13 +97,15 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null){
             goodsListBean = (GoodsListBean) bundle.getSerializable(WlmUtil.GROUPONGOODS);
-
+            goodsid = goodsListBean.getGoodsId();
+        }else if (bundle != null && bundle.getString(WlmUtil.GOODSID) != null && bundle.getString(WlmUtil.GOODSID).equals("")){
+            goodsid = bundle.getString(WlmUtil.GOODSID);
         }
 
         grouponGoodsDetailPresenter.onCreate(this,this);
-        grouponGoodsDetailPresenter.getGoodsDetail(goodsListBean.getGoodsId(), ProApplication.SESSIONID(this));
+        grouponGoodsDetailPresenter.getGoodsDetail(goodsid, ProApplication.SESSIONID(this));
 
-        grouponGoodsDetailPresenter.randomGoods("2",goodsListBean.getGoodsId());
+        grouponGoodsDetailPresenter.randomGoods("2",goodsid);
 
 
         FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
@@ -161,13 +163,13 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
-        tv_groupon_price.setText(goodsListBean.getPrice()+"");
+        tv_groupon_price.setText(goodsDetailBean.getPrice()+"");
 
-        tv_groupon_old_price.setText("¥" + goodsListBean.getMarketPrice());
+        tv_groupon_old_price.setText("¥" + goodsDetailBean.getMarketPrice());
 
-        tv_goods_name.setText(goodsListBean.getGoodsName());
+        tv_goods_name.setText(goodsDetailBean.getGoodsName());
 
-        tv_grounon_info.setText(goodsListBean.getGoodsSmallName());
+        tv_grounon_info.setText(goodsDetailBean.getGoodsSmallName());
 
         tv_groupon_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -183,10 +185,10 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         startBanner(goodsDetailBean);
 
-        if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
+        if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 0){
             tv_right_now_groupon.setVisibility(View.GONE);
             tv_distance_ends.setText("距开始");
-        }else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 1){
+        }else if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 1){
             tv_distance_ends.setText("距结束");
         }else {
             tv_right_now_groupon.setVisibility(View.GONE);

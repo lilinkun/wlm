@@ -9,6 +9,7 @@ import com.wlm.wlm.contract.MainFragmentContract;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.ResultBean;
+import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -52,36 +53,32 @@ public class MainFragmentPresenter extends BasePresenter {
     }
 
 
-    public void update(String sessionid){
+    /**
+     * 获取图片地址前缀
+     */
+    public void getUrl(){
         HashMap<String, String> params = new HashMap<>();
-        params.put("fun", "Update");
-        params.put("cls", "Home");
-        params.put("SessionId", sessionid);
-        mCompositeSubscription.add(manager.update(params)
+        params.put("cls","Home");
+        params.put("fun","SettingParameter");
+
+        mCompositeSubscription.add(manager.getUrl(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<DownloadBean, Object>() {
+                .subscribe(new HttpResultCallBack<UrlBean,Object>(){
 
                     @Override
-                    public void onResponse(DownloadBean downloadBean, String status,Object page) {
-                        mainFragmentContract.getUpdateSuccess(downloadBean);
+                    public void onResponse(UrlBean urlBean, String status,Object page) {
+                        mainFragmentContract.getUrlSuccess(urlBean);
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
-                        mainFragmentContract.getUpdateFail(msg);
+                        mainFragmentContract.getUrlFail(msg);
                     }
 
-
-                    @Override
-                    public void onNext(ResultBean resultBean) {
-                        super.onNext(resultBean);
-                    }
-                })
-        );
+                }));
 
     }
-
     /**
      * 登陆
      */

@@ -20,7 +20,10 @@ import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
@@ -41,6 +44,7 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.FlashBean;
+import com.wlm.wlm.entity.FlashHomeBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
@@ -55,6 +59,7 @@ import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
@@ -392,6 +397,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                                     mApkUrl = bean.getInstall_url();
                                     deleteApkFile();
                                     downloadApkFile();
+                                    dialog.dismiss();
                                 }
                             });
                             builder.create().setCanceledOnTouchOutside(false);
@@ -522,6 +528,31 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void OnBannerClick(int position) {
         FlashBean flashBean = flashBeans.get(position);
+
+        String url = flashBean.getFlashUrl();
+        if (url.contains("GoodsId") && url.contains("GoodsType")) {
+            try {
+                JSONObject jsonObject = JSON.parseObject(url);
+                String goodsid = jsonObject.getString("GoodsId");
+                int GoodsType = jsonObject.getInteger("GoodsType");
+                Bundle bundle = new Bundle();
+                if (GoodsType == 2){
+                    bundle.putString(WlmUtil.GOODSID, goodsid);
+                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
+                    UiHelper.launcherBundle(getActivity(), GrouponGoodsDetailActivity.class, bundle);
+                }else {
+                    bundle.putString(WlmUtil.GOODSID, goodsid);
+                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+//        UToast.show(getActivity(),"goodsid:" + goodsid);
+
 //        if (flashBean.getUrl() != null && flashBean.getUrl().length() > 0  && PhoneFormatCheckUtils.isNumeric(flashBean.getUrl())){
 //            if (Integer.valueOf(flashBean.getUrl()) > 0){
 //                Bundle bundle = new Bundle();
@@ -624,5 +655,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             dialog.show();
         }
     }
+
+
 
 }

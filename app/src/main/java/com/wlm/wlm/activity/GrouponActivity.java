@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.ChooseGrouponAdapter;
 import com.wlm.wlm.adapter.GrouponAdapter;
@@ -60,6 +62,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     GrouponPresenter groupon = new GrouponPresenter();
     GrouponAdapter grouponAdapter = null;
     ArrayList<GoodsListBean> goodsListBeans = null;
+    private ArrayList<FlashBean> flashBeans;
 
     private int goodstype = 2;
     private String orderby = "0";
@@ -143,7 +146,28 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void OnBannerClick(int position) {
+        FlashBean flashBean = flashBeans.get(position);
+        String url = flashBean.getFlashUrl();
+        if (url.contains("GoodsId") && url.contains("GoodsType")) {
+            try {
+                JSONObject jsonObject = JSON.parseObject(url);
+                String goodsid = jsonObject.getString("GoodsId");
+                int GoodsType = jsonObject.getInteger("GoodsType");
+                Bundle bundle = new Bundle();
+                if (GoodsType == 2){
+                    bundle.putString(WlmUtil.GOODSID, goodsid);
+                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
+                    UiHelper.launcherBundle(this, GrouponGoodsDetailActivity.class, bundle);
+                }else {
+                    bundle.putString(WlmUtil.GOODSID, goodsid);
+                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
+                    UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @OnClick({R.id.ll_back})
@@ -279,7 +303,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     @Override
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
-
+        this.flashBeans = flashBeans;
         startBanner(flashBeans);
     }
 
