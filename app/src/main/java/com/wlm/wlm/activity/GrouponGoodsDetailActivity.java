@@ -175,6 +175,11 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         wv_goods_detail.getSettings().setJavaScriptEnabled(true);
 
+        wv_goods_detail.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); // 让网页的内容呈单列显示
+        wv_goods_detail.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH); // 加速显示图片
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            wv_goods_detail.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         wv_goods_detail.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;

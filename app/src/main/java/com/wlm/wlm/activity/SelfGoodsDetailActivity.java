@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Gravity;
@@ -57,6 +58,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.webkit.WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE;
 
 /**
  * Created by LG on 2018/12/8.
@@ -364,16 +367,20 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); // 让网页的内容呈单列显示
+        webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH); // 加速显示图片
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
+
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });
-        webView.getSettings().setDisplayZoomControls(false);
         String mobileDesc = goodsDetailBean.getMobileDesc();
 
+//        webView.loadUrl("http://192.168.0.106:8080/liguo/liguo.html");
 //        webView.loadUrl("http://manage.boos999.com/goods/mobiledetail/1345");
         webView.loadUrl(mobileDesc);
 
