@@ -230,6 +230,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
                                 mTeamType = "1";
                             } else if (position == 1) {
                                 mTeamType = "2";
+                            } else if (position == 2){
+                                mTeamType = "0";
                             }
                             ll_top.setText(GrouponType.values()[position].getTypeName());
                             orderby = "0";

@@ -40,7 +40,7 @@
                 <TextView
                     android:id="@+id/tv_goods_title_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="28dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:textColor="@color/pop_text_bg"
@@ -69,7 +69,6 @@
                         android:layout_alignParentBottom="true"
                         android:layout_toRightOf="@+id/tv_goods_type_price"
                         android:textColor="@color/red_price"
-                        android:layout_marginLeft="5dp"
                         android:textSize="@dimen/textsize15" />
 
                     <LinearLayout
@@ -109,6 +108,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/grey_color3"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textSize="@dimen/textsize11"
                         />
 

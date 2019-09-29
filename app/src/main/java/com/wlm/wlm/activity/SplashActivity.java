@@ -27,7 +27,7 @@ public class SplashActivity extends BaseActivity {
     @BindView(R.id.ll_splash)
     LinearLayout ll_splash;
 
-    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(5000, 1000);
+    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(1000, 1000);
 
     @Override
     public int getLayoutId() {

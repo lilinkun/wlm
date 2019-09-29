@@ -92,6 +92,7 @@ public class SelfSearchPresenter extends BasePresenter {
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
         params.put("GoodsName",GoodsName);
+        params.put("GoodsFlag","2");
         if (!GoodsType.equals("")) {
             params.put("GoodsType", GoodsType);
         }

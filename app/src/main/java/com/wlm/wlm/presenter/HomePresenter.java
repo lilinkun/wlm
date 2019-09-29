@@ -116,6 +116,7 @@ public class HomePresenter extends BasePresenter {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListRecommendVip");
+        params.put("GoodsFlag","2");
         params.put("type",type);
         mCompositeSubscription.add(manager.getGoodsList(params)
                 .subscribeOn(Schedulers.io())

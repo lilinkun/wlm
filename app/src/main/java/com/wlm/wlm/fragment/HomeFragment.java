@@ -205,16 +205,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    @OnClick({R.id.lin_list, R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
+    @OnClick({ R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
             ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding,R.id.ll_strategy,R.id.ll_home_opinion})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
-                case R.id.lin_list:
-
-//                    UiHelper.launcher(getActivity(), Category1Activity.class);
-
-                    break;
 
                 case R.id.text_search:
 
@@ -551,17 +546,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             }
         }
 
-//        UToast.show(getActivity(),"goodsid:" + goodsid);
-
-//        if (flashBean.getUrl() != null && flashBean.getUrl().length() > 0  && PhoneFormatCheckUtils.isNumeric(flashBean.getUrl())){
-//            if (Integer.valueOf(flashBean.getUrl()) > 0){
-//                Bundle bundle = new Bundle();
-//                bundle.putString("goodsid",flashBean.getUrl());
-//                UiHelper.launcherBundle(getActivity(),SelfGoodsDetailActivity.class,bundle);
-//            }
-//        }
-
-//        UiHelper.launcher(getActivity(), GoodsDetailActivity.class);
     }
 
     /**

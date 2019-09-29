@@ -16,7 +16,9 @@ import com.wlm.wlm.entity.HotHomeBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,7 +78,8 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             holder.goodsBuyCountTv.setText(homeBean.getUseNumber() + "");
 
             holder.tv_add_integral.setText(homeBean.getIntegral()+"");
-            holder.tv_old_price.setText("￥"+homeBean.getMarketPrice());
+
+            holder.tv_old_price.setText("¥"+ WlmUtil.getPriceNum(homeBean.getMarketPrice()));
             holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
             if (isAdd_Integral){

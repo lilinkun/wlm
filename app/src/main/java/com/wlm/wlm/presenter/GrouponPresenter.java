@@ -65,6 +65,7 @@ public class GrouponPresenter extends BasePresenter {
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
         params.put("OrderBy",OrderBy);
+        params.put("GoodsFlag","2");
         if (!TeamType.equals("0")){
             params.put("TeamType",TeamType);
         }
@@ -114,6 +115,7 @@ public class GrouponPresenter extends BasePresenter {
         params.put("AddressID",AddressID);
         params.put("ShippingFree",ShippingFree);
         params.put("Integral",Integral);
+        params.put("GoodsFlag","2");
         params.put("SessionId",SessionId);
         mCompositeSubscription.add(manager.grouponOrder(params)
                 .subscribeOn(Schedulers.io())

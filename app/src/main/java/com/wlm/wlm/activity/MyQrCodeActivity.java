@@ -106,7 +106,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                 miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
                 miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
                 miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
-                miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
                 //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
                 WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
                 msg.title = "唯乐美商城";                    // 小程序消息title
@@ -179,8 +179,8 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 
     @Override
     public void getQrCodeSuccess(LoginBean loginBean) {
-
-        Picasso.with(this).load(loginBean.getSharedErm()).error(R.mipmap.ic_adapter_error).into(ic_qrcode);
+        String sharedStr = loginBean.getSharedErm();
+        Picasso.with(this).load(ProApplication.BANNERIMG + loginBean.getSharedErm()).error(R.mipmap.ic_adapter_error).into(ic_qrcode);
     }
 
     @Override

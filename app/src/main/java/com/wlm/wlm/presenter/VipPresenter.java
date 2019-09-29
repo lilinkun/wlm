@@ -59,6 +59,7 @@ public class VipPresenter extends BasePresenter {
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
         params.put("OrderBy",OrderBy);
+        params.put("GoodsFlag","2");
         if (!TeamType.equals("0")){
             params.put("TeamType",TeamType);
         }

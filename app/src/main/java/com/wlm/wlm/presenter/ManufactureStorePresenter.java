@@ -106,6 +106,7 @@ public class ManufactureStorePresenter extends BasePresenter {
         params.put("GoodsType",GoodsType);
         params.put("CategoryId",CategoryId);
         params.put("OrderBy",OrderBy);
+        params.put("GoodsFlag","2");
         params.put("GoodsName",GoodsName);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())

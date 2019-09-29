@@ -30,6 +30,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
@@ -60,11 +63,13 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.update.BGADownloadProgressEvent;
 import cn.bingoogolapple.update.BGAUpgradeUtil;
 import okhttp3.Call;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import rx.Subscriber;
+import rx.functions.Action1;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
@@ -160,7 +165,17 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
         nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
         tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE,"")));
-
+        // 监听下载进度
+        BGAUpgradeUtil.getDownloadProgressEventObservable()
+                .compose(this.<BGADownloadProgressEvent>bindToLifecycle())
+                .subscribe(new Action1<BGADownloadProgressEvent>() {
+                    @Override
+                    public void call(BGADownloadProgressEvent downloadProgressEvent) {
+                        if (mDownloadingDialog != null && mDownloadingDialog.isShowing() && downloadProgressEvent.isNotDownloadFinished()) {
+                            mDownloadingDialog.setProgress(downloadProgressEvent.getProgress(), downloadProgressEvent.getTotal());
+                        }
+                    }
+                });
     }
 
     @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout,R.id.rl_change_psd,R.id.rl_update})
@@ -236,6 +251,14 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 //                Bundle bundle = new Bundle();
 //                bundle.putString("nick",nickName.getText().toString());
 //                UiHelper.launcherForResultBundle(this,MyNickNameActivity.class,RESULT_MYNICK,bundle);
+
+               /* IWXAPI api = WXAPIFactory.createWXAPI(this, "wx86ed3100a8c2586f");
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_aa9e3dbf8fd0";
+                req.path = "pages/index/index";
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_TEST;
+                api.sendReq(req);
+*/
 
                 break;
 

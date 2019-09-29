@@ -354,7 +354,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
                                     mApkUrl = bean1.getInstall_url();
                                     deleteApkFile();
-                                    downloadApkFile();
+                                    downloadApkFile(dialog);
                                 }
                             });
                             builder.create().setCanceledOnTouchOutside(false);
@@ -396,8 +396,10 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
      * 下载新版 apk 文件
      */
     @AfterPermissionGranted(RC_PERMISSION_DOWNLOAD)
-    public void downloadApkFile() {
-
+    public void downloadApkFile(DialogInterface dialog) {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
             downNewApk();
@@ -406,7 +408,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         }
     }
 
-    /*public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case RC_PERMISSION_DOWNLOAD:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -419,7 +421,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }*/
+    }
 
 
     private void downNewApk(){

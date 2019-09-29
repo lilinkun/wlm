@@ -63,6 +63,7 @@ public class IntegralStorePresenter extends BasePresenter {
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
+        params.put("GoodsFlag","2");
         params.put("OrderBy",OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())

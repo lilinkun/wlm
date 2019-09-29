@@ -222,6 +222,7 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         params.put("cls","Goods");
         params.put("fun","GoodsListRecommendVip");
         params.put("type",type);
+        params.put("GoodsFlag","2");
         params.put("GoodsId",GoodsId);
         mCompositeSubscription.add(manager.getGoodsList(params)
                 .subscribeOn(Schedulers.io())

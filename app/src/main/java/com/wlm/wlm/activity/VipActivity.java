@@ -77,18 +77,13 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-
-        if (sharedPreferences.getString(WlmUtil.VIPVALIDITY,"") != null && !sharedPreferences.getString(WlmUtil.VIPVALIDITY,"").equals("")) {
-            tv_vipvalidity.setText("有效期至 " + sharedPreferences.getString(WlmUtil.VIPVALIDITY, ""));
-        }else {
-            tv_vipvalidity.setVisibility(View.GONE);
-        }
-
-        tv_username.setText(sharedPreferences.getString(WlmUtil.USERNAME,"") + "");
-        if (tv_username.getText().toString().trim().length() > 3) {
+        tv_username.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,"") + "");
+        String str = tv_username.getText().toString();
+        tv_userid.setText("NO. " + sharedPreferences.getString(WlmUtil.USERNAME,""));
+        /*if (tv_username.getText().toString().trim().length() > 3) {
             String str = tv_username.getText().toString();
-            tv_userid.setText(str.substring(3,str.length()-1));
-        }
+            tv_userid.setText(str);
+        }*/
     }
 
     @OnClick({R.id.ll_back})
@@ -129,7 +124,11 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         sharedPreferences.edit().putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
         Picasso.with(this).load(loginBean.getPortrait()).error(R.mipmap.ic_adapter_error).into(iv_vip_face);
         if (loginBean.getVipValidity() != null && !loginBean.getVipValidity().equals("")) {
-            tv_vipvalidity.setText("有效期至 " + loginBean.getVipValidity());
+            if (Integer.valueOf(loginBean.getUserLevel()) > 0) {
+                tv_vipvalidity.setText("有效期至 " + loginBean.getVipValidity());
+            }else {
+                tv_vipvalidity.setVisibility(View.GONE);
+            }
         }else {
             tv_vipvalidity.setVisibility(View.GONE);
         }
