@@ -92,6 +92,8 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     TextView tv_clear;
     @BindView(R.id.rl_change_psd)
     RelativeLayout rl_change_psd;
+    @BindView(R.id.tv_new_edition)
+    TextView tv_new_edition;
 
     private PopupWindow popupWindow = null;
     private static final int IMAGEBUNDLE = 0x221;
@@ -116,6 +118,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     private String mApkUrl = "";
     //    private DownloadBean downloadBean;
     private CheckBean bean;
+    private double code=0;
 
 
     private Handler handler = new Handler(){
@@ -142,6 +145,9 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     public void initEventAndData() {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
+
+
+        code = UpdateManager.getInstance().getVersionName(this);
 
         mFilePath = Environment.getExternalStorageDirectory()+ "/test/" + "temp.jpg";// 获取SD卡路径
 //        mFilePath = mFilePath + "/test/" + "temp.jpg";// 指定路径
@@ -176,6 +182,8 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                         }
                     }
                 });
+
+        tv_new_edition.setText("V" + code);
     }
 
     @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout,R.id.rl_change_psd,R.id.rl_update})
@@ -293,7 +301,6 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             case R.id.rl_update:
                 myPermission();
 
-                final double code = UpdateManager.getInstance().getVersionName(this);
                 String url = ProApplication.UPGRADEURL;
                 OkHttpUtils.get()
                         .url(url)

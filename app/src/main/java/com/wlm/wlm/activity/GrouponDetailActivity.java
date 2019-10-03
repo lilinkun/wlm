@@ -128,7 +128,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
                         WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
                         miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
-                        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
+                        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
                         miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
                         miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponDetailBean.getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
                         Log.v("wxinfo",miniProgramObj.path);

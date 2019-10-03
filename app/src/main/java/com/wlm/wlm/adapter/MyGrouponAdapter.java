@@ -92,7 +92,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
 
                         WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
                         miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
-                        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;// 正式版:0，测试版:1，体验版:2
+                        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
                         miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
                         miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponListBeans.get(position).getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
                         //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
