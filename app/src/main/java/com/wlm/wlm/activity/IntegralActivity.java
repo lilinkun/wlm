@@ -164,6 +164,7 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
             case R.id.rl_wait_receiver:
                 type = "4";
+                integralAdapter = null;
                 line_wait_receiver.setVisibility(View.VISIBLE);
                 tv_list.setTextColor(getResources().getColor(R.color.grey_color2));
                 line_list.setVisibility(View.GONE);
@@ -173,6 +174,7 @@ public class IntegralActivity extends BaseActivity implements IntegralContract{
 
             case R.id.rl_list:
                 type = "5";
+                integralAdapter = null;
                 line_wait_receiver.setVisibility(View.GONE);
                 tv_list.setTextColor(getResources().getColor(R.color.black_333333));
                 line_list.setVisibility(View.VISIBLE);

@@ -69,6 +69,10 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
             holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.setting_title_color));
         }
 
+        if (type == 2){
+            holder.tv_total.setVisibility(View.GONE);
+        }
+
 //        if (type == 1){
 
             String balance = WlmUtil.getPriceNum(balanceDetailBeans.get(position).getBalance());

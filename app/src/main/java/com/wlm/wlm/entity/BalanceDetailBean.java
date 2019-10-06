@@ -7,9 +7,9 @@ public class BalanceDetailBean {
     private int ExpenditureId;
     private int UserId;
     private String UserName;
-    private int ExpenditureMoney;//此次交易额
+    private double ExpenditureMoney;//此次交易额
     private int ReceiptsOrOut;//支出为-1，收入为1
-    private int Balance;//剩余额度
+    private double Balance;//剩余额度
     private String TradeType;
     private String StatusName;
     private int Status;
@@ -44,11 +44,11 @@ public class BalanceDetailBean {
         UserName = userName;
     }
 
-    public int getExpenditureMoney() {
+    public double getExpenditureMoney() {
         return ExpenditureMoney;
     }
 
-    public void setExpenditureMoney(int expenditureMoney) {
+    public void setExpenditureMoney(double expenditureMoney) {
         ExpenditureMoney = expenditureMoney;
     }
 
@@ -60,11 +60,11 @@ public class BalanceDetailBean {
         ReceiptsOrOut = receiptsOrOut;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return Balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         Balance = balance;
     }
 
