@@ -9,24 +9,24 @@ android {
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
-        versionName "1.14"
+        versionName "1.18"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
 
     //配置keystore签名
-    signingConfigs {
+    /*signingConfigs {
         release {
             storeFile file("libs/wlm.jks")
             storePassword "wlm123789"
             keyAlias "wlm"
             keyPassword "wlm123789"
         }
-    }
+    }*/
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             //启用代码混淆
             minifyEnabled false
             //zip压缩
@@ -39,7 +39,7 @@ android {
 
         release {
             debuggable true
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             //开启混淆
             minifyEnabled false
             zipAlignEnabled false

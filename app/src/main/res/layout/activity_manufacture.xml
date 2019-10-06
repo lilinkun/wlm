@@ -151,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_store_pay"
+                    android:visibility="gone"
                     android:layout_marginLeft="31dp"
                     />
                 <TextView
@@ -159,6 +160,7 @@
                     android:layout_marginLeft="@dimen/margin_4"
                     android:textSize="@dimen/textsize10"
                     android:textColor="@color/store_text_bg"
+                    android:visibility="gone"
                     android:text="买贵包赔"/>
 
 

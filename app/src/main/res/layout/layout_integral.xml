@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_integral_pay"
                 android:layout_marginLeft="31dp"
+                android:visibility="gone"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -70,6 +71,7 @@
                 android:layout_marginLeft="@dimen/margin_4"
                 android:textSize="@dimen/textsize10"
                 android:textColor="@color/integral_text_bg"
+                android:visibility="gone"
                 android:text="买贵包赔"/>
 
 
