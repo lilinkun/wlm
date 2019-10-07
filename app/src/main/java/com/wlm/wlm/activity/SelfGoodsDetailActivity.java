@@ -352,7 +352,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
         mGoodsNameTv.setText(goodsDetailBean.getGoodsName());
         tv_groupon_price.setText(goodsDetailBean.getPrice() + "");
-        tv_number.setText(goodsDetailBean.getGoodsNumber()+"");
+        tv_number.setText(goodsDetailBean.getUseNumber()+"");
 
         BigDecimal b = new BigDecimal(goodsDetailBean.getMarketPrice());
         double marketPrice = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
