@@ -20,6 +20,8 @@ import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.MyFansPresenter;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UToast;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,10 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
 
     private MyFansPresenter myFansPresenter = new MyFansPresenter();
     private MyFansAdapter myFansAdapter = null;
+    private int pageIndex = 1;
+    private int lastVisibleItem =0;
+    private PageBean pagebean = null;
+    private ArrayList<FansBean> fansBeans = null;
 
     @Override
     public int getLayoutId() {
@@ -50,12 +56,43 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
         Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
 
         myFansPresenter.onCreate(this,this);
-        myFansPresenter.getFansData("1","20", "",ProApplication.SESSIONID(this));
+        myFansPresenter.getFansData(pageIndex+"","20", "",ProApplication.SESSIONID(this));
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
 
         rv_myfans.setLayoutManager(linearLayoutManager);
+
+
+        rv_myfans.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (myFansAdapter != null) {
+                        if (lastVisibleItem + 1 == myFansAdapter.getItemCount()) {
+
+                            if (pagebean != null) {
+                                if (pageIndex == pagebean.getMaxPage()) {
+                                    toast("已到末尾");
+                                } else {
+                                    pageIndex++;
+                                    myFansPresenter.getFansData(pageIndex+"","20", "",ProApplication.SESSIONID(MyFansActivity.this));
+                                }
+                            }
+//                                }
+//                            }, 200);
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
 
 
         et_search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -97,17 +134,24 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
     }
 
     private void doSearch(){
-        myFansPresenter.getFansData("1","20", et_search.getText().toString(),ProApplication.SESSIONID(this));
+        pageIndex = 1;
+        myFansPresenter.getFansData(pageIndex+"","20", et_search.getText().toString(),ProApplication.SESSIONID(this));
     }
 
     @Override
     public void getFansSuccess(ArrayList<FansBean> fansBeans, PageBean pagebean) {
+        this.pagebean = pagebean;
         if (myFansAdapter == null) {
+            this.fansBeans = fansBeans;
             myFansAdapter = new MyFansAdapter(this, fansBeans);
             rv_myfans.setAdapter(myFansAdapter);
         }else {
 
             if (pagebean.getPageIndex() == 1) {
+                this.fansBeans = fansBeans;
+                myFansAdapter.setData(fansBeans);
+            }else {
+                this.fansBeans.addAll(fansBeans);
                 myFansAdapter.setData(fansBeans);
             }
 

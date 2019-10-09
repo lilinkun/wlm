@@ -7,7 +7,7 @@ package com.wlm.wlm.entity;
 public class PageBean {
     String SizeCount;
     int PageIndex;
-    String MaxPage;
+    int MaxPage;
     String PageCount;
 
     public String getSizeCount() {
@@ -26,11 +26,11 @@ public class PageBean {
         PageIndex = pageIndex;
     }
 
-    public String getMaxPage() {
+    public int getMaxPage() {
         return MaxPage;
     }
 
-    public void setMaxPage(String maxPage) {
+    public void setMaxPage(int maxPage) {
         MaxPage = maxPage;
     }
 

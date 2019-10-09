@@ -64,7 +64,7 @@ public class CollectPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<CollectBean>,PageBean>() {
                     @Override
                     public void onResponse(ArrayList<CollectBean> collectBeans, String status,PageBean page) {
-                        collectContract.getCollectDataSuccess(collectBeans,page.getMaxPage());
+                        collectContract.getCollectDataSuccess(collectBeans,page.getMaxPage()+"");
                     }
 
                     @Override

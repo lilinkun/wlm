@@ -9,20 +9,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.HotHomeBean;
-import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
-import com.squareup.picasso.Picasso;
 import com.wlm.wlm.util.WlmUtil;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import butterknife.BindView;
 
 /**
  * Created by LG on 2018/11/16.

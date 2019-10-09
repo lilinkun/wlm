@@ -12,12 +12,31 @@
         app:img_left="@mipmap/ic_back"/>
 
 
-    <android.support.design.widget.TabLayout
+    <!--<android.support.design.widget.TabLayout
         android:id="@+id/order_list_groupon"
         style="@style/CustomerTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed" />
+        app:tabMode="fixed" />-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/bg_list"/>
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/order_list_groupon"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        app:tl_indicator_color="@color/setting_title_color"
+        app:tl_indicator_height="1dp"
+        app:tl_textUnselectColor="@color/pop_text_bg"
+        app:tl_textSelectColor="@color/setting_title_color"
+        app:tl_textsize="15sp"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_tab_space_equal="true">
+    </com.flyco.tablayout.SlidingTabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/order_list_vp_groupon"

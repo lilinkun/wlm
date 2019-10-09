@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.flyco.tablayout.SlidingTabLayout;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MyGrouponAdapter;
 import com.wlm.wlm.adapter.TabPageAdapter;
@@ -28,14 +29,13 @@ import butterknife.OnClick;
 public class MyGrouponActivity extends BaseActivity {
 
     @BindView(R.id.order_list_groupon)
-    TabLayout order_list_groupon;
+    SlidingTabLayout order_list_groupon;
     @BindView(R.id.order_list_vp_groupon)
     ViewPager order_list_vp_groupon;
 
     private MyGrouponAdapter myGrouponAdapter = null;
     private List<String> mTitles;
     private List<Fragment> fragments;
-    private GrouponAllFragment grouponAllFragment = new GrouponAllFragment();
     private GrouponOverFragment grouponOverFragment = new GrouponOverFragment();
     private GrouponUnOverFragment grouponUnOverFragment = new GrouponUnOverFragment();
 
@@ -70,9 +70,11 @@ public class MyGrouponActivity extends BaseActivity {
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(),fragments,mTitles);
         pageAdapter.setTitles(mTitles);
         order_list_vp_groupon.setAdapter(pageAdapter);
-        order_list_groupon.setupWithViewPager(order_list_vp_groupon);
-        order_list_groupon.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+//        order_list_groupon.setupWithViewPager(order_list_vp_groupon);
+//        order_list_groupon.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
 
+
+        order_list_groupon.setViewPager(order_list_vp_groupon);
 
         order_list_vp_groupon.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -106,12 +108,10 @@ public class MyGrouponActivity extends BaseActivity {
 
     private void initData() {
         mTitles = new ArrayList<>();
-        mTitles.add("全部");
         mTitles.add("拼团中");
         mTitles.add("拼团完成");
 
         fragments = new ArrayList<>();
-        fragments.add(grouponAllFragment);
         fragments.add(grouponUnOverFragment);
         fragments.add(grouponOverFragment);
 

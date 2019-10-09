@@ -70,7 +70,7 @@ public class SelfGoodsPresenter extends BasePresenter {
 
                     @Override
                     public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status,PageBean page) {
-                        if (page.getMaxPage().equals(page.getPageIndex())) {
+                        if (page.getMaxPage() == page.getPageIndex()) {
                             selfGoodsContract.getDataSuccess(selfGoodsBeans, false);
                         }else {
                             selfGoodsContract.getDataSuccess(selfGoodsBeans, true);
