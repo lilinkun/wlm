@@ -25,7 +25,7 @@
         android:layout_toRightOf="@+id/lin_list"
         android:layout_marginLeft="@dimen/margin_10"
         android:layout_marginRight="@dimen/margin_20"
-        android:text="积雪草奇迹软膜面膜"
+        android:text="@string/good_thing_for_you"
         android:textColor="@color/search_edittext_bg"
         android:textSize="@dimen/textsize14" />
 

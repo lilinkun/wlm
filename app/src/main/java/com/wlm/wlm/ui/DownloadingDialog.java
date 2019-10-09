@@ -25,8 +25,8 @@ public class DownloadingDialog extends AppCompatDialog {
     }
 
     public void setProgress(long progress, long maxProgress) {
-        mProgressBar.setMax((int) maxProgress);
-        mProgressBar.setProgress((int) progress);
+        mProgressBar.setMax((int) maxProgress/100);
+        mProgressBar.setProgress((int) progress/100);
     }
 
     public void setUpdateMessage(String message){

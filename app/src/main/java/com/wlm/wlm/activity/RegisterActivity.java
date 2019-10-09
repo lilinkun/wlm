@@ -93,15 +93,16 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
     @Override
     public void onRegisterSuccess() {
 //        progressDialog.dismiss();
-//        setResult(RESULT_OK);
-//        finish();
+
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid())
                 .putString(WlmUtil.ACCOUNT,wxUserInfo.getNickname()).putString(WlmUtil.TELEPHONE,telephone)
                 .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
 
-        UiHelper.launcher(this,MainFragmentActivity.class);
+        UiHelper.launcherMain(this,MainFragmentActivity.class);
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override

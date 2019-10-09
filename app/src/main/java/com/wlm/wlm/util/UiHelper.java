@@ -59,6 +59,13 @@ public class UiHelper {
         activity.startActivity(intent);
     }
 
+    public static void launcherMain(Activity activity, Class<?> targetActivity) {
+        Intent intent = new Intent();
+        intent.setClass(activity, targetActivity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
+
     public static void launcher(Context activity, Class<?> targetActivity) {
         Intent intent = new Intent();
         intent.setClass(activity, targetActivity);

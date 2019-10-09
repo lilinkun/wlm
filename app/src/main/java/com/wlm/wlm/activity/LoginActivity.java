@@ -106,6 +106,8 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         if (resultCode == RESULT_OK){
             if (requestCode == 0x1212){
                 finish();
+            }else if(requestCode == 0x1233){
+                finish();
             }
         }
     }
@@ -150,7 +152,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         }else {
             Bundle bundle = new Bundle();
             bundle.putSerializable("wxinfo", wxUserInfo);
-            UiHelper.launcherBundle(this, RegisterActivity.class, bundle);
+            UiHelper.launcherForResultBundle(this, RegisterActivity.class,0x1233, bundle);
         }
     }
 

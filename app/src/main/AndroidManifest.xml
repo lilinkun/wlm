@@ -61,7 +61,6 @@
         <activity android:name=".activity.Category1Activity" />
         <activity android:name=".activity.ShoppingCarActivity" />
         <activity android:name=".activity.CartOrderActivity" />
-        <activity android:name=".activity.StoreActivity" />
         <activity android:name=".activity.AllOrderActivity" />
         <activity android:name=".activity.PayResultActivity" />
         <activity android:name=".activity.ModifyPayActivity" />

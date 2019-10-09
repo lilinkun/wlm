@@ -2,7 +2,6 @@ package com.wlm.wlm.activity;
 
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -18,10 +16,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.trycath.myupdateapklibrary.UpdateApk;
@@ -37,16 +33,14 @@ import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.fragment.HomeFragment;
-import com.wlm.wlm.fragment.LzyMallFragment;
 import com.wlm.wlm.fragment.MeFragment;
 import com.wlm.wlm.fragment.WlmCartFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
-import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UpdateManager;
+import com.wlm.wlm.util.WlmUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -141,6 +135,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
                     public void call(BGADownloadProgressEvent downloadProgressEvent) {
                         if (mDownloadingDialog != null && mDownloadingDialog.isShowing() && downloadProgressEvent.isNotDownloadFinished()) {
                             mDownloadingDialog.setProgress(downloadProgressEvent.getProgress(), downloadProgressEvent.getTotal());
+                            Log.v("lg","progress:" + downloadProgressEvent.getProgress() + "  total:" + downloadProgressEvent.getTotal());
                         }
                     }
                 });
@@ -474,7 +469,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     private void dismissDownloadingDialog() {
         if (mDownloadingDialog != null) {
             mDownloadingDialog.dismiss();
-            Dialog dialog = new Dialog(this);
+            /*Dialog dialog = new Dialog(this);
             TextView textView = new TextView(this);
             ViewGroup.LayoutParams layoutParams = textView.getLayoutParams();
             layoutParams.height = 500;
@@ -484,7 +479,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             dialog.setContentView(textView);
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(false);
-            dialog.show();
+            dialog.show();*/
         }
     }
 
