@@ -61,6 +61,7 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
 
         ActivityUtil.addActivity(this);
 
+
         ll_top.setListener(this);
 
         goodsName = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSNAME);

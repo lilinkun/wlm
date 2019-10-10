@@ -30,6 +30,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flyco.tablayout.SlidingTabLayout;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.TabPageAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -73,7 +74,7 @@ import cn.iwgang.countdownview.CountdownView;
 public class OrderListActivity extends BaseActivity implements IPayOrderClickListener,OrderListContract, IWxResultListener {
 
     @BindView(R.id.order_list_tablayou)
-    TabLayout orderListTablayou;
+    SlidingTabLayout orderListTablayou;
     @BindView(R.id.order_list_vp)
     ViewPager orderListVp;
     @BindView(R.id.ll_choose_order)
@@ -128,8 +129,9 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(),fragments,mTitles);
         pageAdapter.setTitles(mTitles);
         orderListVp.setAdapter(pageAdapter);
-        orderListTablayou.setupWithViewPager(orderListVp);
-        orderListTablayou.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+//        orderListTablayou.setupWithViewPager(orderListVp);
+//        orderListTablayou.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+        orderListTablayou.setViewPager(orderListVp);
         orderListVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -311,51 +313,6 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
         toast("支付失败");
     }
 
-    /*class TabPageAdapter extends FragmentPagerAdapter{
-        List<Fragment> fragments = new ArrayList<>();
-        private List<String> titles;
-
-        public TabPageAdapter(FragmentManager fm) {
-            super(fm);
-            fragments.add(allOrderFragment);
-            fragments.add(waitPayFragment);
-            fragments.add(waitReceiveFragment);
-            fragments.add(completedOrderFragment);
-            fragments.add(overOrderFragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        public void setTitles(List<String> titles){this.titles = titles;}
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // 将实例化的fragment进行显示即可。
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            getSupportFragmentManager().beginTransaction().show(fragment).commit();
-            return fragment;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
-
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-//            Fragment fragment = fragments.get(position);// 获取要销毁的fragment
-//            getSupportFragmentManager().beginTransaction().hide(fragment).commit();// 将其隐藏即可，并不需要真正销毁，这样fragment状态就得到了保存
-        }
-    }*/
 
     public static boolean checkPackage(Context paramContext, String paramString)
     {
@@ -442,21 +399,6 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
 
                         }
                     });
-
-//                    final EditText editText = (EditText) view.findViewById(R.id.et_pay_psd);
-//                    TextView textView = (TextView) view.findViewById(R.id.tv_pay_price);
-//                    Button btn_sure = (Button) view.findViewById(R.id.btn_sure);
-//
-//                    textView.setText(selfOrderBean.getOrderAmount()+"");
-//
-//                    btn_sure.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (!editText.getText().toString().isEmpty()){
-//                                orderListPresenter.selfPay(editText.getText().toString(),selfOrderBean.getOrderSn(),ProApplication.SESSIONID(OrderListActivity.this));
-//                            }
-//                        }
-//                    });
 
 
                 }else if (check_wx.isChecked()){

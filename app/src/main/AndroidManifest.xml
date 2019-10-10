@@ -51,7 +51,6 @@
         <activity android:name=".activity.MyNickNameActivity" />
         <activity android:name=".activity.BuyGoodsActivity" />
         <activity android:name=".activity.CouponLinkActivity" />
-        <activity android:name=".activity.CategoryActivity" />
         <activity android:name=".activity.SelfGoodsDetailActivity" />
         <activity android:name=".activity.ChooseAddressActivity" />
         <activity android:name=".activity.AddAddressActivity" />

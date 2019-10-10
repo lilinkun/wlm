@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,14 +57,29 @@
             android:layout_height="0.5dp"
             android:background="@color/line_bg"/>
 
-    <android.support.design.widget.TabLayout
+    <!--<android.support.design.widget.TabLayout
         android:id="@+id/order_list_tablayou"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         lzy:tabSelectedTextColor="@color/red"
         lzy:tabTextAppearance="@style/TabLayoutTextStyle"
-        lzy:tabTextColor="@color/pop_text_bg"/>
+        lzy:tabTextColor="@color/pop_text_bg"/>-->
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/order_list_tablayou"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            app:tl_indicator_color="@color/setting_title_color"
+            app:tl_indicator_height="1dp"
+            app:tl_textUnselectColor="@color/pop_text_bg"
+            app:tl_textSelectColor="@color/setting_title_color"
+            app:tl_textsize="15sp"
+            app:tl_indicator_width_equal_title="true"
+            app:tl_tab_space_equal="true">
+        </com.flyco.tablayout.SlidingTabLayout>
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/order_list_vp"
         android:layout_width="match_parent"
