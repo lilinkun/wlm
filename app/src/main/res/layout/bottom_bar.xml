@@ -7,6 +7,8 @@
     <include android:scaleType="centerCrop"
         layout="@layout/menu_bottom_1" />
     <include android:scaleType="centerCrop"
+        layout="@layout/menu_bottom_4" />
+    <include android:scaleType="centerCrop"
         layout="@layout/menu_bottom_2" />
     <include android:scaleType="centerCrop"
         layout="@layout/menu_bottom_3" />

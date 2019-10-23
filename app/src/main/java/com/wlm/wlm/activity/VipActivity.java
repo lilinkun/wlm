@@ -20,6 +20,7 @@ import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.VipPresenter;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.GridSpacingItemDecoration;
+import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.Eyes;
@@ -46,6 +47,10 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     TextView tv_username;
     @BindView(R.id.iv_vip_face)
     RoundImageView iv_vip_face;
+    @BindView(R.id.tv_vip)
+    TextView tv_vip_level;
+    @BindView(R.id.iv_vip)
+    ImageView iv_vip;
 
     private VipPresenter vipPresenter = new VipPresenter();
     private String goodsType = "4";
@@ -119,10 +124,11 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     }
 
     @Override
-    public void getQrCodeSuccess(LoginBean loginBean) {
+    public void getLevelSuccess(LoginBean loginBean) {
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
         sharedPreferences.edit().putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
         Picasso.with(this).load(loginBean.getPortrait()).error(R.mipmap.ic_adapter_error).into(iv_vip_face);
+        tv_vip_level.setText(loginBean.getUserLevelName());
         if (loginBean.getVipValidity() != null && !loginBean.getVipValidity().equals("")) {
             if (Integer.valueOf(loginBean.getUserLevel()) > 0) {
                 tv_vipvalidity.setText("有效期至 " + loginBean.getVipValidity());
@@ -133,10 +139,16 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
             tv_vipvalidity.setVisibility(View.GONE);
         }
 
+        if (Integer.valueOf(loginBean.getUserLevel()) <= 0){
+            iv_vip.setVisibility(View.GONE);
+        }else {
+            iv_vip.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
-    public void getQrCodeFail(String msg) {
+    public void getLevelFail(String msg) {
 
     }
 

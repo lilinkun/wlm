@@ -20,6 +20,7 @@
 
     <dimen name="text_size_headtop">18sp</dimen>
 
+    <dimen name="padding_3">3dp</dimen>
     <dimen name="padding_5">5dp</dimen>
     <dimen name="padding_7">7dp</dimen>
     <dimen name="padding_10">10dp</dimen>

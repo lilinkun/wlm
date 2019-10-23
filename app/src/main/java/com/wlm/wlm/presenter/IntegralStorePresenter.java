@@ -55,7 +55,7 @@ public class IntegralStorePresenter extends BasePresenter {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         if (Integer.valueOf(PageIndex) > 1) {
-            loaddingDialog.show();
+//            loaddingDialog.show();
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");

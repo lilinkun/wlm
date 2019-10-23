@@ -1,7 +1,5 @@
 package com.wlm.wlm.entity;
 
-import java.util.ArrayList;
-
 /**
  * Created by LG on 2018/12/13.
  */
@@ -13,6 +11,7 @@ public class UrlBean {
     private String UpgradeUrl;
     private String UpgradeToken;
     private String RegisterRequirements;
+    private String KFMobile;
 
     public String getImgUrl() {
         return imgUrl;
@@ -60,5 +59,13 @@ public class UrlBean {
 
     public void setRegisterRequirements(String registerRequirements) {
         RegisterRequirements = registerRequirements;
+    }
+
+    public String getKFMobile() {
+        return KFMobile;
+    }
+
+    public void setKFMobile(String KFMobile) {
+        this.KFMobile = KFMobile;
     }
 }

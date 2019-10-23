@@ -12,6 +12,6 @@ public interface VipContract extends IView {
     public void getDataSuccess(ArrayList<GoodsListBean> integralBean, PageBean pageBean);
     public void getDataFail(String msg);
 
-    public void getQrCodeSuccess(LoginBean loginBean);
-    public void getQrCodeFail(String msg);
+    public void getLevelSuccess(LoginBean loginBean);
+    public void getLevelFail(String msg);
 }

@@ -2,6 +2,7 @@
     <string name="app_name">唯乐美</string>
     <string name="bottom_text_1">首页</string>
     <string name="bottom_text_2">购物车</string>
+    <string name="bottom_text_3">发现</string>
     <string name="bottom_text_4">我的</string>
     
     <!--注册,修改密码-->
@@ -102,6 +103,8 @@
     <string name="me_shared_friend">分享给好友</string>
     <string name="me_bind_card">认证绑卡</string>
     <string name="me_address">收货地址</string>
+
+    <string name="shared">分享</string>
     
     <!--个人信息-->
     <string name="personal_over">完成</string>

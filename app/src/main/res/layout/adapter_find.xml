@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_10"
+    android:background="@drawable/shape_info_pop">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.wlm.wlm.ui.RoundImageView
+            android:id="@+id/iv_find"
+            android:layout_width="@dimen/margin_50"
+            android:layout_height="@dimen/margin_50"
+            android:src="@mipmap/ic_launcher1"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/margin_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="唯乐美"
+                android:textSize="@dimen/textsize18"
+                android:textColor="@color/black_333333"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019.09.09 16.40"
+                android:textSize="@dimen/textsize13"
+                android:textColor="#6b6e6d"
+                android:layout_marginTop="@dimen/margin_3"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="30dp"
+                android:text="@string/shared"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_shared"
+                android:textSize="@dimen/textsize14"
+                android:layout_marginRight="@dimen/margin_10"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_15"
+        android:textSize="@dimen/textsize16"
+        android:textColor="#434445"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="修护集福屏障d18神经酰胺精华"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:textSize="@dimen/textsize14"
+        android:textColor="#434445"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="轻盈修护集福屏障d18神经酰胺精华修护集福屏障d18神经酰胺精华"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_15"
+        />
+
+</LinearLayout>
+

@@ -44,8 +44,8 @@ public class VipPresenter extends BasePresenter {
             mCompositeSubscription.unsubscribe();
         }
     }
+
     /**
-     * 获取团购信息
      * @param PageIndex
      * @param PageCount
      * @param GoodsType
@@ -93,7 +93,7 @@ public class VipPresenter extends BasePresenter {
 
                     @Override
                     public void onResponse(LoginBean loginBean, String status, Object page) {
-                        vipContract.getQrCodeSuccess(loginBean);
+                        vipContract.getLevelSuccess(loginBean);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -101,7 +101,7 @@ public class VipPresenter extends BasePresenter {
 
                     @Override
                     public void onErr(String msg, String status) {
-                        vipContract.getQrCodeFail(msg);
+                        vipContract.getLevelFail(msg);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }

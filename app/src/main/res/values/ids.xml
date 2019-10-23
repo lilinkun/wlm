@@ -7,6 +7,9 @@
     <item name="menu_bottom_1" type="id">false</item>
     <item name="image_1" type="id">false</item>
     <item name="text_1" type="id">false</item>
+    <item name="menu_bottom_4" type="id">false</item>
+    <item name="image_4" type="id">false</item>
+    <item name="text_4" type="id">false</item>
     <item name="menu_bottom_2" type="id">false</item>
     <item name="image_2" type="id">false</item>
     <item name="text_2" type="id">false</item>

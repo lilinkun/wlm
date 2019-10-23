@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -23,7 +22,6 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
-import com.wlm.wlm.ui.AutoSwipeRefreshLayout;
 import com.wlm.wlm.ui.LoadRecyclerView;
 import com.wlm.wlm.ui.RecyclerViewScrollListener;
 import com.wlm.wlm.ui.SpaceItemDecoration;

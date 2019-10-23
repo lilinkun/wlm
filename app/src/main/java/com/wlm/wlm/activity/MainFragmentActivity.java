@@ -32,6 +32,7 @@ import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.DownloadBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.fragment.FindFragment;
 import com.wlm.wlm.fragment.HomeFragment;
 import com.wlm.wlm.fragment.MeFragment;
 import com.wlm.wlm.fragment.WlmCartFragment;
@@ -73,6 +74,8 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     RelativeLayout menu_bottom_2;
     @BindView(R.id.menu_bottom_3)
     RelativeLayout menu_bottom_3;
+    @BindView(R.id.menu_bottom_4)
+    RelativeLayout menu_bottom_4;
     @BindView(R.id.bottom_bar)
     LinearLayout bottom_bar;
 
@@ -123,6 +126,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
         manager = getSupportFragmentManager();
         relativeLayouts.add(menu_bottom_1);
+        relativeLayouts.add(menu_bottom_4);
         relativeLayouts.add(menu_bottom_2);
         relativeLayouts.add(menu_bottom_3);
         onClick(findViewById(R.id.menu_bottom_1));
@@ -146,7 +150,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         mainFragmentPresenter.getUrl();
     }
 
-    @OnClick({R.id.menu_bottom_1,R.id.menu_bottom_2,R.id.menu_bottom_3})
+    @OnClick({R.id.menu_bottom_1,R.id.menu_bottom_2,R.id.menu_bottom_3,R.id.menu_bottom_4})
     public void onClick(View view){
 //        FragmentTransaction transaction = manager.beginTransaction();
         switch (view.getId()){
@@ -158,12 +162,16 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             case R.id.menu_bottom_2:
 //                transaction.replace(R.id.top_bar,lzyMallFragment);
                 setMenuBg(menu_bottom_2);
-                mViewPager.setCurrentItem(1,false);
+                mViewPager.setCurrentItem(2,false);
                 break;
             case R.id.menu_bottom_3:
 //                transaction.replace(R.id.top_bar,new MeFragment());
                 setMenuBg(menu_bottom_3);
-                mViewPager.setCurrentItem(2,false);
+                mViewPager.setCurrentItem(3,false);
+                break;
+            case R.id.menu_bottom_4:
+                setMenuBg(menu_bottom_4);
+                mViewPager.setCurrentItem(1,false);
                 break;
         }
 //        transaction.commit();
@@ -180,6 +188,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
     private void getMenusFragments() {
         sparseArray.put(WlmUtil.PAGE_HOMEPAGE, new HomeFragment());
+        sparseArray.put(WlmUtil.PAGE_FIND, new FindFragment());
         sparseArray.put(WlmUtil.PAGE_MALL, lzyMallFragment);
         sparseArray.put(WlmUtil.PAGE_ME, meFragment);
     }
@@ -306,6 +315,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
         ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
         ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
+        ProApplication.PHONE = urlBean.getKFMobile();
 
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
@@ -488,9 +498,12 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         if (position == 0) {
             setMenuBg(menu_bottom_1);
         }else if (position == 1){
+            setMenuBg(menu_bottom_4);
+//            lzyMallFragment.setData();
+        }else if (position == 2){
             setMenuBg(menu_bottom_2);
             lzyMallFragment.setData();
-        }else if (position == 2){
+        }else if (position == 3){
             setMenuBg(menu_bottom_3);
             meFragment.setPoint();
         }

@@ -451,12 +451,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
 
         if (balanceBean.getUserLevel() <= 0){
-            ll_me_vip.setVisibility(View.GONE);
+            iv_me_vip.setVisibility(View.GONE);
         }else {
             tv_open_vip.setText("立即续费");
-            tv_me_vip.setText(balanceBean.getUserLevelName());
-            ll_me_vip.setVisibility(View.VISIBLE);
         }
+
+        tv_me_vip.setText(balanceBean.getUserLevelName());
+//        ll_me_vip.setVisibility(View.VISIBLE);
 
 
         if (mPtrFrame != null && mPtrFrame.isRefreshing()) {

@@ -85,8 +85,8 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     @Override
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean) {
         this.goodsListBeans = goodsListBeans;
-        custom_sort.setData(goodsListBeans, WlmUtil.INTEGRAL);
         custom_sort.setPageIndex(PAGEINDEX,pageBean);
+        custom_sort.setData(goodsListBeans, WlmUtil.INTEGRAL);
     }
 
     @Override

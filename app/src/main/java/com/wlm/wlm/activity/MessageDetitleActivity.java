@@ -80,6 +80,8 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
         rv_message_detail.setLayoutManager(linearLayoutManager);
 
         tv_headtop.setText(title);
+        tv_cs_phone.setText(ProApplication.PHONE);
+
     }
 
     @Override

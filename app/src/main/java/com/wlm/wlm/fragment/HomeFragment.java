@@ -345,6 +345,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
         ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
+        ProApplication.PHONE = urlBean.getKFMobile();
 
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;

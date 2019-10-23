@@ -103,6 +103,8 @@ public class ProApplication extends Application{
 
     public static String VIPVALIDITY = "";
 
+    public static String PHONE = "";
+
 
     public static final String IMG_BIG = "imgdb/";
     public static final String IMG_SMALL = "img/300/300/";

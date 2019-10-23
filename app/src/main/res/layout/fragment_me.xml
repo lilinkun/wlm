@@ -123,6 +123,8 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/margin_5"
+                    android:paddingLeft="@dimen/padding_3"
+                    android:paddingRight="@dimen/padding_3"
                     android:background="@drawable/shape_me_vip">
 
                     <ImageView

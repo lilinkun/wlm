@@ -59,8 +59,8 @@
 
                     <com.wlm.wlm.ui.RoundImageView
                         android:id="@+id/iv_vip_face"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_centerVertical="true"
                         android:src="@mipmap/ic_vip_face"/>
@@ -73,13 +73,52 @@
                         android:layout_marginLeft="@dimen/margin_10"
                         android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_username"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textsize21"
-                        android:textColor="@color/vip_text_bg"/>
+                        android:orientation="horizontal"
+                        android:gravity="bottom"
+                        >
+                        <TextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textsize21"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/vip_text_bg"/>
 
+                        <LinearLayout
+                            android:id="@+id/ll_vip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="17dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:layout_marginBottom="@dimen/margin_5"
+                            android:paddingLeft="@dimen/padding_5"
+                            android:paddingRight="@dimen/padding_5"
+                            android:background="@drawable/shape_vip">
+
+                            <ImageView
+                                android:id="@+id/iv_vip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_vip_icon"/>
+
+                            <TextView
+                                android:id="@+id/tv_vip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/textsize12"
+                                android:textColor="@color/white"
+                                android:layout_marginRight="2dp"
+                                />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/tv_vipvalidity"
                         android:layout_width="wrap_content"

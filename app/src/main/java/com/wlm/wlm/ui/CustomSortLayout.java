@@ -117,6 +117,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             }
         });
 
+
     }
 
     /**
@@ -139,8 +140,8 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
     public void setData(ArrayList<GoodsListBean> goodsListBeans,String type){
         this.type = type;
-        this.goodsListBeans  = goodsListBeans;
         if(tbHotGoodsAdapter == null){
+            this.goodsListBeans  = goodsListBeans;
             tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
             if (type.equals(WlmUtil.INTEGRAL)) {
                 tbHotGoodsAdapter.setAdd_Integral();
@@ -148,7 +149,12 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             recyclerView.setAdapter(tbHotGoodsAdapter);
             tbHotGoodsAdapter.setItemClickListener(this);
         }else {
-            tbHotGoodsAdapter.setData(goodsListBeans);
+            if (PAGE_INDEX == 1) {
+                this.goodsListBeans  = goodsListBeans;
+            }else {
+                this.goodsListBeans.addAll(goodsListBeans);
+            }
+            tbHotGoodsAdapter.setData(this.goodsListBeans);
         }
 
     }

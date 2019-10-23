@@ -134,7 +134,9 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
                 .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
                 .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
                 .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl())
-                .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity()).commit();
+                .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity())
+                .putString(WlmUtil.USERLEVEL,mLoginBean.getUserLevel())
+                .putString(WlmUtil.USERLEVELNAME,mLoginBean.getUserLevelName()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();

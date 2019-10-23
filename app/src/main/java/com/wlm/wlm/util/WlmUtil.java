@@ -29,9 +29,9 @@ import java.util.Date;
 public class WlmUtil {
 
     public static final int PAGE_HOMEPAGE = 0;
-    public static final int PAGE_MALL = 1;
-//    public static final int PAGE_HEALTHHOME = 2;
-    public static final int PAGE_ME = 2;
+    public static final int PAGE_FIND = 1;
+    public static final int PAGE_MALL = 2;
+    public static final int PAGE_ME = 3;
 
     public static final int WXTYPE_LOGIN = 1;
     public static final int WXTYPE_SHARED = 2;
@@ -91,6 +91,8 @@ public class WlmUtil {
     public static final String VIPVALIDITY = "VipValidity";
     public static final String WLMCOIN = "wlmcoin";
     public static final String USERBANKBEAN = "UserBankBean";
+    public static final String USERLEVEL = "UserLevel";
+    public static final String USERLEVELNAME = "UserLevelName";
 
 
     public static String RESULT_SUCCESS = "success";
