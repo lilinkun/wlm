@@ -110,6 +110,11 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
         mItemClickListener = itemClickListener;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         MyTextView tv_groupon_old_price;

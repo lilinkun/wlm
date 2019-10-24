@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/padding_10"
     android:background="@drawable/shape_info_pop">
@@ -26,6 +26,7 @@
             android:layout_marginLeft="@dimen/margin_10">
 
             <TextView
+                android:id="@+id/tv_store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="唯乐美"
@@ -33,6 +34,7 @@
                 android:textColor="@color/black_333333"/>
 
             <TextView
+                android:id="@+id/tv_goods_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2019.09.09 16.40"
@@ -65,6 +67,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_goods_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_15"
@@ -76,21 +79,33 @@
 
 
     <TextView
+        android:id="@+id/tv_goods_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_5"
         android:textSize="@dimen/textsize14"
         android:textColor="#434445"
         android:ellipsize="end"
-        android:singleLine="true"
+        android:maxLines="3"
         android:text="轻盈修护集福屏障d18神经酰胺精华修护集福屏障d18神经酰胺精华"/>
 
 
+    <ImageView
+        android:id="@+id/iv_adapter_find"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_adapter_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_15"
         />
+
+    <SurfaceView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
 

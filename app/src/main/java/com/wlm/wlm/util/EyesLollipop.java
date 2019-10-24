@@ -29,7 +29,7 @@ class EyesLollipop {
         //设置状态栏颜色
         window.setStatusBarColor(statusColor);
         //设置系统状态栏处于可见状态
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //让view不根据系统窗口来调整自己的布局
         ViewGroup mContentView = window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
@@ -56,6 +56,7 @@ class EyesLollipop {
             //设置系统状态栏处于可见状态
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
+        activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //view不根据系统窗口来调整自己的布局
         ViewGroup mContentView = window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);

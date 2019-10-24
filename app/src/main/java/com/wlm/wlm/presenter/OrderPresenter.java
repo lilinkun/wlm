@@ -61,7 +61,7 @@ public class OrderPresenter extends BasePresenter {
     public void getList(String SessionId){
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
-        loaddingDialog.show();
+//        loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Cart");
         params.put("fun","Cart_GetLitsByUserId");

@@ -1,34 +1,26 @@
 package com.wlm.wlm.ui;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.IntegralActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by LG on 2019/8/15.
@@ -37,11 +29,11 @@ import butterknife.OnClick;
 public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.OnItemClickListener {
 
     private Context context;
-    private RecyclerView recyclerView;
+    private XRecyclerView recyclerView;
     private TbHotGoodsAdapter tbHotGoodsAdapter = null;
     private ArrayList<GoodsListBean> goodsListBeans = null;
     private String type ;
-    private SwipeRefreshLayout refreshLayout;
+//    private SwipeRefreshLayout refreshLayout;
     private SortListerner sortListerner;
     private int lastVisibleItem = 0;
     private int PAGE_INDEX = 0;
@@ -67,31 +59,60 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
         View view = LayoutInflater.from(context).inflate(R.layout.layout_sort,null);
 
-        refreshLayout = view.findViewById(R.id.refreshLayout);
+//        refreshLayout = view.findViewById(R.id.refreshLayout);
 
         recyclerView = view.findViewById(R.id.rv_goods);
 
-        int spanCount1 = 5; // 2 columns
+        int spanCount1 = 10; // 2 columns
         int spacing1 = 20; // 50px
 
-        final FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
+        final GridLayoutManager layoutManager = new GridLayoutManager(context,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//        final FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
+//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+
+//        recyclerView.addItemDecoration();
+
+//        recyclerView.addItemDecoration(recyclerView.new DividerItemDecoration(dividerDrawable));
+        recyclerView.addItemDecoration(new SpaceXItemDecoration(spanCount1, spacing1,0));
 
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount1, spacing1,0));
-
-
         addView(view);
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                sortListerner.onRefresh();
+//            }
+//        });
+
+        recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        recyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 sortListerner.onRefresh();
             }
+
+            @Override
+            public void onLoadMore() {
+                if (tbHotGoodsAdapter != null) {
+                        if (PAGE_INDEX  > Integer.valueOf(pageBean.getMaxPage())){
+                            recyclerView.loadMoreComplete();
+                        }else {
+                            PAGE_INDEX++;
+                            sortListerner.onLoadding(PAGE_INDEX);
+
+                        }
+
+                }
+            }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -115,7 +136,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
             }
-        });
+        });*/
 
 
     }
@@ -130,15 +151,20 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
 
     public void setPageIndex(int pageIndex, PageBean pageBean){
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
-            refreshLayout.setRefreshing(false);
-        }
+//        if (refreshLayout != null && refreshLayout.isRefreshing()){
+//            refreshLayout.setRefreshing(false);
+//        }
         this.pageBean = pageBean;
         this.PAGE_INDEX = pageIndex;
     }
 
 
     public void setData(ArrayList<GoodsListBean> goodsListBeans,String type){
+
+        recyclerView.refreshComplete();
+
+        recyclerView.loadMoreComplete();
+
         this.type = type;
         if(tbHotGoodsAdapter == null){
             this.goodsListBeans  = goodsListBeans;

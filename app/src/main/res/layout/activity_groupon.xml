@@ -82,7 +82,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical">
-        <android.support.v4.widget.SwipeRefreshLayout
+        <!--<android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -96,7 +96,14 @@
 
             </com.wlm.wlm.ui.LoadRecyclerView>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>-->
+
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/rv_groupon"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"/>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

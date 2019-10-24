@@ -65,7 +65,7 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarLightMode(this,getResources().getColor(R.color.white));
 
         vipPresenter.onCreate(this,this);
         vipPresenter.getData("1","20",goodsType,"0","0");

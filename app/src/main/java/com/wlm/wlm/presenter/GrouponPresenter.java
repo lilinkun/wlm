@@ -54,10 +54,12 @@ public class GrouponPresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String TeamType){
+    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String TeamType,boolean showload){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
-        loaddingDialog.show();
+        if (showload) {
+            loaddingDialog.show();
+        }
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
         params.put("fun","GoodsListVip");
@@ -75,7 +77,7 @@ public class GrouponPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
                     public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
-                        grouponContract.getSuccess(integralBean);
+                        grouponContract.getSuccess(integralBean,page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -123,7 +125,7 @@ public class GrouponPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
                     @Override
                     public void onResponse(ArrayList<GoodsListBean> integralBean, String status,Object page) {
-                        grouponContract.getSuccess(integralBean);
+//                        grouponContract.getSuccess(integralBean);
                     }
 
                     @Override

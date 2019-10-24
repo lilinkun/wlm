@@ -262,11 +262,12 @@ public class WlmUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (startTime > (new Date()).getTime()){
-            countdownView.start(startTime - (new Date()).getTime());
+        long nowTime = (new Date()).getTime();
+        if (startTime > nowTime){
+            countdownView.start(startTime - nowTime);
             return 0;
         }else if(endTime > (new Date()).getTime()){
-            countdownView.start(endTime - (new Date()).getTime());
+            countdownView.start(endTime - nowTime);
             return 1;
         }else {
             return 2;

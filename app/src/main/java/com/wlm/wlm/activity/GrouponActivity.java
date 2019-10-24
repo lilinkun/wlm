@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.ChooseGrouponAdapter;
 import com.wlm.wlm.adapter.GrouponAdapter;
@@ -19,6 +21,7 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.GrouponContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
@@ -51,11 +54,11 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @BindView(R.id.bannerView)
     Banner banner;
     @BindView(R.id.rv_groupon)
-    LoadRecyclerView rv_groupon;
+    XRecyclerView rv_groupon;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
-    @BindView(R.id.swipe_container)
-    SwipeRefreshLayout swipeRefreshLayout;
+//    @BindView(R.id.swipe_container)
+//    SwipeRefreshLayout swipeRefreshLayout;
 
     GrouponPresenter groupon = new GrouponPresenter();
     GrouponAdapter grouponAdapter = null;
@@ -68,6 +71,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     private boolean isGrouponType = false;
 
     private int pageIndex = 1;
+    private PageBean pageBean = null;
 
 
     @Override
@@ -94,19 +98,41 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
         rv_groupon.setLayoutManager(linearLayoutManager);
 
-        rv_groupon.setOnLoadListener(this);
+//        rv_groupon.setOnLoadListener(this);
 
-        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
+        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,true);
 
         groupon.setFlash("2");
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
+//            }
+//        });
+        rv_groupon.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        rv_groupon.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        rv_groupon.setArrowImageView(R.drawable.iconfont_downgrey);
+        rv_groupon.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,false);
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (grouponAdapter != null) {
+                    if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
+                        rv_groupon.loadMoreComplete();
+                        rv_groupon.setNoMore(true);
+                    }else {
+                        pageIndex++;
+                        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,false);
+                    }
+
+                }
             }
         });
-
     }
 
     private void startBanner(final ArrayList<FlashBean> flashBeans) {
@@ -193,7 +219,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
         switch (sortType){
             case 1://默认排序
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,"0");
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,"0",true);
                 ll_top.setText(getString(R.string.groupon_all));
                 break;
 
@@ -233,7 +259,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
                             }
                             ll_top.setText(GrouponType.values()[position].getTypeName());
                             orderby = "0";
-                            groupon.getData("1", "20", goodstype + "", orderby, mTeamType);
+                            groupon.getData("1", "20", goodstype + "", orderby, mTeamType,true);
                             popupWindow.dismiss();
                         }
                     });
@@ -246,7 +272,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             case 3://销量上
                 orderby = "1";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
 
                 break;
 
@@ -255,7 +281,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
                 orderby = "2";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
 
                 break;
 
@@ -263,7 +289,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
                 orderby = "3";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
 
                 break;
 
@@ -271,14 +297,20 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
                 orderby = "4";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
 
                 break;
         }
     }
 
     @Override
-    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans) {
+    public void getSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean page) {
+
+        rv_groupon.refreshComplete();
+
+        rv_groupon.loadMoreComplete();
+
+        this.pageBean = page;
         rv_groupon.setVisibility(View.VISIBLE);
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
@@ -286,11 +318,15 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
         }else {
-            if(swipeRefreshLayout.isRefreshing()) {
-                swipeRefreshLayout.setRefreshing(false);
+//            if(swipeRefreshLayout.isRefreshing()) {
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+            if (page.getPageIndex() == 1){
+                grouponAdapter.setData(goodsListBeans);
+            }else {
+                this.goodsListBeans.addAll(goodsListBeans);
+                grouponAdapter.setData(this.goodsListBeans);
             }
-            this.goodsListBeans.addAll(goodsListBeans);
-            grouponAdapter.setData(goodsListBeans);
         }
     }
 
@@ -315,7 +351,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void onLoad() {
         pageIndex++;
-        groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType);
+        groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,false);
 //        toast("asdasdads");
     }
 }

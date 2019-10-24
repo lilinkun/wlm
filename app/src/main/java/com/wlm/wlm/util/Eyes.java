@@ -25,6 +25,15 @@ import java.lang.reflect.Method;
 public class Eyes {
     public static void setStatusBarColor(Activity activity, int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            EyesLollipop.setStatusBarColor(activity, statusColor);
+            setStatusBarLightMode(activity, statusColor);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            EyesKitKat.setStatusBarColor(activity, statusColor);
+            setStatusBarLightMode(activity, statusColor);
+        }
+    }
+    public static void setStatusBarColor1(Activity activity, int statusColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             EyesLollipop.setStatusBarColor(activity, statusColor);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             EyesKitKat.setStatusBarColor(activity, statusColor);
@@ -34,10 +43,10 @@ public class Eyes {
     public static void setStatusBarWhiteColor(Activity activity, int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             EyesLollipop.setStatusBarColor(activity, statusColor);
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//            setStatusBarLightMode(activity, statusColor);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             EyesKitKat.setStatusBarColor(activity, statusColor);
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//            setStatusBarLightMode(activity, statusColor);
         }
     }
 

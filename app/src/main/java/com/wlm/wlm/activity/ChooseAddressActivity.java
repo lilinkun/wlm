@@ -132,6 +132,9 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
     @Override
     public void setDataFail(String msg) {
+        if (refreshLayout != null && refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
         if (msg.contains("查无数据")){
             mEmptyLayout.setVisibility(View.VISIBLE);
             mChooseAddressRv.setVisibility(View.GONE);
