@@ -37,6 +37,7 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.SelfGoodsDetailPresenter;
 import com.wlm.wlm.ui.CommendRecyclerView;
+import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.FullyGridLayoutManager;
 import com.wlm.wlm.ui.SelfGoodsPopLayout;
 import com.wlm.wlm.ui.SpaceItemDecoration;
@@ -81,6 +82,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     ImageView mCollectIv;
     @BindView(R.id.tv_collect)
     TextView mCollectTv;
+    @BindView(R.id.tx_tikey)
+    TextView tx_tikey;
     @BindView(R.id.rv_recommend)
     CommendRecyclerView recyclerView;
     @BindView(R.id.wv_goods_detail)
@@ -95,6 +98,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     RelativeLayout rl_immediate_purchase;
     @BindView(R.id.rl_rush)
     RelativeLayout rl_rush;
+    @BindView(R.id.ll_groupon_play)
+    LinearLayout ll_groupon_play;
 //    @BindView(R.id.rl_rush_org)
 //    RelativeLayout rl_rush_org;
     @BindView(R.id.tv_groupon_old_price)
@@ -129,6 +134,20 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout ll_shop_car;
     @BindView(R.id.ll_collect)
     LinearLayout ll_collect;
+    @BindView(R.id.ll_groupon_time)
+    LinearLayout ll_groupon_time;
+    @BindView(R.id.ll_sale)
+    LinearLayout ll_sale;
+    @BindView(R.id.ll_groupon_info)
+    LinearLayout ll_groupon_info;
+    @BindView(R.id.ll_goods_layout)
+    LinearLayout ll_goods_layout;
+    @BindView(R.id.tv_rush_time)
+    CountdownView tv_rush_time;
+    @BindView(R.id.tv_distance_ends)
+    TextView tv_distance_ends;
+    @BindView(R.id.tv_grounon_info)
+    TextView tv_grounon_info;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -165,35 +184,19 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         ActivityUtil.addActivity(this);
         ActivityUtil.addHomeActivity(this);
         goodsid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSID);
-        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE) != null) {
+        /*if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE) != null) {
             type = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
-        }
+        }*/
         if (goodsid != null && !goodsid.isEmpty()) {
             selfGoodsDetailPresenter.getGoodsDetail(goodsid, ProApplication.SESSIONID(this));
 //            selfGoodsDetailPresenter.getGoodsTest(goodsid, ProApplication.SESSIONID(this));
         }
 
-
-        if (type.equals(WlmUtil.INTEGRAL)){
-            ll_layout_integral_price.setVisibility(View.VISIBLE);
-            mGoodsNameTv.setVisibility(View.GONE);
-            rl_rush.setVisibility(View.GONE);
-            rl_add_cart.setBackgroundColor(getResources().getColor(R.color.integral_add_cart));
-            rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.integral_bg));
-            ll_service.setVisibility(View.GONE);
-            ll_exchange.setVisibility(View.VISIBLE);
-        }else if (type.equals(WlmUtil.VIP)){
-            rl_add_cart.setVisibility(View.GONE);
-            ll_shop_car.setVisibility(View.GONE);
-            ll_collect.setVisibility(View.GONE);
-        }
-
-
         selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
 
         selfGoodsDetailPresenter.randomGoods("2",goodsid);
 
-        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
+        FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2,GridLayoutManager.VERTICAL,false);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         int spanCount = 5; // 2 columns
@@ -278,6 +281,13 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                             if (goodsDetailBean != null) {
                                 mRightNowBuy(goodsDetailBean, null, 1);
                             }
+                        }else if (type.equals(WlmUtil.GROUPONGOODS)){
+                            Bundle bundle = new Bundle();
+                            bundle.putString(WlmUtil.GOODSID,goodsDetailBean.getGoodsId());
+                            bundle.putInt(WlmUtil.GOODSNUM,1);
+                            bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
+                            bundle.putString(WlmUtil.ATTRID,"");
+                            UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
                         }else {
                             if (popupWindow != null) {
                                 iv_bg.setVisibility(View.VISIBLE);
@@ -342,6 +352,42 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     @Override
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
+        type = WlmUtil.getType(goodsDetailBean.getGoodsType() + "");
+
+        if (type.equals(WlmUtil.INTEGRAL)){
+            ll_layout_integral_price.setVisibility(View.VISIBLE);
+            mGoodsNameTv.setVisibility(View.GONE);
+            rl_rush.setVisibility(View.GONE);
+            rl_add_cart.setBackgroundColor(getResources().getColor(R.color.integral_add_cart));
+            rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.integral_bg));
+            ll_service.setVisibility(View.GONE);
+            ll_exchange.setVisibility(View.VISIBLE);
+        }else if (type.equals(WlmUtil.VIP)){
+            rl_add_cart.setVisibility(View.GONE);
+            ll_shop_car.setVisibility(View.GONE);
+            ll_collect.setVisibility(View.GONE);
+        }else if (type.equals(WlmUtil.GROUPONGOODS)){
+            ll_groupon_time.setVisibility(View.VISIBLE);
+            ll_groupon_info.setVisibility(View.VISIBLE);
+            ll_groupon_play.setVisibility(View.VISIBLE);
+            tv_grounon_info.setText(goodsDetailBean.getGoodsSmallName());
+            ll_sale.setVisibility(View.GONE);
+            rl_add_cart.setVisibility(View.GONE);
+            ll_shop_car.setVisibility(View.GONE);
+            ll_collect.setVisibility(View.GONE);
+            ll_goods_layout.setVisibility(View.GONE);
+            tx_tikey.setText(R.string.groupon_now);
+            if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 0){
+                rl_immediate_purchase.setVisibility(View.GONE);
+                tv_distance_ends.setText("距开始");
+            }else if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 1){
+                tv_distance_ends.setText("距结束");
+            }else {
+                rl_immediate_purchase.setVisibility(View.GONE);
+            }
+        }
+
+
         getpopup();
         if (type.equals(WlmUtil.INTEGRAL)) {
             tv_title_name.setText(goodsDetailBean.getGoodsName());

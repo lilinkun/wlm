@@ -26,6 +26,7 @@ import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
@@ -610,6 +611,13 @@ public class DataManager {
      */
     public Observable<ResultBean<LoginBean,Object>> getUpdataData(HashMap<String,String> mHashMap){
         return mRetrofitService.getUpdataData(mHashMap);
+    }
+
+    /**
+     * 获取Find数据
+     */
+    public Observable<ResultBean<ArrayList<GoodsDiscoverBean>,PageBean>> getFindData(HashMap<String,String> mHashMap){
+        return mRetrofitService.getFindData(mHashMap);
     }
 
 }

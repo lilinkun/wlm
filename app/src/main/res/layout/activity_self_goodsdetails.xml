@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_goods"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +33,7 @@
                             android:id="@+id/img_good_pic"
                             android:layout_width="match_parent"
                             android:layout_height="380dp"
-                            lzy:image_scale_type="fit_xy"/>
+                            app:image_scale_type="fit_xy"/>
 
                         <LinearLayout
                             android:id="@+id/ll_back"
@@ -97,6 +97,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/ll_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -130,6 +131,53 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/ll_groupon_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_distance_ends"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="距结束"
+                                android:textColor="#ffeae9"
+                                android:textSize="@dimen/textsize12" />
+
+
+                            <com.wlm.wlm.ui.CountdownView
+                                android:id="@+id/tv_rush_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_5"
+                                android:layout_marginRight="@dimen/margin_5"
+                                app:isHideTimeBackground="false"
+                                app:timeBgColor="#ffeae9"
+                                app:timeBgSize="@dimen/textsize16"
+                                app:timeBgRadius="3dp"
+                                app:isShowDay="true"
+                                app:isShowHour="true"
+                                app:isShowMinute="true"
+                                app:isShowSecond="true"
+                                app:timeTextColor="#eb1f1f"
+                                app:timeTextSize="11sp"
+                                app:isTimeTextBold="true"
+                                app:suffixGravity="center"
+                                app:suffixTextColor="#ffeae9"
+                                app:suffixTextSize="13sp"
+                                app:suffixDay=":"
+                                app:suffixHour=":"
+                                app:suffixMinute=":"
+                                app:suffixSecond=""/>
+
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
 <!--                    <include -->
@@ -146,12 +194,33 @@
                             android:id="@+id/tv_goods_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_10"
                             android:layout_marginLeft="@dimen/margin_10"
                             android:layout_marginRight="@dimen/margin_10"
                             android:layout_marginTop="@dimen/margin_10"
                             android:maxLines="2"
                             android:textColor="@color/pop_text_bg" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_groupon_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:layout_marginTop="@dimen/margin_12"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tv_grounon_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_groupon_info"
+                                android:textColor="@color/groupon_text"
+                                android:textSize="11sp" />
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <include
@@ -160,6 +229,63 @@
                     <include
                         layout="@layout/goods_layout_common"/>
 
+                    <LinearLayout
+                        android:id="@+id/ll_groupon_play"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:background="@color/line_bg"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/groupon_play_info"
+                                android:textColor="@color/list_divider"
+                                android:textSize="@dimen/textsize14"
+                                android:layout_marginLeft="@dimen/margin_10"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_back_cash"
+                                android:textColor="@color/goods_cashback"
+                                android:text="@string/groupon_cashback"
+                                android:textSize="@dimen/textsize11"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/margin_5"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="邀请好友参加拼团，拼团成功即可返现"
+                                android:textSize="@dimen/textsize12"
+                                android:textColor="@color/black_333333"
+                                android:layout_marginLeft="@dimen/margin_5"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/margin_15"
+                            android:src="@mipmap/ic_right_arrow"
+                            />
+                    </RelativeLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_exchange"

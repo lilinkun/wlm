@@ -5,6 +5,8 @@ import android.content.Context;
 import com.wlm.wlm.contract.CrowdFundingContract;
 import com.wlm.wlm.contract.FindContract;
 import com.wlm.wlm.entity.FlashBean;
+import com.wlm.wlm.entity.GoodsDiscoverBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -46,20 +48,20 @@ public class FindPresenter extends BasePresenter {
 
     /**
      * 获取find
-     * @param Style
      */
-    public void setFlash(String Style){
+    public void getFindData(String PageIndex,String PageCount){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Flash");
-        params.put("fun","FlashVipList");
-        params.put("Style",Style);
-        mCompositeSubscription.add(manager.getFlash(params)
+        params.put("cls","GoodsDiscover");
+        params.put("fun","GoodsDiscoverListVip");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
+        mCompositeSubscription.add(manager.getFindData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsDiscoverBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
-//                        findContract.onGetDataSuccess(flashBeans);
+                    public void onResponse(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, String status,PageBean page) {
+                        findContract.onGetDataSuccess(goodsDiscoverBeans,page);
                     }
 
                     @Override

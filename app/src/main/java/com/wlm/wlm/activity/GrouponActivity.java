@@ -123,7 +123,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
             public void onLoadMore() {
                 if (grouponAdapter != null) {
                     if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
-                        rv_groupon.loadMoreComplete();
+//                        rv_groupon.loadMoreComplete();
                         rv_groupon.setNoMore(true);
                     }else {
                         pageIndex++;
@@ -210,8 +210,12 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
-        UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
+//        bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
+//        UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
+
+        bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+//        bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
+        UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
     }
 
     @Override

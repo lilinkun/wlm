@@ -288,6 +288,8 @@ public class WlmUtil {
             type = WlmUtil.VIP;
         }else if (type.equals("8")){
             type = WlmUtil.MANUFACURE;
+        }else if (type.equals("2")){
+            type = WlmUtil.GROUPONGOODS;
         }
         return type;
     }

@@ -103,7 +103,8 @@
         android:layout_marginTop="@dimen/margin_15"
         />
 
-    <SurfaceView
+    <VideoView
+        android:id="@+id/vv_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

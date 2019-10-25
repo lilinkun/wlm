@@ -24,6 +24,7 @@ import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
+import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
@@ -377,6 +378,10 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<LoginBean,Object>> getUpdataData(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<ArrayList<GoodsDiscoverBean>,PageBean>> getFindData(@FieldMap Map<String, String> params);
 
     /**
      * 上传图片

@@ -9,8 +9,11 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.FindAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.contract.FindContract;
+import com.wlm.wlm.entity.GoodsDiscoverBean;
+import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.FindPresenter;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UToast;
 
 import java.util.ArrayList;
 
@@ -58,12 +61,11 @@ public class FindFragment extends BaseFragment implements FindContract {
             }
         });
 
-
-        onGetDataSuccess();
+        findPresenter.getFindData("1","20");
     }
 
     @Override
-    public void onGetDataSuccess() {
+    public void onGetDataSuccess(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, PageBean pageBean) {
         if (findAdapter == null){
             ArrayList<String> strings = new ArrayList<>();
 //            strings.add("http://b-ssl.duitang.com/uploads/item/201208/30/20120830173930_PBfJE.jpeg");
@@ -75,7 +77,7 @@ public class FindFragment extends BaseFragment implements FindContract {
 //            strings.add("http://pic49.nipic.com/file/20140926/6608733_100333244000_2.jpg");
 //            strings.add("http://pic37.nipic.com/20140119/9353120_232654315191_2.jpg");
 //            strings.add("http://b-ssl.duitang.com/uploads/blog/201312/12/20131212143029_hNEeN.jpeg");
-            findAdapter = new FindAdapter(getActivity(),strings);
+            findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans);
 
             rv_find.setAdapter(findAdapter);
         }
@@ -83,6 +85,6 @@ public class FindFragment extends BaseFragment implements FindContract {
 
     @Override
     public void onGetDataFail(String msg) {
-
+        UToast.show(getActivity(),msg);
     }
 }

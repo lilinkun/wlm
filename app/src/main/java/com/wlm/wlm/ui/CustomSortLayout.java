@@ -101,7 +101,8 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             public void onLoadMore() {
                 if (tbHotGoodsAdapter != null) {
                         if (PAGE_INDEX  > Integer.valueOf(pageBean.getMaxPage())){
-                            recyclerView.loadMoreComplete();
+//                            recyclerView.loadMoreComplete();
+                            recyclerView.setNoMore(true);
                         }else {
                             PAGE_INDEX++;
                             sortListerner.onLoadding(PAGE_INDEX);

@@ -1,7 +1,6 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
-import com.wlm.wlm.util.DensityUtil;
 
 import java.util.ArrayList;
 
@@ -42,7 +39,8 @@ public class FindPhotoAdapter extends RecyclerView.Adapter<FindPhotoAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
 
 
-        Picasso.with(context).load(photoList.get(position)).into(holder.iv_find_adapter);
+        Picasso.with(context).load("http://b-ssl.duitang.com/uploads/item/201208/30/20120830173930_PBfJE.jpeg").into(holder.iv_find_adapter);
+//        Picasso.with(context).load(photoList.get(position)).into(holder.iv_find_adapter);
 
 
     }
@@ -54,7 +52,7 @@ public class FindPhotoAdapter extends RecyclerView.Adapter<FindPhotoAdapter.View
 
     @Override
     public int getItemCount() {
-        return photoList.size();
+        return 4;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
