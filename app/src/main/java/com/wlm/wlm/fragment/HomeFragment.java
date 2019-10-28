@@ -2,6 +2,7 @@ package com.wlm.wlm.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -23,20 +24,18 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.GoodsTypeActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
-import com.wlm.wlm.activity.LoginActivity;
-import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
-import com.wlm.wlm.activity.OpinionActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.activity.VipActivity;
+import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
@@ -44,7 +43,6 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.FlashBean;
-import com.wlm.wlm.entity.FlashHomeBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
@@ -59,7 +57,6 @@ import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
@@ -67,6 +64,7 @@ import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
+import com.xw.banner.loader.ImageLoaderInterface;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -95,24 +93,16 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @BindView(R.id.title_layout_search)
     LinearLayout linearLayout;
-    @BindView(R.id.gv_goods_type)
-    MyGridView gridView;
     @BindView(R.id.bannerView)
     Banner banner;
     @BindView(R.id.tsv_home)
     TranslucentScrollView translucentScrollView;
     @BindView(R.id.gv_hot_commodities)
     RecyclerView mHotGridView;
-    @BindView(R.id.iv_home_advertisement1)
-    ImageView iv_home_advertisement1;
-    @BindView(R.id.iv_home_advertisement2)
-    ImageView iv_home_advertisement2;
-    @BindView(R.id.ll_membership)
-    LinearLayout ll_membership;
     @BindView(R.id.mPtrframe)
     CusPtrClassicFrameLayout mPtrFrame;
-    @BindView(R.id.ll_strategy)
-    LinearLayout ll_strategy;
+    @BindView(R.id.rv_home)
+    RecyclerView rv_home;
 
     private PopupWindow popupWindow;
     private int PAGE_INDEX = 1;
@@ -148,6 +138,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         translucentScrollView.init(this);
         initPtrFrame();
 
+        initRv();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
         ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
@@ -161,8 +153,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             homePresenter.setFlash("1");
             homePresenter.getGoodsList("1");
         }
-
-        gridView.setOnItemClickListener(this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
@@ -205,8 +195,37 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    @OnClick({ R.id.text_search, R.id.iv_home_tb, R.id.iv_home_tm, R.id.iv_home_advertisement1,R.id.iv_vip
-            ,R.id.iv_home_advertisement2,R.id.ll_groupon,R.id.ll_crowd_funding,R.id.ll_strategy,R.id.ll_home_opinion})
+    private void initRv(){
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),5);
+
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        rv_home.setLayoutManager(gridLayoutManager);
+
+        GridHomeAdapter gridHomeAdapter = new GridHomeAdapter(getActivity());
+
+        gridHomeAdapter.setItemClickListener(new GridHomeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (position == 0) {
+                } else if (position == 2) {
+                    UiHelper.launcher(getActivity(), GrouponActivity.class);
+                }else if (position == 5){
+                    UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
+                }else if (position == 6){
+                    UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
+                }
+            }
+
+        });
+
+        rv_home.setAdapter(gridHomeAdapter);
+
+
+    }
+
+
+    @OnClick({ R.id.text_search})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -214,68 +233,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 case R.id.text_search:
 
                     UiHelper.launcher(getActivity(), SearchActivity.class);
-
-                    break;
-
-                case R.id.iv_home_tb:
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", 0);
-                    bundle.putInt("isMall",0);
-                    UiHelper.launcherBundle(getActivity(), GoodsTypeActivity.class, bundle);
-
-                    break;
-
-                case R.id.iv_home_tm:
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt("position", 0);
-                    bundle1.putInt("isMall",1);
-                    UiHelper.launcherBundle(getActivity(), GoodsTypeActivity.class, bundle1);
-
-                    break;
-
-                case R.id.iv_home_advertisement1:
-
-
-                    UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
-
-                    break;
-
-                case R.id.iv_vip:
-
-                    UiHelper.launcher(getActivity(), VipActivity.class);
-
-
-                    break;
-
-                case R.id.iv_home_advertisement2:
-
-                    UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
-
-                    break;
-
-                case R.id.ll_groupon:
-
-                    UiHelper.launcher(getActivity(), GrouponActivity.class);
-
-
-                    break;
-
-                case R.id.ll_crowd_funding:
-
-//                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
-
-                    break;
-
-                case R.id.ll_strategy:
-
-//                    UiHelper.launcher(getActivity(), StrategyActivity.class);
-
-
-                    break;
-
-                case R.id.ll_home_opinion:
-
-                    UiHelper.launcher(getActivity(), OpinionActivity.class);
 
                     break;
 
@@ -478,7 +435,17 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器，图片加载器在下方
-        banner.setImageLoader(new CustomRoundedImageLoader());
+        banner.setImageLoader(new ImageLoaderInterface() {
+            @Override
+            public void displayImage(Context context, Object path, View imageView) {
+                Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView)imageView);
+            }
+
+            @Override
+            public View createImageView(Context context) {
+                return null;
+            }
+        });
         //设置图片网址或地址的集合
         banner.setImages(flashBeans);
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验

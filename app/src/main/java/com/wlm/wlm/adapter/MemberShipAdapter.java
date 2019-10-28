@@ -24,7 +24,7 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
 
     private Context context;
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
-    private OrderShopAdapter.OnItemClickListener mItemClickListener;
+    private OnItemClickListener mItemClickListener;
 
     public MemberShipAdapter(Context context,ArrayList<SelfGoodsBean> selfGoodsBeans){
         this.context = context;
@@ -81,7 +81,7 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
         }
     }
 
-    public void setItemClickListener(OrderShopAdapter.OnItemClickListener itemClickListener) {
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 

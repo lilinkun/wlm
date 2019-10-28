@@ -105,8 +105,68 @@
 
     <VideoView
         android:id="@+id/vv_find"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll_goods_find"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_find_bg"
+        android:layout_marginTop="@dimen/margin_10">
+
+        <ImageView
+            android:id="@+id/iv_goods_find"
+            android:layout_width="49dp"
+            android:layout_height="49dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/margin_10">
+
+            <TextView
+                android:id="@+id/tv_goods_find_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:gravity="bottom">
+
+            <TextView
+                android:id="@+id/tv_goods_find_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/setting_title_color"
+                android:textSize="@dimen/textsize16"
+                android:text="￥"/>
+
+            <TextView
+                android:id="@+id/tv_find_groupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_groupon_info"
+                android:textColor="@color/groupon_text"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:textSize="11sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.wlm.wlm.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -26,6 +27,8 @@ public class FindFragment extends BaseFragment implements FindContract {
 
     @BindView(R.id.rv_find)
     XRecyclerView rv_find;
+    @BindView(R.id.ll_find)
+    LinearLayout ll_find;
 
     FindPresenter findPresenter = new FindPresenter();
 
@@ -52,12 +55,12 @@ public class FindFragment extends BaseFragment implements FindContract {
         rv_find.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-
+                rv_find.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
-
+                rv_find.setNoMore(true);
             }
         });
 
@@ -68,16 +71,7 @@ public class FindFragment extends BaseFragment implements FindContract {
     public void onGetDataSuccess(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, PageBean pageBean) {
         if (findAdapter == null){
             ArrayList<String> strings = new ArrayList<>();
-//            strings.add("http://b-ssl.duitang.com/uploads/item/201208/30/20120830173930_PBfJE.jpeg");
-            strings.add("http://192.168.0.144:8080/liguo/1.jpg");
-            strings.add("http://192.168.0.144:8080/liguo/2.jpg");
-            strings.add("http://192.168.0.144:8080/liguo/3.jpg");
-            strings.add("http://192.168.0.144:8080/liguo/4.jpg");
-//            strings.add("http://www.forestry.gov.cn/uploadfile/main/2013-6/image/2013-6-19-dbdb3e3f20b644ec959960e9d8308eda.jpg");
-//            strings.add("http://pic49.nipic.com/file/20140926/6608733_100333244000_2.jpg");
-//            strings.add("http://pic37.nipic.com/20140119/9353120_232654315191_2.jpg");
-//            strings.add("http://b-ssl.duitang.com/uploads/blog/201312/12/20131212143029_hNEeN.jpeg");
-            findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans);
+            findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans,ll_find);
 
             rv_find.setAdapter(findAdapter);
         }

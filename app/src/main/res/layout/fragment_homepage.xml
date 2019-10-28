@@ -10,8 +10,6 @@
         android:id="@+id/mPtrframe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_layout_search"
-        android:background="@color/setting_title_color"
         app:ptr_duration_to_close="3000"
         app:ptr_duration_to_close_header="2000"
         app:ptr_keep_header_when_refresh="true"
@@ -29,14 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"
-                android:layout_marginTop="-1dp"
-                android:background="@mipmap/ic_home_orange_bg" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,46 +35,48 @@
                 <com.xw.banner.Banner
                     android:id="@+id/bannerView"
                     android:layout_width="match_parent"
-                    android:layout_height="135dp"
+                    android:layout_height="175dp"
                     app:indicator_width="10dp"
                     app:indicator_height="10dp"
                     app:indicator_margin="5dp"
                     app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
                     app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
-                    app:page_margin="20dp"/>
+                    />
 
-                <com.wlm.wlm.ui.MyGridView
-                    android:id="@+id/gv_goods_type"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margin_15"
-                    android:paddingRight="@dimen/margin_15"
-                    android:paddingTop="@dimen/margin_20"
-                    android:numColumns="4"
-                    android:background="@color/white"
-                    android:verticalSpacing="@dimen/margin_10"
-                    android:visibility="gone">
-                </com.wlm.wlm.ui.MyGridView>
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"/>
 
-                <include
-                    layout="@layout/layout_home_type"/>
 
                 <ImageView
-                    android:id="@+id/iv_vip"
+                    android:id="@+id/big_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
-                    android:scaleType="fitXY"
-                    android:background="@color/menu_item_bg"
-                    android:src="@mipmap/ic_home_vip"/>
+                    android:layout_marginTop="@dimen/margin_15"/>
 
-                <include
-                    layout="@layout/layout_self_commodities"/>
+                <LinearLayout
+                    android:id="@+id/ll_vip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
 
-                <include
-                    layout="@layout/layout_brand_recommendation"
-                    android:visibility="gone"/>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+
+                </LinearLayout>
 
                 <include
                     layout="@layout/layout_hot_commodities"/>

@@ -154,6 +154,8 @@
     <color name="dot_light_screen4">#e4b5fc</color>
     <color name="dot_light_screen5">#fbc02d</color>
 
+    <color name="point_red">#e80283</color>
+
     <!-- 亮黄色 -->
     <color name="yellow">#ffff00</color>
     <!-- 黄色 -->
