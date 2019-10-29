@@ -30,6 +30,7 @@ import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
+import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -206,6 +207,13 @@ public class DataManager {
      */
     public Observable<ResultBean<ArrayList<FlashBean>,Object>> getFlash(HashMap<String,String> mHashMap){
         return mRetrofitService.getFlash(mHashMap);
+    }
+
+    /**
+     * 获取home
+     */
+    public Observable<ResultBean<HomeBean,Object>> getHomeData(HashMap<String,String> mHashMap){
+        return mRetrofitService.getHomeData(mHashMap);
     }
 
     /**

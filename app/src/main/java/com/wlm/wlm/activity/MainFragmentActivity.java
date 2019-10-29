@@ -39,6 +39,7 @@ import com.wlm.wlm.fragment.WlmCartFragment;
 import com.wlm.wlm.presenter.MainFragmentPresenter;
 import com.wlm.wlm.receiver.NetReceiver;
 import com.wlm.wlm.ui.DownloadingDialog;
+import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
@@ -115,6 +116,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
     @Override
     public void initEventAndData() {
+        Eyes.translucentStatusBar(this);
 
         mainFragmentPresenter.onCreate(this,this);
 

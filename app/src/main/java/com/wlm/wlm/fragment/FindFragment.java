@@ -15,6 +15,7 @@ import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.FindPresenter;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,9 @@ public class FindFragment extends BaseFragment implements FindContract {
     FindPresenter findPresenter = new FindPresenter();
 
     private FindAdapter findAdapter;
+    private int page_index = 1;
+    private PageBean pageBean;
+    private ArrayList<GoodsDiscoverBean> goodsDiscoverBeans;
 
     @Override
     public int getlayoutId() {
@@ -55,25 +59,47 @@ public class FindFragment extends BaseFragment implements FindContract {
         rv_find.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                rv_find.refreshComplete();
+                page_index = 1;
+                findPresenter.getFindData(page_index+"", WlmUtil.PAGE_COUNT);
             }
 
             @Override
             public void onLoadMore() {
-                rv_find.setNoMore(true);
+
+                if (pageBean != null){
+                    if(pageBean.getMaxPage() > page_index){
+                        page_index++;
+                        findPresenter.getFindData(page_index+"", WlmUtil.PAGE_COUNT);
+                    }else {
+                        rv_find.setNoMore(true);
+                    }
+                }
+
             }
         });
 
-        findPresenter.getFindData("1","20");
+        findPresenter.getFindData(page_index+"",WlmUtil.PAGE_COUNT);
     }
 
     @Override
-    public void onGetDataSuccess(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, PageBean pageBean) {
+    public void onGetDataSuccess(ArrayList<GoodsDiscoverBean> goodsDiscoverList, PageBean pageBean) {
+        this.pageBean = pageBean;
+        rv_find.refreshComplete();
+        rv_find.loadMoreComplete();
+
         if (findAdapter == null){
+            goodsDiscoverBeans = goodsDiscoverList;
             ArrayList<String> strings = new ArrayList<>();
             findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans,ll_find);
 
             rv_find.setAdapter(findAdapter);
+        }else {
+            if (pageBean.getPageIndex() > 1){
+                goodsDiscoverBeans.addAll(goodsDiscoverList);
+            }else {
+                goodsDiscoverBeans = goodsDiscoverList;
+            }
+            findAdapter.setData(goodsDiscoverBeans);
         }
     }
 

@@ -28,6 +28,7 @@ import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.entity.GrouponListBean;
+import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
@@ -151,6 +152,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("Api/")
     Observable<ResultBean<ArrayList<FlashBean>,Object>> getFlash(@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("Api/")
+    Observable<ResultBean<HomeBean,Object>> getHomeData(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("Api/")

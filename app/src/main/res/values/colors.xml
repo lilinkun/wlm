@@ -13,6 +13,8 @@
     <color name="transparent">#00000000</color>
     <color name="transparent_">#60000000</color>
 
+    <color name="point_text_color">#ee1c2b</color>
+
     <color name="banner_red">#FF0065</color>
     <color name="banner_bg">#50ffffff</color>
     <color name="text_default">#8e8e93</color>
@@ -99,6 +101,8 @@
     <color name="pop_text_bg">#222222</color>
     <color name="order_bg">#fa824a</color>
 
+    <color name="home_text_hot_bg">#686567</color>
+
     <color name="phone_dialog_red">#EB2222</color>
 
     <color name="dialog_red">#EB2222</color>
@@ -127,6 +131,8 @@
     <color name="order_bg_num">#989898</color>
 
     <color name="red_price">#E4393C</color>
+
+    <color name="red_hot_price">#ee1c2b</color>
     <!-- 列表分割线   色值999999# -->
     <color name="list_divider">#999999</color>
     <!-- 选中态色块   色值#D7D7D7 -->

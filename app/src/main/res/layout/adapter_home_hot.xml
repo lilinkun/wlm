@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--<android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                lzy:cardBackgroundColor="@android:color/white"
+                lzy:cardCornerRadius="10dp"
+                lzy:cardElevation="0dp">-->
+
+            <com.wlm.wlm.ui.CustomRoundAngleImageView
+                android:id="@+id/iv_goods_pic"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:scaleType="fitXY"
+                lzy:left_top_radius="5dp"
+                lzy:right_top_radius="5dp"
+                lzy:right_bottom_radius="5dp"
+                lzy:left_bottom_radius="5dp"/>
+
+
+<!--            </android.support.v7.widget.CardView>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:id="@+id/tv_goods_title_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/home_text_hot_bg"
+                    android:textSize="@dimen/textsize12" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_goods_title_name"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥"
+                        android:textColor="@color/red_hot_price"
+                        android:textSize="@dimen/textsize11"/>
+
+                    <com.wlm.wlm.ui.PriceTextView
+                        android:id="@+id/tv_goods_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@+id/tv_goods_type_price"
+                        android:textColor="@color/red_hot_price"
+                        android:textSize="@dimen/textsize11" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+                        <com.wlm.wlm.ui.PriceTextView
+                            android:id="@+id/tv_add_integral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize15"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/me_integral"
+                            android:textColor="@color/red_price"
+                            android:textSize="@dimen/textsize12"/>
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_old_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#9b9b9c"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/textsize10"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/ll_buy_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="已售"
+                            android:textColor="@color/list_divider"
+                            android:textSize="@dimen/textsize9"/>
+
+                        <TextView
+                            android:id="@+id/tv_buy_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13"
+                            android:textColor="@color/list_divider"
+                            android:textSize="@dimen/textsize9"/>
+
+                        <TextView
+                            android:id="@+id/tv_buy_goods"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="件"
+                            android:textColor="@color/list_divider"
+                            android:textSize="@dimen/textsize9" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+</LinearLayout>

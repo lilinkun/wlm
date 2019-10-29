@@ -8,6 +8,7 @@ import com.wlm.wlm.entity.BalanceDetailBean;
 import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.ResultBean;
@@ -52,6 +53,31 @@ public class HomePresenter extends BasePresenter {
     public void onStop() {
         mCompositeSubscription.unsubscribe();
     }
+
+
+
+    public void getHomeData(String SessionId){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Home");
+        params.put("fun","Mobile");
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getHomeData(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<HomeBean,Object>() {
+                    @Override
+                    public void onResponse(HomeBean homeBean, String status,Object page) {
+                        homeContract.getHomeDataSuccess(homeBean);
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        homeContract.getHomeDataFail(msg);
+                    }
+
+                }));
+    }
+
 
     /**
      * 获取首页信息

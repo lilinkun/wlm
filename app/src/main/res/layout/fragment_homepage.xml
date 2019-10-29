@@ -77,6 +77,66 @@
                         />
 
                 </LinearLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textsize11"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:textColor="@color/point_text_color"
+                        android:text="限时抢购"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textsize11"
+                        android:layout_marginLeft="@dimen/margin_25"
+                        android:textColor="@color/point_text_color"
+                        android:text="距离结束"/>
+
+                    <com.wlm.wlm.ui.CountdownView
+                        android:id="@+id/tv_rush_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_25"
+                        android:layout_marginRight="@dimen/margin_5"
+                        app:isHideTimeBackground="false"
+                        app:timeBgColor="@color/groupon_text"
+                        app:timeBgSize="@dimen/textsize16"
+                        app:timeBgRadius="2dp"
+                        app:isShowDay="true"
+                        app:isShowHour="true"
+                        app:isShowMinute="true"
+                        app:isShowSecond="true"
+                        app:timeTextColor="#ffffff"
+                        app:timeTextSize="11sp"
+                        app:isTimeTextBold="true"
+                        app:suffixGravity="center"
+                        app:suffixTextColor="@color/point_text_color"
+                        app:suffixTextSize="11sp"
+                        app:suffixDay="天"
+                        app:suffixHour="时"
+                        app:suffixMinute="分"
+                        app:suffixSecond="秒"/>
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_home_commodities"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
 
                 <include
                     layout="@layout/layout_hot_commodities"/>

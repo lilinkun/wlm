@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#80000000"
     android:orientation="vertical">
 
     <com.xw.banner.Banner
@@ -11,13 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10"
         android:paddingBottom="@dimen/padding_10"
+        android:layout_marginBottom="@dimen/margin_50"
         app:indicator_width="4dp"
         app:indicator_height="4dp"
         app:indicator_margin="3dp"
+        app:image_scale_type="center"
         app:indicator_drawable_selected="@drawable/ic_circle_round_click"
         app:indicator_drawable_unselected="@drawable/ic_circle_round_unclick"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:page_margin="20dp"/>
-
+        />
 
 </LinearLayout>

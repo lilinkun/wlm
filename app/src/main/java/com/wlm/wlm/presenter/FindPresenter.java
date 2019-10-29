@@ -2,9 +2,7 @@ package com.wlm.wlm.presenter;
 
 import android.content.Context;
 
-import com.wlm.wlm.contract.CrowdFundingContract;
 import com.wlm.wlm.contract.FindContract;
-import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;

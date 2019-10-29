@@ -128,7 +128,6 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(getActivity());
         translucentScrollView.init(this);
         mePresenter.onCreate(getActivity(),this);
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));

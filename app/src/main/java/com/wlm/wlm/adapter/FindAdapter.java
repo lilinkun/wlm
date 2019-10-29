@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     private ArrayList<ViewHolder> viewHolders = new ArrayList<>();
     private View item ;
     private ArrayList<String> strings = new ArrayList<>();
+    private PopupWindow popupWindow;
 
     public Handler handler = new Handler(){
         @Override
@@ -72,6 +74,11 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         this.item = view;
     }
 
+    public void setData(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans){
+        this.goodsDiscoverBeans = goodsDiscoverBeans;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -89,8 +96,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         viewHolders.add(holder);
 
         holder.tv_goods_time.setText(goodsDiscoverBean.getCreateDate());
-        holder.tv_goods_name.setText(goodsDiscoverBean.getGoodsName());
-        holder.tv_goods_detail.setText(goodsDiscoverBean.getGoodsName());
+        holder.tv_goods_name.setText(goodsDiscoverBean.getDiscoverName());
+        holder.tv_goods_detail.setText(goodsDiscoverBean.getDiscoverDesc());
         holder.tv_goods_find_price.setText("￥" + goodsDiscoverBean.getPrice());
         holder.tv_goods_find_title.setText(goodsDiscoverBean.getGoodsName());
 
@@ -119,27 +126,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 findPhotoAdapter.setItemClickListener(new FindPhotoAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int pos) {
-                        final PopupWindow popupWindow = new PopupWindow(context);
-                        View rootView = LayoutInflater.from(context).inflate(R.layout.adapter_find_show_photo, null, false);
-
-                        Banner banner = rootView.findViewById(R.id.bannerView);
-
-                        startBanner(banner,new ArrayList(Arrays.asList(goodsDiscoverBeans.get(position).getFileUrl().split(","))));
-
-                        popupWindow.setContentView(rootView);
-                        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-                        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                        popupWindow.setFocusable(true);
-                        popupWindow.setOutsideTouchable(true);
-                        popupWindow.showAsDropDown(item);
+                        ArrayList<String> list = new ArrayList(Arrays.asList(goodsDiscoverBeans.get(position).getFileUrl().split(",")));
+                        initBanner(list,pos+1);
                     }
                 });
 
             }else {
                 strings.clear();
-                strings.add(goodsDiscoverBean.getGoodsImg());
-                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getGoodsImg()).transform(transformation).placeholder(R.color.black).into(holder.iv_adapter_find);
+                strings.add(goodsDiscoverBean.getFileUrl());
+                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).transform(transformation).placeholder(R.color.black).into(holder.iv_adapter_find);
             }
         }else if (goodsDiscoverBean.getDiscoverType() == 2) {
 
@@ -189,6 +184,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 if (goodsDiscoverBean.getDiscoverType() == 1){
 
 
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(goodsDiscoverBean.getFileUrl());
+                    initBanner(list,1);
 
 
                 }else if (goodsDiscoverBean.getDiscoverType() == 2){
@@ -221,10 +219,29 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
     }
 
-    private void startBanner(Banner banner , final ArrayList<String> list) {
+    private void initBanner(ArrayList<String> list,int pos){
+        popupWindow = new PopupWindow(context);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.adapter_find_show_photo, null, false);
+
+        Banner banner = rootView.findViewById(R.id.bannerView);
+
+        startBanner(banner,list,pos);
+
+        popupWindow.setContentView(rootView);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAsDropDown(item);
+    }
+
+
+
+    private void startBanner(Banner banner , final ArrayList<String> list,int pos) {
        //设置内置样式，共有六种可以点入方法内逐一体验使用。
 
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
 
          //设置图片加载器，图片加载器在下方
         banner.setImageLoader(new ImageLoaderInterface() {
@@ -257,8 +274,10 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
         //设置是否为自动轮播，默认是“是”。
 
-         banner.isAutoPlay(true);
+         banner.isAutoPlay(false);
 
+
+         banner.onPageScrollStateChanged(2);
         //设置指示器的位置，小点点，左中右。
 
          banner.setIndicatorGravity(BannerConfig.CENTER)
@@ -269,7 +288,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
         //必须最后调用的方法，启动轮播图。
 
-        .start();
+        .start(pos);
 
     }
 
@@ -285,7 +304,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
     @Override
     public void OnBannerClick(int position) {
-
+        if (popupWindow != null && popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
     }
 
 

@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,23 +21,25 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.GoodsTypeActivity;
+import com.wlm.wlm.activity.CrowdFundingActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
+import com.wlm.wlm.activity.PointActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
-import com.wlm.wlm.activity.VipActivity;
 import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
+import com.wlm.wlm.adapter.HomeHotAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
@@ -44,19 +47,20 @@ import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
 import com.wlm.wlm.transform.BannerTransform;
+import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CusPtrClassicFrameLayout;
+import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomerPtrHandler;
 import com.wlm.wlm.ui.DownloadingDialog;
-import com.wlm.wlm.ui.MyGridView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.CustomRoundedImageLoader;
-import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
@@ -69,7 +73,10 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,7 +96,7 @@ import static in.srain.cube.views.ptr.util.PtrLocalDisplay.dp2px;
  * Created by LG on 2018/11/10.
  */
 
-public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, OnScrollChangedListener, HomeContract, TbHotGoodsAdapter.OnItemClickListener, OnBannerListener {
+public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, OnScrollChangedListener, HomeContract, HomeHotAdapter.OnItemClickListener {
 
     @BindView(R.id.title_layout_search)
     LinearLayout linearLayout;
@@ -97,12 +104,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     Banner banner;
     @BindView(R.id.tsv_home)
     TranslucentScrollView translucentScrollView;
-    @BindView(R.id.gv_hot_commodities)
-    RecyclerView mHotGridView;
     @BindView(R.id.mPtrframe)
     CusPtrClassicFrameLayout mPtrFrame;
     @BindView(R.id.rv_home)
     RecyclerView rv_home;
+    @BindView(R.id.rv_home_commodities)
+    RecyclerView rv_home_commodities;
+    @BindView(R.id.tv_rush_time)
+    CountdownView tv_rush_time;
 
     private PopupWindow popupWindow;
     private int PAGE_INDEX = 1;
@@ -134,7 +143,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void initEventAndData() {
 //        Eyes.setStatusBarColor(getActivity(),getResources().getColor(R.color.home_bg));
-        Eyes.translucentStatusBar(getActivity());
         translucentScrollView.init(this);
         initPtrFrame();
 
@@ -150,20 +158,21 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
 
         if (ProApplication.HEADIMG != null && !ProApplication.HEADIMG.isEmpty()) {
-            homePresenter.setFlash("1");
-            homePresenter.getGoodsList("1");
+//            homePresenter.setFlash("1");
+//            homePresenter.getGoodsList("1");
+            homePresenter.getHomeData(ProApplication.SESSIONID(getActivity()));
         }
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         int spanCount = 5; // 2 columns
         int spacing = 20; // 50px
 //        api.registerApp("wx3686dfb825618610");
 
         boolean includeEdge = false;
-        mHotGridView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
-        mHotGridView.setLayoutManager(gridLayoutManager);
+        rv_home_commodities.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        rv_home_commodities.setLayoutManager(linearLayoutManager);
 //        mBanner.setImageLoader(new PicassoImageLoader());
 //        mBanner.setImages();
 
@@ -208,8 +217,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             @Override
             public void onItemClick(int position) {
                 if (position == 0) {
+                    UiHelper.launcher(getActivity(), PointActivity.class);
                 } else if (position == 2) {
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
+                }else if(position == 4){
+                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
                 }else if (position == 5){
                     UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
                 }else if (position == 6){
@@ -309,8 +321,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
-            homePresenter.setFlash("1");
-            homePresenter.getGoodsList("1");
+//            homePresenter.setFlash("1");
+//            homePresenter.getGoodsList("1");
+            homePresenter.getHomeData(ProApplication.SESSIONID(getActivity()));
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
                     .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
@@ -388,7 +401,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
 
 
-        startBanner(flashBeans);
+        CustomBannerView.startBanner(flashBeans,banner,getActivity(),true);
 
 //        DBManager.getInstance(getActivity()).deleteCategoryListBean();
 //        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
@@ -412,9 +425,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.hotHomeBeans = goodsListBeans;
-        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(),goodsListBeans,getLayoutInflater());
-        mHotGridView.setAdapter(tbHotGoodsAdapter);
-        tbHotGoodsAdapter.setItemClickListener(this);
+
+        HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(),goodsListBeans);
+        rv_home_commodities.setAdapter(homeHotAdapter);
+        homeHotAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -422,50 +436,26 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     }
 
-    private void startBanner(final ArrayList<FlashBean> flashBeans) {
-        ArrayList<String> strings = new ArrayList<>();
+    @Override
+    public void getHomeDataSuccess(HomeBean homeBean) {
+        onFlashSuccess(homeBean.getFlash());
+        onGoodsListSuccess(homeBean.getGoodsList());
 
-        for (int i = 0; i < flashBeans.size(); i++) {
-            strings.add("asdads" + i);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-//            FlashBean flashBean  = flashBeans.get(i);
-//            flashBeans.add(flashBean);
+        try {
+            Date date = simpleDateFormat.parse(homeBean.getTime());
+            Date date1 = new Date();
+            tv_rush_time.start(date.getTime() - date1.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        //设置内置样式，共有六种可以点入方法内逐一体验使用。
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器，图片加载器在下方
-        banner.setImageLoader(new ImageLoaderInterface() {
-            @Override
-            public void displayImage(Context context, Object path, View imageView) {
-                Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView)imageView);
-            }
+    }
 
-            @Override
-            public View createImageView(Context context) {
-                return null;
-            }
-        });
-        //设置图片网址或地址的集合
-        banner.setImages(flashBeans);
-        //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
-        banner.setBannerAnimation(Transformer.RotateDown);
-
-        banner.setPageTransformer(true,new BannerTransform());
-
-        //设置轮播图的标题集合
-        banner.setBannerTitles(strings);
-        //设置轮播间隔时间
-        banner.setDelayTime(3000);
-        //设置是否为自动轮播，默认是“是”。
-        banner.isAutoPlay(true);
-        //设置指示器的位置，小点点，左中右。
-        banner.setIndicatorGravity(BannerConfig.CENTER)
-                //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
-                .setOnBannerListener(this)
-                //必须最后调用的方法，启动轮播图。
-                .start();
-
+    @Override
+    public void getHomeDataFail(String msg) {
+        UToast.show(getActivity(),msg);
     }
 
 
@@ -486,34 +476,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 UiHelper.launcherBundle(getActivity(), GrouponGoodsDetailActivity.class,bundle);
             }
         }
-    }
-
-    @Override
-    public void OnBannerClick(int position) {
-        FlashBean flashBean = flashBeans.get(position);
-
-        String url = flashBean.getFlashUrl();
-        if (url.contains("GoodsId") && url.contains("GoodsType")) {
-            try {
-                JSONObject jsonObject = JSON.parseObject(url);
-                String goodsid = jsonObject.getString("GoodsId");
-                int GoodsType = jsonObject.getInteger("GoodsType");
-                Bundle bundle = new Bundle();
-                if (GoodsType == 2){
-                    bundle.putString(WlmUtil.GOODSID, goodsid);
-                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
-                    UiHelper.launcherBundle(getActivity(), GrouponGoodsDetailActivity.class, bundle);
-                }else {
-                    bundle.putString(WlmUtil.GOODSID, goodsid);
-                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
-                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
     /**

@@ -54,6 +54,10 @@ public class WlmUtil {
     public static final int GOODS_FOOD = 3761;
     public static final int GOODS_MOTION = 3766;
 
+    public static final int BANNER_GROUPON = 0x0011;
+    public static final int BANNER_HOME = 0x0012;
+    public static final int BANNER_CROWDFUNDING = 0x0013;
+
     public static final String TYPEID = "TYPEID";
     public static final String USERNAME = "username";
     public static final String GOODSNAME = "goodsname";

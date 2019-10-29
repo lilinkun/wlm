@@ -2,6 +2,8 @@ package com.wlm.wlm.activity;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
 import com.wlm.wlm.transform.BannerTransform;
+import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.LoadRecyclerView;
 import com.wlm.wlm.ui.RecyclerViewScrollListener;
 import com.wlm.wlm.ui.SpaceItemDecoration;
@@ -49,7 +52,7 @@ import butterknife.OnClick;
  * 拼团
  * Created by LG on 2019/8/19.
  */
-public class GrouponActivity extends BaseActivity implements GrouponContract, OnBannerListener, GrouponAdapter.OnItemClickListener, IGoodsTypeListener, RecyclerViewScrollListener.OnLoadListener {
+public class GrouponActivity extends BaseActivity implements GrouponContract,GrouponAdapter.OnItemClickListener, IGoodsTypeListener, RecyclerViewScrollListener.OnLoadListener {
 
     @BindView(R.id.bannerView)
     Banner banner;
@@ -72,7 +75,6 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
 
     private int pageIndex = 1;
     private PageBean pageBean = null;
-
 
     @Override
     public int getLayoutId() {
@@ -133,65 +135,6 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
                 }
             }
         });
-    }
-
-    private void startBanner(final ArrayList<FlashBean> flashBeans) {
-        ArrayList<String> strings = new ArrayList<>();
-
-        for (int i = 0; i < flashBeans.size(); i++) {
-            strings.add("asdads" + i);
-        }
-
-        //设置内置样式，共有六种可以点入方法内逐一体验使用。
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器，图片加载器在下方
-        banner.setImageLoader(new CustomRoundedImageLoader());
-        //设置图片网址或地址的集合
-        banner.setImages(flashBeans);
-        //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
-        banner.setBannerAnimation(Transformer.RotateDown);
-
-        banner.setPageTransformer(true,new BannerTransform());
-
-        //设置轮播图的标题集合
-        banner.setBannerTitles(strings);
-        //设置轮播间隔时间
-        banner.setDelayTime(3000);
-        //设置是否为自动轮播，默认是“是”。
-        banner.isAutoPlay(true);
-        //设置指示器的位置，小点点，左中右。
-        banner.setIndicatorGravity(BannerConfig.CENTER)
-                //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
-                .setOnBannerListener(this)
-                //必须最后调用的方法，启动轮播图。
-                .start();
-
-    }
-
-    @Override
-    public void OnBannerClick(int position) {
-        FlashBean flashBean = flashBeans.get(position);
-        String url = flashBean.getFlashUrl();
-        if (url.contains("GoodsId") && url.contains("GoodsType")) {
-            try {
-                JSONObject jsonObject = JSON.parseObject(url);
-                String goodsid = jsonObject.getString("GoodsId");
-                int GoodsType = jsonObject.getInteger("GoodsType");
-                Bundle bundle = new Bundle();
-                if (GoodsType == 2){
-                    bundle.putString(WlmUtil.GOODSID, goodsid);
-                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
-                    UiHelper.launcherBundle(this, GrouponGoodsDetailActivity.class, bundle);
-                }else {
-                    bundle.putString(WlmUtil.GOODSID, goodsid);
-                    bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
-                    UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @OnClick({R.id.ll_back})
@@ -344,7 +287,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract, On
     @Override
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
         this.flashBeans = flashBeans;
-        startBanner(flashBeans);
+        CustomBannerView.startBanner(flashBeans,banner,this,false);
     }
 
     @Override

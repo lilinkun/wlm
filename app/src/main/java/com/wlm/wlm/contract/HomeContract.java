@@ -2,6 +2,7 @@ package com.wlm.wlm.contract;
 
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
+import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.UrlBean;
@@ -22,4 +23,8 @@ public interface HomeContract extends IView{
 
         public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans);
         public void onGoodsListFail(String msg);
+
+
+        public void getHomeDataSuccess(HomeBean homeBean);
+        public void getHomeDataFail(String msg);
 }
