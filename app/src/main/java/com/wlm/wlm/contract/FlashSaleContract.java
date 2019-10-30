@@ -7,14 +7,15 @@ import com.wlm.wlm.mvp.IView;
 
 import java.util.ArrayList;
 
-public interface CrowdFundingContract extends IView {
-
-    public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
-    public void onFlashFail(String msg);
-
+/**
+ * Created by LG on 2019/10/30.
+ */
+public interface FlashSaleContract extends IView {
 
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
     public void getDataFail(String msg);
 
+    public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
+    public void onFlashFail(String msg);
 
 }

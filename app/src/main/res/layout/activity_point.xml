@@ -12,11 +12,53 @@
         app:text_title="9.9尖货"
         app:text_color="@color/white"
         app:title_color="@color/point_red"/>
-    
-    
-    <android.support.v7.widget.RecyclerView
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pressed_bg">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/layout_visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pressed_bg">
+
+    <com.xw.banner.Banner
+        android:id="@+id/bannerView"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        app:indicator_width="10dp"
+        app:indicator_height="10dp"
+        app:indicator_margin="5dp"
+        app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
+        app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        />
+
+    <com.wlm.wlm.ui.TopLinearlayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textcolor="@color/bg_crowdfunding"
+        app:textnormalcolor="@color/list_divider"
+        app:up_arrow="@mipmap/ic_red_arrow_up"
+        app:down_arrow="@mipmap/ic_red_arrow_down"
+        app:type="3"
+        />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.wlm.wlm.ui.CustomSortLayout
         android:id="@+id/rv_point"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="@dimen/margin_10">
 
+    </com.wlm.wlm.ui.CustomSortLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

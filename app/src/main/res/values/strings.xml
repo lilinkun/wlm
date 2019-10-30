@@ -241,6 +241,10 @@
     <string name="groupon_all">全部</string>
     <string name="groupon_invitation">邀请好友拼团</string>
 
+    <string name="go_buy">去抢购</string>
+    <string name="flash_sale">限时秒杀</string>
+
+
     <!--绑定银行卡-->
     <string name="input_bank_card">请输入正确身份证号码</string>
 </resources>

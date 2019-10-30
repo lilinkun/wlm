@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
     <com.wlm.wlm.ui.CusPtrClassicFrameLayout
         android:id="@+id/mPtrframe"
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
         app:ptr_duration_to_close_header="2000"
         app:ptr_keep_header_when_refresh="true"
         app:ptr_pull_to_fresh="false"
+        android:background="@color/menu_item_bg"
         app:ptr_ratio_of_header_height_to_refresh="1.2"
         app:ptr_resistance="1.7">
     <com.wlm.wlm.ui.TranslucentScrollView
@@ -55,25 +57,35 @@
                     android:id="@+id/big_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_15"/>
+                    android:src="@mipmap/banner_1"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"/>
 
                 <LinearLayout
                     android:id="@+id/ll_vip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     >
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:src="@mipmap/banner_2"
+                        android:layout_marginRight="4dp"
                         />
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:src="@mipmap/banner_2"
+                        android:layout_marginLeft="4dp"
                         />
 
                 </LinearLayout>
@@ -85,6 +97,7 @@
                     android:orientation="horizontal"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginRight="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_15"
                     android:layout_gravity="center_vertical">
 
                     <TextView
@@ -143,12 +156,14 @@
 
 
             </LinearLayout>
+
+
+            <include
+                android:id="@+id/title_layout_search"
+                layout="@layout/title_layout_search" />
         </RelativeLayout>
     </com.wlm.wlm.ui.TranslucentScrollView>
 
     </com.wlm.wlm.ui.CusPtrClassicFrameLayout>
 
-    <include
-        android:id="@+id/title_layout_search"
-        layout="@layout/title_layout_search" />
 </RelativeLayout>

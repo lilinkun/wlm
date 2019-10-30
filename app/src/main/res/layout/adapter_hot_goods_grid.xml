@@ -46,8 +46,70 @@
                     android:textColor="@color/pop_text_bg"
                     android:textSize="@dimen/textsize12" />
 
+                <LinearLayout
+                    android:id="@+id/ll_bottom_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_goods_title_name"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_point_old_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textsize9"
+                        android:textColor="#787878"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="活动价：¥"
+                            android:textColor="@color/red_hot_price"
+                            android:textSize="@dimen/textsize12"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_point_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red_hot_price"
+                            android:textSize="@dimen/textsize12"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="right">
+
+                            <TextView
+                                android:layout_width="@dimen/margin_50"
+                                android:layout_height="@dimen/margin_19"
+                                android:textSize="@dimen/textsize12"
+                                android:gravity="center"
+                                android:textColor="@color/home_buy_text_bg"
+                                android:background="@drawable/shape_home_buy_button"
+                                android:text="@string/go_buy"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_goods_title_name"

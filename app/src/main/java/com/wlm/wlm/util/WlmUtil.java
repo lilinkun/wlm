@@ -36,6 +36,16 @@ public class WlmUtil {
     public static final int WXTYPE_LOGIN = 1;
     public static final int WXTYPE_SHARED = 2;
 
+
+    public static final int GOODSTYPE_INTERGAL = 1;//积分商城
+    public static final int GOODSTYPE_GROUPON = 2;//团购
+    public static final int GOODSTYPE_VIP = 4;//vip礼包
+    public static final int GOODSTYPE_WLM = 8;//唯乐美商品
+    public static final int GOODSTYPE_CROWDFUNDING = 16;//众筹
+    public static final int GOODSTYPE_POINT = 32;//九九尖货
+    public static final int GOODSTYPE_WLMBUY = 64;//唯乐购
+    public static final int GOODSTYPE_SECKILL = 128;//秒杀
+
     public static  final String PAGE_COUNT = "20";
 
 //    public static final String APP_ID = "wx7b154709878a1cbe";

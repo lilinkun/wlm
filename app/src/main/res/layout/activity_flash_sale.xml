@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.wlm.wlm.ui.CustomTitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:img_left="@mipmap/ic_back_point"
+        app:text_title="@string/flash_sale"
+        app:text_color="@color/white"
+        app:title_color="@color/point_red"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pressed_bg">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/layout_visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pressed_bg">
+
+            <com.xw.banner.Banner
+                android:id="@+id/bannerView"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                app:indicator_width="10dp"
+                app:indicator_height="10dp"
+                app:indicator_margin="5dp"
+                app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
+                app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_15"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_flash_sale"
+                >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_8"
+                android:src="@mipmap/ic_flash_sale"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="距离结束还剩"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textsize15"/>
+
+                    <com.wlm.wlm.ui.CountdownView
+                        android:id="@+id/tv_rush_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_25"
+                        android:layout_marginRight="@dimen/margin_5"
+                        app:isHideTimeBackground="false"
+                        app:timeBgColor="@color/red_hot_price"
+                        app:timeBgSize="@dimen/textsize16"
+                        app:timeBgRadius="2dp"
+                        app:isShowDay="true"
+                        app:isShowHour="true"
+                        app:isShowMinute="true"
+                        app:isShowSecond="true"
+                        app:timeTextColor="#ffffff"
+                        app:timeTextSize="11sp"
+                        app:isTimeTextBold="true"
+                        app:suffixGravity="center"
+                        app:suffixTextColor="@color/white"
+                        app:suffixTextSize="11sp"
+                        app:suffixDay=":"
+                        app:suffixHour=":"
+                        app:suffixMinute=":"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <com.wlm.wlm.ui.TopLinearlayout
+                android:id="@+id/ll_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                app:textcolor="@color/bg_crowdfunding"
+                app:textnormalcolor="@color/list_divider"
+                app:up_arrow="@mipmap/ic_red_arrow_up"
+                app:down_arrow="@mipmap/ic_red_arrow_down"
+                app:type="3"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <com.wlm.wlm.ui.CustomSortLayout
+            android:id="@+id/custom_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="@dimen/margin_10">
+
+        </com.wlm.wlm.ui.CustomSortLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

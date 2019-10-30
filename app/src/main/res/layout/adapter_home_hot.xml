@@ -11,27 +11,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--<android.support.v7.widget.CardView
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                lzy:cardBackgroundColor="@android:color/white"
-                lzy:cardCornerRadius="10dp"
-                lzy:cardElevation="0dp">-->
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                lzy:cardBackgroundColor="@android:color/background_dark"
+                lzy:cardCornerRadius="5dp">
 
             <com.wlm.wlm.ui.CustomRoundAngleImageView
                 android:id="@+id/iv_goods_pic"
                 android:layout_width="match_parent"
                 android:layout_height="128dp"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
                 android:scaleType="fitXY"
+                android:background="@color/line_bg"
                 lzy:left_top_radius="5dp"
                 lzy:right_top_radius="5dp"
                 lzy:right_bottom_radius="5dp"
                 lzy:left_bottom_radius="5dp"/>
 
 
-<!--            </android.support.v7.widget.CardView>-->
+            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -52,11 +52,12 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:layout_below="@+id/tv_goods_title_name"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -117,40 +118,54 @@
                         android:textSize="@dimen/textsize10"
                         />
 
-                    <LinearLayout
-                        android:id="@+id/ll_buy_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="已售"
-                            android:textColor="@color/list_divider"
-                            android:textSize="@dimen/textsize9"/>
-
-                        <TextView
-                            android:id="@+id/tv_buy_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="13"
-                            android:textColor="@color/list_divider"
-                            android:textSize="@dimen/textsize9"/>
-
-                        <TextView
-                            android:id="@+id/tv_buy_goods"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="件"
-                            android:textColor="@color/list_divider"
-                            android:textSize="@dimen/textsize9" />
-
-                    </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_buy_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_price"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已售"
+                        android:textColor="@color/list_divider"
+                        android:textSize="@dimen/textsize9"/>
+
+                    <TextView
+                        android:id="@+id/tv_buy_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13"
+                        android:textColor="@color/list_divider"
+                        android:textSize="@dimen/textsize9"/>
+
+                    <TextView
+                        android:id="@+id/tv_buy_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="件"
+                        android:textColor="@color/list_divider"
+                        android:textSize="@dimen/textsize9" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="@dimen/margin_50"
+                    android:layout_height="@dimen/margin_19"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/textsize12"
+                    android:gravity="center"
+                    android:layout_alignBottom="@+id/ll_buy_count"
+                    android:textColor="@color/home_buy_text_bg"
+                    android:background="@drawable/shape_home_buy_button"
+                    android:text="@string/go_buy"/>
+
+
             </RelativeLayout>
         </LinearLayout>
 

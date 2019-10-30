@@ -11,6 +11,7 @@ import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
 import com.wlm.wlm.ui.LoaddingDialog;
 import com.wlm.wlm.ui.LoadingDialog;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +68,7 @@ public class GrouponPresenter extends BasePresenter {
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
         params.put("OrderBy",OrderBy);
-        params.put("GoodsFlag","2");
+        params.put("GoodsFlag", "2");
         if (!TeamType.equals("0")){
             params.put("TeamType",TeamType);
         }

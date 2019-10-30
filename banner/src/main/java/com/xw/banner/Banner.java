@@ -188,6 +188,7 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
         return this;
     }
 
+
     /**
      * Set the number of pages that should be retained to either side of the
      * current page in the view hierarchy in an idle state. Pages beyond this
@@ -269,7 +270,15 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
     public Banner start() {
         setBannerStyleUI();
         setImageList(imageUrls);
-        setData();
+        int pos = 1;
+        setData(pos);
+        return this;
+    }
+
+    public Banner start(int pos) {
+        setBannerStyleUI();
+        setImageList(imageUrls);
+        setData(pos);
         return this;
     }
 
@@ -442,7 +451,7 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
     }
 
 
-    private void setData() {
+    private void setData(int pos) {
         currentItem = 1;
         if (adapter == null) {
             adapter = new BannerPagerAdapter();
@@ -450,7 +459,7 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
         }
         viewPager.setAdapter(adapter);
         viewPager.setFocusable(true);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(pos);
         if (mPageMargin != 0) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(viewPager.getLayoutParams());
             layoutParams.setMargins(20,0,20,0);

@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +20,7 @@ import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.PriceTextView;
+import com.wlm.wlm.ui.UpdataCFProgressBar;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -32,10 +35,12 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
     private Context context;
     private OnItemClickListener mItemClickListener;
     private ArrayList<GoodsListBean> goodsListBeans;
+    private int goodstype;
 
-    public GrouponAdapter(Context context, ArrayList<GoodsListBean> goodsListBeans) {
+    public GrouponAdapter(Context context, ArrayList<GoodsListBean> goodsListBeans,int goodsType) {
         this.context = context;
         this.goodsListBeans = goodsListBeans;
+        this.goodstype = goodsType;
     }
 
     @Override
@@ -74,7 +79,14 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             holder.tv_grouponing.setVisibility(View.GONE);
         }
 
-//        holder.iv_goods_pic.
+        if (goodstype == WlmUtil.GOODSTYPE_CROWDFUNDING){
+            holder.rl_groupon.setVisibility(View.GONE);
+            holder.tv_grounon_info.setVisibility(View.GONE);
+            holder.ll_crowdfunding.setVisibility(View.VISIBLE);
+            holder.tv_crowd_price.setText(goodsListBeans.get(position).getPrice()*goodsListBeans.get(position).getUseNumber() + "");
+            holder.tv_support_count.setText(goodsListBeans.get(position).getUseNumber() + "");
+
+        }
 
         holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,10 +130,12 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder{
 
         MyTextView tv_groupon_old_price;
-        TextView tv_grouponing,tv_grounon_info,tv_goods_title,tv_end_time;
+        TextView tv_grouponing,tv_grounon_info,tv_goods_title,tv_end_time,tv_crowd_price,tv_support_count;
         CountdownView tv_rush_time;
         CustomRoundAngleImageView iv_goods_pic;
         PriceTextView tv_groupon_price;
+        RelativeLayout rl_groupon;
+        LinearLayout ll_crowdfunding;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -134,6 +148,10 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             tv_groupon_price = itemView.findViewById(R.id.tv_groupon_price);
             tv_goods_title = itemView.findViewById(R.id.tv_goods_title);
             tv_end_time = itemView.findViewById(R.id.tv_end_time);
+            rl_groupon = itemView.findViewById(R.id.rl_groupon);
+            ll_crowdfunding = itemView.findViewById(R.id.ll_crowd_funding);
+            tv_crowd_price = itemView.findViewById(R.id.tv_crowd_price);
+            tv_support_count = itemView.findViewById(R.id.tv_support_count);
         }
     }
 

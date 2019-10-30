@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.CrowdFundingActivity;
+import com.wlm.wlm.activity.FlashSaleActivity;
 import com.wlm.wlm.activity.GrouponActivity;
 import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
@@ -220,6 +221,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     UiHelper.launcher(getActivity(), PointActivity.class);
                 } else if (position == 2) {
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
+                }else if(position == 3){
+                    UiHelper.launcher(getActivity(), FlashSaleActivity.class);
                 }else if(position == 4){
                     UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
                 }else if (position == 5){

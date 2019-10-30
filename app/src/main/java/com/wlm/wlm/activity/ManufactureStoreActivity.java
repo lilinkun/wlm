@@ -199,7 +199,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         custom_sort.setVisibility(View.VISIBLE);
         custom_sort.setPageIndex(PAGEINDEX,pageBean);
-        custom_sort.setData(goodsListBeans, WlmUtil.MANUFACURE);
+        custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_WLM);
     }
 
     @Override

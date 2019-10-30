@@ -80,6 +80,14 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
                 holder.ll_add_integral.setVisibility(View.VISIBLE);
             }
 
+            if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_POINT){
+                holder.ll_bottom.setVisibility(View.GONE);
+                holder.ll_bottom_point.setVisibility(View.VISIBLE);
+                holder.tv_point_price.setText(homeBean.getPrice()+"");
+                holder.tv_point_old_price.setText("原价：¥"+homeBean.getMarketPrice());
+                holder.tv_point_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            }
+
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
                 Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
             }
@@ -116,8 +124,12 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         private TextView goodsTitleNameTv;
         private TextView goodsPriceTv;
         private TextView goodsBuyCountTv;
+        private TextView tv_point_price;
+        private TextView tv_point_old_price;
         private CustomRoundAngleImageView goodsPicImg;
         private LinearLayout ll_add_integral;
+        private LinearLayout ll_bottom;
+        private LinearLayout ll_bottom_point;
         private TextView tv_add_integral;
         private TextView tv_old_price;
 
@@ -129,7 +141,11 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             goodsPriceTv = (TextView) itemView.findViewById(R.id.tv_goods_price);
             goodsPicImg = (CustomRoundAngleImageView) itemView.findViewById(R.id.iv_goods_pic);
             ll_add_integral = (LinearLayout) itemView.findViewById(R.id.ll_add_integral);
+            tv_point_old_price = (TextView) itemView.findViewById(R.id.tv_point_old_price);
+            tv_point_price = (TextView) itemView.findViewById(R.id.tv_point_price);
             tv_old_price = (TextView) itemView.findViewById(R.id.tv_old_price);
+            ll_bottom = (LinearLayout) itemView.findViewById(R.id.ll_bottom);
+            ll_bottom_point = (LinearLayout) itemView.findViewById(R.id.ll_bottom_point);
 
         }
     }

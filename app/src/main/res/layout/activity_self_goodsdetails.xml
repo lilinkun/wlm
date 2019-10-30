@@ -221,6 +221,120 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/ll_crowd_funding"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_15"
+                            android:gravity="center_vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="已筹"
+                                    android:textColor="@color/grey_color2"
+                                    android:textSize="@dimen/textsize11"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="￥"
+                                    android:textColor="@color/red_price"
+                                    android:textSize="@dimen/textsize12"/>
+
+                                <TextView
+                                    android:id="@+id/tv_crowd_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/red_price"
+                                    android:textSize="@dimen/textsize16"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal">
+
+
+                                <TextView
+                                    android:id="@+id/tv_support_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/textsize11"
+                                    android:textColor="@color/grey_color3"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grey_color3"
+                                    android:textSize="@dimen/textsize11"
+                                    android:layout_marginRight="@dimen/margin_10"
+                                    android:text="名支持者"/>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_cf_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_10"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv_cf_distance_ends"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/grey_color2"
+                                android:textSize="@dimen/textsize12"
+                                android:text="距结束"/>
+
+                            <com.wlm.wlm.ui.CountdownView
+                                android:id="@+id/tv_cf_rush_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_5"
+                                app:isHideTimeBackground="false"
+                                app:timeBgColor="@color/red_price"
+                                app:timeBgSize="@dimen/textsize16"
+                                app:timeBgRadius="2dp"
+                                app:isShowDay="true"
+                                app:isShowHour="true"
+                                app:isShowMinute="true"
+                                app:isShowSecond="true"
+                                app:timeTextColor="#ffffff"
+                                app:timeTextSize="11sp"
+                                app:isTimeTextBold="true"
+                                app:suffixGravity="center"
+                                app:suffixTextColor="@color/red_price"
+                                app:suffixTextSize="11sp"
+                                app:suffixDay=":"
+                                app:suffixHour=":"
+                                app:suffixMinute=":"
+                                app:suffixSecond=""/>
+
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                     <include
@@ -257,7 +371,7 @@
                                 android:textSize="@dimen/textsize14"
                                 android:layout_marginLeft="@dimen/margin_10"/>
 
-                            <TextView
+                            <!--<TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/shape_back_cash"
@@ -265,9 +379,10 @@
                                 android:text="@string/groupon_cashback"
                                 android:textSize="@dimen/textsize11"
                                 android:gravity="center"
-                                android:layout_marginLeft="@dimen/margin_5"/>
+                                android:layout_marginLeft="@dimen/margin_5"/>-->
 
                             <TextView
+                                android:id="@+id/tv_rule"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="邀请好友参加拼团，拼团成功即可返现"

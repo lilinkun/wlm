@@ -144,10 +144,24 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout ll_goods_layout;
     @BindView(R.id.tv_rush_time)
     CountdownView tv_rush_time;
+    @BindView(R.id.tv_cf_rush_time)
+    CountdownView tv_cf_rush_time;
     @BindView(R.id.tv_distance_ends)
     TextView tv_distance_ends;
+    @BindView(R.id.tv_cf_distance_ends)
+    TextView tv_cf_distance_ends;
     @BindView(R.id.tv_grounon_info)
     TextView tv_grounon_info;
+    @BindView(R.id.tv_rule)
+    TextView tv_rule;
+    @BindView(R.id.tv_crowd_price)
+    TextView tv_crowd_price;
+    @BindView(R.id.tv_support_count)
+    TextView tv_support_count;
+    @BindView(R.id.ll_crowd_funding)
+    LinearLayout ll_crowd_funding;
+    @BindView(R.id.ll_cf_time)
+    LinearLayout ll_cf_time;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -354,7 +368,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         this.goodsDetailBean = goodsDetailBean;
         type = WlmUtil.getType(goodsDetailBean.getGoodsType() + "");
 
-        if (type.equals(WlmUtil.INTEGRAL)){
+        if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_INTERGAL){
             ll_layout_integral_price.setVisibility(View.VISIBLE);
             mGoodsNameTv.setVisibility(View.GONE);
             rl_rush.setVisibility(View.GONE);
@@ -362,11 +376,17 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.integral_bg));
             ll_service.setVisibility(View.GONE);
             ll_exchange.setVisibility(View.VISIBLE);
-        }else if (type.equals(WlmUtil.VIP)){
+
+            tv_title_name.setText(goodsDetailBean.getGoodsName());
+            tv_details_goods_add_integral.setText(goodsDetailBean.getIntegral()+"");
+            tv_details_goods_add_price.setText(goodsDetailBean.getPrice()+"");
+            tv_macket_price.setText("¥"+goodsDetailBean.getMarketPrice()+"");
+            tv_macket_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_VIP){
             rl_add_cart.setVisibility(View.GONE);
             ll_shop_car.setVisibility(View.GONE);
             ll_collect.setVisibility(View.GONE);
-        }else if (type.equals(WlmUtil.GROUPONGOODS)){
+        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON){
             ll_groupon_time.setVisibility(View.VISIBLE);
             ll_groupon_info.setVisibility(View.VISIBLE);
             ll_groupon_play.setVisibility(View.VISIBLE);
@@ -385,17 +405,37 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             }else {
                 rl_immediate_purchase.setVisibility(View.GONE);
             }
+        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_CROWDFUNDING){
+
+            rl_rush.setVisibility(View.GONE);
+            ll_crowd_funding.setVisibility(View.VISIBLE);
+            ll_cf_time.setVisibility(View.VISIBLE);
+            ll_groupon_play.setVisibility(View.VISIBLE);
+            rl_add_cart.setVisibility(View.GONE);
+            ll_shop_car.setVisibility(View.GONE);
+            ll_collect.setVisibility(View.GONE);
+            ll_goods_layout.setVisibility(View.GONE);
+
+            rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.red_price));
+
+            tv_rule.setText(goodsDetailBean.getGoodsSmallName());
+
+            tx_tikey.setText("支持￥"+ goodsDetailBean.getPrice());
+            tv_crowd_price.setText(goodsDetailBean.getPrice()*goodsDetailBean.getUseNumber() + "");
+            tv_support_count.setText(goodsDetailBean.getUseNumber() + "");
+            if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_cf_rush_time) == 0){
+                rl_immediate_purchase.setVisibility(View.GONE);
+                tv_cf_distance_ends.setText("距开始");
+            }else if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_cf_rush_time) == 1){
+                tv_cf_distance_ends.setText("距结束");
+            }else {
+                rl_immediate_purchase.setVisibility(View.GONE);
+            }
         }
 
 
         getpopup();
-        if (type.equals(WlmUtil.INTEGRAL)) {
-            tv_title_name.setText(goodsDetailBean.getGoodsName());
-            tv_details_goods_add_integral.setText(goodsDetailBean.getIntegral()+"");
-            tv_details_goods_add_price.setText(goodsDetailBean.getPrice()+"");
-            tv_macket_price.setText("¥"+goodsDetailBean.getMarketPrice()+"");
-            tv_macket_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        }
+
         mGoodsNameTv.setText(goodsDetailBean.getGoodsName());
         tv_groupon_price.setText(goodsDetailBean.getPrice() + "");
         tv_number.setText(goodsDetailBean.getUseNumber()+"");

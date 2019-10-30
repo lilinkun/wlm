@@ -98,6 +98,7 @@
         <activity android:name=".activity.MessageDetitleActivity"/>
         <activity android:name=".activity.SearchResultActivity"/>
         <activity android:name=".activity.PointActivity"/>
+        <activity android:name=".activity.FlashSaleActivity"/>
 
 
         <activity android:name=".wxapi.WXEntryActivity"

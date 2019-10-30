@@ -32,7 +32,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     private XRecyclerView recyclerView;
     private TbHotGoodsAdapter tbHotGoodsAdapter = null;
     private ArrayList<GoodsListBean> goodsListBeans = null;
-    private String type ;
+    private int type ;
 //    private SwipeRefreshLayout refreshLayout;
     private SortListerner sortListerner;
     private int lastVisibleItem = 0;
@@ -68,25 +68,12 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
         final GridLayoutManager layoutManager = new GridLayoutManager(context,2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-//        final FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(context,2);
-//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
-
-//        recyclerView.addItemDecoration();
-
-//        recyclerView.addItemDecoration(recyclerView.new DividerItemDecoration(dividerDrawable));
         recyclerView.addItemDecoration(new SpaceXItemDecoration(spanCount1, spacing1,0));
 
         recyclerView.setLayoutManager(layoutManager);
 
         addView(view);
-
-//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                sortListerner.onRefresh();
-//            }
-//        });
 
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
@@ -113,32 +100,6 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             }
         });
 
-        /*recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (tbHotGoodsAdapter != null) {
-                        if (lastVisibleItem + 1 == tbHotGoodsAdapter.getItemCount()) {
-                            if (PAGE_INDEX  > Integer.valueOf(pageBean.getMaxPage())){
-
-                            }else {
-                                PAGE_INDEX++;
-                                sortListerner.onLoadding(PAGE_INDEX);
-
-                            }
-                        }
-
-                    }
-                }
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-            }
-        });*/
-
 
     }
 
@@ -160,7 +121,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     }
 
 
-    public void setData(ArrayList<GoodsListBean> goodsListBeans,String type){
+    public void setData(ArrayList<GoodsListBean> goodsListBeans,int type){
 
         recyclerView.refreshComplete();
 
@@ -170,7 +131,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
         if(tbHotGoodsAdapter == null){
             this.goodsListBeans  = goodsListBeans;
             tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
-            if (type.equals(WlmUtil.INTEGRAL)) {
+            if (type == WlmUtil.GOODSTYPE_INTERGAL) {
                 tbHotGoodsAdapter.setAdd_Integral();
             }
             recyclerView.setAdapter(tbHotGoodsAdapter);
@@ -191,7 +152,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-        bundle.putString(WlmUtil.TYPE,type);
+//        bundle.putString(WlmUtil.TYPE,type);
         UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class,bundle);
     }
 

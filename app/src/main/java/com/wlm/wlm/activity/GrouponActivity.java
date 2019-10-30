@@ -68,7 +68,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     ArrayList<GoodsListBean> goodsListBeans = null;
     private ArrayList<FlashBean> flashBeans;
 
-    private int goodstype = 2;
+    private int goodstype = WlmUtil.GOODSTYPE_GROUPON;
     private String orderby = "0";
     private String mTeamType = "0";
     private boolean isGrouponType = false;
@@ -163,6 +163,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
     @Override
     public void getSortType(int sortType) {
+        pageIndex = 1;
         switch (sortType){
             case 1://默认排序
                 isGrouponType = false;
@@ -261,7 +262,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
         rv_groupon.setVisibility(View.VISIBLE);
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
-            grouponAdapter = new GrouponAdapter(this,goodsListBeans);
+            grouponAdapter = new GrouponAdapter(this,goodsListBeans,goodstype);
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
         }else {

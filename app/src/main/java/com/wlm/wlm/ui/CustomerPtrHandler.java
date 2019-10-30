@@ -151,6 +151,8 @@ public class CustomerPtrHandler extends FrameLayout implements PtrUIHandler {
 
         mRotateView.setVisibility(VISIBLE);
         mTitleTextView.setVisibility(VISIBLE);
+
+        mTitleTextView.setTextColor(getResources().getColor(R.color.black_));
         if (frame.isPullToRefresh()) {
             mTitleTextView.setText(getResources().getString(in.srain.cube.views.ptr.R.string.cube_ptr_pull_down_to_refresh));
         } else {
