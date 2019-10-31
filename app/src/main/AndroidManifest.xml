@@ -99,6 +99,8 @@
         <activity android:name=".activity.SearchResultActivity"/>
         <activity android:name=".activity.PointActivity"/>
         <activity android:name=".activity.FlashSaleActivity"/>
+        <activity android:name=".activity.WlmBuyActivity"/>
+        <activity android:name=".activity.BeautyHealthActivity"/>
 
 
         <activity android:name=".wxapi.WXEntryActivity"

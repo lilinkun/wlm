@@ -28,6 +28,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.BeautyHealthActivity;
 import com.wlm.wlm.activity.CrowdFundingActivity;
 import com.wlm.wlm.activity.FlashSaleActivity;
 import com.wlm.wlm.activity.GrouponActivity;
@@ -38,6 +39,7 @@ import com.wlm.wlm.activity.PointActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
+import com.wlm.wlm.activity.WlmBuyActivity;
 import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
 import com.wlm.wlm.adapter.HomeHotAdapter;
@@ -219,7 +221,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             public void onItemClick(int position) {
                 if (position == 0) {
                     UiHelper.launcher(getActivity(), PointActivity.class);
-                } else if (position == 2) {
+                } else if (position == 1) {
+
+                }else if (position == 2) {
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
                 }else if(position == 3){
                     UiHelper.launcher(getActivity(), FlashSaleActivity.class);
@@ -229,6 +233,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
                 }else if (position == 6){
                     UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
+                }else if (position == 7){
+                    UiHelper.launcher(getActivity(), WlmBuyActivity.class);
+                }else if (position == 8){
+                    UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
+                }else if (position == 9){
                 }
             }
 

@@ -87,7 +87,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             @Override
             public void onLoadMore() {
                 if (tbHotGoodsAdapter != null) {
-                        if (PAGE_INDEX  > Integer.valueOf(pageBean.getMaxPage())){
+                        if (PAGE_INDEX  >= Integer.valueOf(pageBean.getMaxPage())){
 //                            recyclerView.loadMoreComplete();
                             recyclerView.setNoMore(true);
                         }else {
@@ -131,7 +131,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
         if(tbHotGoodsAdapter == null){
             this.goodsListBeans  = goodsListBeans;
             tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
-            if (type == WlmUtil.GOODSTYPE_INTERGAL) {
+            if (type == WlmUtil.GOODSTYPE_INTEGRAL) {
                 tbHotGoodsAdapter.setAdd_Integral();
             }
             recyclerView.setAdapter(tbHotGoodsAdapter);

@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        lzy:cardBackgroundColor="@android:color/white"
-        lzy:cardCornerRadius="10dp"
-        lzy:cardElevation="0dp">
+        app:cardBackgroundColor="@color/black_333333"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_adapter_hot"
+            >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.wlm.wlm.ui.CustomRoundAngleImageView
@@ -23,11 +29,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_goods_pic"
-                lzy:left_top_radius="5dp"
-                lzy:right_top_radius="5dp"
-                lzy:right_bottom_radius="0dp"
-                lzy:left_bottom_radius="0dp"/>
+                app:left_top_radius="5dp"
+                app:right_top_radius="5dp"
+                app:right_bottom_radius="0dp"
+                app:left_bottom_radius="0dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,6 +50,69 @@
                     android:maxLines="2"
                     android:textColor="@color/pop_text_bg"
                     android:textSize="@dimen/textsize12" />
+
+                <LinearLayout
+                    android:id="@+id/ll_bottom_health"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@+id/tv_goods_title_name"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_beauty_health"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="高端私人订制 鲜活自然更美"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/textsize7"
+                            android:textColor="#686567"/>
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_hot_price"
+                        android:textSize="@dimen/textsize12"
+                        android:text="会员价：¥"/>
+
+                    <TextView
+                        android:id="@+id/tv_health_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_hot_price"
+                        android:textSize="@dimen/textsize12"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_hot_price"
+                        android:textSize="6sp"
+                        android:text="起"/>
+
+                </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/ll_bottom_point"
@@ -68,6 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:gravity="bottom"
                         >
 
                         <TextView
@@ -204,6 +273,35 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_hot_circle"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_hot_goods"/>
+
+                <TextView
+                    android:id="@+id/tv_hot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HOT"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize10"
+                    android:layout_marginRight="@dimen/margin_5"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

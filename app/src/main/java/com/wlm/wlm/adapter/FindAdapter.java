@@ -103,9 +103,6 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
         Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getGoodsImg()).into(holder.iv_goods_find);
 
-        //网络数据
-        Uri uri = Uri.parse("http://192.168.0.144:8080/liguo/2.mp4");
-
 
         if (goodsDiscoverBean.getDiscoverType() == 1){
             holder.vv_find.setVisibility(View.GONE);
@@ -146,8 +143,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                         int a = DensityUtil.getScreenWidth(context)/2;
                         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
                         Bitmap bitmap = null;
-                        retriever.setDataSource("http://192.168.0.144:8080/liguo/2.mp4",new HashMap());
-//                        retriever.setDataSource(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl(),new HashMap());
+                        retriever.setDataSource(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl(),new HashMap());
                         bitmap = retriever.getFrameAtTime(0);
                         int PREVIEW_VIDEO_IMAGE_HEIGHT = a; // Pixels
                         int videoWidth = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
@@ -191,8 +187,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
                 }else if (goodsDiscoverBean.getDiscoverType() == 2){
                     holder.vv_find.setVisibility(View.VISIBLE);
-                    Uri uri = Uri.parse("http://192.168.0.144:8080/liguo/2.mp4");
-//                    Uri uri = Uri.parse(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
+//                    Uri uri = Uri.parse("http://192.168.0.144:8080/liguo/2.mp4");
+                    Uri uri = Uri.parse(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
                     holder.vv_find.setMediaController(new MediaController(context));
                     holder.vv_find.setVideoURI(uri);
                     holder.vv_find.requestFocus();

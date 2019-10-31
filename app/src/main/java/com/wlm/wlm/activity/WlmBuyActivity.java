@@ -3,14 +3,13 @@ package com.wlm.wlm.activity;
 import android.view.View;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.contract.FlashSaleContract;
+import com.wlm.wlm.contract.PointContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
-import com.wlm.wlm.presenter.FlashSalePresenter;
+import com.wlm.wlm.presenter.PointPresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.TopLinearlayout;
@@ -24,46 +23,45 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by LG on 2019/10/30.
+ * Created by LG on 2019/10/31.
  */
-public class FlashSaleActivity extends BaseActivity implements FlashSaleContract, CustomSortLayout.SortListerner, IGoodsTypeListener {
+public class WlmBuyActivity extends BaseActivity implements PointContract, IGoodsTypeListener, CustomSortLayout.SortListerner {
 
-    FlashSalePresenter flashSalePresenter = new FlashSalePresenter();
-
-    @BindView(R.id.bannerView)
-    Banner bannerView;
+    @BindView(R.id.rv_point)
+    CustomSortLayout custom_sort;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
-    @BindView(R.id.custom_sort)
-    CustomSortLayout custom_sort;
+    @BindView(R.id.bannerView)
+    Banner bannerView;
 
-    GrouponAdapter grouponAdapter = null;
+    PointPresenter pointPresenter = new PointPresenter();
 
     private int pageIndex = 1;
-    private int goodstype = WlmUtil.GOODSTYPE_SECKILL;
+    private int goodstype = WlmUtil.GOODSTYPE_WLMBUY;
     private String orderby = "0";
-    private PageBean pageBean;
+
     private ArrayList<FlashBean> flashBeans;
 
-    private ArrayList<GoodsListBean> goodsListBeans;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_flash_sale;
+        return R.layout.activity_wlmbuy;
     }
 
     @Override
     public void initEventAndData() {
 
         Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
-        flashSalePresenter.onCreate(this,this);
-        flashSalePresenter.setFlash("3");
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+
+        pointPresenter.onCreate(this,this);
+
         ll_top.setListener(this);
         custom_sort.setListener(this);
 
-    }
+        pointPresenter.setFlash("6");
 
+        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+    }
 
     @OnClick({R.id.ll_back})
     public void onClick(View view){
@@ -85,7 +83,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
     @Override
     public void getDataFail(String msg) {
-        toast(msg);
+
     }
 
     @Override
@@ -133,20 +131,18 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
                 break;
         }
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
     }
 
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
     }
 
     @Override
     public void onLoadding(int page) {
         pageIndex = page;
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
     }
-
-
 }

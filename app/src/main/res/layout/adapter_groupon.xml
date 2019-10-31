@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/member_item"
-    android:paddingTop="@dimen/margin_5"
     android:orientation="horizontal">
 
     <RelativeLayout

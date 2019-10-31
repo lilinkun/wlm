@@ -102,7 +102,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
     private RightNowGoodsBean rightNowGoodsBean = null;
     private int goodsnum = 1;
     private String fareStr ;
-    private String type;
+    private int type = 1;
     private double surplus_balance;
     private double surplus_integral;
     private final int address_result = 0x123;
@@ -132,7 +132,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
             String goodsid = bundle.getString(WlmUtil.GOODSID);
 
-            type = bundle.getString(WlmUtil.TYPE);
+//            type = bundle.getString(WlmUtil.TYPE);
 
             goodsnum = bundle.getInt(WlmUtil.GOODSNUM);
 
@@ -172,7 +172,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
         this.rightNowBuyBean = orderListBeans;
         rightNowGoodsBean = rightNowBuyBean.getList().get(0);
-
+        type = rightNowGoodsBean.getGoodsType();
         if (rightNowGoodsBean.getGoodsAttr() != null && rightNowGoodsBean.getGoodsAttr().size() > 0){
             goodsChooseBean = rightNowGoodsBean.getGoodsAttr().get(0);
         }
@@ -199,7 +199,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
 
         String price = "¥" + rightNowGoodsBean.getPrice() + "";
         goods_total_price.setText(price);
-        if (!type.equals(WlmUtil.VIP) && !type.equals(WlmUtil.GROUPONGOODS)) {
+        if (rightNowGoodsBean.getIntegral() > 0) {
             tv_use_point.setText(rightNowBuyBean.getIntegral() + "");
         }else {
             rl_need_integral.setVisibility(View.GONE);
@@ -224,7 +224,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         this.fareBean = fareBean;
         this.fareStr = fareBean.getFare()+"";
         tv_fare.setText(fareBean.getFare()+"");
-        if (type.equals(WlmUtil.VIP)) {
+        if (type == WlmUtil.GOODSTYPE_VIP) {
             totalPrice = rightNowGoodsBean.getPrice() * 1 - Double.valueOf(fareStr);
         }else {
             totalPrice = rightNowGoodsBean.getPrice() * 1 - Double.valueOf(fareStr) - rightNowBuyBean.getIntegral();
@@ -267,13 +267,19 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 break;
 
             case R.id.tv_place_order:
-                String goodsType = "";
-                if (type.equals(WlmUtil.GROUPONGOODS)){
-                    goodsType = "2";
-                }else if (type.equals(WlmUtil.INTEGRAL) || type.equals(WlmUtil.MANUFACURE)){
-                    goodsType = "1";
-                }else if (type.equals(WlmUtil.VIP)){
-                    goodsType = "4";
+                String orderType = "";
+                if (type == WlmUtil.GOODSTYPE_GROUPON){
+                    orderType = "2";
+                }else if (type == WlmUtil.GOODSTYPE_INTEGRAL || type == WlmUtil.GOODSTYPE_WLM){
+                    orderType = "1";
+                }else if (type == WlmUtil.GOODSTYPE_VIP){
+                    orderType = "4";
+                }else if (type == WlmUtil.GOODSTYPE_CROWDFUNDING){
+                    orderType = "16";
+                }else if (type == WlmUtil.GOODSTYPE_POINT || type == WlmUtil.GOODSTYPE_SECKILL){
+                    orderType = "32";
+                }else if (type == WlmUtil.GOODSTYPE_WLMBUY){
+                    orderType = "64";
                 }
 
                 if (addressBean == null){
@@ -288,7 +294,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 }
 
                 grouponOrderPresenter.rightNowBuy(rightNowGoodsBean.getGoodsId(),addressBean.getAddressID(),goodsnum+"",totalPrice+""
-                        ,fareStr,rightNowBuyBean.getIntegral()+"",tv_use_remarks.getText().toString(),goodsType,sttr_id,ProApplication.SESSIONID(this));
+                        ,fareStr,rightNowBuyBean.getIntegral()+"",tv_use_remarks.getText().toString(),orderType,sttr_id,ProApplication.SESSIONID(this));
 
 
                 break;

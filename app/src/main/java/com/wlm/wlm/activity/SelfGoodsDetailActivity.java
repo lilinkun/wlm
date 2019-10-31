@@ -368,7 +368,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         this.goodsDetailBean = goodsDetailBean;
         type = WlmUtil.getType(goodsDetailBean.getGoodsType() + "");
 
-        if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_INTERGAL){
+        if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_INTEGRAL){
             ll_layout_integral_price.setVisibility(View.VISIBLE);
             mGoodsNameTv.setVisibility(View.GONE);
             rl_rush.setVisibility(View.GONE);

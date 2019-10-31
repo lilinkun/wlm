@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding_10"
             android:paddingRight="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_10"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </com.jcodecraeer.xrecyclerview.XRecyclerView>

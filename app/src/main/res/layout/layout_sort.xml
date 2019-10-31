@@ -21,8 +21,8 @@
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_goods"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/padding_10"
         android:paddingRight="@dimen/padding_10"/>
 

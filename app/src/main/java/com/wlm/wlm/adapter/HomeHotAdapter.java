@@ -77,6 +77,14 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
                 holder.ll_add_integral.setVisibility(View.VISIBLE);
             }
 
+            if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_POINT+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("9.9尖货");
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_SECKILL+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("限时秒杀");
+            }
+
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
                 Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
             }
@@ -117,6 +125,8 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         private LinearLayout ll_add_integral;
         private TextView tv_add_integral;
         private TextView tv_old_price;
+        private LinearLayout ll_hot;
+        private TextView tv_hot;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -127,6 +137,8 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             goodsPicImg = (CustomRoundAngleImageView) itemView.findViewById(R.id.iv_goods_pic);
             ll_add_integral = (LinearLayout) itemView.findViewById(R.id.ll_add_integral);
             tv_old_price = (TextView) itemView.findViewById(R.id.tv_old_price);
+            tv_hot = (TextView) itemView.findViewById(R.id.tv_hot);
+            ll_hot = (LinearLayout) itemView.findViewById(R.id.ll_hot);
 
         }
     }

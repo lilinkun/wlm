@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textsize7">7.0sp</dimen>
     <dimen name="textsize9">9.0sp</dimen>
     <dimen name="textsize10">10.0sp</dimen>
     <dimen name="textsize11">11.0sp</dimen>

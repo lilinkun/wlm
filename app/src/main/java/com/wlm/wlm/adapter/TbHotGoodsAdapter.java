@@ -16,6 +16,8 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.util.WlmUtil;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -86,6 +88,16 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
                 holder.tv_point_price.setText(homeBean.getPrice()+"");
                 holder.tv_point_old_price.setText("原价：¥"+homeBean.getMarketPrice());
                 holder.tv_point_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("HOT");
+            }
+
+            if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_BEAUTY_HEALTH){
+                holder.ll_bottom.setVisibility(View.GONE);
+                holder.ll_bottom_health.setVisibility(View.VISIBLE);
+                holder.tv_health_price.setText(homeBean.getPrice()+"");
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("热销款");
             }
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
@@ -126,11 +138,15 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         private TextView goodsBuyCountTv;
         private TextView tv_point_price;
         private TextView tv_point_old_price;
+        private TextView tv_health_price;
         private CustomRoundAngleImageView goodsPicImg;
         private LinearLayout ll_add_integral;
         private LinearLayout ll_bottom;
         private LinearLayout ll_bottom_point;
+        private LinearLayout ll_bottom_health;
+        private LinearLayout ll_hot;
         private TextView tv_add_integral;
+        private TextView tv_hot;
         private TextView tv_old_price;
 
         public MyViewHolder(View itemView) {
@@ -142,10 +158,14 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             goodsPicImg = (CustomRoundAngleImageView) itemView.findViewById(R.id.iv_goods_pic);
             ll_add_integral = (LinearLayout) itemView.findViewById(R.id.ll_add_integral);
             tv_point_old_price = (TextView) itemView.findViewById(R.id.tv_point_old_price);
+            tv_health_price = (TextView) itemView.findViewById(R.id.tv_health_price);
             tv_point_price = (TextView) itemView.findViewById(R.id.tv_point_price);
             tv_old_price = (TextView) itemView.findViewById(R.id.tv_old_price);
+            tv_hot = (TextView) itemView.findViewById(R.id.tv_hot);
             ll_bottom = (LinearLayout) itemView.findViewById(R.id.ll_bottom);
             ll_bottom_point = (LinearLayout) itemView.findViewById(R.id.ll_bottom_point);
+            ll_bottom_health = (LinearLayout) itemView.findViewById(R.id.ll_bottom_health);
+            ll_hot = (LinearLayout) itemView.findViewById(R.id.ll_hot);
 
         }
     }
