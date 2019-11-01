@@ -151,9 +151,6 @@
                     />
 
 
-                <include
-                    layout="@layout/layout_hot_commodities"/>
-
 
             </LinearLayout>
 

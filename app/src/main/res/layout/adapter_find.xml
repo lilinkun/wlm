@@ -103,11 +103,17 @@
         android:layout_marginTop="@dimen/margin_15"
         />
 
-    <VideoView
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/jc_player"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
+    <!--<VideoView
         android:id="@+id/vv_find"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:visibility="gone"/>
+        android:layout_height="200dp"/>-->
 
 
     <LinearLayout

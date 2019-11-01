@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_333333"
             android:textSize="@dimen/text_size_headtop"
-            android:text="发现"/>
+            android:text="@string/bottom_text_3"/>
         </LinearLayout>
     </LinearLayout>
 

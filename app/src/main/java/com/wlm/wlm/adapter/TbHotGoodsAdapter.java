@@ -90,14 +90,15 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
                 holder.tv_point_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("HOT");
-            }
-
-            if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_BEAUTY_HEALTH){
+            }else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_BEAUTY_HEALTH){
                 holder.ll_bottom.setVisibility(View.GONE);
                 holder.ll_bottom_health.setVisibility(View.VISIBLE);
                 holder.tv_health_price.setText(homeBean.getPrice()+"");
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("热销款");
+            }else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_WLMBUY){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("爆款");
             }
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {

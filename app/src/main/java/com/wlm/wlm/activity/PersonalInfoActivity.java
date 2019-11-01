@@ -256,17 +256,6 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                 break;
 
             case R.id.rl_nickname_info:
-//                Bundle bundle = new Bundle();
-//                bundle.putString("nick",nickName.getText().toString());
-//                UiHelper.launcherForResultBundle(this,MyNickNameActivity.class,RESULT_MYNICK,bundle);
-
-               /* IWXAPI api = WXAPIFactory.createWXAPI(this, "wx86ed3100a8c2586f");
-                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-                req.userName = "gh_aa9e3dbf8fd0";
-                req.path = "pages/index/index";
-                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_TEST;
-                api.sendReq(req);
-*/
 
                 break;
 

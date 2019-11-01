@@ -5,11 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
+import android.os.health.UidHealthStats;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,19 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsDiscoverBean;
-import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.UiHelper;
 import com.xw.banner.Banner;
@@ -38,10 +33,13 @@ import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoaderInterface;
 
-import java.security.spec.PSSParameterSpec;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by LG on 2019/10/23.
@@ -55,15 +53,22 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     private View item ;
     private ArrayList<String> strings = new ArrayList<>();
     private PopupWindow popupWindow;
+    private MediaPlayer mPlayer;
+    public static final int UPDATE_TIME = 0x0003;
+    public static final int HIDE_CONTROL = 0x0002;
+    private boolean isShow = false;
+    private int mPosition = 0;
 
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 0x001){
-                if (viewHolders != null){
-                    int pos = msg.getData().getInt("pos");
-                    viewHolders.get(pos).iv_adapter_find.setImageBitmap((Bitmap)(msg.getData().getParcelable("bit")));
-                }
+            int pos = msg.getData().getInt("pos");
+            switch (msg.what) {
+                case 0x001:
+                    if (viewHolders != null) {
+                        viewHolders.get(pos).jcVideoPlayerStandard.thumbImageView.setImageBitmap((Bitmap) (msg.getData().getParcelable("bit")));
+                    }
+                    break;
             }
         }
     };
@@ -105,16 +110,10 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
 
         if (goodsDiscoverBean.getDiscoverType() == 1){
-            holder.vv_find.setVisibility(View.GONE);
 
             if (goodsDiscoverBean.getFileUrl().contains("，") || goodsDiscoverBean.getFileUrl().contains(",")){
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
                 holder.rv_adapter_find.setLayoutManager(gridLayoutManager);
-
-//                for (int i = 0; i < goodsDiscoverBean.getGoodsImg().split(",").length;i++){
-//                    strings
-//                }
-
 
                 strings = new ArrayList(Arrays.asList(goodsDiscoverBean.getFileUrl().split(",")));
                 FindPhotoAdapter findPhotoAdapter = new FindPhotoAdapter(context, strings);
@@ -134,6 +133,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).transform(transformation).placeholder(R.color.black).into(holder.iv_adapter_find);
             }
         }else if (goodsDiscoverBean.getDiscoverType() == 2) {
+            holder.jcVideoPlayerStandard.setVisibility(View.VISIBLE);
+            holder.jcVideoPlayerStandard.setUp(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
+
+
+            try {
+                mPlayer = new MediaPlayer();
+                mPlayer.setDataSource(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             new Thread(new Runnable() {
                 @Override
@@ -186,7 +195,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
 
                 }else if (goodsDiscoverBean.getDiscoverType() == 2){
-                    holder.vv_find.setVisibility(View.VISIBLE);
+                    /*holder.vv_find.setVisibility(View.VISIBLE);
 //                    Uri uri = Uri.parse("http://192.168.0.144:8080/liguo/2.mp4");
                     Uri uri = Uri.parse(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
                     holder.vv_find.setMediaController(new MediaController(context));
@@ -198,7 +207,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                         public void onCompletion(MediaPlayer mp) {
                             mp.start();
                         }
-                    });
+                    });*/
                     holder.iv_adapter_find.setVisibility(View.GONE);
                 }
             }
@@ -317,9 +326,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         private TextView tv_goods_detail;
         private TextView tv_goods_find_price;
         private TextView tv_goods_find_title;
-        private VideoView vv_find;
         private LinearLayout ll_goods_find;
-
+        private JCVideoPlayerStandard jcVideoPlayerStandard;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -331,10 +339,10 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
             tv_goods_time = itemView.findViewById(R.id.tv_goods_time);
             tv_goods_name = itemView.findViewById(R.id.tv_goods_name);
             tv_goods_detail = itemView.findViewById(R.id.tv_goods_detail);
-            vv_find = itemView.findViewById(R.id.vv_find);
             tv_goods_find_price = itemView.findViewById(R.id.tv_goods_find_price);
             tv_goods_find_title = itemView.findViewById(R.id.tv_goods_find_title);
             ll_goods_find = itemView.findViewById(R.id.ll_goods_find);
+            jcVideoPlayerStandard = itemView.findViewById(R.id.jc_player);
         }
     }
 
