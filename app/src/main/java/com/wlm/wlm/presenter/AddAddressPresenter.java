@@ -100,15 +100,15 @@ public class AddAddressPresenter extends BasePresenter {
      */
     public void modifyAddress(String AddressId,String Consignee,String Province,String City,String District,String Address,String ZipCode,String Mobile,String IsDefault,String SessionId){
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserAddress");
-        params.put("fun","UserAddressUpdate");
-        params.put("Consignee",Consignee);
-        params.put("AddressId",AddressId);
-        params.put("Province",Province);
-        params.put("City",City);
-        params.put("District",District);
+        params.put("cls","ReceiptAddress");
+        params.put("fun","ReceiptAddressUpdate");
+        params.put("Name",Consignee);
+        params.put("AddressID",AddressId);
+        params.put("prov",Province);
+        params.put("city",City);
+        params.put("area",District);
         params.put("Address",Address);
-        params.put("ZipCode",ZipCode);
+        params.put("Post",ZipCode);
         params.put("Mobile",Mobile);
         params.put("IsDefault",IsDefault);
         params.put("SessionId",SessionId);

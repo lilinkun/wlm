@@ -72,8 +72,7 @@
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginRight="@dimen/margin_10">
 
-        <include
-            layout="@layout/adapter_groupon"/>
+            <include layout="@layout/adapter_groupon" />
 
         </LinearLayout>
 
@@ -111,19 +110,11 @@
                     android:id="@+id/tv_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="三人团：团长佣金获得规则为25%-35%-40%"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:singleLine="true"
-                    android:text="五人团：团长佣金获得规则为10%-20%-20-25%-25%"/>
+                    android:singleLine="true"/>
 
                 </LinearLayout>
 

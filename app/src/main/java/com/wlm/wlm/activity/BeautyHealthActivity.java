@@ -1,5 +1,6 @@
 package com.wlm.wlm.activity;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.wlm.wlm.R;
@@ -16,6 +17,7 @@ import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 
@@ -62,12 +64,20 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
         beautyHealthPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
     }
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.text_search})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
 
                 finish();
+
+                break;
+
+            case R.id.text_search:
+
+                Bundle bundle = new Bundle();
+                bundle.putString("id","1");
+                UiHelper.launcherBundle(this,SearchActivity.class,bundle);
 
                 break;
         }

@@ -139,6 +139,8 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
         ry_goods_cart.setLayoutManager(linearLayoutManager);
         ry_goods_cart.addItemDecoration(new SpaceItemDecoration(0,20,0));
+        ry_goods_cart.setHasFixedSize(true);
+        ry_goods_cart.setNestedScrollingEnabled(false);
     }
 
     public void setData(){

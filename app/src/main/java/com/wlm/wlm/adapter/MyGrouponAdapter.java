@@ -75,7 +75,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
 
         Picasso.with(context).load(ProApplication.HEADIMG + grouponListBeans.get(position).getGoodsImg()).into(holder.iv_goods_pic);
 
-        holder.tv_exit_order.setOnClickListener(new View.OnClickListener() {
+        /*holder.tv_exit_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -105,7 +105,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
                 });
 
             }
-        });
+        });*/
     }
 
     @Override

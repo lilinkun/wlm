@@ -63,6 +63,8 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     RoundImageView riv_rc;
     @BindView(R.id.iv_goods_pic)
     CustomRoundAngleImageView iv_goods_pic;
+    @BindView(R.id.tv_rule)
+    TextView tv_rule;
 
     private String teamId;
     private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
@@ -102,7 +104,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
     }
 
-    @OnClick({R.id.ll_back,R.id.tv_join_groupon})
+    @OnClick({R.id.ll_back,R.id.tv_join_groupon,R.id.rl_more})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
@@ -113,7 +115,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
             case R.id.tv_join_groupon:
 
-            case R.id.iv_head_right:
+            case R.id.rl_more:
 
                 Picasso.with(this).load(ProApplication.HEADIMG + grouponDetailBean.getGoodsImg()).into(new Target() {
                     @Override
@@ -164,6 +166,12 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
             tv_end_time.setText("至截止");
         }else {
             tv_grouponing.setVisibility(View.GONE);
+        }
+
+        if (goodsListBean.getTeamType() == 1){
+            tv_rule.setText("三人团：团长佣金获得规则为25%-35%-40%");
+        }else if (goodsListBean.getTeamType() == 2){
+            tv_rule.setText("五人团：团长佣金获得规则为10%-20%-20-25%-25%");
         }
 
         if (goodsListBean.getListUser() != null){

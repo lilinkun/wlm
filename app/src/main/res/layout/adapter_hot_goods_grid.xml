@@ -57,7 +57,8 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_below="@+id/tv_goods_title_name"
-                    android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:layout_marginBottom="@dimen/margin_5"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -71,6 +72,7 @@
                             android:layout_height="wrap_content"
                             android:src="@mipmap/ic_beauty_health"/>
                         <TextView
+                            android:id="@+id/tv_beauty_health"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="高端私人订制 鲜活自然更美"

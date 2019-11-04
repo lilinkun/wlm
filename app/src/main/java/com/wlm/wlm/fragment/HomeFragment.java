@@ -41,6 +41,7 @@ import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.activity.VipActivity;
+import com.wlm.wlm.activity.WebViewActivity;
 import com.wlm.wlm.activity.WlmBuyActivity;
 import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
@@ -233,7 +234,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 if (position == 0) {
                     UiHelper.launcher(getActivity(), PointActivity.class);
                 } else if (position == 1) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WlmUtil.TYPE,"4");
+                    UiHelper.launcherBundle(getActivity(), WebViewActivity.class,bundle);
                 }else if (position == 2) {
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
                 }else if(position == 3){
@@ -359,6 +362,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
         ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
         ProApplication.PHONE = urlBean.getKFMobile();
+        ProApplication.SERVIESVIP = urlBean.getServiesVip();
 
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;

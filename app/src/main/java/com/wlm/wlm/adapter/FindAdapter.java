@@ -134,12 +134,54 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
             }else {
                 strings.clear();
                 strings.add(goodsDiscoverBean.getFileUrl());
-                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).transform(transformation).placeholder(R.color.black).into(holder.iv_adapter_find);
+
+                int a = DensityUtil.getScreenWidth(context)/2;
+
+                int width = 0;
+                int height = 0;
+
+                if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()){
+                    int h = goodsDiscoverBean.getDiscoverHeight()*a/goodsDiscoverBean.getDiscoverWidth();
+                    width = a;
+                    height = h;
+
+                }else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()){
+                    int w = goodsDiscoverBean.getDiscoverWidth()*a/goodsDiscoverBean.getDiscoverHeight();
+                    width = w;
+                    height = a;
+                }else {
+                    width = a;
+                    height = a;
+                }
+
+                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).resize(width,height).placeholder(R.color.black).into(holder.iv_adapter_find);
             }
         }else if (goodsDiscoverBean.getDiscoverType() == 2) {
-            holder.jcVideoPlayerStandard.setVisibility(View.VISIBLE);
-            holder.jcVideoPlayerStandard.setUp(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
 
+            int a = DensityUtil.getScreenWidth(context)/2;
+
+            int width = 0;
+            int height = 0;
+
+            if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()){
+                int h = goodsDiscoverBean.getDiscoverHeight()*a/goodsDiscoverBean.getDiscoverWidth();
+                width = a;
+                height = h;
+
+            }else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()){
+                int w = goodsDiscoverBean.getDiscoverWidth()*a/goodsDiscoverBean.getDiscoverHeight();
+                width = w;
+                height = a;
+            }else {
+                width = a;
+                height = a;
+            }
+
+
+            holder.jcVideoPlayerStandard.setVisibility(View.VISIBLE);
+            holder.jcVideoPlayerStandard.setUp(ProApplication.BANNERIMG + goodsDiscoverBean.getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
+
+            Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).into(holder.jcVideoPlayerStandard.thumbImageView);
 
             try {
                 mPlayer = new MediaPlayer();
@@ -148,7 +190,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 e.printStackTrace();
             }
 
-            new Thread(new Runnable() {
+            /*new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try{
@@ -178,7 +220,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            }).start();*/
         }
 
         holder.iv_adapter_find.setOnClickListener(new View.OnClickListener() {

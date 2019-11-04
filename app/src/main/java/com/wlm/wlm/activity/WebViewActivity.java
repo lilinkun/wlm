@@ -43,11 +43,13 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
 
         webviewPresenter.onCreate(this,this);
 
-        title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type");
+        title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
         if (title.equals("2")){
             titleBar.setTileName("服务协议");
         }else if (title.equals("3")){
             titleBar.setTileName("关于我们");
+        }else if (title.equals("4")){
+            titleBar.setTileName("VIP宝典");
         }
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -58,8 +60,12 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
                 return false;
             }
         });
-        if (ProApplication.REGISTERREQUIREMENTS != null && !ProApplication.REGISTERREQUIREMENTS.equals("")){
-            webView.loadUrl(ProApplication.REGISTERREQUIREMENTS);
+        if (title.equals("4")){
+            webView.loadUrl(ProApplication.SERVIESVIP);
+        }else {
+            if (ProApplication.REGISTERREQUIREMENTS != null && !ProApplication.REGISTERREQUIREMENTS.equals("")) {
+                webView.loadUrl(ProApplication.REGISTERREQUIREMENTS);
+            }
         }
 
 //        webviewPresenter.getNewUrl(title, ProApplication.SESSIONID(this));

@@ -23,6 +23,9 @@ public class GoodsDiscoverBean {
     private double Price;
     private String GoodsImg;
     private int UseNumber;
+    private String VideoUrl;
+    private int DiscoverHeight;
+    private int DiscoverWidth;
 
     public int getGoodsDiscoverId() {
         return GoodsDiscoverId;
@@ -166,5 +169,29 @@ public class GoodsDiscoverBean {
 
     public void setUseNumber(int useNumber) {
         UseNumber = useNumber;
+    }
+
+    public int getDiscoverHeight() {
+        return DiscoverHeight;
+    }
+
+    public void setDiscoverHeight(int discoverHeight) {
+        DiscoverHeight = discoverHeight;
+    }
+
+    public int getDiscoverWidth() {
+        return DiscoverWidth;
+    }
+
+    public void setDiscoverWidth(int discoverWidth) {
+        DiscoverWidth = discoverWidth;
+    }
+
+    public String getVideoUrl() {
+        return VideoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        VideoUrl = videoUrl;
     }
 }

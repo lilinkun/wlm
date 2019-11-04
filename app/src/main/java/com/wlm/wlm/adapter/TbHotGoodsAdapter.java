@@ -94,6 +94,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
                 holder.tv_health_price.setText(homeBean.getPrice()+"");
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("热销款");
+                holder.tv_beauty_health.setText(homeBean.getGoodsSmallName());
             }else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_WLMBUY){
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("爆款");
@@ -147,6 +148,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         private TextView tv_add_integral;
         private TextView tv_hot;
         private TextView tv_old_price;
+        private TextView tv_beauty_health;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -165,6 +167,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             ll_bottom_point = (LinearLayout) itemView.findViewById(R.id.ll_bottom_point);
             ll_bottom_health = (LinearLayout) itemView.findViewById(R.id.ll_bottom_health);
             ll_hot = (LinearLayout) itemView.findViewById(R.id.ll_hot);
+            tv_beauty_health = (TextView) itemView.findViewById(R.id.tv_beauty_health);
 
         }
     }

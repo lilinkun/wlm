@@ -12,6 +12,15 @@ public class UrlBean {
     private String UpgradeToken;
     private String RegisterRequirements;
     private String KFMobile;
+    private String ServiesVip;
+
+    public String getServiesVip() {
+        return ServiesVip;
+    }
+
+    public void setServiesVip(String serviesVip) {
+        ServiesVip = serviesVip;
+    }
 
     public String getImgUrl() {
         return imgUrl;

@@ -45,6 +45,7 @@ public class GrouponDetailBean {
     private int SortRank;
     private String BeginDate;
     private String EndDate;
+    private int TeamType;
     private ArrayList<JoinGrouponBean> listUser;
 
     public int getTeamId() {
@@ -365,5 +366,13 @@ public class GrouponDetailBean {
 
     public void setListUser(ArrayList<JoinGrouponBean> listUser) {
         this.listUser = listUser;
+    }
+
+    public int getTeamType() {
+        return TeamType;
+    }
+
+    public void setTeamType(int teamType) {
+        TeamType = teamType;
     }
 }
