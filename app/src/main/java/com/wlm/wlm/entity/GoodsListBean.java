@@ -54,6 +54,7 @@ public class GoodsListBean implements Serializable {
     private String IsSetMeal;
     private String TeamType;
     private String TeamTypeName;
+    private int UserLevel;
 
     public String getGoodsId() {
         return GoodsId;
@@ -389,6 +390,14 @@ public class GoodsListBean implements Serializable {
 
     public void setTeamTypeName(String teamTypeName) {
         TeamTypeName = teamTypeName;
+    }
+
+    public int getUserLevel() {
+        return UserLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        UserLevel = userLevel;
     }
 
     @Override

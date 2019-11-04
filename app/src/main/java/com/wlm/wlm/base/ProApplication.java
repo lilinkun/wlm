@@ -103,6 +103,8 @@ public class ProApplication extends Application{
 
     public static String VIPVALIDITY = "";
 
+    public static int USERLEVEL = 0;
+
     public static String PHONE = "";
 
 

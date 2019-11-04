@@ -291,6 +291,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
     @Override
     public void onLoginSuccess(LoginBean loginBean) {
+        ProApplication.USERLEVEL = loginBean.getUserLevel();
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
                 .putString(WlmUtil.ACCOUNT,loginBean.getNickName()).putString(WlmUtil.TELEPHONE,loginBean.getMobile())

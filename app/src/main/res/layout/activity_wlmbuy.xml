@@ -29,7 +29,6 @@
                 android:id="@+id/bannerView"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
-                android:layout_marginBottom="@dimen/margin_15"
                 app:indicator_width="10dp"
                 app:indicator_height="10dp"
                 app:indicator_margin="5dp"
@@ -47,18 +46,17 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical">
 
-
-
             <com.wlm.wlm.ui.PagerSlidingTabStrip
                 android:id="@+id/tab_strip"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_15"
-                app:pstsTabTextClickColor="@color/white"
-                app:pstsTabTextUnclickColor="@color/psts_unclick_text_bg"
-                app:pstsUnderlineColor="@color/white">
+                app:pstsTabTextClickColor="@color/red_hot_price"
+                app:pstsTabTextUnclickColor="@color/black"
+                app:pstsTabTextSize="5sp"
+                app:pstsUnderlineColor="@color/red_hot_price">
 
             </com.wlm.wlm.ui.PagerSlidingTabStrip>
+
 
             <include
                 layout="@layout/custom_toplayout"/>

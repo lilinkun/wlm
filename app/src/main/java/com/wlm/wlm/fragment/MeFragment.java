@@ -17,21 +17,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BindCardActivity;
 import com.wlm.wlm.activity.BrowseRecordsActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
-import com.wlm.wlm.activity.CustomerServiceActivity;
 import com.wlm.wlm.activity.IntegralActivity;
-import com.wlm.wlm.activity.LoginActivity;
 import com.wlm.wlm.activity.MainFragmentActivity;
 import com.wlm.wlm.activity.MessageActivity;
 import com.wlm.wlm.activity.MessageDetitleActivity;
@@ -53,7 +47,6 @@ import com.wlm.wlm.ui.CustomerPtrHandler;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.MessageType;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
@@ -302,31 +295,15 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                 case R.id.ll_shared:
 
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN,Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
 
-                    WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
-                    miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
-                    miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
-                    miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
-                    miniProgramObj.path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-                    //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
-                    WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
-                    msg.title = "唯乐美商城";                    // 小程序消息title
-                    msg.description = "唯乐美商城";               // 小程序消息desc
 
                     Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                    msg.thumbData = baos.toByteArray();
-
-//                msg.thumbData = getThumb();                      // 小程序消息封面图片，小于128k
-
-                    SendMessageToWX.Req req = new SendMessageToWX.Req();
-                    req.transaction = "";
-                    req.message = msg;
-                    req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
-                    iwxapi.sendReq(req);
+                    String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                    WlmUtil.setShared(iwxapi,path,"唯乐美商城","唯乐美商城",baos.toByteArray());
 
                     break;
 
@@ -419,6 +396,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 //        mIntegralBalance.setText(point + "");
         mTvAccount.setText(personalInfoBean.getUser_data().getUserName());
         MainFragmentActivity.username = personalInfoBean.getUser_data().getUserName();
+
+        ProApplication.USERLEVEL = personalInfoBean.getUser_data().getUserLevel();
 
         final File file = new File(getActivity().getExternalCacheDir(), "crop.jpg");
         if (personalInfoBean.getUser_data().getPortrait() != null) {

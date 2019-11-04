@@ -55,7 +55,7 @@ public class ManufactureStorePresenter extends BasePresenter {
      * @param PageIndex
      * @param PageCount
      */
-    public void getCategoryList(String PageIndex,String PageCount){
+    public void getCategoryList(String PageIndex,String PageCount,String CategoryLevel){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
@@ -64,6 +64,7 @@ public class ManufactureStorePresenter extends BasePresenter {
         params.put("fun","CategoryVipList");
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
+        params.put("CategoryLevel",CategoryLevel);
         mCompositeSubscription.add(manager.getCategoryList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

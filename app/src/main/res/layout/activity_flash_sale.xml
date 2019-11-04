@@ -29,6 +29,7 @@
                 android:id="@+id/bannerView"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
+                android:layout_marginBottom="10dp"
                 app:indicator_width="10dp"
                 app:indicator_height="10dp"
                 app:indicator_margin="5dp"
@@ -43,8 +44,8 @@
                 android:layout_height="62dp"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginTop="@dimen/margin_15"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:background="@drawable/shape_flash_sale"
                 >
@@ -99,11 +100,18 @@
             </LinearLayout>
 
 
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:orientation="vertical">
+
             <com.wlm.wlm.ui.TopLinearlayout
                 android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
                 app:textcolor="@color/bg_crowdfunding"
                 app:textnormalcolor="@color/list_divider"
                 app:up_arrow="@mipmap/ic_red_arrow_up"
@@ -111,16 +119,14 @@
                 app:type="3"
                 />
 
-        </android.support.design.widget.AppBarLayout>
-
-        <com.wlm.wlm.ui.CustomSortLayout
-            android:id="@+id/custom_sort"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_marginTop="@dimen/margin_10">
-
-        </com.wlm.wlm.ui.CustomSortLayout>
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/rv_flash_sale"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"/>
+        </LinearLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

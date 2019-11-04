@@ -52,6 +52,9 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     private Dialog payDialog;
     private PopupWindow popupWindow;
     private String point;
+    PasswordView passwordView;
+
+    private OrderDetailAddressBean orderDetailBeans;
 
     @BindView(R.id.check_wx)
     CheckBox check_wx;
@@ -138,7 +141,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                         popupWindow.showAsDropDown(titlebar);
 
-                        final PasswordView passwordView = view1.findViewById(R.id.pwd_view);
+                        passwordView = view1.findViewById(R.id.pwd_view);
 
                         passwordView.setOnFinishInput(new OnPasswordInputFinish() {
                             @Override
@@ -210,6 +213,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.PRICE,totalPrice);
         bundle.putString(WlmUtil.ORDERID,orderid);
+        bundle.putString(WlmUtil.GOODSTYPE,orderDetailBeans.getOrderType()+"");
         UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
 
     }
@@ -217,6 +221,10 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public void sureOrderFail(String msg) {
         toast(msg);
+
+        /*if (passwordView != null){
+            passwordView.
+        }*/
     }
 
     @Override
@@ -248,6 +256,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void setDataSuccess(OrderDetailAddressBean orderDetailBeans) {
+        this.orderDetailBeans = orderDetailBeans;
         this.point = orderDetailBeans.getIntegral()+"";
         if (orderDetailBeans.getIntegral() == 0){
             tv_point.setVisibility(View.GONE);
@@ -284,6 +293,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.PRICE,totalPrice);
         bundle.putString(WlmUtil.ORDERID,orderid);
+        bundle.putString(WlmUtil.GOODSTYPE,orderDetailBeans.getOrderType()+"");
         UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
     }
 

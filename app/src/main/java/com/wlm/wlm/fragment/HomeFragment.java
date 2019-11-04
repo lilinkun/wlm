@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
@@ -39,6 +40,7 @@ import com.wlm.wlm.activity.PointActivity;
 import com.wlm.wlm.activity.SearchActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.activity.SelfGoodsTypeActivity;
+import com.wlm.wlm.activity.VipActivity;
 import com.wlm.wlm.activity.WlmBuyActivity;
 import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
@@ -115,6 +117,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     RecyclerView rv_home_commodities;
     @BindView(R.id.tv_rush_time)
     CountdownView tv_rush_time;
+    @BindView(R.id.big_1)
+    ImageView big_1;
+    @BindView(R.id.iv_vip_icon1)
+    ImageView iv_vip_icon1;
+    @BindView(R.id.iv_vip_icon2)
+    ImageView iv_vip_icon2;
 
     private PopupWindow popupWindow;
     private int PAGE_INDEX = 1;
@@ -122,6 +130,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ArrayList<GoodsListBean> hotHomeBeans;
     private HomeFragmentAdapter homeFragmentAdapter;
     private ArrayList<FlashBean> flashBeans;
+    private HomeBean homeBean;
 
     /*
      * 下载文件权限请求码
@@ -176,6 +185,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         boolean includeEdge = false;
         rv_home_commodities.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
         rv_home_commodities.setLayoutManager(linearLayoutManager);
+        rv_home_commodities.setHasFixedSize(true);
+        rv_home_commodities.setNestedScrollingEnabled(false);
 //        mBanner.setImageLoader(new PicassoImageLoader());
 //        mBanner.setImages();
 
@@ -208,7 +219,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     private void initRv(){
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),5);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),4);
 
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
@@ -228,16 +239,16 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 }else if(position == 3){
                     UiHelper.launcher(getActivity(), FlashSaleActivity.class);
                 }else if(position == 4){
-                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
-                }else if (position == 5){
+//                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
+//                }else if (position == 5){
                     UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
-                }else if (position == 6){
+                }else if (position == 5){
                     UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
-                }else if (position == 7){
+                }else if (position == 6){
                     UiHelper.launcher(getActivity(), WlmBuyActivity.class);
-                }else if (position == 8){
+                }else if (position == 7){
                     UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
-                }else if (position == 9){
+//                }else if (position == 9){
                 }
             }
 
@@ -249,7 +260,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
 
-    @OnClick({ R.id.text_search})
+    @OnClick({ R.id.text_search,R.id.big_1,R.id.iv_vip_icon1,R.id.iv_vip_icon2})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -260,6 +271,27 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                     break;
 
+                case R.id.big_1:
+
+                    UiHelper.launcher(getActivity(), VipActivity.class);
+
+                    break;
+
+                case R.id.iv_vip_icon1:
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("goodsid", hotHomeBeans.get(0).getGoodsId());
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+
+                    break;
+
+                case R.id.iv_vip_icon2:
+
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("goodsid", hotHomeBeans.get(1).getGoodsId());
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle1);
+
+                    break;
             }
         }
     }
@@ -412,16 +444,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             mPtrFrame.refreshComplete();
         }
 
-
         CustomBannerView.startBanner(flashBeans,banner,getActivity(),true);
 
-//        DBManager.getInstance(getActivity()).deleteCategoryListBean();
-//        DBManager.getInstance(getActivity()).insertCategoryList(homeCategoryBeans);
-
-//        hotHomeBeans = (ArrayList<HotHomeBean>) homeHeadBean.getHot_goods();
-//        tbHotGoodsAdapter = new TbHotGoodsAdapter(getActivity(), null, getLayoutInflater());
-//        mHotGridView.setAdapter(tbHotGoodsAdapter);
-//        tbHotGoodsAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -438,9 +462,25 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.hotHomeBeans = goodsListBeans;
 
-        HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(),goodsListBeans);
+        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(),goodsListBeans);
         rv_home_commodities.setAdapter(homeHotAdapter);
         homeHotAdapter.setItemClickListener(this);
+
+        // 外部对RecyclerView设置监听
+//        rv_home_commodities.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                // 查看源码可知State有三种状态：SCROLL_STATE_IDLE（静止）、SCROLL_STATE_DRAGGING（上升）、SCROLL_STATE_SETTLING（下落）
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
+//                    homeHotAdapter.setScrolling(false);
+//                    homeHotAdapter.notifyDataSetChanged(); // notify调用后onBindViewHolder会响应调用
+//                } else {
+//                    homeHotAdapter.setScrolling(true);
+//                super.onScrollStateChanged(recyclerView, newState);
+//                }
+//            }
+//        });
+//        rv_home_commodities.setAdapter(homeHotAdapter);
     }
 
     @Override
@@ -450,8 +490,15 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void getHomeDataSuccess(HomeBean homeBean) {
+
+        this.homeBean = homeBean;
+
         onFlashSuccess(homeBean.getFlash());
         onGoodsListSuccess(homeBean.getGoodsList());
+
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).error(R.mipmap.banner_1).into(big_1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsImg()).error(R.mipmap.banner_2).into(iv_vip_icon1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(1).getGoodsImg()).error(R.mipmap.banner_2).into(iv_vip_icon2);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

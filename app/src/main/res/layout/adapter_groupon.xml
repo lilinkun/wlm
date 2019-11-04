@@ -58,6 +58,30 @@
             android:textSize="11sp" />
 
         <LinearLayout
+            android:id="@+id/ll_vip_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:background="@drawable/shape_vip_flash_sale"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_vip_flash_sale"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vip专享"
+                android:layout_marginLeft="@dimen/margin_2"
+                android:textColor="@color/point_red"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
@@ -81,6 +105,31 @@
                 app:isTimeTextBold="true"
                 app:suffixGravity="center"
                 app:suffixTextColor="@color/groupon_text"
+                app:suffixTextSize="11sp"
+                app:suffixDay=":"
+                app:suffixHour=":"
+                app:suffixMinute=":"
+                app:suffixSecond=""/>
+
+            <com.wlm.wlm.ui.CountdownView
+                android:id="@+id/tv_rush_time_flash_sale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_5"
+                android:visibility="gone"
+                app:isHideTimeBackground="false"
+                app:timeBgColor="@color/point_red"
+                app:timeBgSize="@dimen/textsize16"
+                app:timeBgRadius="2dp"
+                app:isShowDay="true"
+                app:isShowHour="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:timeTextColor="#ffffff"
+                app:timeTextSize="11sp"
+                app:isTimeTextBold="true"
+                app:suffixGravity="center"
+                app:suffixTextColor="@color/point_red"
                 app:suffixTextSize="11sp"
                 app:suffixDay=":"
                 app:suffixHour=":"
@@ -183,6 +232,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:paddingBottom="@dimen/margin_10"
                 android:gravity="center_vertical"
                 android:layout_alignParentBottom="true">

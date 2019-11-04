@@ -55,7 +55,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     private String goodstype = "8";
     private ArrayList<GoodsListBean> goodsListBeans = null;
     private Category1Bean category1Bean  = null ;
-    private ArrayList<Category1Bean> category1Beans = null;
+    private ArrayList<Category1Bean> category1Beans = new ArrayList<>();
     private int PAGEINDEX = 1;
     private PageBean pageBean;
 
@@ -88,7 +88,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
         manufactureStorePresenter.onCreate(this,this);
 
-        manufactureStorePresenter.getCategoryList("1","100");
+        manufactureStorePresenter.getCategoryList("1","100",WlmUtil.GOODSTYPE_WLM+"");
 
         ll_top.setListener(this);
 
@@ -140,13 +140,6 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
                 break;
         }
-    }
-
-    public void doSearch(String goodsName){
-//        manufactureStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),goodsName,"0");
-        Bundle bundle = new Bundle();
-        bundle.putString("id","8");
-        UiHelper.launcherBundle(this,SearchActivity.class,bundle);
     }
 
     @Override
@@ -210,9 +203,17 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
     }
 
     @Override
-    public void getCategorySuccess(ArrayList<Category1Bean> category1Beans) {
-        this.category1Beans = category1Beans;
-        for (Category1Bean category1Bean : category1Beans){
+    public void getCategorySuccess(ArrayList<Category1Bean> category1BeanList) {
+        Category1Bean categoryBean = new Category1Bean();
+        categoryBean.setCategoryID("");
+        categoryBean.setCategoryName("全部");
+        this.category1Beans.add(categoryBean);
+
+
+        this.category1Beans.addAll(category1BeanList);
+
+
+        for (Category1Bean category1Bean : this.category1Beans){
             strings.add(category1Bean.getCategoryName());
         }
 

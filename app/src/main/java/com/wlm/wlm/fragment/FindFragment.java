@@ -1,11 +1,17 @@
 package com.wlm.wlm.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.FindAdapter;
 import com.wlm.wlm.base.BaseFragment;
@@ -17,6 +23,7 @@ import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.WlmUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -24,7 +31,7 @@ import butterknife.BindView;
 /**
  * Created by LG on 2019/10/23.
  */
-public class FindFragment extends BaseFragment implements FindContract {
+public class FindFragment extends BaseFragment implements FindContract, FindAdapter.FindListener {
 
     @BindView(R.id.rv_find)
     XRecyclerView rv_find;
@@ -37,6 +44,7 @@ public class FindFragment extends BaseFragment implements FindContract {
     private int page_index = 1;
     private PageBean pageBean;
     private ArrayList<GoodsDiscoverBean> goodsDiscoverBeans;
+    IWXAPI iwxapi = null;
 
     @Override
     public int getlayoutId() {
@@ -45,6 +53,9 @@ public class FindFragment extends BaseFragment implements FindContract {
 
     @Override
     public void initEventAndData() {
+
+        iwxapi = WXAPIFactory.createWXAPI(getActivity(),WlmUtil.APP_ID,true);
+        iwxapi.registerApp(WlmUtil.APP_ID);
 
         findPresenter.onCreate(getActivity(),this);
 
@@ -91,7 +102,7 @@ public class FindFragment extends BaseFragment implements FindContract {
             goodsDiscoverBeans = goodsDiscoverList;
             ArrayList<String> strings = new ArrayList<>();
             findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans,ll_find);
-
+            findAdapter.setFindListener(this);
             rv_find.setAdapter(findAdapter);
         }else {
             if (pageBean.getPageIndex() > 1){
@@ -106,5 +117,19 @@ public class FindFragment extends BaseFragment implements FindContract {
     @Override
     public void onGetDataFail(String msg) {
         UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void onShard(String goodsid,String goodsname) {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+
+        Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+
+        String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+
+        WlmUtil.setShared(iwxapi,path,goodsname,goodsname,baos.toByteArray());
     }
 }

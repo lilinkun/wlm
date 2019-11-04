@@ -153,11 +153,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-//        bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
-//        UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
-
         bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
-//        bundle.putString(WlmUtil.TYPE, WlmUtil.getType(GoodsType + ""));
         UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
     }
 

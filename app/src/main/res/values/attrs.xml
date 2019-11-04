@@ -73,6 +73,7 @@
         <attr name="pstsUnderlineColor" format="color" />
         <attr name="pstsTabTextClickColor" format="color" />
         <attr name="pstsTabTextUnclickColor" format="color" />
+        <attr name="pstsTabTextSize" format="dimension"/>
 
     </declare-styleable>
 

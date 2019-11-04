@@ -70,27 +70,40 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             Picasso.with(context).load(ProApplication.HEADIMG +goodsListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.iv_goods_pic);
         }
 
-        if(WlmUtil.isCountdown(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time) == 0){
-            holder.tv_grouponing.setVisibility(View.GONE);
-            holder.tv_end_time.setText("至开始");
-        }else if (WlmUtil.isCountdown(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time) == 1){
-            holder.tv_end_time.setText("后截止");
-        }else {
-            holder.tv_grouponing.setVisibility(View.GONE);
-        }
 
         if (goodstype == WlmUtil.GOODSTYPE_CROWDFUNDING){
             holder.rl_groupon.setVisibility(View.GONE);
+            holder.tv_rush_time.setVisibility(View.GONE);
+            holder.tv_rush_time_flash_sale.setVisibility(View.VISIBLE);
             holder.tv_grounon_info.setVisibility(View.GONE);
+            countDownTime(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time_flash_sale,holder.tv_grouponing,holder.tv_end_time);
             holder.ll_crowdfunding.setVisibility(View.VISIBLE);
             holder.tv_crowd_price.setText(goodsListBeans.get(position).getPrice()*goodsListBeans.get(position).getUseNumber() + "");
             holder.tv_support_count.setText(goodsListBeans.get(position).getUseNumber() + "");
-
+        }else if (goodstype == WlmUtil.GOODSTYPE_SECKILL){
+            holder.tv_grouponing.setText("立即秒杀");
+            holder.tv_rush_time.setVisibility(View.GONE);
+            holder.tv_rush_time_flash_sale.setVisibility(View.VISIBLE);
+            holder.tv_grounon_info.setVisibility(View.GONE);
+            if (goodsListBeans.get(position).getUserLevel() > 0) {
+                holder.ll_vip_sale.setVisibility(View.VISIBLE);
+            }
+            if (goodsListBeans.get(position).getUserLevel() > ProApplication.USERLEVEL){
+                holder.tv_grouponing.setEnabled(false);
+                holder.tv_grouponing.setBackgroundResource(R.drawable.shape_flash_sale_unseclect);
+            }else {
+                holder.tv_grouponing.setBackgroundResource(R.drawable.shape_flash_sale_seclect);
+            }
+            countDownTime(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time_flash_sale,holder.tv_grouponing,holder.tv_end_time);
+        }else if (goodstype == WlmUtil.GOODSTYPE_GROUPON){
+            countDownTime(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time,holder.tv_grouponing,holder.tv_end_time);
         }
 
         holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
                 bundle.putInt(WlmUtil.GOODSNUM,1);
@@ -99,6 +112,18 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
                 UiHelper.launcherBundle(context, GrouponOrderActivity.class,bundle);
             }
         });
+    }
+
+    private void countDownTime(String startTime,String endTime,CountdownView tv_rush_time,TextView tv_grouponing,TextView tv_end_time){
+
+        if(WlmUtil.isCountdown(startTime,endTime,tv_rush_time) == 0){
+            tv_grouponing.setVisibility(View.GONE);
+            tv_end_time.setText("至开始");
+        }else if (WlmUtil.isCountdown(startTime,endTime,tv_rush_time) == 1){
+            tv_end_time.setText("后截止");
+        }else {
+            tv_grouponing.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -131,11 +156,12 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
 
         MyTextView tv_groupon_old_price;
         TextView tv_grouponing,tv_grounon_info,tv_goods_title,tv_end_time,tv_crowd_price,tv_support_count;
-        CountdownView tv_rush_time;
+        CountdownView tv_rush_time,tv_rush_time_flash_sale;
         CustomRoundAngleImageView iv_goods_pic;
         PriceTextView tv_groupon_price;
         RelativeLayout rl_groupon;
         LinearLayout ll_crowdfunding;
+        LinearLayout ll_vip_sale;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -144,6 +170,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             tv_grouponing = itemView.findViewById(R.id.tv_grouponing);
             tv_grounon_info = itemView.findViewById(R.id.tv_grounon_info);
             tv_rush_time = itemView.findViewById(R.id.tv_rush_time);
+            tv_rush_time_flash_sale = itemView.findViewById(R.id.tv_rush_time_flash_sale);
             iv_goods_pic = itemView.findViewById(R.id.iv_goods_pic);
             tv_groupon_price = itemView.findViewById(R.id.tv_groupon_price);
             tv_goods_title = itemView.findViewById(R.id.tv_goods_title);
@@ -152,6 +179,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             ll_crowdfunding = itemView.findViewById(R.id.ll_crowd_funding);
             tv_crowd_price = itemView.findViewById(R.id.tv_crowd_price);
             tv_support_count = itemView.findViewById(R.id.tv_support_count);
+            ll_vip_sale = itemView.findViewById(R.id.ll_vip_sale);
         }
     }
 

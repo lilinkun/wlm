@@ -51,11 +51,11 @@ public class IntegralStorePresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy){
+    public void getData(String PageIndex,String PageCount,String GoodsType, String CategoryId,String OrderBy){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
-        if (Integer.valueOf(PageIndex) > 1) {
-//            loaddingDialog.show();
+        if (Integer.valueOf(PageIndex) == 1) {
+            loaddingDialog.show();
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Goods");
@@ -63,6 +63,7 @@ public class IntegralStorePresenter extends BasePresenter {
         params.put("PageIndex",PageIndex);
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
+        params.put("CategoryId",CategoryId);
         params.put("GoodsFlag","2");
         params.put("OrderBy",OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
@@ -80,6 +81,43 @@ public class IntegralStorePresenter extends BasePresenter {
                     @Override
                     public void onErr(String msg, String status) {
                         integralStoreContract.getFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+                }));
+    }
+
+    /**
+     * 获取分类
+     * @param PageIndex
+     * @param PageCount
+     */
+    public void getCategoryList(String PageIndex,String PageCount,String CategoryLevel){
+
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Category");
+        params.put("fun","CategoryVipList");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
+        params.put("CategoryLevel",CategoryLevel);
+        mCompositeSubscription.add(manager.getCategoryList(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<Category1Bean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<Category1Bean> integralBean, String status, Object page) {
+                        integralStoreContract.getCategorySuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        integralStoreContract.getCategoryFail(msg);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }

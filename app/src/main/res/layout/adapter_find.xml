@@ -52,6 +52,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_shared"
                 android:layout_width="64dp"
                 android:layout_height="30dp"
                 android:text="@string/shared"

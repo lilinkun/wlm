@@ -291,7 +291,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsNumber()) == 0){
                         toast("库存不足，无法下单");
                     }else {
-                        if (type.equals(WlmUtil.VIP)){
+                        if (type.equals(WlmUtil.VIP) || type.equals(WlmUtil.GOODSTYPE_SECKILL) || type.equals(WlmUtil.GOODSTYPE_CROWDFUNDING)){
                             if (goodsDetailBean != null) {
                                 mRightNowBuy(goodsDetailBean, null, 1);
                             }
@@ -386,7 +386,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             rl_add_cart.setVisibility(View.GONE);
             ll_shop_car.setVisibility(View.GONE);
             ll_collect.setVisibility(View.GONE);
-        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON){
+        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON || goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_SECKILL){
             ll_groupon_time.setVisibility(View.VISIBLE);
             ll_groupon_info.setVisibility(View.VISIBLE);
             ll_groupon_play.setVisibility(View.VISIBLE);
@@ -396,7 +396,15 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             ll_shop_car.setVisibility(View.GONE);
             ll_collect.setVisibility(View.GONE);
             ll_goods_layout.setVisibility(View.GONE);
-            tx_tikey.setText(R.string.groupon_now);
+            if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON) {
+                tx_tikey.setText(R.string.groupon_now);
+            }else {
+                tx_tikey.setText(R.string.flash_sale);
+                if (goodsDetailBean.getUserLevel() > ProApplication.USERLEVEL) {
+                    rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.list_divider));
+                    rl_immediate_purchase.setEnabled(false);
+                }
+            }
             if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 0){
                 rl_immediate_purchase.setVisibility(View.GONE);
                 tv_distance_ends.setText("距开始");

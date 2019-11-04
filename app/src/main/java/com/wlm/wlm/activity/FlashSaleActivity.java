@@ -1,7 +1,11 @@
 package com.wlm.wlm.activity;
 
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.GrouponAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -14,7 +18,9 @@ import com.wlm.wlm.presenter.FlashSalePresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.TopLinearlayout;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
 
@@ -26,7 +32,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/10/30.
  */
-public class FlashSaleActivity extends BaseActivity implements FlashSaleContract, CustomSortLayout.SortListerner, IGoodsTypeListener {
+public class FlashSaleActivity extends BaseActivity implements FlashSaleContract, CustomSortLayout.SortListerner, IGoodsTypeListener, GrouponAdapter.OnItemClickListener {
 
     FlashSalePresenter flashSalePresenter = new FlashSalePresenter();
 
@@ -34,8 +40,8 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
     Banner bannerView;
     @BindView(R.id.ll_top)
     TopLinearlayout ll_top;
-    @BindView(R.id.custom_sort)
-    CustomSortLayout custom_sort;
+    @BindView(R.id.rv_flash_sale)
+    XRecyclerView rv_flash_sale;
 
     GrouponAdapter grouponAdapter = null;
 
@@ -60,8 +66,35 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
         flashSalePresenter.setFlash("3");
         flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
         ll_top.setListener(this);
-        custom_sort.setListener(this);
+        ActivityUtil.addHomeActivity(this);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        rv_flash_sale.setLayoutManager(linearLayoutManager);
+        rv_flash_sale.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        rv_flash_sale.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        rv_flash_sale.setArrowImageView(R.drawable.iconfont_downgrey);
+        rv_flash_sale.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                flashSalePresenter.getData(pageIndex+"","20",goodstype + "",orderby,false);
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (grouponAdapter != null) {
+                    if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
+//                        rv_groupon.loadMoreComplete();
+                        rv_flash_sale.setNoMore(true);
+                    }else {
+                        pageIndex++;
+                        flashSalePresenter.getData(pageIndex+"","20",goodstype + "",orderby,false);
+                    }
+
+                }
+            }
+        });
     }
 
 
@@ -79,13 +112,35 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
     @Override
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean) {
 
-        custom_sort.setPageIndex(pageIndex,pageBean);
-        custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_POINT);
+        rv_flash_sale.refreshComplete();
+
+        rv_flash_sale.loadMoreComplete();
+
+        this.pageBean = pageBean;
+        rv_flash_sale.setVisibility(View.VISIBLE);
+        if (grouponAdapter == null) {
+            this.goodsListBeans = goodsListBeans;
+            grouponAdapter = new GrouponAdapter(this,goodsListBeans,goodstype);
+            rv_flash_sale.setAdapter(grouponAdapter);
+            grouponAdapter.setItemClickListener(this);
+        }else {
+//            if(swipeRefreshLayout.isRefreshing()) {
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+            if (pageBean.getPageIndex() == 1){
+                grouponAdapter.setData(goodsListBeans);
+            }else {
+                this.goodsListBeans.addAll(goodsListBeans);
+                grouponAdapter.setData(this.goodsListBeans);
+            }
+        }
     }
 
     @Override
     public void getDataFail(String msg) {
-        toast(msg);
+        if (msg.contains("查无数据")){
+            rv_flash_sale.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -149,4 +204,10 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+        UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
+    }
 }

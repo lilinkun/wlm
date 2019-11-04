@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
@@ -28,6 +29,14 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     private OnItemClickListener onItemClickListener;
     private GoodsListBean homeBean;
     private boolean isAdd_Integral = false;
+
+    protected boolean isScrolling = false;
+
+
+    public void setScrolling(boolean scrolling){
+        isScrolling = scrolling;
+    }
+
 
     public HomeHotAdapter(Context context, ArrayList<GoodsListBean> homeHeadBean) {
         this.hotHomeBeans = homeHeadBean;
@@ -87,6 +96,11 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
                 Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
+//                if (isScrolling) {
+//                }else {
+//                    Glide.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
+//                }
+
             }
         }
     }

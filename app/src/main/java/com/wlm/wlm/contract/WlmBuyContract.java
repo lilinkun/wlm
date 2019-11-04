@@ -9,10 +9,9 @@ import com.wlm.wlm.mvp.IView;
 import java.util.ArrayList;
 
 /**
- * Created by LG on 2019/10/29.
+ * Created by LG on 2019/11/4.
  */
-public interface PointContract extends IView {
-
+public interface WlmBuyContract extends IView {
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
     public void getDataFail(String msg);
 
@@ -21,4 +20,6 @@ public interface PointContract extends IView {
     public void onFlashFail(String msg);
 
 
+    public void getCategorySuccess(ArrayList<Category1Bean> category1Beans);
+    public void getCategoryFail(String msg);
 }

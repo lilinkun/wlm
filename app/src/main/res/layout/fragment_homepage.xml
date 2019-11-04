@@ -58,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/banner_1"
+                    android:scaleType="fitXY"
                     android:layout_marginTop="@dimen/margin_15"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"/>
@@ -65,7 +66,7 @@
                 <LinearLayout
                     android:id="@+id/ll_vip"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="105dp"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
@@ -73,18 +74,22 @@
                     >
 
                     <ImageView
+                        android:id="@+id/iv_vip_icon1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@mipmap/banner_2"
+                        android:scaleType="fitXY"
                         android:layout_marginRight="4dp"
                         />
 
                     <ImageView
+                        android:id="@+id/iv_vip_icon2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@mipmap/banner_2"
+                        android:scaleType="fitXY"
                         android:layout_marginLeft="4dp"
                         />
 
@@ -98,7 +103,8 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginRight="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:layout_gravity="center_vertical">
+                    android:background="#ffc6cc"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -148,6 +154,7 @@
                     android:id="@+id/rv_home_commodities"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/textsize12"
                     />
 
 

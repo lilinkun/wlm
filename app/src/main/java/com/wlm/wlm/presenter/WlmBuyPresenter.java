@@ -3,6 +3,7 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.PointContract;
+import com.wlm.wlm.contract.WlmBuyContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
@@ -20,14 +21,13 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by LG on 2019/10/29.
+ * Created by LG on 2019/11/4.
  */
-public class PointPresenter extends BasePresenter {
-
+public class WlmBuyPresenter extends BasePresenter {
     private DataManager manager;
     private CompositeSubscription mCompositeSubscription;
     private Context mContext;
-    private PointContract pointContract;
+    private WlmBuyContract wlmBuyContract;
 
 
     @Override
@@ -35,7 +35,7 @@ public class PointPresenter extends BasePresenter {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
-        pointContract = (PointContract) view;
+        wlmBuyContract = (WlmBuyContract) view;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class PointPresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,boolean showload){
+    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String CategoryId,boolean showload){
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         if (showload) {
@@ -69,6 +69,7 @@ public class PointPresenter extends BasePresenter {
         params.put("PageCount",PageCount);
         params.put("GoodsType",GoodsType);
         params.put("OrderBy",OrderBy);
+        params.put("CategoryId",CategoryId);
         params.put("GoodsFlag", "2");
 
         mCompositeSubscription.add(manager.grouponData(params)
@@ -77,7 +78,7 @@ public class PointPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
                     public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status,PageBean page) {
-                        pointContract.getDataSuccess(goodsListBeans,page);
+                        wlmBuyContract.getDataSuccess(goodsListBeans,page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -85,7 +86,7 @@ public class PointPresenter extends BasePresenter {
 
                     @Override
                     public void onErr(String msg, String status) {
-                        pointContract.getDataFail(msg);
+                        wlmBuyContract.getDataFail(msg);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -109,14 +110,52 @@ public class PointPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
                     @Override
                     public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
-                        pointContract.onFlashSuccess(flashBeans);
+                        wlmBuyContract.onFlashSuccess(flashBeans);
                     }
 
                     @Override
                     public void onErr(String msg, String status) {
-                        pointContract.onFlashFail(msg);
+                        wlmBuyContract.onFlashFail(msg);
                     }
 
+                }));
+    }
+
+
+    /**
+     * 获取分类
+     * @param PageIndex
+     * @param PageCount
+     */
+    public void getCategoryList(String PageIndex,String PageCount,String CategoryLevel){
+
+        final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
+        loaddingDialog.show();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","Category");
+        params.put("fun","CategoryVipList");
+        params.put("PageIndex",PageIndex);
+        params.put("PageCount",PageCount);
+        params.put("CategoryLevel",CategoryLevel);
+        mCompositeSubscription.add(manager.getCategoryList(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<Category1Bean>,Object>() {
+                    @Override
+                    public void onResponse(ArrayList<Category1Bean> integralBean, String status, Object page) {
+                        wlmBuyContract.getCategorySuccess(integralBean);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        wlmBuyContract.getCategoryFail(msg);
+                        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+                            loaddingDialog.dismiss();
+                        }
+                    }
                 }));
     }
 

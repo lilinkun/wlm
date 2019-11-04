@@ -13,7 +13,7 @@ public class LoginBean  implements Serializable {
     private String Mobile;
     private String Unionid;
     private String OpenId;
-    private String UserLevel;
+    private int UserLevel;
     private String UserLevelName;
     private String Portrait;
     private String NickName;
@@ -63,11 +63,11 @@ public class LoginBean  implements Serializable {
         OpenId = openId;
     }
 
-    public String getUserLevel() {
+    public int getUserLevel() {
         return UserLevel;
     }
 
-    public void setUserLevel(String userLevel) {
+    public void setUserLevel(int userLevel) {
         UserLevel = userLevel;
     }
 

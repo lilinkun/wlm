@@ -15,9 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
@@ -28,7 +25,6 @@ import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.presenter.MyQrCodePresenter;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.QRCodeUtil;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -39,7 +35,6 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.internal.Util;
 
 /**
  * Created by LG on 2019/9/18.
@@ -102,29 +97,12 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 
                 SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
 
-                WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
-                miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
-                miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
-                miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
-                miniProgramObj.path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-                //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
-                WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
-                msg.title = "唯乐美商城";                    // 小程序消息title
-                msg.description = "唯乐美商城";               // 小程序消息desc
-
                 Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                msg.thumbData = baos.toByteArray();
-
-//                msg.thumbData = getThumb();                      // 小程序消息封面图片，小于128k
-
-                SendMessageToWX.Req req = new SendMessageToWX.Req();
-                req.transaction = "";
-                req.message = msg;
-                req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
-                iwxapi.sendReq(req);
+                String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                WlmUtil.setShared(iwxapi,path,"唯乐美商城","唯乐美商城",baos.toByteArray());
 
                 break;
 

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
     private int mUnderlineColor;
     private int mClickColor;
     private int mUnclickColor;
+    private float textsize;
 
     private int tabCount;
 
@@ -76,8 +78,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
         mUnderlineColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsUnderlineColor,getResources().getColor(R.color.main_app_color));
         mClickColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsTabTextClickColor,getResources().getColor(R.color.main_app_color));
         mUnclickColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsTabTextUnclickColor,COLOR_TEXT_NORMAL);
-
-
+        textsize = a.getDimension(R.styleable.PagerSlidingTabStrip_pstsTabTextSize,16);
 
         mPaint = new Paint();
         mPaint.setColor(mUnderlineColor);
@@ -151,7 +152,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ViewPa
                 tv.setTextColor(mUnclickColor);
             }
             tv.setText(titles.get(i));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);//字体大小
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, textsize);//字体大小
             tv.setPadding(25,15,25,15);
             tv.setLayoutParams(lp);
             final int finalI = i;

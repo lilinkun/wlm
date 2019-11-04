@@ -9,6 +9,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.PointAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.PointContract;
+import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
@@ -17,6 +18,7 @@ import com.wlm.wlm.presenter.PointPresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.TopLinearlayout;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
@@ -58,6 +60,7 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
         Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
 
         pointPresenter.onCreate(this,this);
+        ActivityUtil.addHomeActivity(this);
 
         ll_top.setListener(this);
         custom_sort.setListener(this);

@@ -1,13 +1,21 @@
 package com.wlm.wlm.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wlm.wlm.R;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.ui.CountdownView;
 
@@ -36,6 +44,7 @@ public class WlmUtil {
     public static final int WXTYPE_LOGIN = 1;
     public static final int WXTYPE_SHARED = 2;
 
+    public static final String GOODSTYPE = "goodstype";
 
     public static final int GOODSTYPE_INTEGRAL = 1;//积分商城
     public static final int GOODSTYPE_GROUPON = 2;//团购
@@ -309,5 +318,25 @@ public class WlmUtil {
         return type;
     }
 
+    public static void setShared( IWXAPI iwxapi,String path,String title,String description,byte[] byteArray){
+
+        WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+        miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
+        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
+        miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
+        miniProgramObj.path = path;
+        //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+        WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
+        msg.title = title;                    // 小程序消息title
+        msg.description = description;               // 小程序消息desc
+
+        msg.thumbData = byteArray;// 小程序消息封面图片，小于128k
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = "";
+        req.message = msg;
+        req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+        iwxapi.sendReq(req);
+    }
 
 }

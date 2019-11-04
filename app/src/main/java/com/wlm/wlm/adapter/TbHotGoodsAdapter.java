@@ -16,8 +16,6 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.util.WlmUtil;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**

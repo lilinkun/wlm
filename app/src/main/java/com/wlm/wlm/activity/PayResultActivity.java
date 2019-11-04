@@ -1,6 +1,5 @@
 package com.wlm.wlm.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,10 +8,13 @@ import android.widget.TextView;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.contract.PayResultContract;
+import com.wlm.wlm.entity.OrderDetailAddressBean;
+import com.wlm.wlm.presenter.PayResultPresenter;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +23,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/12/20.
  */
 
-public class PayResultActivity extends BaseActivity {
+public class PayResultActivity extends BaseActivity implements PayResultContract {
 
     @BindView(R.id.tv_price)
     TextView tv_price;
@@ -31,6 +33,10 @@ public class PayResultActivity extends BaseActivity {
     TextView tv_back_home;
 
     private String orderid = "";
+    private String orderTpye = "";
+    private String teamid = "";
+
+    private PayResultPresenter payResultPresenter = new PayResultPresenter();
 
     @Override
     public int getLayoutId() {
@@ -39,12 +45,19 @@ public class PayResultActivity extends BaseActivity {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.setting_title_color));
         ActivityUtil.addHomeActivity(this);
 
         String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.PRICE);
         orderid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.ORDERID);
+
+        orderTpye = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSTYPE);
+
         tv_price.setText("¥ "  + price);
+
+        payResultPresenter.onCreate(this,this);
+
+        payResultPresenter.orderDetail(orderid, ProApplication.SESSIONID(this));
 
     }
 
@@ -60,9 +73,16 @@ public class PayResultActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("status", 1);
                 bundle.putString("order_sn", orderid);
-                UiHelper.launcherBundle(this, AllOrderActivity.class, bundle);
-                setResult(RESULT_OK);
-                finish();
+                if (orderTpye.equals("2") && !teamid.equals("")){
+                    bundle.putString(WlmUtil.TEAMID,teamid);
+                    UiHelper.launcherBundle(this, GrouponDetailActivity.class, bundle);
+                    setResult(RESULT_OK);
+                    finish();
+                }else {
+                    UiHelper.launcherBundle(this, AllOrderActivity.class, bundle);
+                    setResult(RESULT_OK);
+                    finish();
+                }
 
                 break;
 
@@ -99,5 +119,15 @@ public class PayResultActivity extends BaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void setDataSuccess(OrderDetailAddressBean orderDetailBeans) {
+        teamid = orderDetailBeans.getFreezeId();
+    }
+
+    @Override
+    public void setDataFail(String msg) {
+
     }
 }

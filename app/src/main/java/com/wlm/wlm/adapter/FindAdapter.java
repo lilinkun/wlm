@@ -21,12 +21,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
+import com.wlm.wlm.wxapi.WXEntryActivity;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -54,6 +57,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     private ArrayList<String> strings = new ArrayList<>();
     private PopupWindow popupWindow;
     private MediaPlayer mPlayer;
+    private FindListener findListener=null;
     public static final int UPDATE_TIME = 0x0003;
     public static final int HIDE_CONTROL = 0x0002;
     private boolean isShow = false;
@@ -175,12 +179,6 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                     }
                 }
             }).start();
-
-
-//            holder.vv_find.setMediaController(new MediaController(context));
-//            holder.vv_find.setVideoURI(uri);
-//            holder.vv_find.requestFocus();
-//            holder.vv_find.start();
         }
 
         holder.iv_adapter_find.setOnClickListener(new View.OnClickListener() {
@@ -195,19 +193,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
 
                 }else if (goodsDiscoverBean.getDiscoverType() == 2){
-                    /*holder.vv_find.setVisibility(View.VISIBLE);
-//                    Uri uri = Uri.parse("http://192.168.0.144:8080/liguo/2.mp4");
-                    Uri uri = Uri.parse(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
-                    holder.vv_find.setMediaController(new MediaController(context));
-                    holder.vv_find.setVideoURI(uri);
-                    holder.vv_find.requestFocus();
-                    holder.vv_find.start();
-                    holder.vv_find.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.start();
-                        }
-                    });*/
+
                     holder.iv_adapter_find.setVisibility(View.GONE);
                 }
             }
@@ -219,6 +205,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 Bundle bundle = new Bundle();
                 bundle.putString("goodsid", goodsDiscoverBean.getGoodsId());
                 UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class, bundle);
+            }
+        });
+
+        holder.tv_shared.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                findListener.onShard(goodsDiscoverBean.getGoodsId(),goodsDiscoverBean.getGoodsName());
+
             }
         });
 
@@ -326,6 +321,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         private TextView tv_goods_detail;
         private TextView tv_goods_find_price;
         private TextView tv_goods_find_title;
+        private TextView tv_shared;
         private LinearLayout ll_goods_find;
         private JCVideoPlayerStandard jcVideoPlayerStandard;
 
@@ -343,6 +339,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
             tv_goods_find_title = itemView.findViewById(R.id.tv_goods_find_title);
             ll_goods_find = itemView.findViewById(R.id.ll_goods_find);
             jcVideoPlayerStandard = itemView.findViewById(R.id.jc_player);
+            tv_shared = itemView.findViewById(R.id.tv_shared);
         }
     }
 
@@ -381,24 +378,6 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                 return result;
             }
 
-        /*//如果图片小于设置的宽度，则返回原图
-        if(source.getWidth()<targetWidth){
-            return source;
-        }else{
-           //如果图片大小大于等于设置的宽度，则按照设置的宽度比例来缩放
-           double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
-           int targetHeight = (int) (targetWidth * aspectRatio);
-           if (targetHeight != 0 && targetWidth != 0) {
-               Bitmap result = Bitmap.createScaledBitmap(source, width, targetHeight, false);
-               if (result != source) {
-                    // Same bitmap is returned if sizes are the same
-                    source.recycle();
-               }
-                return result;
-            } else {
-               return source;
-            }
-        }*/
             return source;
         }
 
@@ -407,5 +386,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
             return "transformation" + " desiredWidth";
         }
     };
+
+
+    public void setFindListener(FindListener findListener){
+        this.findListener = findListener;
+    }
+
+
+    public interface FindListener{
+        public void onShard(String goodsid,String goodsname);
+    }
 
 }

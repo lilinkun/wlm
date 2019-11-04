@@ -196,7 +196,6 @@
             android:id="@+id/tv_friends_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="49"
             android:textSize="@dimen/textsize15"
             android:textColor="@color/black_333333"/>
 

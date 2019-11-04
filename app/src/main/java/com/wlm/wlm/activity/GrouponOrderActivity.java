@@ -131,7 +131,6 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         if (bundle != null ){
 
             String goodsid = bundle.getString(WlmUtil.GOODSID);
-
 //            type = bundle.getString(WlmUtil.TYPE);
 
             goodsnum = bundle.getInt(WlmUtil.GOODSNUM);
@@ -270,16 +269,14 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
                 String orderType = "";
                 if (type == WlmUtil.GOODSTYPE_GROUPON){
                     orderType = "2";
-                }else if (type == WlmUtil.GOODSTYPE_INTEGRAL || type == WlmUtil.GOODSTYPE_WLM){
+                }else if (type == WlmUtil.GOODSTYPE_INTEGRAL || type == WlmUtil.GOODSTYPE_WLMBUY || type == WlmUtil.GOODSTYPE_WLM || type == WlmUtil.GOODSTYPE_BEAUTY_HEALTH || type == WlmUtil.GOODSTYPE_POINT){
                     orderType = "1";
                 }else if (type == WlmUtil.GOODSTYPE_VIP){
                     orderType = "4";
                 }else if (type == WlmUtil.GOODSTYPE_CROWDFUNDING){
                     orderType = "16";
-                }else if (type == WlmUtil.GOODSTYPE_POINT || type == WlmUtil.GOODSTYPE_SECKILL){
+                }else if (type == WlmUtil.GOODSTYPE_SECKILL){
                     orderType = "32";
-                }else if (type == WlmUtil.GOODSTYPE_WLMBUY){
-                    orderType = "64";
                 }
 
                 if (addressBean == null){

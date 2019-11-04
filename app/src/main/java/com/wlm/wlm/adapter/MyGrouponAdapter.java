@@ -3,7 +3,6 @@ package com.wlm.wlm.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +13,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
@@ -90,27 +86,11 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
 
                         SharedPreferences sharedPreferences = context.getSharedPreferences(WlmUtil.LOGIN,context.MODE_PRIVATE);
 
-                        WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
-                        miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
-                        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
-                        miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
-                        miniProgramObj.path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponListBeans.get(position).getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-                        //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
-                        WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
-                        msg.title = grouponListBeans.get(position).getGoodsName();                    // 小程序消息title
-                        msg.description = grouponListBeans.get(position).getGoodsName();               // 小程序消息desc
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
-                        msg.thumbData = baos.toByteArray();
-
-//                msg.thumbData = getThumb();                      // 小程序消息封面图片，小于128k
-
-                        SendMessageToWX.Req req = new SendMessageToWX.Req();
-                        req.transaction = "";
-                        req.message = msg;
-                        req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
-                        iwxapi.sendReq(req);
+                        String path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponListBeans.get(position).getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                        WlmUtil.setShared(iwxapi,path,grouponListBeans.get(position).getGoodsName(),grouponListBeans.get(position).getGoodsName(),baos.toByteArray());
                     }
 
                     @Override

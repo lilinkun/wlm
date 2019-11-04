@@ -37,6 +37,8 @@ public class OrderDetailAddressBean {
     private String EffectivePaymentDate;
     private ArrayList<SelfOrderInfoBean> orderDetail;
 
+    private String FreezeId;
+
     public int getOrderId() {
         return OrderId;
     }
@@ -275,5 +277,13 @@ public class OrderDetailAddressBean {
 
     public void setEffectivePaymentDate(String effectivePaymentDate) {
         EffectivePaymentDate = effectivePaymentDate;
+    }
+
+    public String getFreezeId() {
+        return FreezeId;
+    }
+
+    public void setFreezeId(String freezeId) {
+        FreezeId = freezeId;
     }
 }

@@ -52,7 +52,16 @@ public class GoodsDetailInfoBean<T> implements Serializable {
     private String IsSetMeal;
     private String TeamType;
     private String TeamTypeName;
+    private int UserLevel;
     private T Attr;
+
+    public int getUserLevel() {
+        return UserLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        UserLevel = userLevel;
+    }
 
     public String getGoodsId() {
         return GoodsId;
