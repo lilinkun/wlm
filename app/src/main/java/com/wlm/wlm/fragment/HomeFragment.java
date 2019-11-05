@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +29,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BeautyHealthActivity;
 import com.wlm.wlm.activity.CrowdFundingActivity;
@@ -66,6 +68,7 @@ import com.wlm.wlm.ui.DownloadingDialog;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
+import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
@@ -500,9 +503,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         onFlashSuccess(homeBean.getFlash());
         onGoodsListSuccess(homeBean.getGoodsList());
 
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).error(R.mipmap.banner_1).into(big_1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsImg()).error(R.mipmap.banner_2).into(iv_vip_icon1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(1).getGoodsImg()).error(R.mipmap.banner_2).into(iv_vip_icon2);
+        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
+//        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(1).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -526,18 +530,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onItemClick(int position) {
 
         if (!ButtonUtils.isFastDoubleClick()) {
-            if (!hotHomeBeans.get(position).getGoodsType().equals("2")) {
                 Bundle bundle = new Bundle();
                 bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
                 String type = WlmUtil.getType(hotHomeBeans.get(position).getGoodsType());
 
                 bundle.putString(WlmUtil.TYPE, type);
                 UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
-            }else {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(WlmUtil.GROUPONGOODS,hotHomeBeans.get(position));
-                UiHelper.launcherBundle(getActivity(), GrouponGoodsDetailActivity.class,bundle);
-            }
+
         }
     }
 
@@ -633,6 +632,92 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
+    Transformation transformation = new Transformation() {
 
+        @Override
+        public Bitmap transform(Bitmap source) {
+
+            if(source.getWidth()==0){
+                return source;
+            }
+
+            int a = big_1.getWidth();
+            if (source.getWidth() > source.getHeight()){
+                int h = source.getHeight()*a/source.getWidth();
+                Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }else if (source.getWidth() < source.getHeight()){
+                int w = source.getWidth()*a/source.getHeight();
+                Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }else if (source.getWidth() == source.getHeight()){
+                Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }
+
+            return source;
+        }
+
+        @Override
+        public String key() {
+            return "transformation" + " desiredWidth";
+        }
+    };
+
+    Transformation transformation1 = new Transformation() {
+
+        @Override
+        public Bitmap transform(Bitmap source) {
+
+            if(source.getWidth()==0){
+                return source;
+            }
+
+            int a = iv_vip_icon1.getWidth();
+            if (source.getWidth() > source.getHeight()){
+                int h = source.getHeight()*a/source.getWidth();
+                Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }else if (source.getWidth() < source.getHeight()){
+                int w = source.getWidth()*a/source.getHeight();
+                Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }else if (source.getWidth() == source.getHeight()){
+                Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }
+
+            return source;
+        }
+
+        @Override
+        public String key() {
+            return "transformation" + " desiredWidth";
+        }
+    };
 
 }

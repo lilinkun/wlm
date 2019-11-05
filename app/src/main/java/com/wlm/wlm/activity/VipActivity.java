@@ -23,6 +23,7 @@ import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -71,6 +72,8 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         vipPresenter.getData("1","20",goodsType,"0","0");
 
         vipPresenter.getUpdataData(ProApplication.SESSIONID(this));
+
+        ActivityUtil.addHomeActivity(this);
 
         GridLayoutManager fullyGridLayoutManager = new GridLayoutManager(this, 2);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);

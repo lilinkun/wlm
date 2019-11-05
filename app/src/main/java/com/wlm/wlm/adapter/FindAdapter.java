@@ -107,7 +107,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         holder.tv_goods_time.setText(goodsDiscoverBean.getCreateDate());
         holder.tv_goods_name.setText(goodsDiscoverBean.getDiscoverName());
         holder.tv_goods_detail.setText(goodsDiscoverBean.getDiscoverDesc());
-        holder.tv_goods_find_price.setText("￥" + goodsDiscoverBean.getPrice());
+        holder.tv_goods_find_price.setText("¥" + goodsDiscoverBean.getPrice());
         holder.tv_goods_find_title.setText(goodsDiscoverBean.getGoodsName());
 
         Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getGoodsImg()).into(holder.iv_goods_find);
@@ -116,10 +116,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         if (goodsDiscoverBean.getDiscoverType() == 1){
 
             if (goodsDiscoverBean.getFileUrl().contains("，") || goodsDiscoverBean.getFileUrl().contains(",")){
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
-                holder.rv_adapter_find.setLayoutManager(gridLayoutManager);
 
+                GridLayoutManager gridLayoutManager = null;
                 strings = new ArrayList(Arrays.asList(goodsDiscoverBean.getFileUrl().split(",")));
+                if (strings.size() == 2  || strings.size() == 4){
+                    gridLayoutManager = new GridLayoutManager(context, 2);
+                }else {
+                    gridLayoutManager = new GridLayoutManager(context, 3);
+                }
+                holder.rv_adapter_find.setLayoutManager(gridLayoutManager);
                 FindPhotoAdapter findPhotoAdapter = new FindPhotoAdapter(context, strings);
                 holder.rv_adapter_find.setAdapter(findPhotoAdapter);
 

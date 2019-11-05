@@ -57,7 +57,6 @@
                     android:id="@+id/big_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/banner_1"
                     android:scaleType="fitXY"
                     android:layout_marginTop="@dimen/margin_15"
                     android:layout_marginLeft="@dimen/margin_10"
@@ -78,7 +77,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/banner_2"
                         android:scaleType="fitXY"
                         android:layout_marginRight="4dp"
                         />
@@ -88,7 +86,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/banner_2"
                         android:scaleType="fitXY"
                         android:layout_marginLeft="4dp"
                         />

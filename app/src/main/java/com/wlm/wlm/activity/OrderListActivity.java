@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -222,8 +223,20 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
     }
 
     @Override
-    public void SureReceive(String orderId) {
-        orderListPresenter.sureReceipt(orderId,ProApplication.SESSIONID(this));
+    public void SureReceive(final String orderId) {
+
+        new AlertDialog.Builder(this).setMessage("是否确定收货").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                orderListPresenter.sureReceipt(orderId,ProApplication.SESSIONID(OrderListActivity.this));
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+
     }
 
     @Override
@@ -365,7 +378,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
             check_self.setChecked(true);
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date str = simpleDateFormat.parse(endTime);
             long effectiveTime = str.getTime();

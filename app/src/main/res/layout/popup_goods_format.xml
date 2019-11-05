@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textsize13"
                         android:textColor="@color/black_333333"
-                        android:text="选择 " />
+                        />
 
                         <TextView
                             android:id="@+id/tv_choose"
@@ -150,17 +150,18 @@
                 android:layout_marginTop="@dimen/margin_15"
                 android:minHeight="25dp"
                 android:padding="5dp"
-                lzy:labelBackground="@drawable/label_bg"
-                lzy:labelTextColor="@drawable/label_text_color"
-                lzy:labelTextPaddingBottom="5dp"
-                lzy:labelTextPaddingLeft="10dp"
-                lzy:labelTextPaddingRight="10dp"
-                lzy:labelTextPaddingTop="5dp"
-                lzy:labelTextSize="12sp"
-                lzy:lineMargin="10dp"
-                lzy:maxSelect="0"
-                lzy:selectType="SINGLE"
-                lzy:wordMargin="10dp" />
+                app:labelBackground="@drawable/label_bg"
+                app:labelTextColor="@drawable/label_text_color"
+                app:unLabelTextColor="@color/bg_list"
+                app:labelTextPaddingBottom="5dp"
+                app:labelTextPaddingLeft="10dp"
+                app:labelTextPaddingRight="10dp"
+                app:labelTextPaddingTop="5dp"
+                app:labelTextSize="12sp"
+                app:lineMargin="10dp"
+                app:maxSelect="0"
+                app:selectType="SINGLE"
+                app:wordMargin="10dp" />
 
         </LinearLayout>
 
@@ -193,17 +194,19 @@
                 android:layout_marginTop="@dimen/margin_15"
                 android:minHeight="25dp"
                 android:padding="5dp"
-                lzy:labelBackground="@drawable/label_bg"
-                lzy:labelTextColor="@drawable/label_text_color"
-                lzy:labelTextPaddingBottom="5dp"
-                lzy:labelTextPaddingLeft="10dp"
-                lzy:labelTextPaddingRight="10dp"
-                lzy:labelTextPaddingTop="5dp"
-                lzy:labelTextSize="12sp"
-                lzy:lineMargin="10dp"
-                lzy:maxSelect="0"
-                lzy:selectType="SINGLE"
-                lzy:wordMargin="10dp" />
+                app:labelBackground="@drawable/label_bg"
+                app:unLabelBackground="@drawable/label_unclick_bg"
+                app:labelTextColor="@drawable/label_text_color"
+                app:unLabelTextColor="@color/bg_list"
+                app:labelTextPaddingBottom="5dp"
+                app:labelTextPaddingLeft="10dp"
+                app:labelTextPaddingRight="10dp"
+                app:labelTextPaddingTop="5dp"
+                app:labelTextSize="12sp"
+                app:lineMargin="10dp"
+                app:maxSelect="0"
+                app:selectType="SINGLE"
+                app:wordMargin="10dp" />
 
 
         </LinearLayout>

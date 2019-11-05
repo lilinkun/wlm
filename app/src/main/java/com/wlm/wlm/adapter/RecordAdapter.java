@@ -68,7 +68,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             holder.goodsBuyCountTv.setText(collectBean.getUseNumber() + "");
 
             holder.tv_add_integral.setText(collectBean.getIntegral()+"");
-            holder.tv_old_price.setText("￥"+collectBean.getMarketPrice());
+            holder.tv_old_price.setText("¥"+collectBean.getMarketPrice());
             holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
             if (collectBean.getGoodsImg() != null && !collectBean.getGoodsImg().isEmpty()) {

@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -12,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,6 +27,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.SelfGoodsAdapter;
 import com.wlm.wlm.adapter.TbHotGoodsAdapter;
@@ -53,6 +59,7 @@ import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoader;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,6 +169,12 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout ll_crowd_funding;
     @BindView(R.id.ll_cf_time)
     LinearLayout ll_cf_time;
+    @BindView(R.id.ll_shared)
+    LinearLayout ll_shared;
+    @BindView(R.id.ll_shared_right)
+    LinearLayout ll_shared_right;
+    @BindView(R.id.tv_rechange)
+    TextView tv_rechange;
 
 
     SelfGoodsDetailPresenter selfGoodsDetailPresenter = new SelfGoodsDetailPresenter();
@@ -174,13 +187,14 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     private GoodsChooseBean goodsChooseBean;
     private String num = "";
     private int self_address_result = 0x2213;
-    private String type = "";
+    private int type = 0;
     private BrowseRecordBean collectBean;
     private int mAlpha = 0;
     private SelfGoodsAdapter selfGoodsAdapter = null;
     private String goodsid;
     private String sysTime;
     private boolean isOpen = false;
+    private IWXAPI iwxapi;
 
     @Override
     public int getLayoutId() {
@@ -193,6 +207,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         Eyes.translucentStatusBar(this,false);
 
         toolbar.setAlpha(0);
+
+        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi.registerApp(WlmUtil.APP_ID);
 
         selfGoodsDetailPresenter.onCreate(this,this);
         ActivityUtil.addActivity(this);
@@ -207,8 +224,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         }
 
         selfGoodsDetailPresenter.isCollect(goodsid, ProApplication.SESSIONID(this));
-
-        selfGoodsDetailPresenter.randomGoods("2",goodsid);
 
         FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2,GridLayoutManager.VERTICAL,false);
         fullyGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
@@ -225,7 +240,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
 
-    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_collect, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,R.id.iv_turn_top,R.id.rl_no_delivery,R.id.ll_title_back})
+    @OnClick({R.id.rl_goods_format, R.id.ll_back,R.id.ll_shared_right,R.id.ll_shared, R.id.ll_collect, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,R.id.iv_turn_top,R.id.rl_no_delivery,R.id.ll_title_back})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -291,11 +306,11 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     if (goodsDetailBean != null && Integer.valueOf(goodsDetailBean.getGoodsNumber()) == 0){
                         toast("库存不足，无法下单");
                     }else {
-                        if (type.equals(WlmUtil.VIP) || type.equals(WlmUtil.GOODSTYPE_SECKILL) || type.equals(WlmUtil.GOODSTYPE_CROWDFUNDING)){
+                        if (type == WlmUtil.GOODSTYPE_VIP || type == WlmUtil.GOODSTYPE_SECKILL || type  == WlmUtil.GOODSTYPE_CROWDFUNDING){
                             if (goodsDetailBean != null) {
                                 mRightNowBuy(goodsDetailBean, null, 1);
                             }
-                        }else if (type.equals(WlmUtil.GROUPONGOODS)){
+                        }else if (type == WlmUtil.GOODSTYPE_GROUPON){
                             Bundle bundle = new Bundle();
                             bundle.putString(WlmUtil.GOODSID,goodsDetailBean.getGoodsId());
                             bundle.putInt(WlmUtil.GOODSNUM,1);
@@ -338,6 +353,22 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                     finish();
 
                     break;
+
+                case R.id.ll_shared:
+
+                case R.id.ll_shared_right:
+
+                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+
+                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+
+                    String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+
+                    WlmUtil.setShared(iwxapi,path,goodsDetailBean.getGoodsName(),goodsDetailBean.getGoodsName(),baos.toByteArray());
+
+                    break;
             }
         }
     }
@@ -366,7 +397,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     @Override
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
-        type = WlmUtil.getType(goodsDetailBean.getGoodsType() + "");
+        type = goodsDetailBean.getGoodsType();
+//        type = WlmUtil.getType(goodsDetailBean.getGoodsType() + "");
 
         if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_INTEGRAL){
             ll_layout_integral_price.setVisibility(View.VISIBLE);
@@ -382,6 +414,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             tv_details_goods_add_price.setText(goodsDetailBean.getPrice()+"");
             tv_macket_price.setText("¥"+goodsDetailBean.getMarketPrice()+"");
             tv_macket_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            tv_rechange.setText(goodsDetailBean.getGoodsSmallName()+"");
         }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_VIP){
             rl_add_cart.setVisibility(View.GONE);
             ll_shop_car.setVisibility(View.GONE);
@@ -399,7 +432,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON) {
                 tx_tikey.setText(R.string.groupon_now);
             }else {
-                tx_tikey.setText(R.string.flash_sale);
+                tx_tikey.setText(R.string.right_now_flash_sale);
                 if (goodsDetailBean.getUserLevel() > ProApplication.USERLEVEL) {
                     rl_immediate_purchase.setBackgroundColor(getResources().getColor(R.color.list_divider));
                     rl_immediate_purchase.setEnabled(false);
@@ -428,7 +461,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
             tv_rule.setText(goodsDetailBean.getGoodsSmallName());
 
-            tx_tikey.setText("支持￥"+ goodsDetailBean.getPrice());
+            tx_tikey.setText("支持¥"+ goodsDetailBean.getPrice());
             tv_crowd_price.setText(goodsDetailBean.getPrice()*goodsDetailBean.getUseNumber() + "");
             tv_support_count.setText(goodsDetailBean.getUseNumber() + "");
             if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_cf_rush_time) == 0){
@@ -439,6 +472,9 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             }else {
                 rl_immediate_purchase.setVisibility(View.GONE);
             }
+        }else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_WLMBUY){
+            ll_shared.setVisibility(View.VISIBLE);
+            ll_shared_right.setVisibility(View.VISIBLE);
         }
 
 
@@ -466,17 +502,42 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
-
+        webView.setVisibility(View.GONE);
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                webView.setVisibility(View.VISIBLE);
+                view.getSettings().setJavaScriptEnabled(true);
+                webView.loadUrl("javascript:window.yxbl_app.getBodyHeight($(document.body).height())");//注入自定义方法——获取webview高度的方法
+
+                super.onPageFinished(view, url);
+            }
         });
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100){
+                    selfGoodsDetailPresenter.randomGoods("2",goodsid);
+                }
+            }
+        });
+
         String mobileDesc = goodsDetailBean.getMobileDesc();
 
 //        webView.loadUrl("http://192.168.0.106:8080/liguo/liguo.html");
 //        webView.loadUrl("http://manage.boos999.com/goods/mobiledetail/1345");
         webView.loadUrl(mobileDesc);
+
 
         String[] strings ;
         if (goodsDetailBean.getGoodsImgList().contains(",")) {
@@ -553,7 +614,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         bundle.putString(WlmUtil.GOODSID, selfGoodsBean.getGoodsId());
         bundle.putInt(WlmUtil.GOODSNUM,Integer.valueOf(num));
         bundle.putString(WlmUtil.ATTRID,attr_id);
-        bundle.putString(WlmUtil.TYPE,type);
+//        bundle.putString(WlmUtil.TYPE,type);
         UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
 
     }

@@ -99,6 +99,8 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
 
         addView(view);
 
+        bottomLine(tx_moren);
+
     }
 
     public void setText(String str){

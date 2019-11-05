@@ -17,6 +17,7 @@ import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.FlashSalePresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
+import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
@@ -68,6 +69,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
         ll_top.setListener(this);
         ActivityUtil.addHomeActivity(this);
 
+        rv_flash_sale.addItemDecoration(new SpaceItemDecoration(0, 20,10));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 

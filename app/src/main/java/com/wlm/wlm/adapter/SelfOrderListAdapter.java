@@ -45,8 +45,20 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
         holder.tv_goods_count.setText("X" + selfOrderInfoBeans.get(position).getGoodsNumber());
         holder.tv_goods_title.setText("" + selfOrderInfoBeans.get(position).getGoodsName());
         holder.tv_goods_price.setText("¥" + selfOrderInfoBeans.get(position).getPrice());
-        holder.tv_goods_spec1.setText(selfOrderInfoBeans.get(position).getAttrOne());
-        holder.tv_goods_spec2.setText(selfOrderInfoBeans.get(position).getAttrTwo());
+
+        if (selfOrderInfoBeans.get(position).getIntegral()  == 0){
+            holder.tv_integral.setVisibility(View.GONE);
+        }else {
+            holder.tv_integral.setText("+" + selfOrderInfoBeans.get(position).getIntegral() + "积分");
+        }
+
+        if (selfOrderInfoBeans.get(position).getAttrOne() != null && !selfOrderInfoBeans.get(position).getAttrOne().isEmpty()) {
+            holder.tv_goods_spec1.setText(selfOrderInfoBeans.get(position).getAttrOne());
+        }
+
+        if (selfOrderInfoBeans.get(position).getAttrTwo() != null && !selfOrderInfoBeans.get(position).getAttrTwo().isEmpty()) {
+            holder.tv_goods_spec2.setText(" " + selfOrderInfoBeans.get(position).getAttrTwo());
+        }
         Picasso.with(context).load(ProApplication.HEADIMG + selfOrderInfoBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.iv_goods_pic);
 
     }
@@ -54,6 +66,11 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
     @Override
     public int getItemCount() {
         return selfOrderInfoBeans.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -64,6 +81,7 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
         private TextView tv_goods_price;
         private TextView tv_goods_spec1;
         private TextView tv_goods_spec2;
+        private TextView tv_integral;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +91,7 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
             tv_goods_price = (TextView) itemView.findViewById(R.id.tv_goods_price);
             tv_goods_spec1 = (TextView) itemView.findViewById(R.id.tv_goods_spec1);
             tv_goods_spec2 = (TextView) itemView.findViewById(R.id.tv_goods_spec2);
+            tv_integral = (TextView) itemView.findViewById(R.id.tv_integral);
         }
     }
 }

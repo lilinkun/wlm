@@ -14,7 +14,7 @@ public enum HomeGridRvEnum {
     STATUS5(5,"唯乐美智造", R.mipmap.home_icon_6),
     STATUS6(6,"积分兑换", R.mipmap.home_icon_7),
     STATUS7(7,"唯乐购", R.mipmap.home_icon_8),
-    STATUS8(8,"医美健康", R.mipmap.home_icon_9);
+    STATUS8(8,"美雕健康", R.mipmap.home_icon_9);
 //    STATUS9(9,"附近的店", R.mipmap.home_icon_10)
 
     private int id;

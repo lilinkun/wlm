@@ -232,7 +232,7 @@
                                 android:layout_marginLeft="@dimen/margin_10"
                                 android:background="@null"
                                 android:textSize="@dimen/textsize14"
-                                android:hint="备注（填选）"/>
+                                android:hint="备注（选填）"/>
 
                         </LinearLayout>
                     </LinearLayout>

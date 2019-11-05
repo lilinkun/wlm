@@ -162,10 +162,10 @@
             android:id="@+id/ll_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textcolor="@color/setting_title_color"
+            app:textcolor="@color/integral_bg"
             app:textnormalcolor="@color/list_divider"
-            app:up_arrow="@mipmap/ic_store_dot_up"
-            app:down_arrow="@mipmap/ic_store_dot_down"
+            app:up_arrow="@mipmap/ic_integral_dot_up"
+            app:down_arrow="@mipmap/ic_integral_dot_down"
             />
 
         <com.wlm.wlm.ui.CustomSortLayout

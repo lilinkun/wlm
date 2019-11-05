@@ -193,7 +193,7 @@ public class GrouponOrderActivity extends BaseActivity implements GrouponOrderCo
         tv_old_use_point.setText(surplus_integral + "");
         tv_goods_title.setText(rightNowGoodsBean.getGoodsName());
         Picasso.with(this).load(ProApplication.HEADIMG + rightNowGoodsBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
-        tv_goods_price.setText(rightNowGoodsBean.getPrice()+"");
+        tv_goods_price.setText("¥"+rightNowGoodsBean.getPrice());
         tv_coupon_price.setText("X" + goodsnum);
 
         String price = "¥" + rightNowGoodsBean.getPrice() + "";

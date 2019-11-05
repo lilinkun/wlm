@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/setting_title_color"
                 android:textSize="@dimen/textsize16"
-                android:text="￥"/>
+                android:text="¥"/>
 
             <TextView
                 android:id="@+id/tv_find_groupon"
@@ -163,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_groupon_info"
                 android:textColor="@color/groupon_text"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:textSize="11sp"/>
 

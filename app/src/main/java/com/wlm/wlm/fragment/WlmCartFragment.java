@@ -551,7 +551,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         if (mtotalCount == 0){
             goPay.setText("结算(" + mtotalCount + ")");
         }else {
-            goPay.setText("去支付(" + mtotalCount + ")");
+            goPay.setText("结算(" + mtotalCount + ")");
         }
 
         BigDecimal b = new BigDecimal(mtotalPrice);

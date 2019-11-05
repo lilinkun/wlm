@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_10"
                 android:textColor="@color/pop_text_bg" />
 
@@ -97,7 +97,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@+id/tv_quanjia"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/margin_3"
                 android:lineSpacingExtra="-3sp"

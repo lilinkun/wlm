@@ -89,10 +89,45 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
                     android:lines="1"
-                    android:text="¥100000.00"
                     android:textColor="@color/setting_title_color"
                     android:textSize="@dimen/textsize14"
                     />
+
+                <LinearLayout
+                    android:id="@+id/ll_integral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/goods_price"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:lines="1"
+                        android:textColor="@color/setting_title_color"
+                        android:textSize="@dimen/textsize12"/>
+
+                    <TextView
+                        android:id="@+id/tv_integral_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:textColor="@color/setting_title_color"
+                        android:textSize="@dimen/textsize12"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="积分"
+                        android:lines="1"
+                        android:textColor="@color/setting_title_color"
+                        android:textSize="@dimen/textsize12"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -104,8 +139,9 @@
 
                     <ImageView
                         android:id="@+id/reduce_goodsNum"
-                        android:layout_width="wrap_content"
+                        android:layout_width="26dp"
                         android:layout_height="match_parent"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_goods_subtraction" />
                     
                     <View
@@ -115,13 +151,12 @@
                     
                     <TextView
                         android:id="@+id/goods_Num"
-                        android:layout_width="wrap_content"
+                        android:layout_width="26dp"
                         android:layout_height="match_parent"
                         android:background="@color/main_bg"
-                        android:paddingLeft="@dimen/margin_10"
-                        android:paddingRight="@dimen/margin_10"
+                        android:gravity="center"
                         android:text="1"
-                        android:textSize="@dimen/margin_18" />
+                        android:textSize="@dimen/margin_14" />
 
                     <View
                         android:layout_width="0.5dp"
@@ -129,8 +164,9 @@
                         android:background="@color/white"/>
                     <ImageView
                         android:id="@+id/increase_goods_Num"
-                        android:layout_width="wrap_content"
+                        android:layout_width="26dp"
                         android:layout_height="match_parent"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_goods_plus" />
                 </LinearLayout>
             </RelativeLayout>

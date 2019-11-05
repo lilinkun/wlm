@@ -62,7 +62,8 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.itemView.setTag(position);
-        holder.tv_ship_pay.setText(ShipStatusEnum.getPageByValue(selfOrderBeans.get(position).getOrderStatus()).getStatusMsg()+"");
+//        holder.tv_ship_pay.setText(ShipStatusEnum.getPageByValue(selfOrderBeans.get(position).getOrderStatus()).getStatusMsg()+"");
+        holder.tv_ship_pay.setText(selfOrderBeans.get(position).getOrderStatusName()+"");
         double price = selfOrderBeans.get(position).getOrderAmount();
 
         BigDecimal b = new BigDecimal(price);
@@ -87,7 +88,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             holder.tv_exit_order.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setVisibility(View.VISIBLE);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             Date str = new Date();
             try {

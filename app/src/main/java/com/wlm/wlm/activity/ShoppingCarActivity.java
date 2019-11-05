@@ -571,7 +571,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         if (mtotalCount == 0){
             goPay.setText("结算(" + mtotalCount + ")");
         }else {
-            goPay.setText("去支付(" + mtotalCount + ")");
+            goPay.setText("结算(" + mtotalCount + ")");
         }
 
         BigDecimal b = new BigDecimal(mtotalPrice);

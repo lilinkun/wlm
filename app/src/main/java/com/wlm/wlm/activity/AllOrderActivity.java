@@ -94,6 +94,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView tv_pay_message;
     @BindView(R.id.pay_date)
     TextView tv_pay_date;
+    @BindView(R.id.ll_pay_date)
+    LinearLayout ll_pay_date;
     @BindView(R.id.send_out_date)
     TextView send_out_date;
     @BindView(R.id.logistics_information)
@@ -108,6 +110,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     LinearLayout ll_point;
     @BindView(R.id.ll_lgs)
     LinearLayout ll_lgs;
+    @BindView(R.id.iv_address_right)
+    ImageView iv_address_right;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -146,6 +150,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         recyclerView.setLayoutManager(linearLayoutManager);
 
         WXPayEntryActivity.setPayListener(this);
+
+        iv_address_right.setVisibility(View.GONE);
 
         if (status == 1 ){
             tv_pay_style.setText("未发货");
@@ -266,7 +272,10 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         tv_consignee_phone.setText(orderDetailBeans.getMobile());
         tv_no_address.setVisibility(View.GONE);
 
-        tv_pay_date.setText(orderDetailBeans.getPayDate()+"");
+        if (status == 1 || status == 2 || status == 4) {
+            ll_pay_date.setVisibility(View.VISIBLE);
+            tv_pay_date.setText(orderDetailBeans.getPayDate() + "");
+        }
         send_out_date.setText(orderDetailBeans.getShippingFree()+"");
         logistics_information.setText(orderDetailBeans.getLgsName() + " " + orderDetailBeans.getLgsNumber());
 
@@ -275,8 +284,6 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             public void onClick(View v) {
 
                 if (!ButtonUtils.isFastDoubleClick()) {
-
-
 
                     new AlertDialog.Builder(AllOrderActivity.this).setTitle("温馨提示").setMessage("您确定要取消订单？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
@@ -430,7 +437,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         tv_pay_self.setText(countBean.getAmount() + "");
         String endTime = orderDetailBeans.getPayDate();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date str = simpleDateFormat.parse(endTime);
             long effectiveTime = str.getTime();

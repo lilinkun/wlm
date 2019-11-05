@@ -21,8 +21,6 @@ import com.wlm.wlm.contract.GrouponGoodsDetailContract;
 import com.wlm.wlm.entity.GoodsChooseBean;
 import com.wlm.wlm.entity.GoodsDetailInfoBean;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.RightNowBuyBean;
-import com.wlm.wlm.entity.RightNowGoodsBean;
 import com.wlm.wlm.presenter.GrouponGoodsDetailPresenter;
 import com.wlm.wlm.ui.CommendRecyclerView;
 import com.wlm.wlm.ui.CountdownView;
@@ -41,10 +39,7 @@ import com.xw.banner.Transformer;
 import com.xw.banner.listener.OnBannerListener;
 import com.xw.banner.loader.ImageLoader;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;

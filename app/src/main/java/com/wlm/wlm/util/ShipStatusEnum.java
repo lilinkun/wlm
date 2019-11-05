@@ -5,9 +5,9 @@ package com.wlm.wlm.util;
  */
 
 public enum ShipStatusEnum {
-    STATUS0(0,"等待付款"),
-    STATUS1(1,"未发货"),
-    STATUS2(2,"已发货"),
+    STATUS0(0,"待付款"),
+    STATUS1(1,"待发货"),
+    STATUS2(2,"待收货"),
     STATUS3(4,"交易成功"),
     STATUS4(5,"交易关闭");
 

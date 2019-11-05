@@ -9,6 +9,7 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.PayResultContract;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.presenter.PayResultPresenter;
 import com.wlm.wlm.util.ActivityUtil;
@@ -58,6 +59,10 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
         payResultPresenter.onCreate(this,this);
 
         payResultPresenter.orderDetail(orderid, ProApplication.SESSIONID(this));
+
+        if (orderTpye.equals("2")) {
+            payResultPresenter.getBalance(ProApplication.SESSIONID(this));
+        }
 
     }
 
@@ -128,6 +133,16 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
 
     @Override
     public void setDataFail(String msg) {
+
+    }
+
+    @Override
+    public void getBalanceSuccess(BalanceBean balanceBean) {
+        ProApplication.USERLEVEL = balanceBean.getUserLevel();
+    }
+
+    @Override
+    public void getBalanceFail(String msg) {
 
     }
 }

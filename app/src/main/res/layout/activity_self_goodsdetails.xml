@@ -49,6 +49,22 @@
                         </LinearLayout>
 
 
+                        <LinearLayout
+                            android:id="@+id/ll_shared"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginTop="@dimen/margin_20"
+                            android:padding="@dimen/padding_10">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_shared" />
+                        </LinearLayout>
+
+
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -109,7 +125,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="已售:"
+                                android:text="已售"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/textsize14" />
 
@@ -247,7 +263,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="￥"
+                                    android:text="¥"
                                     android:textColor="@color/red_price"
                                     android:textSize="@dimen/textsize12"/>
 
@@ -421,6 +437,7 @@
                             android:layout_marginTop="@dimen/margin_10"/>
 
                         <TextView
+                            android:id="@+id/tv_rechange"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="权限数量有限，先到先得，兑完为止，积分兑换的权益无质量问题不支持对换货兑完为止，积分兑换的权益无质量问题不支持兑换"
@@ -439,15 +456,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
-                        android:textColor="@color/pop_text_bg"
+                        android:textColor="@color/list_divider"
                         android:textSize="@dimen/textsize15"
+                        android:background="@color/white"
+                        android:layout_marginTop="@dimen/margin_10"
                         android:gravity="center"
                         android:text="商品详情" />
 
                     <WebView
                         android:id="@+id/wv_goods_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></WebView>
+                        android:layout_height="wrap_content"></WebView>
 
 
 
@@ -513,6 +532,22 @@
                         android:textSize="@dimen/text_size_headtop"
                         android:textColor="@color/black_333333"
                         android:layout_centerInParent="true"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_shared_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:paddingLeft="@dimen/margin_15"
+                        android:paddingRight="@dimen/margin_20">
+                        <ImageView
+                            android:id="@+id/iv_shared_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/ic_title_shared"/>
+                    </LinearLayout>
 
                 </RelativeLayout>
             </LinearLayout>

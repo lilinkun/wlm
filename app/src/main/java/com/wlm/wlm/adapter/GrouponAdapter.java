@@ -81,7 +81,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             holder.tv_crowd_price.setText(goodsListBeans.get(position).getPrice()*goodsListBeans.get(position).getUseNumber() + "");
             holder.tv_support_count.setText(goodsListBeans.get(position).getUseNumber() + "");
         }else if (goodstype == WlmUtil.GOODSTYPE_SECKILL){
-            holder.tv_grouponing.setText("立即秒杀");
+            holder.tv_grouponing.setText(R.string.right_now_flash_sale);
             holder.tv_rush_time.setVisibility(View.GONE);
             holder.tv_rush_time_flash_sale.setVisibility(View.VISIBLE);
             holder.tv_grounon_info.setVisibility(View.GONE);
@@ -99,7 +99,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
             countDownTime(goodsListBeans.get(position).getBeginDate(),goodsListBeans.get(position).getEndDate(),holder.tv_rush_time,holder.tv_grouponing,holder.tv_end_time);
         }
 
-        holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
+        /*holder.tv_grouponing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -111,7 +111,7 @@ public class GrouponAdapter extends RecyclerView.Adapter<GrouponAdapter.ViewHold
                 bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
                 UiHelper.launcherBundle(context, GrouponOrderActivity.class,bundle);
             }
-        });
+        });*/
     }
 
     private void countDownTime(String startTime,String endTime,CountdownView tv_rush_time,TextView tv_grouponing,TextView tv_end_time){

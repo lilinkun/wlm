@@ -64,10 +64,10 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
         holder.tv_goods_title.setText(cartBuyBean.getGoodsName());
         holder.tv_coupon_price.setText("x" + cartBuyBean.getNum());
         if (cartBuyBean.getQty() == 2) {
-            holder.tv_goods_spec1.setText(cartBuyBean.getGoodsSpec1());
-            holder.tv_goods_spec2.setText(cartBuyBean.getGoodsSpec2());
+            holder.tv_goods_spec1.setText(cartBuyBean.getSpec1());
+            holder.tv_goods_spec2.setText(" " + cartBuyBean.getSpec2());
         }else if(cartBuyBean.getQty() == 1){
-            holder.tv_goods_spec1.setText(cartBuyBean.getGoodsSpec1());
+            holder.tv_goods_spec1.setText(cartBuyBean.getSpec1());
         }
 
         Picasso.with(context).load(ProApplication.HEADIMG + cartBuyBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.iv_goods_pic);

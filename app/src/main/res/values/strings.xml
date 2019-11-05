@@ -169,7 +169,7 @@
     <string name="goods_format">规格</string>
     <string name="goods_address">配送</string>
     <string name="goods_freight">运费</string>
-    <string name="goods_freight_detail">运费:￥</string>
+    <string name="goods_freight_detail">运费:¥</string>
     <string name="goods_detail">宝贝详情</string>
     <string name="goods_buy_now">立刻购买</string>
     <string name="goods_add_address">添加地址</string>
@@ -243,7 +243,7 @@
 
     <string name="go_buy">去抢购</string>
     <string name="flash_sale">限时秒杀</string>
-
+    <string name="right_now_flash_sale">立即秒杀</string>
 
     <!--绑定银行卡-->
     <string name="input_bank_card">请输入正确身份证号码</string>

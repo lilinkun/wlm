@@ -44,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/list_divider"
-                android:text="蓝色"
                 android:textSize="@dimen/textsize12"
                 android:layout_marginTop="@dimen/margin_5" />
 
@@ -54,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/list_divider"
                 android:textSize="@dimen/textsize12"
-                android:text=", M"
                 android:layout_marginTop="@dimen/margin_5" />
 
         </LinearLayout>
@@ -70,12 +68,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@+id/tv_quanjia"
                 android:layout_alignParentBottom="true"
                 android:lineSpacingExtra="-3sp"
                 android:includeFontPadding="false"
                 android:textColor="@color/pop_text_bg"
                 android:textSize="@dimen/textsize15" />
+
+            <com.wlm.wlm.ui.MyTextView
+                android:id="@+id/tv_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_goods_price"
+                android:layout_alignParentBottom="true"
+                android:lineSpacingExtra="-3sp"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="2dip"
+                android:textColor="@color/pop_text_bg"
+                android:textSize="@dimen/textsize15"
+                />
+
 
             <TextView
                 android:id="@+id/tv_goods_count"

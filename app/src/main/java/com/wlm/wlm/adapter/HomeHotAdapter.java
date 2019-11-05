@@ -1,6 +1,7 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,10 +12,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
+import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     private OnItemClickListener onItemClickListener;
     private GoodsListBean homeBean;
     private boolean isAdd_Integral = false;
+    private int isNum =0;
 
     protected boolean isScrolling = false;
 
@@ -95,7 +99,10 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             }
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
-                Picasso.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
+
+//                Picasso.with(context).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").into(holder.goodsPicImg);
+
+                Picasso.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
 //                if (isScrolling) {
 //                }else {
 //                    Glide.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
@@ -154,6 +161,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             tv_hot = (TextView) itemView.findViewById(R.id.tv_hot);
             ll_hot = (LinearLayout) itemView.findViewById(R.id.ll_hot);
 
+            isNum = goodsPicImg.getWidth();
         }
     }
 

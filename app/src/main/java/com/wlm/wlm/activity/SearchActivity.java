@@ -400,16 +400,12 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     @Override
     public void onItemClick(int position) {
         if (goodsListBeans != null){
-            if (goodsListBeans.get(position).getGoodsType().equals("2")){
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(WlmUtil.GROUPONGOODS,goodsListBeans.get(position));
-                UiHelper.launcherBundle(this,GrouponGoodsDetailActivity.class,bundle);
-            }else {
-                Bundle bundle = new Bundle();
-                bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-                bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
-                UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
-            }
+
+            Bundle bundle = new Bundle();
+            bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
+            UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
+
         }
     }
 

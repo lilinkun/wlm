@@ -57,7 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.goodsPriceTv.setText("" + goodsListBean.getPrice());
 
             holder.tv_add_integral.setText(goodsListBean.getIntegral()+"");
-            holder.tv_old_price.setText("￥"+goodsListBean.getMarketPrice());
+            holder.tv_old_price.setText("¥"+goodsListBean.getMarketPrice());
             holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,11 +65,19 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
         holder.goodsName.setText(orderListBeans.get(position).getGoodsName());
         holder.goodsPrice.setText("¥" + orderListBeans.get(position).getPrice() + "");
         holder.goodsNum.setText(String.valueOf(orderListBeans.get(position).getNum()));
-        holder.goods_size1.setText( orderListBeans.get(position).getSpec1());
-        holder.goods_size2.setText( orderListBeans.get(position).getSpec2());
+        if (orderListBeans.get(position).getSpec1() != null) {
+            holder.goods_size1.setText(orderListBeans.get(position).getSpec1());
+        }
+        if (orderListBeans.get(position).getSpec2() != null) {
+            holder.goods_size2.setText(" " + orderListBeans.get(position).getSpec2());
+        }
 
         holder.singleCheckBox.setChecked(map.get(orderListBeans.get(position).getCartId()).isChoosed());
 
+        if (orderListBeans.get(position).getIntegral() > 0){
+            holder.ll_integral.setVisibility(View.VISIBLE);
+            holder.tv_integral_price.setText(orderListBeans.get(position).getIntegral() + "");
+        }
 
         sumGoodsNum = sumGoodsNum+ orderListBeans.get(position).getNum();
         if (position == orderListBeans.size() - 1){
@@ -212,6 +221,10 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
         TextView goodsNum;
         @BindView(R.id.increase_goods_Num)
         ImageView increaseGoodsNum;
+        @BindView(R.id.ll_integral)
+        LinearLayout ll_integral;
+        @BindView(R.id.tv_integral_price)
+        TextView tv_integral_price;
 
         public ViewHolder(View itemView) {
             super(itemView);

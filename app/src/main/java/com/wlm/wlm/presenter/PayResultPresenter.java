@@ -3,6 +3,7 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.PayResultContract;
+import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -70,7 +71,33 @@ public class PayResultPresenter extends BasePresenter {
                 }));
     }
 
+    public void getBalance(String SessionId){
+//        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls","UserBase");
+        params.put("fun","BankBase_GetBalance");
+        params.put("SessionId",SessionId);
+        mCompositeSubscription.add(manager.getBalance(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                    @Override
+                    public void onResponse(BalanceBean balanceBean, String status, Object page) {
+                        payContract.getBalanceSuccess(balanceBean);
+//                        if (progressDialog != null && progressDialog.isShowing()) {
+//                            progressDialog.dismiss();
+//                        }
+                    }
 
+                    @Override
+                    public void onErr(String msg, String status) {
+                        payContract.getBalanceFail(msg);
+//                        if (progressDialog != null && progressDialog.isShowing()) {
+//                            progressDialog.dismiss();
+//                        }
+                    }
+                }));
+    }
 
 
 }

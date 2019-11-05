@@ -156,7 +156,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
     }
 
 
-    public void setData(final GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean, final String type){
+    public void setData(final GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean, final int type){
         this.goodsDetailBean = goodsDetailBean;
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -173,7 +173,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
         final ArrayList<GoodsChooseBean> goodsChooseBeans = new ArrayList<>();
 
-        if (type.equals(WlmUtil.INTEGRAL)){
+        if (type == WlmUtil.GOODSTYPE_INTEGRAL){
             tv_goods_pop_price.setText(goodsDetailBean.getIntegral()+"积分 + " + goodsDetailBean.getPrice() +"元");
         }else {
             tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
@@ -190,7 +190,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                 goodsChooseBeans.add(goodsChooseBean);
             }
 
-            if (type.equals(WlmUtil.INTEGRAL)){
+            if (type == WlmUtil.GOODSTYPE_INTEGRAL){
                 tv_goods_pop_price.setText(goodsDetailBean.getIntegral()+"积分 + " + goodsDetailBean.getPrice() +"元");
             }else {
                 tv_goods_pop_price.setText("" + goodsDetailBean.getPrice());
@@ -272,7 +272,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                     flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
-                        public void onLabelClick(TextView label, Object data, int position) {if (type.equals(WlmUtil.INTEGRAL)){
+                        public void onLabelClick(TextView label, Object data, int position) {if (type == WlmUtil.GOODSTYPE_INTEGRAL){
                             tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
                         }else {
                             tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
@@ -310,23 +310,36 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                         flowLayout.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                             @Override
-                            public void onLabelClick(TextView label, Object data, int position) {if (type.equals(WlmUtil.INTEGRAL)){
-                                tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
-                            }else {
-                                tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
-                            }
+                            public void onLabelClick(TextView label, Object data, int position) {
+                                if (type == WlmUtil.GOODSTYPE_INTEGRAL){
+                                    tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
+                                }else {
+                                    tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
+                                }
                                 goodsChooseBean = (GoodsChooseBean) data;
                                 tv_size.setText("已选 ");
-                                tv_choose.setText(goodsChooseBean.getSpec1());
-                                spec1 = position;
+
+                                if (spec1 == position) {
+                                    if (tv_choose_size.equals("")){
+                                        tv_size.setText("");
+                                    }
+                                    tv_choose.setText("");
+                                    spec1 = -1;
+                                }else {
+                                    spec1 = position;
+                                    tv_choose.setText(goodsChooseBean.getSpec1());
+                                }
+
                                 if (Integer.valueOf(goodsDetailBean.getQty()) == 2) {
                                     ArrayList<String> specArray = hashMap.get(goodsChooseBean.getSpec1());
                                     labael_size.setLabels(goodsChooseBeans2, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
                                         @Override
                                         public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
+
                                             if (spec2 != -1) {
                                                 labael_size.setSelects(spec2);
                                             }
+
                                             for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
                                                 if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
                                                     SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
@@ -362,15 +375,23 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                     labael_size.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
                         @Override
                         public void onLabelClick(TextView label, Object data, int position) {
-                            if (type.equals(WlmUtil.INTEGRAL)){
+                            if (type == WlmUtil.GOODSTYPE_INTEGRAL){
                                 tv_goods_pop_price.setText(((GoodsChooseBean) data).getIntegral()+"积分 + " + ((GoodsChooseBean) data).getPrice() +"元");
                             }else {
                                 tv_goods_pop_price.setText("" + ((GoodsChooseBean) data).getPrice());
                             }
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
-                            tv_choose_size.setText("  " + goodsChooseBean.getSpec2());
-                            spec2 = position;
+                            if (spec2 == position) {
+                                if (tv_choose.equals("")){
+                                    tv_size.setText("");
+                                }
+                                tv_choose_size.setText("");
+                                spec2 = -1;
+                            }else {
+                                spec2 = position;
+                                tv_choose_size.setText("  " + goodsChooseBean.getSpec2());
+                            }
 
                             ArrayList<String> specArray = hashMap.get(goodsChooseBean.getSpec2());
                             flowLayout.setLabels(goodsChooseBeans1, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
@@ -381,7 +402,6 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                                     }
 //                                goodsChooseBean =data;
                                     tv_stock.setText(goodsChooseBean.getAmount() + "");
-
 
                                     for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
                                         if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
@@ -402,9 +422,9 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
     }
 
-    private void changeBgColor(String type){
+    private void changeBgColor(int type){
 
-        if (type.equals(WlmUtil.INTEGRAL)){
+        if (type == WlmUtil.GOODSTYPE_INTEGRAL){
 
             tv_money_icon.setVisibility(GONE);
             ColorStateList colorStateList = getResources().getColorStateList(R.color.integral_label_text_color);
