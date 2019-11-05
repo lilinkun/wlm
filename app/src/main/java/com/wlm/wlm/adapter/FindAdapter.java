@@ -258,8 +258,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         holder.tv_shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                findListener.onShard(goodsDiscoverBean.getGoodsId(),goodsDiscoverBean.getGoodsName());
+                String s = ProApplication.HEADIMG + goodsDiscoverBean.getGoodsImg();
+                findListener.onShard(goodsDiscoverBean.getGoodsId(),goodsDiscoverBean.getGoodsName(),s);
 
             }
         });
@@ -441,7 +441,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
 
     public interface FindListener{
-        public void onShard(String goodsid,String goodsname);
+        public void onShard(String goodsid,String goodsname,String imgStr);
     }
 
 }

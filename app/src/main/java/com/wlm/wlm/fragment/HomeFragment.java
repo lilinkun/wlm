@@ -503,8 +503,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         onFlashSuccess(homeBean.getFlash());
         onGoodsListSuccess(homeBean.getGoodsList());
 
-        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
-//        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
+//        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
         Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
         Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(1).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
 

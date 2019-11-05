@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,6 +28,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
@@ -358,15 +360,41 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
                 case R.id.ll_shared_right:
 
-                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+//                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+//
+//                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
+//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+//                    String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+//
+//                    WlmUtil.setShared(iwxapi,path,goodsDetailBean.getGoodsName(),goodsDetailBean.getGoodsName(),baos.toByteArray());
 
-                    String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                    Picasso.with(this).load(ProApplication.HEADIMG + goodsDetailBean.getGoodsImg()).into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-                    WlmUtil.setShared(iwxapi,path,goodsDetailBean.getGoodsName(),goodsDetailBean.getGoodsName(),baos.toByteArray());
+                            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+
+
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+
+                            WlmUtil.setShared(iwxapi,path,goodsDetailBean.getGoodsName(),goodsDetailBean.getGoodsName(),baos.toByteArray());
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    });
+
 
                     break;
             }

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
@@ -27,6 +30,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by LG on 2019/10/23.
@@ -120,16 +125,33 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
     }
 
     @Override
-    public void onShard(String goodsid,String goodsname) {
+    public void onShard(final String goodsid,final String goodsname,String imgPath) {
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+        Picasso.with(getActivity()).load(imgPath).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-        Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 
-        String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
 
-        WlmUtil.setShared(iwxapi,path,goodsname,goodsname,baos.toByteArray());
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+
+                WlmUtil.setShared(iwxapi,path,goodsname,goodsname,baos.toByteArray());
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+
+
     }
 }

@@ -62,7 +62,7 @@ public class ChooseAddressAdapter extends RecyclerView.Adapter<ChooseAddressAdap
 
         String phone = addressBeans.get(position).getMobile();
 
-        holder.tvPhone.setText(PhoneFormatCheckUtils.phoneAddress(phone));
+        holder.tvPhone.setText(phone+"");
 
         holder.deleteAddress.setOnClickListener(new View.OnClickListener() {
             @Override

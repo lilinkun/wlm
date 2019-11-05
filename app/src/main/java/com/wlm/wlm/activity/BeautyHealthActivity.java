@@ -16,6 +16,7 @@ import com.wlm.wlm.presenter.PointPresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
 import com.wlm.wlm.ui.TopLinearlayout;
+import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -56,6 +57,8 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
         Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
 
         beautyHealthPresenter.onCreate(this,this);
+
+        ActivityUtil.addHomeActivity(this);
 
         custom_sort.setListener(this);
 
