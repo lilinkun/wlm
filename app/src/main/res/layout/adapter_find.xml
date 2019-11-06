@@ -95,19 +95,21 @@
         android:id="@+id/iv_adapter_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_adapter_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_10"
         />
 
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
         android:id="@+id/jc_player"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
         android:visibility="gone"
         />
 

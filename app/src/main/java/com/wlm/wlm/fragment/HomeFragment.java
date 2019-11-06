@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -266,12 +267,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
 
-    @OnClick({ R.id.text_search,R.id.big_1,R.id.iv_vip_icon1,R.id.iv_vip_icon2})
+    @OnClick({ R.id.ll_search,R.id.big_1,R.id.iv_vip_icon1,R.id.iv_vip_icon2})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
 
-                case R.id.text_search:
+                case R.id.ll_search:
 
                     UiHelper.launcher(getActivity(), SearchActivity.class);
 
@@ -333,6 +334,23 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         else {
             // （滑动距离 - 开始变化距离）：最大限制距离 = mAlpha ：255
             mAlpha = (scrollView.getScrollY() - minHeight) * 255 / (maxHeight - minHeight);
+        }
+        // 初始状态 标题栏/导航栏透明等
+        if (mAlpha <= 0) {
+            setViewBackgroundAlpha(linearLayout, 0);
+            linearLayout.setBackgroundColor(Color.argb(0, 252, 55, 125));
+
+        }
+        //  终止状态：标题栏/导航栏 不在进行变化
+        else if (mAlpha >= 255) {
+            setViewBackgroundAlpha(linearLayout, 255);
+            linearLayout.setBackgroundColor(Color.argb(255, 247, 88, 4));
+
+        }
+        // 变化中状态：标题栏/导航栏随ScrollView 的滑动而产生相应变化
+        else {
+            setViewBackgroundAlpha(linearLayout, mAlpha);
+            linearLayout.setBackgroundColor(Color.argb(y, 247, 88, 4));
         }
     }
 
@@ -505,8 +523,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
 //        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
         Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(1).getGoodsImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
+        if (homeBean.getVipList().size()>=2) {
+            Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getVipList().get(1).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

@@ -34,6 +34,7 @@ public class OrderDetailAddressBean {
     private int District;
     private int MemberLevel;
     private int Zip;
+    private String ShippingDate;
     private String EffectivePaymentDate;
     private ArrayList<SelfOrderInfoBean> orderDetail;
 
@@ -285,5 +286,13 @@ public class OrderDetailAddressBean {
 
     public void setFreezeId(String freezeId) {
         FreezeId = freezeId;
+    }
+
+    public String getShippingDate() {
+        return ShippingDate;
+    }
+
+    public void setShippingDate(String shippingDate) {
+        ShippingDate = shippingDate;
     }
 }

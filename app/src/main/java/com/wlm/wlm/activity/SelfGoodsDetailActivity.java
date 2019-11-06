@@ -360,15 +360,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
 
                 case R.id.ll_shared_right:
 
-//                    SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
-//
-//                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
-//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-
-//                    String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-//
-//                    WlmUtil.setShared(iwxapi,path,goodsDetailBean.getGoodsName(),goodsDetailBean.getGoodsName(),baos.toByteArray());
 
                     Picasso.with(this).load(ProApplication.HEADIMG + goodsDetailBean.getGoodsImg()).into(new Target() {
                         @Override

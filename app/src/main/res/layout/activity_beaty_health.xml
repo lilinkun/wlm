@@ -26,43 +26,34 @@
                 android:src="@mipmap/ic_back_point"/>
         </LinearLayout>
 
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_search_edittext"
+            android:layout_toRightOf="@+id/lin_list"
+            android:layout_marginRight="@dimen/margin_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_beauty_search"
+            android:layout_marginLeft="@dimen/margin_10"
+            />
 
 
-            <TextView
-                android:id="@+id/text_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/shape_search_edittext"
-                android:drawableLeft="@mipmap/ic_search_bg"
-                android:drawablePadding="@dimen/padding_10"
-                android:gravity="center_vertical"
-                android:padding="5.0dip"
-                android:paddingLeft="@dimen/padding_7"
-                android:layout_toRightOf="@+id/lin_list"
-                android:layout_marginRight="@dimen/margin_20"
-                android:text="@string/good_thing_for_you"
-                android:textColor="@color/search_edittext_bg"
-                android:textSize="@dimen/textsize14" />
-
-
-            <TextView
-                android:id="@+id/tx_search_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="5.0dip"
-                android:text="@string/homepage_good_thing_list_search"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textsize14"
-                android:visibility="gone" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/text_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_7"
+            android:text="@string/good_thing_for_you"
+            android:textColor="@color/search_edittext_bg"
+            android:textSize="@dimen/textsize15" />
+    </LinearLayout>
 
 
     </LinearLayout>

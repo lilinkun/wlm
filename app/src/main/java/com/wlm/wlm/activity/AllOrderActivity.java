@@ -112,6 +112,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     LinearLayout ll_lgs;
     @BindView(R.id.iv_address_right)
     ImageView iv_address_right;
+    @BindView(R.id.ll_lgs_time)
+    LinearLayout ll_lgs_time;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -162,6 +164,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_order.setText("确认收货");
             tv_pay_style.setText("已发货");
             tv_pay_message.setText("您的商品正在运输中");
+            ll_lgs_time.setVisibility(View.VISIBLE);
             ll_lgs.setVisibility(View.VISIBLE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
         }else if (status == 0){
@@ -175,6 +178,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_message.setText("您的交易已经完成");
             tv_pay_order.setText("删除订单");
             ll_lgs.setVisibility(View.VISIBLE);
+            ll_lgs_time.setVisibility(View.VISIBLE);
 //            ll_price_status.setVisibility(View.GONE);
 //            tv_exit_order.setVisibility(View.GONE);
             rl_bottom.setVisibility(View.GONE);
@@ -276,7 +280,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             ll_pay_date.setVisibility(View.VISIBLE);
             tv_pay_date.setText(orderDetailBeans.getPayDate() + "");
         }
-        send_out_date.setText(orderDetailBeans.getShippingFree()+"");
+        send_out_date.setText(orderDetailBeans.getShippingDate()+"");
         logistics_information.setText(orderDetailBeans.getLgsName() + " " + orderDetailBeans.getLgsNumber());
 
         tv_exit_order.setOnClickListener(new View.OnClickListener() {

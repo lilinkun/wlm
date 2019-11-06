@@ -67,7 +67,7 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
         beautyHealthPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
     }
 
-    @OnClick({R.id.ll_back,R.id.text_search})
+    @OnClick({R.id.ll_back,R.id.ll_search})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
@@ -76,7 +76,7 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
 
                 break;
 
-            case R.id.text_search:
+            case R.id.ll_search:
 
                 Bundle bundle = new Bundle();
                 bundle.putString("id","1");

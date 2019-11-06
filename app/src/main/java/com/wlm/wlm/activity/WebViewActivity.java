@@ -1,6 +1,9 @@
 package com.wlm.wlm.activity;
 
+import android.os.Build;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -60,6 +63,16 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
                 return false;
             }
         });
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         if (title.equals("4")){
             webView.loadUrl(ProApplication.SERVIESVIP);
         }else {

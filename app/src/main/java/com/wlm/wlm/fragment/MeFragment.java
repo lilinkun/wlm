@@ -226,6 +226,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     Bundle csBundle = new Bundle();
                     csBundle.putString("CategoryId", MessageType.values()[2].getCategoryId());
                     csBundle.putSerializable("title",MessageType.values()[2].getTypeName());
+                    csBundle.putString("from","me");
                     UiHelper.launcherBundle(getActivity(),MessageDetitleActivity.class,csBundle);
 
                     break;

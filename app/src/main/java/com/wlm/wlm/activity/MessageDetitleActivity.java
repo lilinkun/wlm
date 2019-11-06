@@ -68,9 +68,13 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
         String CategoryId = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("CategoryId");
         String title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("title");
 
-        /*if (title.equals(MessageType.values()[2].getTypeName())){
-            ll_customer_service_phone.setVisibility(View.VISIBLE);
-        }*/
+
+        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("from") != null &&
+                getIntent().getBundleExtra(WlmUtil.TYPEID).getString("from").equals("me")){
+            if (title.equals(MessageType.values()[2].getTypeName())){
+                ll_customer_service_phone.setVisibility(View.VISIBLE);
+            }
+        }
 
         messagePresenter.getArticleList("1",WlmUtil.PAGE_COUNT,CategoryId, ProApplication.SESSIONID(this));
 

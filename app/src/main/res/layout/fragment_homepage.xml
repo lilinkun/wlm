@@ -37,7 +37,7 @@
                 <com.xw.banner.Banner
                     android:id="@+id/bannerView"
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
+                    android:layout_height="260dp"
                     app:indicator_width="10dp"
                     app:indicator_height="10dp"
                     app:indicator_margin="5dp"
@@ -49,6 +49,7 @@
                     android:id="@+id/rv_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"/>
 
@@ -158,13 +159,22 @@
 
             </LinearLayout>
 
-
-            <include
-                android:id="@+id/title_layout_search"
-                layout="@layout/title_layout_search" />
         </RelativeLayout>
     </com.wlm.wlm.ui.TranslucentScrollView>
 
     </com.wlm.wlm.ui.CusPtrClassicFrameLayout>
 
+
+    <LinearLayout
+        android:id="@+id/title_layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_35"
+        android:paddingBottom="@dimen/padding_15"
+        >
+
+        <include
+            layout="@layout/title_layout_search"/>
+
+    </LinearLayout>
 </RelativeLayout>
