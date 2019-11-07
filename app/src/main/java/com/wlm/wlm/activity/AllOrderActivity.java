@@ -318,7 +318,18 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                         UiHelper.launcherForResultBundle(AllOrderActivity.this,PayActivity.class,0x1231,bundle);
 //                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
-                        allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn()+"", ProApplication.SESSIONID(AllOrderActivity.this));
+
+                        new AlertDialog.Builder(AllOrderActivity.this).setMessage("是否确定收货").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn()+"", ProApplication.SESSIONID(AllOrderActivity.this));
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
                     } else if (status == 4) {
 //                        allOrderPresenter.deleteOrder(orderDetailBeans.getOrderId()+"", ProApplication.SESSIONID(AllOrderActivity.this));
                     }
