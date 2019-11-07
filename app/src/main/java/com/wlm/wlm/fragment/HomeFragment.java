@@ -705,7 +705,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 return source;
             }
 
-            int a = iv_vip_icon1.getWidth();
+            int a = iv_vip_icon2.getWidth();
             if (source.getWidth() > source.getHeight()){
                 int h = source.getHeight()*a/source.getWidth();
                 Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
