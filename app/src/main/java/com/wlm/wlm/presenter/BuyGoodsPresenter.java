@@ -8,6 +8,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
+import com.wlm.wlm.util.PresenterUtil;
 
 import java.util.HashMap;
 
@@ -45,6 +46,10 @@ public class BuyGoodsPresenter extends BasePresenter {
 
 
     public void collectGoods(String goodsId,String SessionId){
+
+
+        PresenterUtil.collectGoods(mCompositeSubscription,manager,goodsId,SessionId);
+
         HashMap<String, String> params = new HashMap<>();
         params.put("cls","Collect");
         params.put("fun","CollectCreate");

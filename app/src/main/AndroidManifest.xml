@@ -143,6 +143,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.BeautyHealthActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.HaiWeiLoginActivity"
+            android:screenOrientation="portrait"/>
 
 
         <activity android:name=".wxapi.WXEntryActivity"

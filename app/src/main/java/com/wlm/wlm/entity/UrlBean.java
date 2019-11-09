@@ -13,6 +13,24 @@ public class UrlBean {
     private String RegisterRequirements;
     private String KFMobile;
     private String ServiesVip;
+    private int IsAuditing;
+    private int IsAndroidAuditing;
+
+    public int getIsAndroidAuditing() {
+        return IsAndroidAuditing;
+    }
+
+    public void setIsAndroidAuditing(int isAndroidAuditing) {
+        IsAndroidAuditing = isAndroidAuditing;
+    }
+
+    public int getIsAuditing() {
+        return IsAuditing;
+    }
+
+    public void setIsAuditing(int isAuditing) {
+        IsAuditing = isAuditing;
+    }
 
     public String getServiesVip() {
         return ServiesVip;

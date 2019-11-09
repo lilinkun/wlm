@@ -65,7 +65,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
             mEtInputInvitation.setHint(R.string.modify_new_pwd);
         }else {
             mOverBtn.setText(R.string.register);
-            mEtInputInvitation.setHint(R.string.register_input_pwd);
+            mEtInputInvitation.setHint(R.string.register_input_invitation);
         }
 
     }

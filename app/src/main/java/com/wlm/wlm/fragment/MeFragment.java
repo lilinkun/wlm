@@ -177,7 +177,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
                 case R.id.iv_me_setting:
-                    UiHelper.launcherForResult(this, PersonalInfoActivity.class, result_int);
+                    UiHelper.launcherForResult(this, PersonalInfoActivity.class, result_person);
                     break;
 
                 case R.id.ll_collection:

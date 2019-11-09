@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.contract.SplashContract;
+import com.wlm.wlm.entity.UrlBean;
+import com.wlm.wlm.presenter.SplashPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -20,7 +23,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/12/31.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements SplashContract {
 
     @BindView(R.id.tv_timer)
     TextView tv_timer;
@@ -28,6 +31,9 @@ public class SplashActivity extends BaseActivity {
     LinearLayout ll_splash;
 
     MyCountDownTimer myCountDownTimer = new MyCountDownTimer(1000, 1000);
+    SplashPresenter splashPresenter = new SplashPresenter();
+
+    private boolean isLogin = false;
 
     @Override
     public int getLayoutId() {
@@ -40,6 +46,8 @@ public class SplashActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
 //        getSupportActionBar().hide();//隐藏标题栏
 
+        splashPresenter.onCreate(this,this);
+        splashPresenter.getUrl();
         myCountDownTimer.start();
 
     }
@@ -55,6 +63,19 @@ public class SplashActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void getUrlSuccess(UrlBean urlBean) {
+        if (urlBean.getIsAndroidAuditing() == 1){
+            isLogin = true;
+        }
+        turnHome();
+    }
+
+    @Override
+    public void getUrlFail(String msg) {
+        turnHome();
     }
 
     /**
@@ -76,7 +97,7 @@ public class SplashActivity extends BaseActivity {
         //计时完毕的方法
         @Override
         public void onFinish() {
-            turnHome();
+//            turnHome();
 
         }
     }
@@ -92,7 +113,11 @@ public class SplashActivity extends BaseActivity {
         if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
             intent = new Intent(getBaseContext(), MainFragmentActivity.class);
         } else {
-            intent = new Intent(getBaseContext(), LoginActivity.class);
+            if (isLogin){
+                intent = new Intent(getBaseContext(), HaiWeiLoginActivity.class);
+            }else {
+                intent = new Intent(getBaseContext(), LoginActivity.class);
+            }
         }
         //启动MainActivity
         startActivity(intent);

@@ -492,7 +492,11 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
 
-        UiHelper.launcher(this, LoginActivity.class);
+        if(ProApplication.isAudinLogin){
+            UiHelper.launcher(this, HaiWeiLoginActivity.class);
+        }else {
+            UiHelper.launcher(this, LoginActivity.class);
+        }
 
         Intent intent = new Intent();
         intent.putExtra("loginout",true);
