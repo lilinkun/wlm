@@ -216,7 +216,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                 }
             }
 
-            ArrayList<String> firstStrings = new ArrayList<>();
+            final ArrayList<String> firstStrings = new ArrayList<>();
             if (goodsDetailBean.getQty() == 1) {
                 tv_choose.setText(goodsDetailBean.getGoodsSpec1());
                 for (GoodsChooseBean goodsChooseBean : goodsChooseBeans1) {
@@ -320,7 +320,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                                 tv_size.setText("已选 ");
 
                                 if (spec1 == position) {
-                                    if (tv_choose_size.equals("")){
+                                    if (tv_choose_size.getText().toString().equals("")){
                                         tv_size.setText("");
                                     }
                                     tv_choose.setText("");
@@ -332,24 +332,45 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
 
                                 if (Integer.valueOf(goodsDetailBean.getQty()) == 2) {
                                     ArrayList<String> specArray = hashMap.get(goodsChooseBean.getSpec1());
-                                    labael_size.setLabels(goodsChooseBeans2, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
-                                        @Override
-                                        public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
+                                    if (spec1 == -1) {
+                                        labael_size.setLabels(goodsChooseBeans2, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
+                                            @Override
+                                            public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
 
-                                            if (spec2 != -1) {
-                                                labael_size.setSelects(spec2);
-                                            }
-
-                                            for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
-                                                if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
-                                                    SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                                                if (spec2 != -1) {
+                                                    labael_size.setSelects(spec2);
                                                 }
-                                            }
 
-                                            tv_stock.setText(goodsChooseBean.getAmount() + "");
-                                            return data.getSpec2();
-                                        }
-                                    }, specArray);
+                                                for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
+                                                    if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
+                                                        SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                                                    }
+                                                }
+
+                                                tv_stock.setText(goodsChooseBean.getAmount() + "");
+                                                return data.getSpec2();
+                                            }
+                                        });
+                                    }else {
+                                        labael_size.setLabels(goodsChooseBeans2, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
+                                            @Override
+                                            public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
+
+                                                if (spec2 != -1) {
+                                                    labael_size.setSelects(spec2);
+                                                }
+
+                                                for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
+                                                    if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
+                                                        SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                                                    }
+                                                }
+
+                                                tv_stock.setText(goodsChooseBean.getAmount() + "");
+                                                return data.getSpec2();
+                                            }
+                                        }, specArray);
+                                    }
                                 } else if (Integer.valueOf(goodsDetailBean.getQty()) == 1) {
                                     goodsChooseBean = (GoodsChooseBean) data;
                                     tv_stock.setText(goodsChooseBean.getAmount() + "");
@@ -383,7 +404,7 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                             goodsChooseBean = (GoodsChooseBean) data;
                             tv_size.setText("已选 ");
                             if (spec2 == position) {
-                                if (tv_choose.equals("")){
+                                if (tv_choose.getText().toString().equals("颜色")){
                                     tv_size.setText("");
                                 }
                                 tv_choose_size.setText("");
@@ -394,25 +415,47 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
                             }
 
                             ArrayList<String> specArray = hashMap.get(goodsChooseBean.getSpec2());
-                            flowLayout.setLabels(goodsChooseBeans1, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
-                                @Override
-                                public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
-                                    if (spec1 != -1) {
-                                        flowLayout.setSelects(spec1);
-                                    }
-//                                goodsChooseBean =data;
-                                    tv_stock.setText(goodsChooseBean.getAmount() + "");
-
-                                    for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
-                                        if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
-                                            SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                            if (spec2 == -1){
+                                flowLayout.setLabels(goodsChooseBeans1, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
+                                    @Override
+                                    public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
+                                        if (spec1 != -1) {
+                                            flowLayout.setSelects(spec1);
                                         }
-                                    }
-                                    tv_stock.setText(goodsChooseBean.getAmount() + "");
+//                                goodsChooseBean =data;
+                                        tv_stock.setText(goodsChooseBean.getAmount() + "");
 
-                                    return data.getSpec1();
-                                }
-                            }, specArray);
+                                        for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
+                                            if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
+                                                SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                                            }
+                                        }
+                                        tv_stock.setText(goodsChooseBean.getAmount() + "");
+
+                                        return data.getSpec1();
+                                    }
+                                });
+                            }else {
+                                flowLayout.setLabels(goodsChooseBeans1, new LabelsView.LabelTextProvider<GoodsChooseBean>() {
+                                    @Override
+                                    public CharSequence getLabelText(TextView label, int position, GoodsChooseBean data) {
+                                        if (spec1 != -1) {
+                                            flowLayout.setSelects(spec1);
+                                        }
+//                                goodsChooseBean =data;
+                                        tv_stock.setText(goodsChooseBean.getAmount() + "");
+
+                                        for (GoodsChooseBean goodsChooseBean : goodsChooseBeans) {
+                                            if (tv_choose.getText().toString().equals(goodsChooseBean.getSpec1()) && tv_choose_size.getText().toString().equals("  " + goodsChooseBean.getSpec2())) {
+                                                SelfGoodsPopLayout.this.goodsChooseBean = goodsChooseBean;
+                                            }
+                                        }
+                                        tv_stock.setText(goodsChooseBean.getAmount() + "");
+
+                                        return data.getSpec1();
+                                    }
+                                }, specArray);
+                            }
                         }
                     });
                 }
