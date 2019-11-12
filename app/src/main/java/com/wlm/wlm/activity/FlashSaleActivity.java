@@ -80,7 +80,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
         rv_flash_sale.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                flashSalePresenter.getData(pageIndex+"","20",goodstype + "",orderby,false);
+                flashSalePresenter.getData(pageIndex+"",WlmUtil.PAGE_COUNT,goodstype + "",orderby,false);
             }
 
             @Override
@@ -91,7 +91,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
                         rv_flash_sale.setNoMore(true);
                     }else {
                         pageIndex++;
-                        flashSalePresenter.getData(pageIndex+"","20",goodstype + "",orderby,false);
+                        flashSalePresenter.getData(pageIndex+"",WlmUtil.PAGE_COUNT,goodstype + "",orderby,false);
                     }
 
                 }

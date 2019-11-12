@@ -92,4 +92,43 @@
         android:textSize="@dimen/textsize16"
         android:layout_marginTop="@dimen/margin_20"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="49dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_login_shape"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textSize="@dimen/textsize12"
+            android:text="已阅读并"
+            android:textColor="@color/grey_color3"
+            />
+
+        <TextView
+            android:id="@+id/tv_service_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同意服务协议与隐私政策"
+            android:textSize="@dimen/textsize12"
+            android:textColor="@color/setting_title_color"/>
+
+
+
+    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

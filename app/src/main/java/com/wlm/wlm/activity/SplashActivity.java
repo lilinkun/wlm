@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SplashContract;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.presenter.SplashPresenter;
@@ -67,6 +68,12 @@ public class SplashActivity extends BaseActivity implements SplashContract {
 
     @Override
     public void getUrlSuccess(UrlBean urlBean) {
+
+        ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+        ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+        ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+        ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
+        ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
         if (urlBean.getIsAndroidAuditing() == 1){
             isLogin = true;
         }

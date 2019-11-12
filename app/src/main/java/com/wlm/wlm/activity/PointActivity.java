@@ -1,15 +1,10 @@
 package com.wlm.wlm.activity;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.PointAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.contract.PointContract;
-import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;

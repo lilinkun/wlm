@@ -5,4 +5,6 @@ package com.wlm.wlm.presenter;
  */
 
 public abstract class BasePresenter implements Presenter {
+
+
 }

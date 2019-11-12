@@ -18,6 +18,7 @@ import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.util.DensityUtil;
+import com.wlm.wlm.util.HomeGridRvEnum;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
@@ -92,21 +93,33 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 
             if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_POINT+"")){
                 holder.ll_hot.setVisibility(View.VISIBLE);
-                holder.tv_hot.setText("9.9尖货");
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS0.getStatusMsg());
             }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_SECKILL+"")){
                 holder.ll_hot.setVisibility(View.VISIBLE);
-                holder.tv_hot.setText("限时秒杀");
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS3.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLMBUY+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS7.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_INTEGRAL+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS6.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLM+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS5.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_GROUPON+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS2.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_BEAUTY_HEALTH+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText(HomeGridRvEnum.STATUS8.getStatusMsg());
+            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_VIP+"")){
+                holder.ll_hot.setVisibility(View.VISIBLE);
+                holder.tv_hot.setText("VIP");
             }
 
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
 
-//                Picasso.with(context).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").into(holder.goodsPicImg);
-
                 Picasso.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
-//                if (isScrolling) {
-//                }else {
-//                    Glide.with(context).load(ProApplication.HEADIMG + homeBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
-//                }
 
             }
         }

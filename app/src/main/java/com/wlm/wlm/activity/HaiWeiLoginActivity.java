@@ -1,6 +1,7 @@
 package com.wlm.wlm.activity;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class HaiWeiLoginActivity extends BaseActivity implements HaiWeiLoginCont
 
     }
 
-    @OnClick({R.id.btn_over})
+    @OnClick({R.id.btn_over,R.id.tv_service_agreement})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_over:
@@ -62,6 +63,13 @@ public class HaiWeiLoginActivity extends BaseActivity implements HaiWeiLoginCont
                 }
 
                 haiWeiLoginPresenter.login(et_input_phone.getText().toString(),et_input_invitation.getText().toString(), ProApplication.SESSIONID(this));
+
+                break;
+
+            case R.id.tv_service_agreement:
+                Bundle bundle = new Bundle();
+                bundle.putString("type","2");
+                UiHelper.launcherBundle(this,WebViewActivity.class,bundle);
 
                 break;
         }

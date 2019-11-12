@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,17 +37,15 @@ import com.wlm.wlm.entity.HotHomeBean;
 import com.wlm.wlm.entity.SearchBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
-import com.wlm.wlm.presenter.SearchResultPresenter;
 import com.wlm.wlm.presenter.SelfSearchPresenter;
 import com.wlm.wlm.ui.FlowLayout;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
-import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.MallType;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -173,7 +170,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
         int spanCount = 5; // 2 columns
-        int spacing = 20; // 50px
+        int spacing = 20; // 20px
         boolean includeEdge = false;
         rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
 

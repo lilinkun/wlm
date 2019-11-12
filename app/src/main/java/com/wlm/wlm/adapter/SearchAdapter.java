@@ -61,9 +61,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
 
-            holder.tv_goods_type.setText(MallType.getVipById(goodsListBean.getGoodsType()).getTypeName());
+            if(MallType.getVipById(goodsListBean.getGoodsType()) != null) {
 
-            holder.tv_goods_type.setBackgroundResource(MallType.getVipById(goodsListBean.getGoodsType()).getDrawBg());
+                holder.tv_goods_type.setText(MallType.getVipById(goodsListBean.getGoodsType()).getTypeName());
+
+                holder.tv_goods_type.setBackgroundResource(MallType.getVipById(goodsListBean.getGoodsType()).getDrawBg());
+
+            }else {
+
+//                holder.tv_goods_type.setText(MallType.getVipById(0+"").getTypeName());
+
+//                holder.tv_goods_type.setBackgroundResource(MallType.getVipById(0+"").getDrawBg());
+            }
 
             if (goodsListBean.getGoodsImg() != null && !goodsListBean.getGoodsImg().isEmpty()) {
                 Picasso.with(context).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
