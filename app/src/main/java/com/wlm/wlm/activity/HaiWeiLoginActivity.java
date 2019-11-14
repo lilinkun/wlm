@@ -84,6 +84,7 @@ public class HaiWeiLoginActivity extends BaseActivity implements HaiWeiLoginCont
                 .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
                 .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity())
                 .putString(WlmUtil.USERLEVEL,mLoginBean.getUserLevel()+"")
+                .putString(WlmUtil.OPENID,mLoginBean.getOpenId())
                 .putString(WlmUtil.USERLEVELNAME,mLoginBean.getUserLevelName()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);

@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
@@ -24,6 +27,8 @@ import com.wlm.wlm.contract.PayContract;
 import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
 import com.wlm.wlm.entity.WxInfo;
+import com.wlm.wlm.entity.WxUserInfo;
+import com.wlm.wlm.interf.IWxLoginListener;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.interf.OnPasswordInputFinish;
 import com.wlm.wlm.presenter.PayPresenter;
@@ -32,6 +37,7 @@ import com.wlm.wlm.ui.PasswordView;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
+import com.wlm.wlm.wxapi.WXEntryActivity;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
 
 import java.text.NumberFormat;
@@ -42,7 +48,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/9/10.
  */
-public class PayActivity extends BaseActivity implements PayContract, IWxResultListener {
+public class PayActivity extends BaseActivity implements PayContract, IWxResultListener, IWxLoginListener {
 
     private PayPresenter payPresenter = new PayPresenter();
 
@@ -73,6 +79,8 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @BindView(R.id.tv_point)
     TextView tv_point;
 
+    IWXAPI iwxapi = null;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_pay;
@@ -85,6 +93,11 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
         payPresenter.onCreate(this,this);
 
+        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi.registerApp(WlmUtil.APP_ID);
+
+        WXEntryActivity.wxType(WlmUtil.WXTYPE_LOGIN);
+        WXEntryActivity.setLoginListener(this);
         WXPayEntryActivity.setPayListener(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
@@ -123,8 +136,19 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                 if (check_wx.isChecked()) {
 
-                    payPresenter.getWxPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "11","1",point,ProApplication.SESSIONID(this));
 
+
+                    if (sharedPreferences.getString(WlmUtil.OPENID,"") != null && !sharedPreferences.getString(WlmUtil.OPENID,"").equals("")) {
+
+                        payPresenter.getWxPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "11", "1", point, ProApplication.SESSIONID(this));
+
+                    }else {
+
+                        final SendAuth.Req req = new SendAuth.Req();
+                        req.scope = "snsapi_userinfo";
+                        req.state = "wechat_sdk_微信登录";
+                        iwxapi.sendReq(req);
+                    }
                 }else {
 //                    toast("暂时不支持余额支付，不要点了");
                     if (tv_balance_not_enough != null && !tv_balance_not_enough.isShown()) {
@@ -314,5 +338,18 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    @Override
+    public void setWxLoginSuccess(WxUserInfo wxSuccess) {
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        sharedPreferences.edit().putString(WlmUtil.OPENID,wxSuccess.getOpenid()).commit();
+        payPresenter.getWxPayOrderInfo(orderid, wxSuccess.getOpenid(), totalPrice + "", "11","1",point,ProApplication.SESSIONID(this));
+
+    }
+
+    @Override
+    public void setWxLoginFail(String msg) {
+        toast("false" + msg);
     }
 }

@@ -141,7 +141,6 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
                     public void call(BGADownloadProgressEvent downloadProgressEvent) {
                         if (mDownloadingDialog != null && mDownloadingDialog.isShowing() && downloadProgressEvent.isNotDownloadFinished()) {
                             mDownloadingDialog.setProgress(downloadProgressEvent.getProgress(), downloadProgressEvent.getTotal());
-                            Log.v("lg","progress:" + downloadProgressEvent.getProgress() + "  total:" + downloadProgressEvent.getTotal());
                         }
                     }
                 });
