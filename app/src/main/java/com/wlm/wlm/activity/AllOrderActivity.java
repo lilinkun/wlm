@@ -114,6 +114,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     ImageView iv_address_right;
     @BindView(R.id.ll_lgs_time)
     LinearLayout ll_lgs_time;
+    @BindView(R.id.tv_query_logistics)
+    TextView tv_query_logistics;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
 //    private OrderDetailBean orderDetailBean;
@@ -159,11 +161,13 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_style.setText("未发货");
             tv_pay_message.setText("买家已付款，等待发货");
             rl_bottom.setVisibility(View.GONE);
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_pay);
         }else if (status == 2){
             tv_exit_order.setVisibility(View.GONE);
             tv_pay_order.setText("确认收货");
             tv_pay_style.setText("已发货");
             tv_pay_message.setText("您的商品正在运输中");
+            tv_query_logistics.setVisibility(View.VISIBLE);
             ll_lgs_time.setVisibility(View.VISIBLE);
             ll_lgs.setVisibility(View.VISIBLE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
@@ -177,11 +181,13 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_style.setText("交易完成");
             tv_pay_message.setText("您的交易已经完成");
             tv_pay_order.setText("删除订单");
+            tv_query_logistics.setVisibility(View.VISIBLE);
             ll_lgs.setVisibility(View.VISIBLE);
             ll_lgs_time.setVisibility(View.VISIBLE);
-//            ll_price_status.setVisibility(View.GONE);
-//            tv_exit_order.setVisibility(View.GONE);
-            rl_bottom.setVisibility(View.GONE);
+            ll_price_status.setVisibility(View.GONE);
+            tv_exit_order.setVisibility(View.GONE);
+            tv_pay_order.setVisibility(View.GONE);
+//            rl_bottom.setVisibility(View.GONE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
         } else if(status == 5){
             tv_pay_style.setText("交易失效");
@@ -191,13 +197,22 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
 
-    @OnClick(R.id.ll_back)
+    @OnClick({R.id.ll_back,R.id.tv_query_logistics})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_back:
 
                 setResult(RESULT_OK);
                 finish();
+
+                break;
+
+            case R.id.tv_query_logistics:
+
+                Bundle bundle = new Bundle();
+                bundle.putString("type","5");
+                bundle.putString("ordersn",orderSn);
+                UiHelper.launcherBundle(this, WebViewActivity.class,bundle);
 
                 break;
         }

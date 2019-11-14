@@ -171,6 +171,11 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
             ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
+            ProApplication.LOGISTICSURL = urlBean.getLogisticsUrl();
+            ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
+            ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
+            ProApplication.PHONE = urlBean.getKFMobile();
+            ProApplication.SERVIESVIP = urlBean.getServiesVip();
             SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
                     .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();

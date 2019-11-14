@@ -344,13 +344,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         //  终止状态：标题栏/导航栏 不在进行变化
         else if (mAlpha >= 255) {
             setViewBackgroundAlpha(linearLayout, 255);
-            linearLayout.setBackgroundColor(Color.argb(255, 247, 88, 4));
+            linearLayout.setBackgroundColor(Color.argb(255, 232, 2, 131));
 
         }
         // 变化中状态：标题栏/导航栏随ScrollView 的滑动而产生相应变化
         else {
             setViewBackgroundAlpha(linearLayout, mAlpha);
-            linearLayout.setBackgroundColor(Color.argb(y, 247, 88, 4));
+            linearLayout.setBackgroundColor(Color.argb(y, 232, 2, 131));
         }
     }
 
@@ -384,6 +384,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
         ProApplication.PHONE = urlBean.getKFMobile();
         ProApplication.SERVIESVIP = urlBean.getServiesVip();
+        ProApplication.LOGISTICSURL = urlBean.getLogisticsUrl();
 
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
             ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;

@@ -72,7 +72,7 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.integral_bg));
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.point_red));
 
         ActivityUtil.addHomeActivity(this);
 

@@ -13,7 +13,7 @@
             android:id="@+id/layout_visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/integral_bg">
+            android:background="@color/point_red">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_10"
         android:background="@drawable/shape_integral_layout">
 
@@ -156,16 +157,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/bg_list"
+            android:layout_marginTop="@dimen/margin_10"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <com.wlm.wlm.ui.TopLinearlayout
             android:id="@+id/ll_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textcolor="@color/integral_bg"
+            app:textcolor="@color/bg_crowdfunding"
             app:textnormalcolor="@color/list_divider"
-            app:up_arrow="@mipmap/ic_integral_dot_up"
-            app:down_arrow="@mipmap/ic_integral_dot_down"
+            app:up_arrow="@mipmap/ic_red_arrow_up"
+            app:down_arrow="@mipmap/ic_red_arrow_down"
+            android:layout_marginTop="@dimen/margin_10"
             />
 
         <com.wlm.wlm.ui.CustomSortLayout

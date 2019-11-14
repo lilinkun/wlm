@@ -83,7 +83,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.point_red));
 
         ActivityUtil.addHomeActivity(this);
 
@@ -284,7 +284,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     @Override
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
         this.flashBeans = flashBeans;
-        CustomBannerView.startBanner(flashBeans,banner,this,false);
+        CustomBannerView.startBanner(flashBeans,banner,this,true);
     }
 
     @Override

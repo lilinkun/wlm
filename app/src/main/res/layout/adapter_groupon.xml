@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
-            android:background="@drawable/shape_groupon_info"
-            android:textColor="@color/groupon_text"
+            android:background="@drawable/shape_vip_flash_sale"
+            android:textColor="@color/point_red"
             android:textSize="11sp" />
 
         <LinearLayout
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/margin_5"
                 app:isHideTimeBackground="false"
-                app:timeBgColor="@color/groupon_text"
+                app:timeBgColor="@color/point_red"
                 app:timeBgSize="@dimen/textsize16"
                 app:timeBgRadius="2dp"
                 app:isShowDay="true"
@@ -105,14 +105,14 @@
                 app:timeTextSize="11sp"
                 app:isTimeTextBold="true"
                 app:suffixGravity="center"
-                app:suffixTextColor="@color/groupon_text"
+                app:suffixTextColor="@color/point_red"
                 app:suffixTextSize="11sp"
                 app:suffixDay=":"
                 app:suffixHour=":"
                 app:suffixMinute=":"
                 app:suffixSecond=""/>
 
-            <com.wlm.wlm.ui.CountdownView
+            <!--<com.wlm.wlm.ui.CountdownView
                 android:id="@+id/tv_rush_time_flash_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                 app:suffixDay=":"
                 app:suffixHour=":"
                 app:suffixMinute=":"
-                app:suffixSecond=""/>
+                app:suffixSecond=""/>-->
 
             <TextView
                 android:id="@+id/tv_end_time"
@@ -220,7 +220,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin_5"
-                android:background="@drawable/text_panic_select"
+                android:background="@drawable/shape_flash_sale_seclect"
                 android:textColor="@color/white"
                 android:layout_marginBottom="@dimen/margin_5"
                 android:gravity="center"

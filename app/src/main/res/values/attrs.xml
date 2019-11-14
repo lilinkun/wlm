@@ -102,6 +102,7 @@
         <attr format="boolean" name="isShowMinute"/>
         <attr format="boolean" name="isShowSecond"/>
         <attr format="boolean" name="isShowMillisecond"/>
+        <attr format="boolean" name="isShowBg"/>
         <attr format="boolean" name="isSuffixTextBold"/>
         <attr format="dimension" name="suffixTextSize"/>
         <attr format="color" name="suffixTextColor"/>

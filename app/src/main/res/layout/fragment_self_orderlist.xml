@@ -122,12 +122,26 @@
             android:layout_marginTop="@dimen/margin_10"
             android:orientation="horizontal">
 
+
+            <TextView
+                android:id="@+id/tv_query_logistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center"
+                android:text="@string/query_logistics"
+                android:textSize="@dimen/textsize15"
+                android:textColor="@color/login_title_text"
+                android:background="@drawable/order_self_black_btn"/>
+            
+
             <TextView
                 android:id="@+id/tv_exit_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/order_exit"
+                android:layout_marginLeft="@dimen/margin_15"
                 android:textSize="@dimen/textsize15"
                 android:textColor="@color/login_title_text"
                 android:background="@drawable/order_self_black_btn"/>

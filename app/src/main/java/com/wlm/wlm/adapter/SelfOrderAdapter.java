@@ -3,6 +3,7 @@ package com.wlm.wlm.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.WebViewActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.ShipStatusEnum;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.UiHelper;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -88,7 +91,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             holder.tv_exit_order.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setVisibility(View.VISIBLE);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             Date str = new Date();
             try {
@@ -103,15 +106,17 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
                 holder.tv_exit_order.setVisibility(View.GONE);
                 holder.tv_go_pay.setVisibility(View.GONE);
                 holder.tv_ship_pay.setText("已失效");
-            }
+            }*/
 
         }else if (selfOrderBeans.get(position).getOrderStatus() == 2){
             holder.tv_go_pay.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setText("确认收货");
+            holder.tv_query_logistics.setVisibility(View.VISIBLE);
             holder.tv_exit_order.setVisibility(View.GONE);
         }else if (selfOrderBeans.get(position).getOrderStatus() == 4){
             holder.tv_go_pay.setVisibility(View.GONE);
             holder.tv_exit_order.setVisibility(View.GONE);
+            holder.tv_query_logistics.setVisibility(View.VISIBLE);
         }else if (selfOrderBeans.get(position).getOrderStatus() == 5){
             holder.tv_exit_order.setVisibility(View.GONE);
             holder.tv_go_pay.setVisibility(View.GONE);
@@ -148,6 +153,17 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
 //                        onItemClick.getQrcode(selfOrderBeans.get(position).getErm());
                     }
                 }
+            }
+        });
+
+        holder.tv_query_logistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("type","5");
+                bundle.putString("ordersn",selfOrderBeans.get(position).getOrderSn());
+                UiHelper.launcherBundle(context, WebViewActivity.class,bundle);
             }
         });
 
@@ -211,6 +227,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         private TextView tv_exit_order;
         private TextView tv_go_pay;
         private TextView tv_integral;
+        private TextView tv_query_logistics;
         public ViewHolder(View itemView) {
             super(itemView);
             tv_order_time = (TextView) itemView.findViewById(R.id.tv_order_time);
@@ -221,6 +238,7 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             tv_exit_order = (TextView) itemView.findViewById(R.id.tv_exit_order);
             tv_go_pay = (TextView) itemView.findViewById(R.id.tv_go_pay);
             tv_integral = (TextView) itemView.findViewById(R.id.tv_integral);
+            tv_query_logistics = (TextView) itemView.findViewById(R.id.tv_query_logistics);
         }
     }
 

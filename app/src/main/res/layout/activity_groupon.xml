@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="@color/setting_title_color">
+        android:background="@color/point_red">
 
         <LinearLayout
             android:id="@+id/ll_back"
@@ -48,16 +48,14 @@
     <com.xw.banner.Banner
         android:id="@+id/bannerView"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
-        android:layout_marginTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/padding_10"
-        app:indicator_width="4dp"
-        app:indicator_height="4dp"
-        app:indicator_margin="3dp"
-        app:indicator_drawable_selected="@drawable/ic_circle_round_click"
-        app:indicator_drawable_unselected="@drawable/ic_circle_round_unclick"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:page_margin="20dp"/>
+        android:layout_height="175dp"
+        android:layout_marginBottom="10dp"
+        app:indicator_width="10dp"
+        app:indicator_height="10dp"
+        app:indicator_margin="5dp"
+        app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
+        app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
 
 
         <LinearLayout
@@ -67,10 +65,10 @@
             android:id="@+id/ll_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textcolor="@color/setting_title_color"
+            app:textcolor="@color/bg_crowdfunding"
             app:textnormalcolor="@color/list_divider"
-            app:up_arrow="@mipmap/ic_store_dot_up"
-            app:down_arrow="@mipmap/ic_store_dot_down"
+            app:up_arrow="@mipmap/ic_red_arrow_up"
+            app:down_arrow="@mipmap/ic_red_arrow_down"
             app:type="2"
             />
         </LinearLayout>

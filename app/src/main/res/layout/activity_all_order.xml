@@ -281,6 +281,20 @@
             android:layout_alignParentRight="true">
 
             <TextView
+                android:id="@+id/tv_query_logistics"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="@string/query_logistics"
+                android:textSize="@dimen/textsize14"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
+                android:layout_marginRight="@dimen/margin_10"
+                android:background="@drawable/order_self_black_btn"
+                android:textColor="@color/grey_color2"/>
+
+            <TextView
                 android:id="@+id/tv_exit_order"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

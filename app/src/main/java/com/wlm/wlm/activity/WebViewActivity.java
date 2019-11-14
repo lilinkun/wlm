@@ -31,6 +31,7 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
     CustomTitleBar titleBar;
 
     private String title;
+    private String ordersn;
 
     private WebviewPresenter webviewPresenter = new WebviewPresenter();
 
@@ -53,9 +54,14 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
             titleBar.setTileName("关于我们");
         }else if (title.equals("4")){
             titleBar.setTileName("VIP宝典");
+        }else if(title.equals("5")){
+            ordersn = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("ordersn");
+            titleBar.setTileName("查看物流");
         }
 
+        webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setTextZoom(100);
         webView.setWebViewClient(new WebViewClient()
         {
             public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
@@ -75,6 +81,9 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
         }
         if (title.equals("4")){
             webView.loadUrl(ProApplication.SERVIESVIP);
+        }else if(title.equals("5")){
+//            webView.loadUrl("http://192.168.0.147:88/wuliu.html");
+            webView.loadUrl(ProApplication.LOGISTICSURL+"?OrderSn=" + ordersn);
         }else {
             if (ProApplication.REGISTERREQUIREMENTS != null && !ProApplication.REGISTERREQUIREMENTS.equals("")) {
                 webView.loadUrl(ProApplication.REGISTERREQUIREMENTS);

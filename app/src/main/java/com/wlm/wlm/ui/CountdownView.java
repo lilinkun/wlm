@@ -39,6 +39,7 @@ public class CountdownView extends View {
     private boolean isShowTimeBgDivisionLine;
     private boolean isTimeTextBold;
     private boolean isSuffixTextBold;
+    private boolean isShowBg;
 
     private Paint mTimeTextPaint;
     private Paint mSuffixTextPaint;
@@ -58,6 +59,7 @@ public class CountdownView extends View {
     private float mTimeBgDivisionLineSize;
     private float mTimeTextBaseY;
     private float mTimeBgDivisionLineYPos;
+
 
     private String mSuffix, mSuffixDay, mSuffixHour, mSuffixMinute, mSuffixSecond, mSuffixMillisecond;
     private int mSuffixTextColor;
@@ -126,6 +128,8 @@ public class CountdownView extends View {
         isShowMinute = ta.getBoolean(R.styleable.CountdownView1_isShowMinute, true);
         isShowSecond = ta.getBoolean(R.styleable.CountdownView1_isShowSecond, true);
         isShowMillisecond = ta.getBoolean(R.styleable.CountdownView1_isShowMillisecond, false);
+
+        isShowBg = ta.getBoolean(R.styleable.CountdownView1_isShowBg,false);
 
         mHasSetIsShowDay = ta.hasValue(R.styleable.CountdownView1_isShowDay);
         mHasSetIsShowHour = ta.hasValue(R.styleable.CountdownView1_isShowHour);

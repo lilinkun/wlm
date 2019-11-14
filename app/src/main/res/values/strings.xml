@@ -220,6 +220,7 @@
     
     <!--订单-->
     <string name="order_exit">取消订单</string>
+    <string name="query_logistics">查看物流</string>
     <string name="go_pay">去付款</string>
     <string name="no_order_tip">还没有相关的订单呢</string>
     <string name="right_now_pay">立即支付</string>

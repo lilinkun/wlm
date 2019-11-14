@@ -79,7 +79,7 @@ public class ManufactureStoreActivity extends BaseActivity implements IGoodsType
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.store_bg));
+        Eyes.setStatusBarColor(this,getResources().getColor(R.color.point_red));
 
         ActivityUtil.addHomeActivity(this);
 

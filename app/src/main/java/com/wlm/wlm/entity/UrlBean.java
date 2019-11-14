@@ -15,6 +15,15 @@ public class UrlBean {
     private String ServiesVip;
     private int IsAuditing;
     private int IsAndroidAuditing;
+    private String LogisticsUrl;
+
+    public String getLogisticsUrl() {
+        return LogisticsUrl;
+    }
+
+    public void setLogisticsUrl(String logisticsUrl) {
+        LogisticsUrl = logisticsUrl;
+    }
 
     public int getIsAndroidAuditing() {
         return IsAndroidAuditing;

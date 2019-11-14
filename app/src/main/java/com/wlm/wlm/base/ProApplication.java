@@ -109,6 +109,8 @@ public class ProApplication extends Application{
 
     public static String SERVIESVIP = "";
 
+    public static String LOGISTICSURL = "";
+
     public static Boolean isAudinLogin = false;
 
 

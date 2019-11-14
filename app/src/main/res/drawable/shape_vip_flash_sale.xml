@@ -4,4 +4,7 @@
     <corners android:radius="2dp"/>
     <solid android:color="#ffdaef"/>
 
+    <padding android:left="@dimen/margin_2"
+        android:right="@dimen/margin_2"/>
+
 </shape>

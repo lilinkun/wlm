@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/store_bg"
+    android:background="@color/point_red"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -51,7 +51,7 @@
             android:id="@+id/layout_visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/store_bg">
+            android:background="@color/point_red">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,6 +97,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/margin_10"
+            android:visibility="gone"
             android:background="@drawable/shape_integral_layout">
 
             <TextView
@@ -196,16 +197,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/bg_list"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/shape_integral_layout"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.wlm.wlm.ui.TopLinearlayout
                 android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:textcolor="@color/setting_title_color"
+                app:textcolor="@color/bg_crowdfunding"
                 app:textnormalcolor="@color/list_divider"
-                app:up_arrow="@mipmap/ic_store_dot_up"
-                app:down_arrow="@mipmap/ic_store_dot_down"
+                app:up_arrow="@mipmap/ic_red_arrow_up"
+                app:down_arrow="@mipmap/ic_red_arrow_down"
                 />
 
             <!--<android.support.v4.view.ViewPager

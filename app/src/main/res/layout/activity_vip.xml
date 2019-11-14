@@ -154,11 +154,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:textSize="@dimen/textsize15"
+                        android:textColor="@color/white"
+                        />
+
+                    <!--<TextView
+                        android:id="@+id/tv_userid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:textSize="@dimen/textsize15"
                         android:textColor="@color/vip_text_bg"
                         android:shadowColor="@color/white"
                         android:shadowDx="0"
                         android:shadowDy="1"
-                        android:shadowRadius="1"/>
+                        android:shadowRadius="1"/>-->
 
                 </LinearLayout>
 
