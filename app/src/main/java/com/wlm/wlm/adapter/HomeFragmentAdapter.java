@@ -9,13 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.HomeCategoryBean;
-import com.wlm.wlm.entity.TBbean;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +29,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
         this.tBbeans = tBbeans;
     }
 
-    public void setData( List<HomeCategoryBean> tBbeans){
+    public void setData(List<HomeCategoryBean> tBbeans) {
         this.tBbeans = tBbeans;
         notifyDataSetChanged();
     }

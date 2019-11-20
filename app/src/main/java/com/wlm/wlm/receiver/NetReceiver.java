@@ -12,7 +12,7 @@ import android.support.v7.app.AlertDialog;
  * Created by LG on 2019/1/18.
  */
 
-public class NetReceiver extends BroadcastReceiver{
+public class NetReceiver extends BroadcastReceiver {
 
     private AlertDialog alertDialog;
 
@@ -21,17 +21,17 @@ public class NetReceiver extends BroadcastReceiver{
 
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable()){
-            if (alertDialog != null){
+        if (networkInfo != null && networkInfo.isAvailable()) {
+            if (alertDialog != null) {
                 alertDialog.cancel();
             }
-        }else {
+        } else {
             Dialog(context);
         }
 
     }
 
-    private void Dialog(final Context context){
+    private void Dialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("提示");
         builder.setMessage("网络断开");

@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
 import com.wlm.wlm.ui.MyTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -26,12 +26,12 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
     private OnItemClickListener mItemClickListener;
 
-    public MemberShipAdapter(Context context,ArrayList<SelfGoodsBean> selfGoodsBeans){
+    public MemberShipAdapter(Context context, ArrayList<SelfGoodsBean> selfGoodsBeans) {
         this.context = context;
         this.selfGoodsBeans = selfGoodsBeans;
     }
 
-    public void setData(ArrayList<SelfGoodsBean> selfGoodsBeans){
+    public void setData(ArrayList<SelfGoodsBean> selfGoodsBeans) {
         this.selfGoodsBeans = selfGoodsBeans;
         notifyDataSetChanged();
     }
@@ -39,7 +39,7 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_membership,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_membership, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -55,8 +55,8 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
         SelfGoodsBean selfGoodsBean = selfGoodsBeans.get(position);
 
         holder.tx_goods_title.setText(selfGoodsBean.getGoods_name());
-        holder.tx_goods_msg.setText(selfGoodsBean.getShop_price()+"");
-        holder.tv_goods_sales_volume.setText(selfGoodsBean.getUse_number()+"人已买");
+        holder.tx_goods_msg.setText(selfGoodsBean.getShop_price() + "");
+        holder.tv_goods_sales_volume.setText(selfGoodsBean.getUse_number() + "人已买");
         holder.tv_original_price.setText(selfGoodsBean.getShop_name());
         holder.tv_integral.setText("可用积分抵扣" + selfGoodsBean.getGive_integral());
 
@@ -76,7 +76,7 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -85,14 +85,14 @@ public class MemberShipAdapter extends RecyclerView.Adapter<MemberShipAdapter.Vi
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private CustomRoundAngleImageView iv_goods_pic;
-        private TextView tx_goods_title, tv_original_price, tv_goods_sales_volume,tv_integral;
+        private TextView tx_goods_title, tv_original_price, tv_goods_sales_volume, tv_integral;
         private MyTextView tx_goods_msg;
 
         public ViewHolder(View itemView) {

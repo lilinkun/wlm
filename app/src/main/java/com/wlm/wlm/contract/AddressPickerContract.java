@@ -11,5 +11,6 @@ import java.util.ArrayList;
 
 public interface AddressPickerContract extends IView {
     public void getDataSuccess(ArrayList<ProvinceBean> provinceBeans, int id);
+
     public void getDataFail(String msg);
 }

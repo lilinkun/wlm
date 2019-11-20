@@ -32,7 +32,7 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -51,17 +51,17 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
         }
     }
 
-    public void getGoodsDetail(String goodsId,String SessionId){
+    public void getGoodsDetail(String goodsId, String SessionId) {
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsGet");
-        params.put("GoodsId",goodsId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsGet");
+        params.put("GoodsId", goodsId);
+        params.put("SessionId", SessionId);
 
         mCompositeSubscription.add(manager.getSelfGoodDetailInfo(params)
                 .subscribeOn(Schedulers.io())
@@ -69,7 +69,7 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>, Object>() {
 
                     @Override
-                    public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status,Object page) {
+                    public void onResponse(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> objectObjectGoodsDetailBean, String status, Object page) {
                         selfGoodsDetailContract.getDataSuccess(objectObjectGoodsDetailBean);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
@@ -89,21 +89,20 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
     }
 
 
-
-    public void onCollect(String OtherId,String CollectType,String SessionId){
+    public void onCollect(String OtherId, String CollectType, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectCreate");
-        params.put("OtherId",OtherId);
-        params.put("CollectType",CollectType);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "CollectCreate");
+        params.put("OtherId", OtherId);
+        params.put("CollectType", CollectType);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.addGoodCollect(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<String, Object>() {
 
                     @Override
-                    public void onResponse(String collectBean, String status,Object page) {
+                    public void onResponse(String collectBean, String status, Object page) {
                         selfGoodsDetailContract.addCollectSuccess(collectBean);
                     }
 
@@ -116,22 +115,23 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 是否有收藏
+     *
      * @param goodsId
      * @param SessionId
      */
-    public void isCollect(String goodsId,String SessionId){
+    public void isCollect(String goodsId, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","IsCollect");
-        params.put("CollectId",goodsId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "IsCollect");
+        params.put("CollectId", goodsId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.isGoodCollect(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<String, Object>() {
 
                     @Override
-                    public void onResponse(String collectBean, String status,Object page) {
+                    public void onResponse(String collectBean, String status, Object page) {
 //                        selfGoodsDetailContract.addCollectSuccess(collectBean);
                         selfGoodsDetailContract.isGoodsCollectSuccess(collectBean);
                     }
@@ -146,22 +146,23 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 删除收藏
+     *
      * @param SessionId
      */
-    public void deleteCollect(String goodsId,String CollectType,String SessionId){
+    public void deleteCollect(String goodsId, String CollectType, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectDeleteGoods");
-        params.put("OtherId",goodsId);
-        params.put("CollectType",CollectType);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "CollectDeleteGoods");
+        params.put("OtherId", goodsId);
+        params.put("CollectType", CollectType);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.DeleteCollectGood(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<String, Object>() {
                     @Override
-                    public void onResponse(String collectBeans, String status,Object page) {
-                       selfGoodsDetailContract.deleteCollectSuccess(collectBeans);
+                    public void onResponse(String collectBeans, String status, Object page) {
+                        selfGoodsDetailContract.deleteCollectSuccess(collectBeans);
                     }
 
                     @Override
@@ -174,26 +175,27 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 加入购物车
+     *
      * @param GoodsId
      * @param AttrId
      * @param Num
      * @param SessionId
      */
-    public void addCartAdd(String GoodsId,String AttrId,String Num,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","加入购物车...",true);
+    public void addCartAdd(String GoodsId, String AttrId, String Num, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "加入购物车...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Cart");
-        params.put("fun","CartCreate");
-        params.put("GoodsId",GoodsId);
-        params.put("attr_id",AttrId);
-        params.put("Num",Num);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Cart");
+        params.put("fun", "CartCreate");
+        params.put("GoodsId", GoodsId);
+        params.put("attr_id", AttrId);
+        params.put("Num", Num);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.addCartAdd(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<String, Object>() {
                     @Override
-                    public void onResponse(String collectBeans, String status,Object page) {
+                    public void onResponse(String collectBeans, String status, Object page) {
 
                         selfGoodsDetailContract.addCartSuccess(collectBeans);
 
@@ -214,21 +216,22 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 随机推荐商品
+     *
      * @param GoodsId
      */
-    public void randomGoods(String type,String GoodsId){
+    public void randomGoods(String type, String GoodsId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListRecommendVip");
-        params.put("type",type);
-        params.put("GoodsFlag","2");
-        params.put("GoodsId",GoodsId);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListRecommendVip");
+        params.put("type", type);
+        params.put("GoodsFlag", "2");
+        params.put("GoodsId", GoodsId);
         mCompositeSubscription.add(manager.getGoodsList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status,Object page) {
+                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status, Object page) {
                         selfGoodsDetailContract.getCommendGoodsSuccess(goodsListBeans);
                     }
 
@@ -242,21 +245,22 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
 
     /**
      * 判断是否有地址
+     *
      * @param SessionId
      */
-    public void isUserAddress(String PageIndex,String PageCount,String SessionId){
+    public void isUserAddress(String PageIndex, String PageCount, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddressList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("SessionId",SessionId);
+        params.put("cls", "ReceiptAddress");
+        params.put("fun", "ReceiptAddressList");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getConsigneeAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<AddressBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<AddressBean> addressBeans, String status,Object page) {
+                    public void onResponse(ArrayList<AddressBean> addressBeans, String status, Object page) {
 
                         selfGoodsDetailContract.isAddressSuccess(addressBeans);
 

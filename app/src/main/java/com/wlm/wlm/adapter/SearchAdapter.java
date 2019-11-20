@@ -28,14 +28,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private GoodsListBean goodsListBean;
     private OnItemClickListener onItemClickListener;
 
-    public SearchAdapter(Context context,ArrayList<GoodsListBean> goodsListBeans){
+    public SearchAdapter(Context context, ArrayList<GoodsListBean> goodsListBeans) {
         this.context = context;
         this.goodsListBeans = goodsListBeans;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_search, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_search, parent, false);
 
         ViewHolder myViewHolder = new ViewHolder(view);
 
@@ -56,18 +56,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
             holder.goodsPriceTv.setText("" + goodsListBean.getPrice());
 
-            holder.tv_add_integral.setText(goodsListBean.getIntegral()+"");
-            holder.tv_old_price.setText("¥"+goodsListBean.getMarketPrice());
-            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            holder.tv_add_integral.setText(goodsListBean.getIntegral() + "");
+            holder.tv_old_price.setText("¥" + goodsListBean.getMarketPrice());
+            holder.tv_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
 
-            if(MallType.getVipById(goodsListBean.getGoodsType()) != null) {
+            if (MallType.getVipById(goodsListBean.getGoodsType()) != null) {
 
                 holder.tv_goods_type.setText(MallType.getVipById(goodsListBean.getGoodsType()).getTypeName());
 
                 holder.tv_goods_type.setBackgroundResource(MallType.getVipById(goodsListBean.getGoodsType()).getDrawBg());
 
-            }else {
+            } else {
 
 //                holder.tv_goods_type.setText(MallType.getVipById(0+"").getTypeName());
 
@@ -92,7 +92,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onClick(View v) {
-        if (onItemClickListener!=null){
+        if (onItemClickListener != null) {
             onItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -101,7 +101,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         onItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 

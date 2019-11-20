@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.TbGoodsBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
-import com.squareup.picasso.Picasso;
-import com.wlm.wlm.util.WlmUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     Context context;
     List<TbGoodsBean> tbGoodsBeans = null;
 
-    public CouponAdapter(Context context,List<TbGoodsBean> tbGoodsBeans){
+    public CouponAdapter(Context context, List<TbGoodsBean> tbGoodsBeans) {
         this.context = context;
         this.tbGoodsBeans = tbGoodsBeans;
     }
@@ -36,7 +34,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_coupon_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_coupon_item, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -64,10 +62,10 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         return tbGoodsBeans.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public CustomRoundAngleImageView img_goods_icon;
-        public TextView tx_goods_msg,tx_goods_title,tv_original_price,tv_create_time,tv_coupon_price;
+        public TextView tx_goods_msg, tx_goods_title, tv_original_price, tv_create_time, tv_coupon_price;
 
         public ViewHolder(View itemView) {
             super(itemView);

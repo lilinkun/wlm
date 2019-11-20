@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
-import com.squareup.picasso.Picasso;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -20,12 +19,12 @@ import java.util.ArrayList;
  * Created by LG on 2018/12/19.
  */
 
-public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdapter.ViewHolder>{
+public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<SelfOrderInfoBean> selfOrderInfoBeans;
 
-    public SelfOrderListAdapter(Context context,ArrayList<SelfOrderInfoBean> selfOrderInfoBeans){
+    public SelfOrderListAdapter(Context context, ArrayList<SelfOrderInfoBean> selfOrderInfoBeans) {
         this.context = context;
         this.selfOrderInfoBeans = selfOrderInfoBeans;
     }
@@ -33,7 +32,7 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.order_list_self_goods,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.order_list_self_goods, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -46,9 +45,9 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
         holder.tv_goods_title.setText("" + selfOrderInfoBeans.get(position).getGoodsName());
         holder.tv_goods_price.setText("¥" + selfOrderInfoBeans.get(position).getPrice());
 
-        if (selfOrderInfoBeans.get(position).getIntegral()  == 0){
+        if (selfOrderInfoBeans.get(position).getIntegral() == 0) {
             holder.tv_integral.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.tv_integral.setText("+" + selfOrderInfoBeans.get(position).getIntegral() + "积分");
         }
 
@@ -73,7 +72,7 @@ public class SelfOrderListAdapter extends RecyclerView.Adapter<SelfOrderListAdap
         return position;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_goods_count;
         private TextView tv_goods_title;

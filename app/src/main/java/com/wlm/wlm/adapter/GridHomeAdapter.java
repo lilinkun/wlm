@@ -19,14 +19,14 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
     private Context context;
     private OnItemClickListener mItemClickListener;
 
-    public GridHomeAdapter(Context context){
+    public GridHomeAdapter(Context context) {
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_item_home,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_item_home, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -59,7 +59,7 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -68,11 +68,11 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView iv_home_grid;
         private TextView tv_home_grid;

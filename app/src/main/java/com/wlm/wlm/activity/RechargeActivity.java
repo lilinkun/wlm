@@ -7,8 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,21 +17,16 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.RechargeContract;
 import com.wlm.wlm.entity.BalanceBean;
-import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.WxInfo;
-import com.wlm.wlm.entity.WxInfoBean;
-import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.RechargePresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.SoftKeyboardUtil;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXPayEntryActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -44,7 +37,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/11/21.
  */
 
-public class RechargeActivity extends BaseActivity implements OnTitleBarClickListener ,RechargeContract, IWxResultListener {
+public class RechargeActivity extends BaseActivity implements OnTitleBarClickListener, RechargeContract, IWxResultListener {
 
     @BindView(R.id.titlebar)
     CustomTitleBar customTitleBar;
@@ -80,22 +73,22 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        rechargePresenter.onCreate(this,this);
+        rechargePresenter.onCreate(this, this);
 
         WXPayEntryActivity.setPayListener(this);
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         balanceBean = (BalanceBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.BALANCEBEAN);
 
-        tv_account.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
-        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL,"").isEmpty()) {
+        tv_account.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, ""));
+        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL, "").isEmpty()) {
             Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(tv_head);
         }
-        tv_integral.setText((int)balanceBean.getMoney2Balance()+"");
+        tv_integral.setText((int) balanceBean.getMoney2Balance() + "");
 
 //        rechargePresenter.getBalance(ProApplication.SESSIONID(this));
 
@@ -114,7 +107,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().equals("") && s.toString().trim().length() > 0) {
                     tv_charge_amount.setText(Integer.valueOf(s.toString()) * 10 + "");
-                }else {
+                } else {
                     tv_charge_amount.setText("0");
                 }
             }
@@ -127,12 +120,12 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
 
     }
 
-    @OnClick({R.id.recharge_commit,R.id.text_100,R.id.text_200,R.id.text_500,R.id.et_amount})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.recharge_commit, R.id.text_100, R.id.text_200, R.id.text_500, R.id.et_amount})
+    public void onClick(View view) {
+        switch (view.getId()) {
 
             case R.id.et_amount:
-                SoftKeyboardUtil.openKeybord(et_amount,this);
+                SoftKeyboardUtil.openKeybord(et_amount, this);
                 changeStatus(recharge_commit);
                 ll_edit_amount.setBackgroundResource(R.drawable.rechange_unframe);
                 break;
@@ -140,7 +133,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
 
                 if (!et_amount.getText().toString().trim().isEmpty() && Integer.valueOf(et_amount.getText().toString()) > 0) {
                     rechargePresenter.setWxPay("0", et_amount.getText().toString(), ProApplication.SESSIONID(this));
-                }else {
+                } else {
                     toast("请输入金额");
                 }
 
@@ -166,13 +159,13 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
         }
     }
 
-    private void changeStatus(TextView textView){
+    private void changeStatus(TextView textView) {
         ll_edit_amount.setBackgroundResource(R.drawable.rechange_frame);
-        for (int i = 0;i<textViews.size();i++){
-            if (textViews.get(i).getId() == textView.getId()){
+        for (int i = 0; i < textViews.size(); i++) {
+            if (textViews.get(i).getId() == textView.getId()) {
                 textViews.get(i).setSelected(true);
-                et_amount.setText(textViews.get(i).getText().toString().substring(0,textViews.get(i).getText().length()-1));
-            }else {
+                et_amount.setText(textViews.get(i).getText().toString().substring(0, textViews.get(i).getText().length() - 1));
+            } else {
                 textViews.get(i).setSelected(false);
             }
         }
@@ -188,22 +181,22 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void onBackClick() {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+        bundle.putSerializable(WlmUtil.BALANCEBEAN, balanceBean);
         Intent intent = new Intent();
-        intent.putExtra(WlmUtil.TYPEID,bundle);
-        setResult(RESULT_OK,intent);
+        intent.putExtra(WlmUtil.TYPEID, bundle);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+            bundle.putSerializable(WlmUtil.BALANCEBEAN, balanceBean);
             Intent intent = new Intent();
-            intent.putExtra(WlmUtil.TYPEID,bundle);
-            setResult(RESULT_OK,intent);
+            intent.putExtra(WlmUtil.TYPEID, bundle);
+            setResult(RESULT_OK, intent);
             finish();
             return true;
         }
@@ -214,9 +207,8 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void setReChargeSuccess(WxInfo wxInfoBean) {
 //        WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepayid(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
-        WlmUtil.wxPay(wxInfoBean.getAppId(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNonceStr(),wxInfoBean.getTimeStamp(),wxInfoBean.getPaySign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppId(), wxInfoBean.getPartnerid(), wxInfoBean.getPrepayid(), wxInfoBean.getNonceStr(), wxInfoBean.getTimeStamp(), wxInfoBean.getPaySign(), this);
     }
-
 
 
     @Override
@@ -227,7 +219,7 @@ public class RechargeActivity extends BaseActivity implements OnTitleBarClickLis
     @Override
     public void InfoAccountSuccess(BalanceBean countBean) {
         this.balanceBean = countBean;
-        tv_integral.setText((int)countBean.getMoney2Balance()+"");
+        tv_integral.setText((int) countBean.getMoney2Balance() + "");
     }
 
     @Override

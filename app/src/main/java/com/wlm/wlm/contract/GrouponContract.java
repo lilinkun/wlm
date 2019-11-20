@@ -12,8 +12,10 @@ import java.util.ArrayList;
  */
 public interface GrouponContract extends IView {
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean page);
+
     public void getFail(String msg);
 
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
+
     public void onFlashFail(String msg);
 }

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 收货地址实体类
  * Created by LG on 2018/12/9.
  */
-public class AddressBean implements Serializable{
+public class AddressBean implements Serializable {
     private String AddressID;//收货人Id
     private String Name;//收货人姓名
     private String country;//国家

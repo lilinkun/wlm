@@ -1,12 +1,9 @@
 package com.wlm.wlm.fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -22,7 +19,6 @@ import com.wlm.wlm.contract.FindContract;
 import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.FindPresenter;
-import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -59,10 +55,10 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
     @Override
     public void initEventAndData() {
 
-        iwxapi = WXAPIFactory.createWXAPI(getActivity(),WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(getActivity(), WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
-        findPresenter.onCreate(getActivity(),this);
+        findPresenter.onCreate(getActivity(), this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,17 +72,17 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
             @Override
             public void onRefresh() {
                 page_index = 1;
-                findPresenter.getFindData(page_index+"", WlmUtil.PAGE_COUNT);
+                findPresenter.getFindData(page_index + "", WlmUtil.PAGE_COUNT);
             }
 
             @Override
             public void onLoadMore() {
 
-                if (pageBean != null){
-                    if(pageBean.getMaxPage() > page_index){
+                if (pageBean != null) {
+                    if (pageBean.getMaxPage() > page_index) {
                         page_index++;
-                        findPresenter.getFindData(page_index+"", WlmUtil.PAGE_COUNT);
-                    }else {
+                        findPresenter.getFindData(page_index + "", WlmUtil.PAGE_COUNT);
+                    } else {
                         rv_find.setNoMore(true);
                     }
                 }
@@ -94,7 +90,7 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
             }
         });
 
-        findPresenter.getFindData(page_index+"",WlmUtil.PAGE_COUNT);
+        findPresenter.getFindData(page_index + "", WlmUtil.PAGE_COUNT);
     }
 
     @Override
@@ -103,16 +99,16 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
         rv_find.refreshComplete();
         rv_find.loadMoreComplete();
 
-        if (findAdapter == null){
+        if (findAdapter == null) {
             goodsDiscoverBeans = goodsDiscoverList;
             ArrayList<String> strings = new ArrayList<>();
-            findAdapter = new FindAdapter(getActivity(),goodsDiscoverBeans,ll_find);
+            findAdapter = new FindAdapter(getActivity(), goodsDiscoverBeans, ll_find);
             findAdapter.setFindListener(this);
             rv_find.setAdapter(findAdapter);
-        }else {
-            if (pageBean.getPageIndex() > 1){
+        } else {
+            if (pageBean.getPageIndex() > 1) {
                 goodsDiscoverBeans.addAll(goodsDiscoverList);
-            }else {
+            } else {
                 goodsDiscoverBeans = goodsDiscoverList;
             }
             findAdapter.setData(goodsDiscoverBeans);
@@ -121,11 +117,11 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
 
     @Override
     public void onGetDataFail(String msg) {
-        UToast.show(getActivity(),msg);
+        UToast.show(getActivity(), msg);
     }
 
     @Override
-    public void onShard(final String goodsid,final String goodsname,String imgPath) {
+    public void onShard(final String goodsid, final String goodsname, String imgPath) {
 
         Picasso.with(getActivity()).load(imgPath).into(new Target() {
             @Override
@@ -136,9 +132,9 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
 
-                WlmUtil.setShared(iwxapi,path,goodsname,goodsname,baos.toByteArray());
+                WlmUtil.setShared(iwxapi, path, goodsname, goodsname, baos.toByteArray());
             }
 
             @Override

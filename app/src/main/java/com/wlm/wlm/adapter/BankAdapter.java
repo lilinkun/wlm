@@ -21,7 +21,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
     private ArrayList<BankBean> bankBeans;
     private OnItemClickListener mItemClickListener;
 
-    public BankAdapter(Context context,ArrayList<BankBean> bankBeans){
+    public BankAdapter(Context context, ArrayList<BankBean> bankBeans) {
         this.context = context;
         this.bankBeans = bankBeans;
     }
@@ -29,7 +29,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_choose_groupon,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_choose_groupon, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -51,21 +51,21 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
 
-    public void setOnItemClick(OnItemClickListener mItemClickListener){
+    public void setOnItemClick(OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         public void onItemClick(int position);
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_groupon;
 

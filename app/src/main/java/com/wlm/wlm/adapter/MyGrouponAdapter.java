@@ -1,9 +1,6 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
@@ -21,7 +17,6 @@ import com.wlm.wlm.entity.GrouponListBean;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXEntryActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -34,11 +29,11 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
     private OnItemClickListener mItemClickListener;
     IWXAPI iwxapi = null;
 
-    public MyGrouponAdapter(Context context, ArrayList<GrouponListBean> grouponListBeans){
+    public MyGrouponAdapter(Context context, ArrayList<GrouponListBean> grouponListBeans) {
         this.context = context;
         this.grouponListBeans = grouponListBeans;
 
-        iwxapi = WXAPIFactory.createWXAPI(context,WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(context, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
         WXEntryActivity.wxType(WlmUtil.WXTYPE_SHARED);
@@ -47,7 +42,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_mygroupon,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_mygroupon, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -69,7 +64,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
         if (grouponListBeans.get(position).getQty() == 2) {
             holder.tv_goods_spec1.setText(grouponListBeans.get(position).getGoodsSpec1() + " , ");
             holder.tv_goods_spec2.setText(grouponListBeans.get(position).getGoodsSpec2());
-        }else if (grouponListBeans.get(position).getQty() == 1) {
+        } else if (grouponListBeans.get(position).getQty() == 1) {
             holder.tv_goods_spec1.setText(grouponListBeans.get(position).getGoodsSpec1());
         }
 
@@ -118,7 +113,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
         return position;
     }
 
-    public void setData(ArrayList<GrouponListBean> selfOrderBeans){
+    public void setData(ArrayList<GrouponListBean> selfOrderBeans) {
         this.grouponListBeans = selfOrderBeans;
         notifyDataSetChanged();
     }
@@ -126,7 +121,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -135,7 +130,7 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 

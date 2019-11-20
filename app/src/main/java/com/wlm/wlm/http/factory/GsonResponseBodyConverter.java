@@ -23,23 +23,24 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     /**
      * 针对数据返回成功、错误不同类型字段处理
      */
-    @Override public T convert(ResponseBody value) throws IOException {
+    @Override
+    public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         try {
             ResultBean result = gson.fromJson(response, ResultBean.class);
             String code = result.getStatus();
-            if (code.equals("success")){
+            if (code.equals("success")) {
                 return gson.fromJson(response, type);
             } else {
                 Log.d("HttpManager", "返回err==：" + response);
                 ResultBean errResponse = gson.fromJson(response, ResultBean.class);
-                if(code.equals("error")){
+                if (code.equals("error")) {
                     throw new ResultException(errResponse.getDesc(), code);
-                }else{
+                } else {
                     throw new ResultException(errResponse.getDesc(), code);
                 }
             }
-        }finally {
+        } finally {
             value.close();
         }
     }

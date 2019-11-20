@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.entity.BalanceDetailBean;
-import com.wlm.wlm.entity.PointListBean;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -26,20 +24,20 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
     private Context mContext;
     private int type = 0;
 
-    public IntegralAdapter(Context mContext, ArrayList<BalanceDetailBean> balanceDetailBeans, int type){
+    public IntegralAdapter(Context mContext, ArrayList<BalanceDetailBean> balanceDetailBeans, int type) {
         this.mContext = mContext;
         this.balanceDetailBeans = balanceDetailBeans;
         this.type = type;
     }
 
-    public void setData(ArrayList<BalanceDetailBean> integralBeans){
+    public void setData(ArrayList<BalanceDetailBean> integralBeans) {
         this.balanceDetailBeans = integralBeans;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_integral,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_integral, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -56,28 +54,28 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
         if (balanceDetailBeans.get(position).getReceiptsOrOut() == -1) {
             if (type == 1) {
                 holder.tv_price.setText("-" + expenditureMoney + "元");
-            }else {
-                holder.tv_price.setText("-" + expenditureMoney );
+            } else {
+                holder.tv_price.setText("-" + expenditureMoney);
             }
             holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.login_title_text));
-        }else {
-            if (type == 1 ) {
+        } else {
+            if (type == 1) {
                 holder.tv_price.setText("+" + expenditureMoney + "元");
-            }else {
-                holder.tv_price.setText("+" + expenditureMoney );
+            } else {
+                holder.tv_price.setText("+" + expenditureMoney);
             }
             holder.tv_price.setTextColor(mContext.getResources().getColor(R.color.setting_title_color));
         }
 
-        if (type == 2){
+        if (type == 2) {
             holder.tv_total.setVisibility(View.GONE);
         }
 
 //        if (type == 1){
 
-            String balance = WlmUtil.getPriceNum(balanceDetailBeans.get(position).getBalance());
+        String balance = WlmUtil.getPriceNum(balanceDetailBeans.get(position).getBalance());
 
-            holder.tv_total.setText("剩余：" + balance);
+        holder.tv_total.setText("剩余：" + balance);
 //        }else {
 //            holder.tv_total.setVisibility(View.GONE);
 //        }
@@ -89,7 +87,7 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
         return balanceDetailBeans.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_title;
         private TextView tv_date;

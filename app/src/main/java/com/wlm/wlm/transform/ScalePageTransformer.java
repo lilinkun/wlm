@@ -1,7 +1,6 @@
 package com.wlm.wlm.transform;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,15 +9,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.squareup.picasso.Transformation;
 
 /**
  * Description:
  * Data：5/10/2018-10:17 AM
- *
  */
 public class ScalePageTransformer implements Transformation {
 

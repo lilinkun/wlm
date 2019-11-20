@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public interface MessageContract extends IView {
 
     public void getArticleSuccess(ArrayList<ArticleBean> articleBeans, PageBean pageBean);
+
     public void getArticleFail(String msg);
 
 }

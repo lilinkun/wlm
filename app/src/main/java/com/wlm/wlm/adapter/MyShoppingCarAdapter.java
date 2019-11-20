@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +12,16 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
-import com.wlm.wlm.activity.ShoppingCarActivity;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.entity.GoodsInfo;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
 import com.wlm.wlm.entity.OrderGroupBean;
-import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.entity.StoreInfo;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
@@ -35,15 +29,12 @@ import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UtilTool;
 import com.wlm.wlm.util.UtilsLog;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.POST;
 
 /**
  * Created by LG on 2018/12/17.
@@ -51,7 +42,7 @@ import retrofit2.http.POST;
 
 public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
     private ArrayList<OrderGroupBean<ArrayList<OrderBean>>> groups;
-    private  Map<String,ArrayList<OrderChildBean>> map;
+    private Map<String, ArrayList<OrderChildBean>> map;
     private ArrayList<OrderChildBean> orderChildBeans;
     private Context mcontext;
     private CheckInterface checkInterface;
@@ -63,12 +54,12 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
     public static final int child_goods_result = 0x3233;
     Activity activity;
 
-    public void setGroupClickId(int groupid,boolean isCheck){
+    public void setGroupClickId(int groupid, boolean isCheck) {
         this.groupClickId = groupid;
         this.isCheck = isCheck;
     }
 
-    public MyShoppingCarAdapter(ArrayList<OrderGroupBean<ArrayList<OrderBean>>> groups, Map<String,ArrayList<OrderChildBean>> map, Context mcontext, Activity activity) {
+    public MyShoppingCarAdapter(ArrayList<OrderGroupBean<ArrayList<OrderBean>>> groups, Map<String, ArrayList<OrderChildBean>> map, Context mcontext, Activity activity) {
         this.groups = groups;
         this.mcontext = mcontext;
         this.map = map;
@@ -123,13 +114,13 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-        if (groupPosition == 0){
+        if (groupPosition == 0) {
             groupViewHolder.view.setVisibility(View.GONE);
-        }else {
+        } else {
             groupViewHolder.view.setVisibility(View.VISIBLE);
         }
 //        final StoreInfo group = (StoreInfo) getGroup(groupPosition);
-        final OrderGroupBean<ArrayList<OrderBean>> group = (OrderGroupBean<ArrayList<OrderBean>>)getGroup(groupPosition);
+        final OrderGroupBean<ArrayList<OrderBean>> group = (OrderGroupBean<ArrayList<OrderBean>>) getGroup(groupPosition);
         groupViewHolder.storeName.setText(group.getOrderListBean().getShop_name());
         groupViewHolder.storeCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,8 +150,8 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
             childViewHolder.goodsName.setText(child.getOrderBean().getGoodsName());
             childViewHolder.goodsPrice.setText("¥" + child.getOrderBean().getPrice() + "");
             childViewHolder.goodsNum.setText(String.valueOf(child.getOrderBean().getNum()));
-            childViewHolder.goods_size1.setText( child.getOrderBean().getGoodsSpec1());
-            childViewHolder.goods_size2.setText( child.getOrderBean().getGoodsSpec2());
+            childViewHolder.goods_size1.setText(child.getOrderBean().getGoodsSpec1());
+            childViewHolder.goods_size2.setText(child.getOrderBean().getGoodsSpec2());
 
             Picasso.with(mcontext).load(ProApplication.HEADIMG + child.getOrderBean().getGoodsImg()).into(childViewHolder.goodsImage);
 
@@ -193,7 +184,7 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
             childViewHolder.goodsNum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(groupPosition,childPosition,childViewHolder.goodsNum,childViewHolder.singleCheckBox.isChecked(),child);
+                    showDialog(groupPosition, childPosition, childViewHolder.goodsNum, childViewHolder.singleCheckBox.isChecked(), child);
                 }
             });
 
@@ -224,25 +215,25 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
      * @param showCountView
      * @param isChecked
      */
-    private void showDialog(final int groupPosition, final int childPosition, final View showCountView, final  boolean isChecked,final  OrderChildBean child) {
-        final AlertDialog.Builder alertDialog_Builder=new AlertDialog.Builder(mcontext);
-        View view= LayoutInflater.from(mcontext).inflate(R.layout.dialog_change_num,null);
-        final AlertDialog dialog=alertDialog_Builder.create();
+    private void showDialog(final int groupPosition, final int childPosition, final View showCountView, final boolean isChecked, final OrderChildBean child) {
+        final AlertDialog.Builder alertDialog_Builder = new AlertDialog.Builder(mcontext);
+        View view = LayoutInflater.from(mcontext).inflate(R.layout.dialog_change_num, null);
+        final AlertDialog dialog = alertDialog_Builder.create();
         dialog.setView(view);//errored,这里是dialog，不是alertDialog_Buidler
-        count=Integer.valueOf(child.getOrderBean().getNum());
-        final EditText num= (EditText) view.findViewById(R.id.dialog_num);
-        num.setText(count+"");
+        count = Integer.valueOf(child.getOrderBean().getNum());
+        final EditText num = (EditText) view.findViewById(R.id.dialog_num);
+        num.setText(count + "");
         //自动弹出键盘
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                UtilTool.showKeyboard(mcontext,showCountView);
+                UtilTool.showKeyboard(mcontext, showCountView);
             }
         });
-        final TextView increase= (TextView) view.findViewById(R.id.dialog_increaseNum);
-        final TextView DeIncrease=(TextView)view.findViewById(R.id.dialog_reduceNum);
-        final TextView pButton= (TextView) view.findViewById(R.id.dialog_Pbutton);
-        final TextView nButton= (TextView) view.findViewById(R.id.dialog_Nbutton);
+        final TextView increase = (TextView) view.findViewById(R.id.dialog_increaseNum);
+        final TextView DeIncrease = (TextView) view.findViewById(R.id.dialog_reduceNum);
+        final TextView pButton = (TextView) view.findViewById(R.id.dialog_Pbutton);
+        final TextView nButton = (TextView) view.findViewById(R.id.dialog_Nbutton);
         nButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,14 +243,14 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
         pButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number= Integer.parseInt(num.getText().toString().trim());
-                if(number==0){
+                int number = Integer.parseInt(num.getText().toString().trim());
+                if (number == 0) {
                     dialog.dismiss();
-                }else{
-                    UtilsLog.i("数量="+number+"");
-                    if (number > child.getOrderBean().getGoodsNumber()){
-                        UToast.show(mcontext,"库存不足");
-                    }else {
+                } else {
+                    UtilsLog.i("数量=" + number + "");
+                    if (number > child.getOrderBean().getGoodsNumber()) {
+                        UToast.show(mcontext, "库存不足");
+                    } else {
                         num.setText(String.valueOf(number));
                         child.getOrderBean().setNum(number);
                         modifyCountInterface.doUpdate(groupPosition, childPosition, showCountView, isChecked);
@@ -278,7 +269,7 @@ public class MyShoppingCarAdapter extends BaseExpandableListAdapter {
         DeIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count>1){
+                if (count > 1) {
                     count--;
                     num.setText(String.valueOf(count));
                 }

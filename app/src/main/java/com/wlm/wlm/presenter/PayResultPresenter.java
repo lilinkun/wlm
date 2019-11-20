@@ -45,20 +45,21 @@ public class PayResultPresenter extends BasePresenter {
     }
 
     /**
-     *　订单详情
+     * 　订单详情
+     *
      * @param OrderSn
      * @param SessionId
      */
-    public void orderDetail(String OrderSn,String SessionId){
+    public void orderDetail(String OrderSn, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","OrderInfo");
-        params.put("fun","OrderInfoGoodsDetail");
-        params.put("OrderSn",OrderSn);
-        params.put("SessionId",SessionId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoGoodsDetail");
+        params.put("OrderSn", OrderSn);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getOrderDetail(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<OrderDetailAddressBean,Object>() {
+                .subscribe(new HttpResultCallBack<OrderDetailAddressBean, Object>() {
                     @Override
                     public void onResponse(OrderDetailAddressBean orderDetailBeans, String status, Object page) {
                         payContract.setDataSuccess(orderDetailBeans);
@@ -71,16 +72,16 @@ public class PayResultPresenter extends BasePresenter {
                 }));
     }
 
-    public void getBalance(String SessionId){
+    public void getBalance(String SessionId) {
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankBase_GetBalance");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankBase_GetBalance");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBalance(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                .subscribe(new HttpResultCallBack<BalanceBean, Object>() {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         payContract.getBalanceSuccess(balanceBean);

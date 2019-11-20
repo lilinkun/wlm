@@ -2,8 +2,6 @@ package com.wlm.wlm.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -32,13 +30,12 @@ import java.util.ArrayList;
 public class CustomBannerView {
 
     /**
-     *
      * @param flashBeans
      * @param banner
      * @param context
      * @param isImageLoader 是否使用自带的imageloader
      */
-    public static void startBanner(final ArrayList<FlashBean> flashBeans, Banner banner,final Context context,boolean isImageLoader){
+    public static void startBanner(final ArrayList<FlashBean> flashBeans, Banner banner, final Context context, boolean isImageLoader) {
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < flashBeans.size(); i++) {
             strings.add("111111" + i);
@@ -47,12 +44,12 @@ public class CustomBannerView {
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
 
-        if (isImageLoader){
+        if (isImageLoader) {
             //设置图片加载器，图片加载器在下方
             banner.setImageLoader(new ImageLoaderInterface() {
                 @Override
                 public void displayImage(Context context, Object path, View imageView) {
-                    Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView)imageView);
+                    Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView) imageView);
                 }
 
                 @Override
@@ -60,7 +57,7 @@ public class CustomBannerView {
                     return null;
                 }
             });
-        }else {
+        } else {
             //设置图片加载器，图片加载器在下方
             banner.setImageLoader(new CustomRoundedImageLoader());
         }
@@ -69,7 +66,7 @@ public class CustomBannerView {
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
         banner.setBannerAnimation(Transformer.RotateDown);
 
-        banner.setPageTransformer(true,new BannerTransform());
+        banner.setPageTransformer(true, new BannerTransform());
 
         //设置轮播图的标题集合
         banner.setBannerTitles(strings);

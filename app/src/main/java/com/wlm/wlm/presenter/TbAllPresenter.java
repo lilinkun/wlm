@@ -2,13 +2,9 @@ package com.wlm.wlm.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 
-import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.contract.TbAllContract;
-import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.ResultBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
@@ -33,7 +29,7 @@ public class TbAllPresenter extends BasePresenter {
     private TbAllContract tbAllContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -53,34 +49,34 @@ public class TbAllPresenter extends BasePresenter {
         }
     }
 
-    public void setList(String PageIndex,String PageCount,String adzone_id,String q,String sort,String SessionId,String isMall){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+    public void setList(String PageIndex, String PageCount, String adzone_id, String q, String sort, String SessionId, String isMall) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取数据中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","TaobaoTbk");
-        params.put("fun","dgMaterialOptional");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("adzone_id",adzone_id);
-        params.put("has_coupon","1");
-        params.put("sort",sort);
-        params.put("SessionId",SessionId);
-        if (q.equals("文体车品")){
+        params.put("cls", "TaobaoTbk");
+        params.put("fun", "dgMaterialOptional");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("adzone_id", adzone_id);
+        params.put("has_coupon", "1");
+        params.put("sort", sort);
+        params.put("SessionId", SessionId);
+        if (q.equals("文体车品")) {
             q = "汽车";
         }
-        if (q.equals("全部")){
+        if (q.equals("全部")) {
             q = " ";
-            params.put("cat","全部");
+            params.put("cat", "全部");
         }
-        params.put("q",q);
-        params.put("is_tmall",isMall);
+        params.put("q", q);
+        params.put("is_tmall", isMall);
 
         mCompositeSubscription.add(manager.tbList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<TbjsonBean<ArrayList<TbMaterielBean>>,Object>(){
+                .subscribe(new HttpResultCallBack<TbjsonBean<ArrayList<TbMaterielBean>>, Object>() {
 
                     @Override
-                    public void onResponse(TbjsonBean<ArrayList<TbMaterielBean>> arrayListTbjsonBean, String status,Object page) {
+                    public void onResponse(TbjsonBean<ArrayList<TbMaterielBean>> arrayListTbjsonBean, String status, Object page) {
                         tbAllContract.onSuccess(arrayListTbjsonBean.getResultList());
 //                        homeContract.onSuccess(arrayListTbjsonBean.getResults()));
                         if (progressDialog != null && progressDialog.isShowing()) {

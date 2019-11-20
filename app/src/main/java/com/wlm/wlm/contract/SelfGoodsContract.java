@@ -12,5 +12,6 @@ import java.util.ArrayList;
 public interface SelfGoodsContract extends IView {
 
     public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans, boolean page);
+
     public void getDataFail(String msg);
 }

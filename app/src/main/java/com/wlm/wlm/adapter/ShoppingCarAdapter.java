@@ -16,7 +16,6 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
     private Context context;
     private ArrayList<OrderBean> orderListBeans = null;
-//    private CheckInterface checkInterface;
+    //    private CheckInterface checkInterface;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
     private int sumGoodsNum = 0;
@@ -39,7 +38,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     private OnItemClickListener mItemClickListener;
 
 
-    public ShoppingCarAdapter(Context context, ArrayList<OrderBean> orderListBeans, Map<String, OrderChildBean> map){
+    public ShoppingCarAdapter(Context context, ArrayList<OrderBean> orderListBeans, Map<String, OrderChildBean> map) {
         this.context = context;
         this.orderListBeans = orderListBeans;
         this.map = map;
@@ -48,7 +47,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_shopcat_product,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_shopcat_product, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -58,7 +57,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder,final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.itemView.setTag(position);
 
@@ -74,29 +73,29 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
         holder.singleCheckBox.setChecked(map.get(orderListBeans.get(position).getCartId()).isChoosed());
 
-        if (orderListBeans.get(position).getIntegral() > 0){
+        if (orderListBeans.get(position).getIntegral() > 0) {
             holder.ll_integral.setVisibility(View.VISIBLE);
             holder.tv_integral_price.setText(orderListBeans.get(position).getIntegral() + "");
         }
 
-        sumGoodsNum = sumGoodsNum+ orderListBeans.get(position).getNum();
-        if (position == orderListBeans.size() - 1){
+        sumGoodsNum = sumGoodsNum + orderListBeans.get(position).getNum();
+        if (position == orderListBeans.size() - 1) {
             modifyCountInterface.sumGoodsNum(sumGoodsNum);
             sumGoodsNum = 0;
         }
 
-        Picasso.with(context).load(ProApplication.HEADIMG  + orderListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsImage);
+        Picasso.with(context).load(ProApplication.HEADIMG + orderListBeans.get(position).getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsImage);
 
         holder.increaseGoodsNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCountInterface.doIncrease( position, holder.goodsNum, holder.singleCheckBox.isChecked());
+                modifyCountInterface.doIncrease(position, holder.goodsNum, holder.singleCheckBox.isChecked());
             }
         });
         holder.reduceGoodsNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCountInterface.doDecrease( position, holder.goodsNum, holder.singleCheckBox.isChecked());
+                modifyCountInterface.doDecrease(position, holder.goodsNum, holder.singleCheckBox.isChecked());
             }
         });
 
@@ -143,7 +142,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -152,7 +151,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
@@ -164,11 +163,11 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
         /**
          * 增加操作
          *
-         * @param position 子元素的位置
+         * @param position      子元素的位置
          * @param showCountView 用于展示变化后数量的View
          * @param isChecked     子元素选中与否
          */
-        void doIncrease( int position, View showCountView, boolean isChecked);
+        void doIncrease(int position, View showCountView, boolean isChecked);
 
         void doDecrease(int position, View showCountView, boolean isChecked);
 
@@ -179,7 +178,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
          *
          * @param position
          */
-        void childDelete( int position);
+        void childDelete(int position);
 
         void sumGoodsNum(int num);
     }
@@ -191,15 +190,15 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
         /**
          * 子选框状态改变触发的事件
-         * @param position 子元素的位置
-         * @param isChecked     子元素的选中与否
+         *
+         * @param position  子元素的位置
+         * @param isChecked 子元素的选中与否
          */
-        void checkChild( int position, boolean isChecked);
+        void checkChild(int position, boolean isChecked);
     }
 
 
-
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.single_checkBox)
         CheckBox singleCheckBox;

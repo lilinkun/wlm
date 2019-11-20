@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,23 +15,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
@@ -52,7 +45,6 @@ import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.FileImageUpload;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UiHelper;
-import com.squareup.picasso.Picasso;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -78,7 +70,7 @@ import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
  * Created by LG on 2018/11/19.
  */
 
-public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClickListener, View.OnClickListener,PersonalInfoContract {
+public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClickListener, View.OnClickListener, PersonalInfoContract {
 
     @BindView(R.id.titlebar)
     CustomTitleBar customTitleBar;
@@ -101,7 +93,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     private static final int RESULT_MYNICK = 0x112;
     private boolean isChangeSuccess = false;
     private String mFilePath;
-    private  Uri cropImageUri;
+    private Uri cropImageUri;
     private PersonalInfoPresenter personalInfoPresenter = new PersonalInfoPresenter();
 
     /**
@@ -118,19 +110,19 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
     private String mApkUrl = "";
     //    private DownloadBean downloadBean;
     private CheckBean bean;
-    private double code=0;
+    private double code = 0;
 
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 123){
+            if (msg.what == 123) {
                 String str = msg.getData().getString("str");
-                if (str!= null && str.length() > 0) {
+                if (str != null && str.length() > 0) {
                     Gson gson = new Gson();
                     ImageUploadResultBean imageUploadResultBean = gson.fromJson(str, ImageUploadResultBean.class);
 
-                    personalInfoPresenter.uploadImage(imageUploadResultBean.getUrl().get(0),ProApplication.SESSIONID(PersonalInfoActivity.this));
+                    personalInfoPresenter.uploadImage(imageUploadResultBean.getUrl().get(0), ProApplication.SESSIONID(PersonalInfoActivity.this));
                 }
             }
         }
@@ -143,16 +135,16 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
 
         code = UpdateManager.getInstance().getVersionName(this);
 
-        mFilePath = Environment.getExternalStorageDirectory()+ "/test/" + "temp.jpg";// 获取SD卡路径
+        mFilePath = Environment.getExternalStorageDirectory() + "/test/" + "temp.jpg";// 获取SD卡路径
 //        mFilePath = mFilePath + "/test/" + "temp.jpg";// 指定路径
 
-        personalInfoPresenter.onCreate(this,this);
+        personalInfoPresenter.onCreate(this, this);
 //        personalInfoPresenter.getInfo(ProApplication.SESSIONID(this));
 
         try {
@@ -164,13 +156,13 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             e.printStackTrace();
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL,"").equals("")) {
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL, "").equals("")) {
             Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).into(roundImageView);
         }
 
-        nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
-        tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE,"")));
+        nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, ""));
+        tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE, "")));
         // 监听下载进度
         BGAUpgradeUtil.getDownloadProgressEventObservable()
                 .compose(this.<BGADownloadProgressEvent>bindToLifecycle())
@@ -186,9 +178,9 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         tv_new_edition.setText("V" + code);
     }
 
-    @OnClick({R.id.rl_head_title_info,R.id.rl_nickname_info,R.id.iv_head_right,R.id.rl_clear,R.id.tv_loginout,R.id.rl_change_psd,R.id.rl_update})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.rl_head_title_info, R.id.rl_nickname_info, R.id.iv_head_right, R.id.rl_clear, R.id.tv_loginout, R.id.rl_change_psd, R.id.rl_update})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_head_title_info:
 
                 /*View v = LayoutInflater.from(this).inflate(R.layout.pop_head_info,null);
@@ -283,7 +275,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
             case R.id.rl_change_psd:
 
-                UiHelper.launcher(this,ModifyPayActivity.class);
+                UiHelper.launcher(this, ModifyPayActivity.class);
 
                 break;
 
@@ -332,7 +324,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                                     });
                                     builder.show();
 
-                                }else {
+                                } else {
                                     toast("已经是最新版本");
                                 }
                             }
@@ -353,12 +345,12 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (isChangeSuccess) {
                 setResult(RESULT_OK);
             }
             finish();
-            return  true;
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -378,18 +370,18 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
             c.close();
 
             startPhotoZoom(selectedImage);
-        }else if(requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Uri selectedImage = Uri.fromFile(new File(mFilePath));
                 Bitmap bm = BitmapFactory.decodeFile(new File(mFilePath).getAbsolutePath());
 //            roundImageView.setImageBitmap(bm);
                 Uri photoUri = FileProvider.getUriForFile(PersonalInfoActivity.this, "com.wlm.wlm.fileprovider", new File(mFilePath));
                 startPhotoZoom(photoUri);
-            }else {
+            } else {
                 Uri inputUri = Uri.fromFile(new File(mFilePath));
                 startPhotoZoom(inputUri);
             }
-        }else if (requestCode == 4 && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == 4 && resultCode == Activity.RESULT_OK) {
             final File file = new File(getExternalCacheDir(), "crop.jpg");
             Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
             roundImageView.setImageBitmap(bm);
@@ -401,7 +393,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
                             String str = FileImageUpload.uploadFile(file, RetrofitHelper.ImageUrl);
                             Bundle bundle = new Bundle();
-                            bundle.putString("str",str);
+                            bundle.putString("str", str);
                             Message message = new Message();
                             message.setData(bundle);
                             message.what = 123;
@@ -410,30 +402,28 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
                     }
             ).start();
 
-        }else if (requestCode == RESULT_MYNICK && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == RESULT_MYNICK && resultCode == Activity.RESULT_OK) {
             String account = data.getStringExtra("account");
             nickName.setText(account);
         }
     }
+
     //加载图片
-    private void showImage(String imagePath){
+    private void showImage(String imagePath) {
         Bitmap bm = BitmapFactory.decodeFile(imagePath);
 //        roundImageView.setImageBitmap(bm);
     }
 
-    public void startPhotoZoom(Uri paramUri)
-    {
+    public void startPhotoZoom(Uri paramUri) {
         File headFile = new File(getExternalCacheDir(), "crop.jpg");
-        try
-        {
+        try {
             if ((headFile).exists()) {
                 (headFile).delete();
             }
             (headFile).createNewFile();
-        }catch (IOException e)
-            {
-                    e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.cropImageUri = Uri.fromFile(headFile);
 
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -466,7 +456,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public void getInfoSuccess(PersonalInfoBean loginBean) {
-        if (loginBean.getUser_data().getPortrait() != null){
+        if (loginBean.getUser_data().getPortrait() != null) {
             Picasso.with(this).load(loginBean.getUser_data().getPortrait()).into(roundImageView);
         }
         nickName.setText(loginBean.getUser_data().getNickName());
@@ -489,24 +479,24 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
 
     @Override
     public void LoginOutSuccess(String msg) {
-        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
 
-        if(ProApplication.isAudinLogin){
+        if (ProApplication.isAudinLogin) {
             UiHelper.launcher(this, HaiWeiLoginActivity.class);
-        }else {
+        } else {
             UiHelper.launcher(this, LoginActivity.class);
         }
 
         Intent intent = new Intent();
-        intent.putExtra("loginout",true);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("loginout", true);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public void LoginOutFail(String msg) {
-        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
     }
 

@@ -13,7 +13,7 @@ import com.wlm.wlm.R;
 public class LoaddingDialog extends Dialog {
 
     public LoaddingDialog(@NonNull Context context) {
-        super(context,R.style.BaseDialog);
+        super(context, R.style.BaseDialog);
     }
 
     public LoaddingDialog(@NonNull Context context, int themeResId) {

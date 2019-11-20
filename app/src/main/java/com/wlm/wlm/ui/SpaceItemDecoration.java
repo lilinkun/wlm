@@ -13,7 +13,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private int bottomSpace;//声明底部间距
     private int topSpace;//声明头部间距
 
-    public SpaceItemDecoration(int space,int bottomSpace,int topSpace) {
+    public SpaceItemDecoration(int space, int bottomSpace, int topSpace) {
         this.space = space;
         this.bottomSpace = bottomSpace;
         this.topSpace = topSpace;
@@ -39,7 +39,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         //设置底部边距
         outRect.bottom = this.bottomSpace;
 
-        if (position == 0){
+        if (position == 0) {
             outRect.top = this.topSpace;
         }
 

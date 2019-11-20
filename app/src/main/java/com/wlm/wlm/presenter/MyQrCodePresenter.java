@@ -25,7 +25,7 @@ public class MyQrCodePresenter extends BasePresenter {
     private MyQrCodeContract myQrCodeContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -44,12 +44,12 @@ public class MyQrCodePresenter extends BasePresenter {
         }
     }
 
-    public void getUpdataData(String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","生成二维码中...",true);
+    public void getUpdataData(String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "生成二维码中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBaseGet");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseGet");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getUpdataData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

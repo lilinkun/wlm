@@ -25,31 +25,31 @@ public class UiHelper {
         fragment.startActivityForResult(intent, requestCode);
     }
 
-    public static void launcherForResultBundle(Fragment fragment, Class<?> targetActivity, int requestCode,Bundle bundle) {
+    public static void launcherForResultBundle(Fragment fragment, Class<?> targetActivity, int requestCode, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(fragment.getContext(), targetActivity);
-        intent.putExtra(WlmUtil.TYPEID,bundle);
+        intent.putExtra(WlmUtil.TYPEID, bundle);
         fragment.startActivityForResult(intent, requestCode);
     }
 
-    public static void launcherForResultBundle(Activity activity, Class<?> targetActivity, int requestCode,Bundle bundle) {
+    public static void launcherForResultBundle(Activity activity, Class<?> targetActivity, int requestCode, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(activity, targetActivity);
-        intent.putExtra(WlmUtil.TYPEID,bundle);
+        intent.putExtra(WlmUtil.TYPEID, bundle);
         activity.startActivityForResult(intent, requestCode);
     }
 
-    public static void launcherBundle(Context context, Class<?> targetActivity,Bundle bundle) {
+    public static void launcherBundle(Context context, Class<?> targetActivity, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(context, targetActivity);
-        intent.putExtra(WlmUtil.TYPEID,bundle);
+        intent.putExtra(WlmUtil.TYPEID, bundle);
         context.startActivity(intent);
     }
 
-    public static void launcherBundle(Activity activity, Class<?> targetActivity,Bundle bundle) {
+    public static void launcherBundle(Activity activity, Class<?> targetActivity, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(activity, targetActivity);
-        intent.putExtra(WlmUtil.TYPEID,bundle);
+        intent.putExtra(WlmUtil.TYPEID, bundle);
         activity.startActivity(intent);
     }
 

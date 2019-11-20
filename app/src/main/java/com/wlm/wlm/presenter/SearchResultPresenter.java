@@ -2,7 +2,6 @@ package com.wlm.wlm.presenter;
 
 import android.content.Context;
 
-import com.wlm.wlm.contract.GrouponContract;
 import com.wlm.wlm.contract.SearchResultContract;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
@@ -28,7 +27,7 @@ public class SearchResultPresenter extends BasePresenter {
     private SearchResultContract searchResultContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -49,31 +48,32 @@ public class SearchResultPresenter extends BasePresenter {
 
     /**
      * 获取查询商品信息
+     *
      * @param PageIndex
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String GoodsName){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String OrderBy, String GoodsName) {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("GoodsName",GoodsName);
-        params.put("GoodsFlag","2");
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("GoodsName", GoodsName);
+        params.put("GoodsFlag", "2");
         if (!GoodsType.equals("")) {
             params.put("GoodsType", GoodsType);
         }
-        params.put("OrderBy",OrderBy);
+        params.put("OrderBy", OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status, PageBean page) {
                         searchResultContract.getSearchResultSuccess(integralBean);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();

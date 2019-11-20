@@ -7,9 +7,11 @@ import com.wlm.wlm.mvp.IView;
  */
 
 public interface ForgetPasswordContract extends IView {
-        public void getMobileSuccess(String mobile);
-        public void getMobileFail(String msg);
+    public void getMobileSuccess(String mobile);
 
-        public void getVcodeSuccess(String vcode);
-        public void getVcodeFail(String msg);
+    public void getMobileFail(String msg);
+
+    public void getVcodeSuccess(String vcode);
+
+    public void getVcodeFail(String msg);
 }

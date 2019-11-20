@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.entity.ArticleBean;
-import com.wlm.wlm.entity.JdCategoryInfoBean;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     private ArrayList<ArticleBean> articleBeans;
     private OnItemClickListener mItemClickListener;
 
-    public MessageDetailAdapter(Context context,ArrayList<ArticleBean> articleBeans){
+    public MessageDetailAdapter(Context context, ArrayList<ArticleBean> articleBeans) {
         this.context = context;
         this.articleBeans = articleBeans;
     }
@@ -30,7 +29,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     @Override
     public MessageDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_message_detail,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_message_detail, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
         view.setOnClickListener(this);
@@ -53,7 +52,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -62,11 +61,11 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_message_detail;
 

@@ -8,13 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
     private ArrayList<TbMaterielBean> tbMaterielBeans;
     private OnItemClickListener onItemClickListener;
 
-    public TbAdapter(Context context,ArrayList<TbMaterielBean> tbMaterielBeans){
+    public TbAdapter(Context context, ArrayList<TbMaterielBean> tbMaterielBeans) {
         this.context = context;
         this.tbMaterielBeans = tbMaterielBeans;
     }
@@ -37,7 +34,7 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_tb_goods,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_tb_goods, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -58,9 +55,9 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
 
 //        holder.goodsCouponPrice.setText();
         String CouponAmount = "0";
-        if (tbMaterielBean.getCouponInfo().contains("减") && tbMaterielBean.getCouponInfo().contains("元") ) {
+        if (tbMaterielBean.getCouponInfo().contains("减") && tbMaterielBean.getCouponInfo().contains("元")) {
             CouponAmount = tbMaterielBean.getCouponInfo().substring(tbMaterielBean.getCouponInfo().indexOf("减") + 1, tbMaterielBean.getCouponInfo().lastIndexOf("元"));
-        }else {
+        } else {
             if (tbMaterielBean.getCouponInfo() != null) {
                 CouponAmount = tbMaterielBean.getCouponInfo();
             }
@@ -71,7 +68,7 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
         BigDecimal couponInfo = new BigDecimal(CouponAmount);
         double couponPrice = zkFinalPrice.subtract(couponInfo).doubleValue();
 
-        holder.goodsCouponPrice.setText(CouponAmount+"");
+        holder.goodsCouponPrice.setText(CouponAmount + "");
         holder.goodsPriceTv.setText("¥" + couponPrice);
 
         String pictUrl = tbMaterielBean.getPictUrl();
@@ -93,7 +90,7 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
 
     @Override
     public void onClick(View v) {
-        if (onItemClickListener!=null){
+        if (onItemClickListener != null) {
             onItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -102,11 +99,11 @@ public class TbAdapter extends RecyclerView.Adapter<TbAdapter.ViewHolder> implem
         onItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView goodsTitleNameTv;
         private TextView goodsPriceTv;

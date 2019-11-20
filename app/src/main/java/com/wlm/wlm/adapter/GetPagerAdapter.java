@@ -22,7 +22,7 @@ public class GetPagerAdapter extends FragmentStatePagerAdapter {
     private SelfGoodFragment selfGoodFragment;
     public OnPageChange onPageChange;
 
-    public GetPagerAdapter(FragmentManager fm, List<TBbean> paramList,OnPageChange onPageChange) {
+    public GetPagerAdapter(FragmentManager fm, List<TBbean> paramList, OnPageChange onPageChange) {
         super(fm);
         List localList;
         this.list = paramList;
@@ -40,13 +40,13 @@ public class GetPagerAdapter extends FragmentStatePagerAdapter {
         Bundle localBundle = new Bundle();
         localBundle.putString("TBId", ((TBbean) this.list.get(position)).getCate_name());
         selfGoodFragment.setArguments(localBundle);
-        Log.v("TAG","getrrecords");
-        onPageChange.getChange(selfGoodFragment,(list.get(position)).getCate_name());
+        Log.v("TAG", "getrrecords");
+        onPageChange.getChange(selfGoodFragment, (list.get(position)).getCate_name());
         return selfGoodFragment;
     }
 
-    public void setPage(int page){
-        if (selfGoodFragment != null){
+    public void setPage(int page) {
+        if (selfGoodFragment != null) {
             selfGoodFragment.onPageChange(page);
         }
     }
@@ -56,7 +56,7 @@ public class GetPagerAdapter extends FragmentStatePagerAdapter {
         return list.size();
     }
 
-    public interface OnPageChange{
+    public interface OnPageChange {
         void getChange(BaseFragment baseFragment, String str);
     }
 }

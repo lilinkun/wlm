@@ -52,9 +52,9 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.point_red));
 
-        pointPresenter.onCreate(this,this);
+        pointPresenter.onCreate(this, this);
         ActivityUtil.addHomeActivity(this);
 
         ll_top.setListener(this);
@@ -62,12 +62,12 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
 
         pointPresenter.setFlash("4");
 
-        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -79,7 +79,7 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
     @Override
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean) {
 
-        custom_sort.setPageIndex(pageIndex,pageBean);
+        custom_sort.setPageIndex(pageIndex, pageBean);
         custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_POINT);
     }
 
@@ -93,7 +93,7 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
 
         this.flashBeans = flashBeans;
 
-        CustomBannerView.startBanner(flashBeans,bannerView,this,true);
+        CustomBannerView.startBanner(flashBeans, bannerView, this, true);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
     @Override
     public void getSortType(int sortType) {
         pageIndex = 1;
-        switch (sortType){
+        switch (sortType) {
             case 1:
                 orderby = "0";
 
@@ -133,18 +133,18 @@ public class PointActivity extends BaseActivity implements PointContract, IGoods
 
                 break;
         }
-        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @Override
     public void onLoadding(int page) {
         pageIndex = page;
-        pointPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        pointPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 }

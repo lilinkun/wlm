@@ -13,20 +13,22 @@ import java.math.BigDecimal;
 public class DataCleanManager {
     /**
      * 获取缓存大小
+     *
      * @param context
      * @return
      * @throws Exception
      */
-public static String getTotalCacheSize(Context context) throws Exception {
-    long cacheSize = getFolderSize(context.getCacheDir());
-    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-        cacheSize += getFolderSize(context.getExternalCacheDir());
+    public static String getTotalCacheSize(Context context) throws Exception {
+        long cacheSize = getFolderSize(context.getCacheDir());
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            cacheSize += getFolderSize(context.getExternalCacheDir());
+        }
+        return getFormatSize(cacheSize);
     }
-    return getFormatSize(cacheSize);
-}
 
     /**
      * 清除缓存
+     *
      * @param context
      */
     public static void clearAllCache(Context context) {
@@ -72,6 +74,7 @@ public static String getTotalCacheSize(Context context) throws Exception {
 
     /**
      * 格式化单位
+     *
      * @param size
      * @return
      */

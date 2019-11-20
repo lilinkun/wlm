@@ -1,7 +1,6 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,14 +9,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
-import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.HomeGridRvEnum;
 import com.wlm.wlm.util.WlmUtil;
 
@@ -33,12 +29,12 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     private OnItemClickListener onItemClickListener;
     private GoodsListBean homeBean;
     private boolean isAdd_Integral = false;
-    private int isNum =0;
+    private int isNum = 0;
 
     protected boolean isScrolling = false;
 
 
-    public void setScrolling(boolean scrolling){
+    public void setScrolling(boolean scrolling) {
         isScrolling = scrolling;
     }
 
@@ -48,12 +44,12 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         this.context = context;
     }
 
-    public void setData(ArrayList<GoodsListBean> hotHomeBeans){
+    public void setData(ArrayList<GoodsListBean> hotHomeBeans) {
         this.hotHomeBeans = hotHomeBeans;
         notifyDataSetChanged();
     }
 
-    public void setAdd_Integral(){
+    public void setAdd_Integral() {
         isAdd_Integral = true;
     }
 
@@ -82,37 +78,37 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             holder.goodsPriceTv.setText("" + homeBean.getPrice());
             holder.goodsBuyCountTv.setText(homeBean.getUseNumber() + "");
 
-            holder.tv_add_integral.setText(homeBean.getIntegral()+"");
+            holder.tv_add_integral.setText(homeBean.getIntegral() + "");
 
-            holder.tv_old_price.setText("¥"+ WlmUtil.getPriceNum(homeBean.getMarketPrice()));
-            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            holder.tv_old_price.setText("¥" + WlmUtil.getPriceNum(homeBean.getMarketPrice()));
+            holder.tv_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
-            if (isAdd_Integral){
+            if (isAdd_Integral) {
                 holder.ll_add_integral.setVisibility(View.VISIBLE);
             }
 
-            if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_POINT+"")){
+            if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_POINT + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS0.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_SECKILL+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_SECKILL + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS3.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLMBUY+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLMBUY + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS7.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_INTEGRAL+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_INTEGRAL + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS6.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLM+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_WLM + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS5.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_GROUPON+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_GROUPON + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS2.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_BEAUTY_HEALTH+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_BEAUTY_HEALTH + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText(HomeGridRvEnum.STATUS8.getStatusMsg());
-            }else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_VIP+"")){
+            } else if (homeBean.getGoodsType().equals(WlmUtil.GOODSTYPE_VIP + "")) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("VIP");
             }
@@ -137,7 +133,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 
     @Override
     public void onClick(View v) {
-        if (onItemClickListener!=null){
+        if (onItemClickListener != null) {
             onItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -146,7 +142,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         onItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 

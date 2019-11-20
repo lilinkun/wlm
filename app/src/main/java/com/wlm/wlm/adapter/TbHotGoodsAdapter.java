@@ -37,12 +37,12 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         this.mInflater = mInflater;
     }
 
-    public void setData(ArrayList<GoodsListBean> hotHomeBeans){
+    public void setData(ArrayList<GoodsListBean> hotHomeBeans) {
         this.hotHomeBeans = hotHomeBeans;
         notifyDataSetChanged();
     }
 
-    public void setAdd_Integral(){
+    public void setAdd_Integral() {
         isAdd_Integral = true;
     }
 
@@ -71,31 +71,31 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
             holder.goodsPriceTv.setText("" + homeBean.getPrice());
             holder.goodsBuyCountTv.setText(homeBean.getUseNumber() + "");
 
-            holder.tv_add_integral.setText(homeBean.getIntegral()+"");
+            holder.tv_add_integral.setText(homeBean.getIntegral() + "");
 
-            holder.tv_old_price.setText("¥"+ WlmUtil.getPriceNum(homeBean.getMarketPrice()));
-            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            holder.tv_old_price.setText("¥" + WlmUtil.getPriceNum(homeBean.getMarketPrice()));
+            holder.tv_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
-            if (isAdd_Integral){
+            if (isAdd_Integral) {
                 holder.ll_add_integral.setVisibility(View.VISIBLE);
             }
 
-            if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_POINT){
+            if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_POINT) {
                 holder.ll_bottom.setVisibility(View.GONE);
                 holder.ll_bottom_point.setVisibility(View.VISIBLE);
-                holder.tv_point_price.setText(homeBean.getPrice()+"");
-                holder.tv_point_old_price.setText("原价：¥"+homeBean.getMarketPrice());
-                holder.tv_point_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+                holder.tv_point_price.setText(homeBean.getPrice() + "");
+                holder.tv_point_old_price.setText("原价：¥" + homeBean.getMarketPrice());
+                holder.tv_point_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("HOT");
-            }else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_BEAUTY_HEALTH){
+            } else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_BEAUTY_HEALTH) {
                 holder.ll_bottom.setVisibility(View.GONE);
                 holder.ll_bottom_health.setVisibility(View.VISIBLE);
-                holder.tv_health_price.setText(homeBean.getPrice()+"");
+                holder.tv_health_price.setText(homeBean.getPrice() + "");
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("热销款");
                 holder.tv_beauty_health.setText(homeBean.getGoodsSmallName());
-            }else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_WLMBUY){
+            } else if (Integer.valueOf(homeBean.getGoodsType()) == WlmUtil.GOODSTYPE_WLMBUY) {
                 holder.ll_hot.setVisibility(View.VISIBLE);
                 holder.tv_hot.setText("爆款");
             }
@@ -118,7 +118,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
 
     @Override
     public void onClick(View v) {
-        if (onItemClickListener!=null){
+        if (onItemClickListener != null) {
             onItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -127,7 +127,7 @@ public class TbHotGoodsAdapter extends RecyclerView.Adapter<TbHotGoodsAdapter.My
         onItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 

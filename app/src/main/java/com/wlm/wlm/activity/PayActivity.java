@@ -1,7 +1,6 @@
 package com.wlm.wlm.activity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,9 +9,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -89,11 +86,11 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        payPresenter.onCreate(this,this);
+        payPresenter.onCreate(this, this);
 
-        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
         WXEntryActivity.wxType(WlmUtil.WXTYPE_LOGIN);
@@ -102,21 +99,21 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
-        if (bundle != null){
+        if (bundle != null) {
             orderid = bundle.getString(WlmUtil.ORDERID);
             totalPrice = bundle.getString(WlmUtil.ORDERAMOUNT);
             where = bundle.getString(WlmUtil.WHERE);
         }
-        tv_amount.setText(totalPrice+"");
+        tv_amount.setText(totalPrice + "");
         payPresenter.getBalance(ProApplication.SESSIONID(this));
 
-        payPresenter.orderDetail(orderid,ProApplication.SESSIONID(this));
+        payPresenter.orderDetail(orderid, ProApplication.SESSIONID(this));
 
     }
 
-    @OnClick({R.id.rl_wx,R.id.rl_self,R.id.tv_right_now_pay,R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.rl_wx, R.id.rl_self, R.id.tv_right_now_pay, R.id.ll_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_wx:
 
                 check_wx.setChecked(true);
@@ -137,23 +134,22 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
                 if (check_wx.isChecked()) {
 
 
-
-                    if (sharedPreferences.getString(WlmUtil.OPENID,"") != null && !sharedPreferences.getString(WlmUtil.OPENID,"").equals("")) {
+                    if (sharedPreferences.getString(WlmUtil.OPENID, "") != null && !sharedPreferences.getString(WlmUtil.OPENID, "").equals("")) {
 
                         payPresenter.getWxPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "11", "1", point, ProApplication.SESSIONID(this));
 
-                    }else {
+                    } else {
 
                         final SendAuth.Req req = new SendAuth.Req();
                         req.scope = "snsapi_userinfo";
                         req.state = "wechat_sdk_微信登录";
                         iwxapi.sendReq(req);
                     }
-                }else {
+                } else {
 //                    toast("暂时不支持余额支付，不要点了");
                     if (tv_balance_not_enough != null && !tv_balance_not_enough.isShown()) {
 
-                        View view1 = LayoutInflater.from(this).inflate(R.layout.dialog_pay,null);
+                        View view1 = LayoutInflater.from(this).inflate(R.layout.dialog_pay, null);
 
                         popupWindow = new PopupWindow(this);
 
@@ -170,7 +166,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
                         passwordView.setOnFinishInput(new OnPasswordInputFinish() {
                             @Override
                             public void inputFinish() {
-                                payPresenter.getPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "", "0",point,passwordView.getStrPassword(), ProApplication.SESSIONID(PayActivity.this));
+                                payPresenter.getPayOrderInfo(orderid, sharedPreferences.getString(WlmUtil.OPENID, ""), totalPrice + "", "", "0", point, passwordView.getStrPassword(), ProApplication.SESSIONID(PayActivity.this));
                             }
 
                             @Override
@@ -180,14 +176,14 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
                             @Override
                             public void forgetPwd() {
-                                UiHelper.launcher(PayActivity.this,ModifyPayActivity.class);
+                                UiHelper.launcher(PayActivity.this, ModifyPayActivity.class);
                             }
                         });
 
                         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                             @Override
                             public void onDismiss() {
-                                
+
                             }
                         });
                     }
@@ -213,7 +209,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void sureWxOrderSuccess(WxInfo wxInfo) {
-        WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepayid(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
+        WlmUtil.wxPay(wxInfo.getAppId(), wxInfo.getPartnerid(), wxInfo.getPrepayid(), wxInfo.getNonceStr(), wxInfo.getTimeStamp(), wxInfo.getPaySign(), this);
 //        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 //        grouponOrderPresenter.getGoodsOrderInfo(ordersn,sharedPreferences.getString(WlmUtil.OPENID,""),totalPrice+"","11",ProApplication.SESSIONID(this));
     }
@@ -224,21 +220,20 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     }
 
 
-
     @Override
     public void sureOrderSuccess(String wxInfo) {
 
 //        payDialog.dismiss();
 
-        if (popupWindow != null && popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
 
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.PRICE,totalPrice);
-        bundle.putString(WlmUtil.ORDERID,orderid);
-        bundle.putString(WlmUtil.GOODSTYPE,orderDetailBeans.getOrderType()+"");
-        UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
+        bundle.putString(WlmUtil.PRICE, totalPrice);
+        bundle.putString(WlmUtil.ORDERID, orderid);
+        bundle.putString(WlmUtil.GOODSTYPE, orderDetailBeans.getOrderType() + "");
+        UiHelper.launcherForResultBundle(this, PayResultActivity.class, 0x0987, bundle);
 
     }
 
@@ -257,7 +252,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
         numberFormat.setGroupingUsed(false);
 
         String wlmCoin = numberFormat.format(balanceBean.getMoney5Balance());
-        tv_balance.setText("唯乐币支付（剩余"+wlmCoin+"）");
+        tv_balance.setText("唯乐币支付（剩余" + wlmCoin + "）");
 
         if (Double.valueOf(totalPrice) <= balanceBean.getMoney5Balance()) {
             tv_balance.setTextColor(getResources().getColor(R.color.pay_text));
@@ -266,7 +261,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
             check_wx.setChecked(false);
             check_self.setChecked(true);
-        }else {
+        } else {
 
             check_wx.setChecked(true);
             check_self.setChecked(false);
@@ -281,10 +276,10 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public void setDataSuccess(OrderDetailAddressBean orderDetailBeans) {
         this.orderDetailBeans = orderDetailBeans;
-        this.point = orderDetailBeans.getIntegral()+"";
-        if (orderDetailBeans.getIntegral() == 0){
+        this.point = orderDetailBeans.getIntegral() + "";
+        if (orderDetailBeans.getIntegral() == 0) {
             tv_point.setVisibility(View.GONE);
-        }else {
+        } else {
             tv_point.setText("+" + point + "积分");
         }
     }
@@ -296,7 +291,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 //            Bundle bundle = new Bundle();
 //            bundle.putInt("position",0);
 //            UiHelper.launcherBundle(this, OrderListActivity.class,bundle);
@@ -315,10 +310,10 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
     @Override
     public void setWxSuccess() {
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.PRICE,totalPrice);
-        bundle.putString(WlmUtil.ORDERID,orderid);
-        bundle.putString(WlmUtil.GOODSTYPE,orderDetailBeans.getOrderType()+"");
-        UiHelper.launcherForResultBundle(this,PayResultActivity.class,0x0987,bundle);
+        bundle.putString(WlmUtil.PRICE, totalPrice);
+        bundle.putString(WlmUtil.ORDERID, orderid);
+        bundle.putString(WlmUtil.GOODSTYPE, orderDetailBeans.getOrderType() + "");
+        UiHelper.launcherForResultBundle(this, PayResultActivity.class, 0x0987, bundle);
     }
 
     @Override
@@ -334,7 +329,7 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == 0x0987){
+        if (resultCode == RESULT_OK && requestCode == 0x0987) {
             setResult(RESULT_OK);
             finish();
         }
@@ -342,9 +337,9 @@ public class PayActivity extends BaseActivity implements PayContract, IWxResultL
 
     @Override
     public void setWxLoginSuccess(WxUserInfo wxSuccess) {
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        sharedPreferences.edit().putString(WlmUtil.OPENID,wxSuccess.getOpenid()).commit();
-        payPresenter.getWxPayOrderInfo(orderid, wxSuccess.getOpenid(), totalPrice + "", "11","1",point,ProApplication.SESSIONID(this));
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString(WlmUtil.OPENID, wxSuccess.getOpenid()).commit();
+        payPresenter.getWxPayOrderInfo(orderid, wxSuccess.getOpenid(), totalPrice + "", "11", "1", point, ProApplication.SESSIONID(this));
 
     }
 

@@ -3,13 +3,10 @@ package com.wlm.wlm.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.health.UidHealthStats;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,15 +19,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsDiscoverBean;
 import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.UiHelper;
-import com.wlm.wlm.util.WlmUtil;
-import com.wlm.wlm.wxapi.WXEntryActivity;
 import com.xw.banner.Banner;
 import com.xw.banner.BannerConfig;
 import com.xw.banner.Transformer;
@@ -40,7 +34,6 @@ import com.xw.banner.loader.ImageLoaderInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
@@ -54,17 +47,17 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     private ArrayList<GoodsDiscoverBean> goodsDiscoverBeans;
     private Bitmap scaledBitmap;
     private ArrayList<ViewHolder> viewHolders = new ArrayList<>();
-    private View item ;
+    private View item;
     private ArrayList<String> strings = new ArrayList<>();
     private PopupWindow popupWindow;
     private MediaPlayer mPlayer;
-    private FindListener findListener=null;
+    private FindListener findListener = null;
     public static final int UPDATE_TIME = 0x0003;
     public static final int HIDE_CONTROL = 0x0002;
     private boolean isShow = false;
     private int mPosition = 0;
 
-    public Handler handler = new Handler(){
+    public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             int pos = msg.getData().getInt("pos");
@@ -78,13 +71,13 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         }
     };
 
-    public FindAdapter(Context context,ArrayList<GoodsDiscoverBean> goodsDiscoverBeans,View view){
+    public FindAdapter(Context context, ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, View view) {
         this.context = context;
         this.goodsDiscoverBeans = goodsDiscoverBeans;
         this.item = view;
     }
 
-    public void setData(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans){
+    public void setData(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans) {
         this.goodsDiscoverBeans = goodsDiscoverBeans;
         notifyDataSetChanged();
     }
@@ -92,7 +85,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_find,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_find, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -114,15 +107,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getGoodsImg()).into(holder.iv_goods_find);
 
 
-        if (goodsDiscoverBean.getDiscoverType() == 1){
+        if (goodsDiscoverBean.getDiscoverType() == 1) {
 
-            if (goodsDiscoverBean.getFileUrl().contains("，") || goodsDiscoverBean.getFileUrl().contains(",")){
+            if (goodsDiscoverBean.getFileUrl().contains("，") || goodsDiscoverBean.getFileUrl().contains(",")) {
 
                 GridLayoutManager gridLayoutManager = null;
                 strings = new ArrayList(Arrays.asList(goodsDiscoverBean.getFileUrl().split(",")));
-                if (strings.size() == 2  || strings.size() == 4){
+                if (strings.size() == 2 || strings.size() == 4) {
                     gridLayoutManager = new GridLayoutManager(context, 2);
-                }else {
+                } else {
                     gridLayoutManager = new GridLayoutManager(context, 3);
                 }
                 holder.rv_adapter_find.setLayoutManager(gridLayoutManager);
@@ -133,65 +126,65 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
                     @Override
                     public void onItemClick(int pos) {
                         ArrayList<String> list = new ArrayList(Arrays.asList(goodsDiscoverBeans.get(position).getFileUrl().split(",")));
-                        initBanner(list,pos+1);
+                        initBanner(list, pos + 1);
                     }
                 });
 
-            }else {
+            } else {
                 strings.clear();
                 strings.add(goodsDiscoverBean.getFileUrl());
 
-                int a = DensityUtil.getScreenWidth(context)/2;
+                int a = DensityUtil.getScreenWidth(context) / 2;
 
                 int width = 0;
                 int height = 0;
 
-                if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()){
-                    int h = goodsDiscoverBean.getDiscoverHeight()*a/goodsDiscoverBean.getDiscoverWidth();
+                if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()) {
+                    int h = goodsDiscoverBean.getDiscoverHeight() * a / goodsDiscoverBean.getDiscoverWidth();
                     width = a;
                     height = h;
 
-                }else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()){
-                    int w = goodsDiscoverBean.getDiscoverWidth()*a/goodsDiscoverBean.getDiscoverHeight();
+                } else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()) {
+                    int w = goodsDiscoverBean.getDiscoverWidth() * a / goodsDiscoverBean.getDiscoverHeight();
                     width = w;
                     height = a;
-                }else {
+                } else {
                     width = a;
                     height = a;
                 }
 
-                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).resize(width,height).placeholder(R.color.black).into(holder.iv_adapter_find);
+                Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).resize(width, height).placeholder(R.color.black).into(holder.iv_adapter_find);
             }
-        }else if (goodsDiscoverBean.getDiscoverType() == 2) {
+        } else if (goodsDiscoverBean.getDiscoverType() == 2) {
 
-            int a = DensityUtil.getScreenWidth(context)/2;
+            int a = DensityUtil.getScreenWidth(context) / 2;
 
             int width = 0;
             int height = 0;
 
-            if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()){
-                int h = goodsDiscoverBean.getDiscoverHeight()*a/goodsDiscoverBean.getDiscoverWidth();
+            if (goodsDiscoverBean.getDiscoverWidth() > goodsDiscoverBean.getDiscoverHeight()) {
+                int h = goodsDiscoverBean.getDiscoverHeight() * a / goodsDiscoverBean.getDiscoverWidth();
                 width = a;
                 height = h;
 
-            }else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()){
-                int w = goodsDiscoverBean.getDiscoverWidth()*a/goodsDiscoverBean.getDiscoverHeight();
+            } else if (goodsDiscoverBean.getDiscoverWidth() < goodsDiscoverBean.getDiscoverHeight()) {
+                int w = goodsDiscoverBean.getDiscoverWidth() * a / goodsDiscoverBean.getDiscoverHeight();
                 width = w;
                 height = a;
-            }else {
+            } else {
                 width = a;
                 height = a;
             }
 
 
             holder.jcVideoPlayerStandard.setVisibility(View.VISIBLE);
-            holder.jcVideoPlayerStandard.setUp(ProApplication.BANNERIMG + goodsDiscoverBean.getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
+            holder.jcVideoPlayerStandard.setUp(ProApplication.BANNERIMG + goodsDiscoverBean.getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
 
             Picasso.with(context).load(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl()).into(holder.jcVideoPlayerStandard.thumbImageView);
 
             try {
                 mPlayer = new MediaPlayer();
-                mPlayer.setDataSource(ProApplication.BANNERIMG+goodsDiscoverBean.getFileUrl());
+                mPlayer.setDataSource(ProApplication.BANNERIMG + goodsDiscoverBean.getFileUrl());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -232,15 +225,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         holder.iv_adapter_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (goodsDiscoverBean.getDiscoverType() == 1){
+                if (goodsDiscoverBean.getDiscoverType() == 1) {
 
 
                     ArrayList<String> list = new ArrayList<>();
                     list.add(goodsDiscoverBean.getFileUrl());
-                    initBanner(list,1);
+                    initBanner(list, 1);
 
 
-                }else if (goodsDiscoverBean.getDiscoverType() == 2){
+                } else if (goodsDiscoverBean.getDiscoverType() == 2) {
 
                     holder.iv_adapter_find.setVisibility(View.GONE);
                 }
@@ -260,20 +253,20 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
             @Override
             public void onClick(View v) {
                 String s = ProApplication.HEADIMG + goodsDiscoverBean.getGoodsImg();
-                findListener.onShard(goodsDiscoverBean.getGoodsId(),goodsDiscoverBean.getGoodsName(),s);
+                findListener.onShard(goodsDiscoverBean.getGoodsId(), goodsDiscoverBean.getGoodsName(), s);
 
             }
         });
 
     }
 
-    private void initBanner(ArrayList<String> list,int pos){
+    private void initBanner(ArrayList<String> list, int pos) {
         popupWindow = new PopupWindow(context);
         View rootView = LayoutInflater.from(context).inflate(R.layout.adapter_find_show_photo, null, false);
 
         Banner banner = rootView.findViewById(R.id.bannerView);
 
-        startBanner(banner,list,pos);
+        startBanner(banner, list, pos);
 
         popupWindow.setContentView(rootView);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -285,17 +278,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     }
 
 
-
-    private void startBanner(Banner banner , final ArrayList<String> list,int pos) {
-       //设置内置样式，共有六种可以点入方法内逐一体验使用。
+    private void startBanner(Banner banner, final ArrayList<String> list, int pos) {
+        //设置内置样式，共有六种可以点入方法内逐一体验使用。
 
         banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
 
-         //设置图片加载器，图片加载器在下方
+        //设置图片加载器，图片加载器在下方
         banner.setImageLoader(new ImageLoaderInterface() {
             @Override
             public void displayImage(Context context, Object path, View imageView) {
-                Picasso.with(context).load(ProApplication.BANNERIMG + path).error(R.mipmap.ic_adapter_error).into((ImageView)imageView);
+                Picasso.with(context).load(ProApplication.BANNERIMG + path).error(R.mipmap.ic_adapter_error).into((ImageView) imageView);
             }
 
             @Override
@@ -310,33 +302,33 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
 
-         banner.setBannerAnimation(Transformer.Default);
+        banner.setBannerAnimation(Transformer.Default);
 
-         //设置轮播图的标题集合
+        //设置轮播图的标题集合
 
-         banner.setBannerTitles(list);
+        banner.setBannerTitles(list);
 
         //设置轮播间隔时间
 
-         banner.setDelayTime(3000);
+        banner.setDelayTime(3000);
 
         //设置是否为自动轮播，默认是“是”。
 
-         banner.isAutoPlay(false);
+        banner.isAutoPlay(false);
 
 
-         banner.onPageScrollStateChanged(2);
+        banner.onPageScrollStateChanged(2);
         //设置指示器的位置，小点点，左中右。
 
-         banner.setIndicatorGravity(BannerConfig.CENTER)
+        banner.setIndicatorGravity(BannerConfig.CENTER)
 
-        //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
+                //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
 
-        .setOnBannerListener(this)
+                .setOnBannerListener(this)
 
-        //必须最后调用的方法，启动轮播图。
+                //必须最后调用的方法，启动轮播图。
 
-        .start(pos);
+                .start(pos);
 
     }
 
@@ -352,13 +344,13 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
 
     @Override
     public void OnBannerClick(int position) {
-        if (popupWindow != null && popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView rv_adapter_find;
         private ImageView iv_adapter_find;
@@ -373,7 +365,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         private LinearLayout ll_goods_find;
         private JCVideoPlayerStandard jcVideoPlayerStandard;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
 
             rv_adapter_find = itemView.findViewById(R.id.rv_adapter_find);
@@ -396,28 +388,28 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
         @Override
         public Bitmap transform(Bitmap source) {
 
-            if(source.getWidth()==0){
+            if (source.getWidth() == 0) {
                 return source;
             }
 
-            int a = DensityUtil.getScreenWidth(context)/2;
-            if (source.getWidth() > source.getHeight()){
-                int h = source.getHeight()*a/source.getWidth();
+            int a = DensityUtil.getScreenWidth(context) / 2;
+            if (source.getWidth() > source.getHeight()) {
+                int h = source.getHeight() * a / source.getWidth();
                 Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() < source.getHeight()){
-                int w = source.getWidth()*a/source.getHeight();
+            } else if (source.getWidth() < source.getHeight()) {
+                int w = source.getWidth() * a / source.getHeight();
                 Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() == source.getHeight()){
+            } else if (source.getWidth() == source.getHeight()) {
                 Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
@@ -436,13 +428,13 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> im
     };
 
 
-    public void setFindListener(FindListener findListener){
+    public void setFindListener(FindListener findListener) {
         this.findListener = findListener;
     }
 
 
-    public interface FindListener{
-        public void onShard(String goodsid,String goodsname,String imgStr);
+    public interface FindListener {
+        public void onShard(String goodsid, String goodsname, String imgStr);
     }
 
 }

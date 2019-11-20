@@ -14,6 +14,7 @@ public class BannerTransform extends ABaseTransformer {
     protected void onTransform(View page, float position) {
 
     }
+
     @Override
     protected boolean isPagingEnabled() {
         return true;

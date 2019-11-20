@@ -18,7 +18,7 @@ public class CustomRoundedImageLoader implements ImageLoaderInterface {
 
     @Override
     public void displayImage(Context context, Object path, View imageView) {
-            Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView)imageView);
+        Picasso.with(context).load(ProApplication.BANNERIMG + ((FlashBean) path).getFlashPic()).error(R.mipmap.ic_adapter_error).into((ImageView) imageView);
 
         /*try {
             if (((String) path).contains("asdads")) {

@@ -46,7 +46,7 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.setting_title_color));
         ActivityUtil.addHomeActivity(this);
 
         String price = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.PRICE);
@@ -54,9 +54,9 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
 
         orderTpye = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSTYPE);
 
-        tv_price.setText("¥ "  + price);
+        tv_price.setText("¥ " + price);
 
-        payResultPresenter.onCreate(this,this);
+        payResultPresenter.onCreate(this, this);
 
         payResultPresenter.orderDetail(orderid, ProApplication.SESSIONID(this));
 
@@ -66,9 +66,9 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
 
     }
 
-    @OnClick({R.id.tv_see_order,R.id.tv_back_home,R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.tv_see_order, R.id.tv_back_home, R.id.ll_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_see_order:
 
 //                Bundle bundle = new Bundle();
@@ -78,12 +78,12 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
                 Bundle bundle = new Bundle();
                 bundle.putInt("status", 1);
                 bundle.putString("order_sn", orderid);
-                if (orderTpye.equals("2") && !teamid.equals("")){
-                    bundle.putString(WlmUtil.TEAMID,teamid);
+                if (orderTpye.equals("2") && !teamid.equals("")) {
+                    bundle.putString(WlmUtil.TEAMID, teamid);
                     UiHelper.launcherBundle(this, GrouponDetailActivity.class, bundle);
                     setResult(RESULT_OK);
                     finish();
-                }else {
+                } else {
                     UiHelper.launcherBundle(this, AllOrderActivity.class, bundle);
                     setResult(RESULT_OK);
                     finish();
@@ -117,7 +117,7 @@ public class PayResultActivity extends BaseActivity implements PayResultContract
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             setResult(RESULT_OK);
             finish();
             return true;

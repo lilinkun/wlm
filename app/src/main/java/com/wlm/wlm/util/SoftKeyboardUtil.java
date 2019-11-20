@@ -23,6 +23,7 @@ public class SoftKeyboardUtil {
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     /**
      * 打开软键盘
      *

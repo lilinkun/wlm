@@ -1,6 +1,5 @@
 package com.wlm.wlm.activity;
 
-import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -57,7 +56,7 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
 
         ActivityUtil.addActivity(this);
 
@@ -66,65 +65,65 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
 
         goodsName = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.GOODSNAME);
 
-        searchResultPresenter.onCreate(this,this);
-        searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+        searchResultPresenter.onCreate(this, this);
+        searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
         int spanCount = 5; // 2 columns
         int spacing = 20; // 50px
         boolean includeEdge = false;
-        rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
 
         rv_search_goods.setLayoutManager(gridLayoutManager);
     }
 
     @Override
     public void getSortType(int sortType) {
-        switch (sortType){
+        switch (sortType) {
             case 1://默认排序
-                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
                 ll_top.setText(getString(R.string.groupon_all));
                 break;
 
             case 2://选择商城
 
-                    View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
-                    RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
+                View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
+                RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
 
-                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this,1);
+                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this, 1);
 
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-                    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-                    recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setLayoutManager(linearLayoutManager);
 
-                    recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-                    });
+                recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                });
 
-                    recyclerView.setAdapter(chooseGrouponAdapter);
+                recyclerView.setAdapter(chooseGrouponAdapter);
 
-                    final PopupWindow popupWindow = new PopupWindow(view,
-                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                final PopupWindow popupWindow = new PopupWindow(view,
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
 
-                    popupWindow.setOutsideTouchable(true);
-                    popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                    popupWindow.showAsDropDown(ll_top);
-                    chooseGrouponAdapter.setOnItemClick(new ChooseGrouponAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(int position) {
-                            goodsType = MallType.values()[position].getTypeId();
-                            searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
-                            popupWindow.dismiss();
-                        }
-                    });
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.showAsDropDown(ll_top);
+                chooseGrouponAdapter.setOnItemClick(new ChooseGrouponAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        goodsType = MallType.values()[position].getTypeId();
+                        searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
+                        popupWindow.dismiss();
+                    }
+                });
 
                 break;
 
 
             case 3://销量上
                 orderby = "1";
-                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
 
                 break;
 
@@ -132,7 +131,7 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
             case 4://销量下
 
                 orderby = "2";
-                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
 
                 break;
 
@@ -140,22 +139,22 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
 
                 orderby = "3";
 //                isGrouponType = false;
-                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
 
                 break;
 
             case 6://价格下
 
                 orderby = "4";
-                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",goodsName);
+                searchResultPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", goodsName);
 
                 break;
         }
     }
 
     @OnClick({R.id.lin_list})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.lin_list:
 
                 finish();
@@ -167,8 +166,8 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
     @Override
     public void getSearchResultSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.goodsListBeans = goodsListBeans;
-        if(searchAdapter == null){
-            searchAdapter = new SearchAdapter(this,goodsListBeans);
+        if (searchAdapter == null) {
+            searchAdapter = new SearchAdapter(this, goodsListBeans);
             searchAdapter.setItemClickListener(this);
             rv_search_goods.setAdapter(searchAdapter);
         }
@@ -181,12 +180,12 @@ public class SearchResultActivity extends BaseActivity implements IGoodsTypeList
 
     @Override
     public void onItemClick(int position) {
-        if (goodsListBeans != null){
+        if (goodsListBeans != null) {
 
             Bundle bundle = new Bundle();
-            bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-            bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
-            UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
+            bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE, WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
+            UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
         }
     }

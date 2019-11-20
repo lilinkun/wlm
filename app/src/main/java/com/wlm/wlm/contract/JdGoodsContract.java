@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public interface JdGoodsContract extends IView {
 
     public void getDataSuccess(ArrayList<JdGoodsBean> jdGoodsBean);
+
     public void getDataFail(String msg);
 
 }

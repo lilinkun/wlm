@@ -12,5 +12,6 @@ import java.util.ArrayList;
 public interface CategoryContract extends IView {
 
     public void getDataSuccess(ArrayList<CategoryListBean<ArrayList<Object>>> categoryListBeans);
+
     public void getDataFail(String msg);
 }

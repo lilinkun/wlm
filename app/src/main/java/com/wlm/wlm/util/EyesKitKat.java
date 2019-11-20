@@ -18,7 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-
 import com.wlm.wlm.R;
 
 import java.lang.reflect.Field;

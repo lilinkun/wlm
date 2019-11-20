@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.SmallImageAdapter;
 import com.wlm.wlm.base.BaseActivity;
@@ -21,9 +22,8 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.presenter.BuyGoodsPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
-import com.squareup.picasso.Picasso;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import static com.wlm.wlm.fragment.MeFragment.checkPackage;
 /**
  * Created by LG on 2018/11/27.
  */
-public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
+public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract {
 
     @BindView(R.id.img_big_icon)
     ImageView mImgBigIcon;
@@ -98,24 +98,24 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
         try {
             DBManager.getInstance(this).insertTbMateriel(tbDisCountBean);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         String pictUrl = tbDisCountBean.getPictUrl();
-        if (pictUrl == null ){
+        if (pictUrl == null) {
             pictUrl = tbDisCountBean.getPictUrl();
         }
-        if (pictUrl.startsWith("//")){
+        if (pictUrl.startsWith("//")) {
             pictUrl = "https:" + pictUrl;
         }
         Picasso.with(this).load(pictUrl).into(mImgBigIcon);
 
 
-        if (Integer.valueOf(tbDisCountBean.getUserType()) == 1){
+        if (Integer.valueOf(tbDisCountBean.getUserType()) == 1) {
             mImgSmallIcon.setImageResource(R.mipmap.ic_tm);
             mTvGoTb.setText(R.string.go_Tm);
             tx_after_quan.setText(R.string.price_tm);
-        }else if (Integer.valueOf(tbDisCountBean.getUserType()) == 0){
+        } else if (Integer.valueOf(tbDisCountBean.getUserType()) == 0) {
             mImgSmallIcon.setImageResource(R.mipmap.ic_tb);
             mTvGoTb.setText(R.string.go_Tb);
             tx_after_quan.setText(R.string.price_tb);
@@ -125,18 +125,18 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
         BigDecimal couponInfo = new BigDecimal(tbDisCountBean.getCouponInfo());
         double newPrice = zkFinalPrice.subtract(couponInfo).doubleValue();
         String price = "";
-        if(Math.round(newPrice) - newPrice == 0){
+        if (Math.round(newPrice) - newPrice == 0) {
             price = String.valueOf((long) newPrice);
-        }else {
+        } else {
             price = String.valueOf(newPrice);
         }
 
         mTvTitle.setText(tbDisCountBean.getTitle());
         mLinkUrl = tbDisCountBean.getItemUrl();
         mTvMoney.setText(price + "");
-        mOrdPrice.setText(tbDisCountBean.getZkFinalPrice()+"");
+        mOrdPrice.setText(tbDisCountBean.getZkFinalPrice() + "");
         mCouponPrice.setText(price + "");
-        mTbMoney.setText(tbDisCountBean.getZkFinalPrice()+"");
+        mTbMoney.setText(tbDisCountBean.getZkFinalPrice() + "");
         mTvMsgAbout.setText(tbDisCountBean.getShortTitle());
 //        Date date = new Date(Long.valueOf(tbDisCountBean.getCouponEndTime()));
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -149,12 +149,12 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        buyGoodsPresenter.onCreate(this,this);
+        buyGoodsPresenter.onCreate(this, this);
 
     }
 
-    @OnClick({R.id.rel_go_TB,R.id.rel_tikey,R.id.tx_TB,R.id.iv_goods_back,R.id.ll_more_picture,R.id.img_iscollect})
-    public void onClick(View view){
+    @OnClick({R.id.rel_go_TB, R.id.rel_tikey, R.id.tx_TB, R.id.iv_goods_back, R.id.ll_more_picture, R.id.img_iscollect})
+    public void onClick(View view) {
         bool = checkPackage(this, "com.taobao.taobao");
         switch (view.getId()) {
             case R.id.rel_go_TB:
@@ -190,12 +190,12 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
                     recyclerView.setAdapter(smallImageAdapter);
                     recyclerView.setVisibility(View.VISIBLE);
                     mUpAndDown.setImageResource(R.mipmap.ic_pic_detail_select);
-                }else {
-                    if (recyclerView != null && recyclerView.isShown()){
+                } else {
+                    if (recyclerView != null && recyclerView.isShown()) {
                         recyclerView.setVisibility(View.GONE);
                         mUpAndDown.setImageResource(R.mipmap.ic_pic_detail_unselect);
 
-                    }else {
+                    } else {
                         recyclerView.setVisibility(View.VISIBLE);
                         mUpAndDown.setImageResource(R.mipmap.ic_pic_detail_select);
                     }
@@ -211,8 +211,7 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
         }
     }
 
-    private void goLink(String paramString)
-    {
+    private void goLink(String paramString) {
         /*if (paramString.startsWith("//")){
             paramString = "https:"+paramString;
         }*/
@@ -236,19 +235,19 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
     @Override
     public void collectSuccess(CollectDeleteBean collectDeleteBean) {
-        if (collectDeleteBean.getStatus() == 0){
-            if (bool){
+        if (collectDeleteBean.getStatus() == 0) {
+            if (bool) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 intent.setData(Uri.parse("taobao:" + tbDisCountBean.getCouponShareUrl() + "&unid=0x151"));
                 startActivity(intent);
-            }else {
+            } else {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("link",tbDisCountBean.getCouponShareUrl());
-                UiHelper.launcherBundle(BuyGoodsActivity.this,CouponLinkActivity.class,bundle);
+                bundle.putString("link", tbDisCountBean.getCouponShareUrl());
+                UiHelper.launcherBundle(BuyGoodsActivity.this, CouponLinkActivity.class, bundle);
             }
-        }else {
+        } else {
             toast(collectDeleteBean.getMessage());
         }
     }
@@ -260,24 +259,24 @@ public class BuyGoodsActivity extends BaseActivity implements BuyGoodsContract{
 
     @Override
     public void exReChangeSuccess(String msg) {
-        if (msg.equals("1000")){//没有领过
+        if (msg.equals("1000")) {//没有领过
             isCheckPoint = false;
-        }else if(msg.equals("1001")){//已经领过
+        } else if (msg.equals("1001")) {//已经领过
             isCheckPoint = true;
         }
 
-        if (isCheckPoint){
-            if (bool){
+        if (isCheckPoint) {
+            if (bool) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 intent.setData(Uri.parse("taobao:" + tbDisCountBean.getCouponShareUrl() + "&unid=" + MainFragmentActivity.username));
                 startActivity(intent);
-            }else {
+            } else {
                 Bundle bundle = new Bundle();
-                bundle.putString("link",tbDisCountBean.getCouponShareUrl());
-                UiHelper.launcherBundle(BuyGoodsActivity.this,CouponLinkActivity.class,bundle);
+                bundle.putString("link", tbDisCountBean.getCouponShareUrl());
+                UiHelper.launcherBundle(BuyGoodsActivity.this, CouponLinkActivity.class, bundle);
             }
-        }else {
+        } else {
             new AlertDialog.Builder(this).setMessage("您需要用" + tbDisCountBean.getCouponInfo() + "积分兑换").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

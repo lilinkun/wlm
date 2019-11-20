@@ -32,6 +32,7 @@ public class Eyes {
             setStatusBarLightMode(activity, statusColor);
         }
     }
+
     public static void setStatusBarColor1(Activity activity, int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             EyesLollipop.setStatusBarColor(activity, statusColor);

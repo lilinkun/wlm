@@ -28,7 +28,7 @@ public class MemberShipPresenter extends BasePresenter {
     private MemberShipContract memberShipContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,21 +47,21 @@ public class MemberShipPresenter extends BasePresenter {
         }
     }
 
-    public void memberShip(String PageIndex,String PageCount,String SessionId){
+    public void memberShip(String PageIndex, String PageCount, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "Goods");
         params.put("fun", "GoodsList");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
-        params.put("GoodsIndextype","7");
+        params.put("GoodsIndextype", "7");
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getselfGoodList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<SelfGoodsBean>,PageBean>(){
+                .subscribe(new HttpResultCallBack<ArrayList<SelfGoodsBean>, PageBean>() {
 
                     @Override
-                    public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status,PageBean page) {
+                    public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status, PageBean page) {
                         memberShipContract.getDataSuccess(selfGoodsBeans);
                     }
 

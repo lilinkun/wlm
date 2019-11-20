@@ -8,15 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.CheckBox;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.adapter.MyShoppingCarAdapter;
 import com.wlm.wlm.adapter.ShoppingCarAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
@@ -26,10 +23,7 @@ import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.GoodsCartbean;
 import com.wlm.wlm.entity.OrderBean;
 import com.wlm.wlm.entity.OrderChildBean;
-import com.wlm.wlm.entity.OrderGroupBean;
-import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.presenter.OrderPresenter;
-import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
@@ -37,7 +31,6 @@ import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UtilTool;
-import com.wlm.wlm.util.UtilsLog;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.math.BigDecimal;
@@ -93,7 +86,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
     private OrderPresenter orderPresenter = new OrderPresenter();
     private ShoppingCarAdapter myShoppingCarAdapter;
     private ArrayList<OrderBean> orderListBeans;
-    private Map<String,OrderChildBean> map = new HashMap<>();
+    private Map<String, OrderChildBean> map = new HashMap<>();
     private double mtotalPrice = 0.00;
     private int mtotalCount = 0;
     //false就是编辑，ture就是完成
@@ -106,7 +99,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
 
     @Override
-    public int getLayoutId()  {
+    public int getLayoutId() {
         return R.layout.activity_shoppingcar;
     }
 
@@ -114,7 +107,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
     public void initEventAndData() {
 //        Eyes.setStatusBarWhiteColor(getActivity(),getResources().getColor(R.color.white));
         Eyes.translucentStatusBar(this);
-        orderPresenter.onCreate(this,this);
+        orderPresenter.onCreate(this, this);
         orderPresenter.getList(ProApplication.SESSIONID(this));
 
         ActivityUtil.addHomeActivity(this);
@@ -126,7 +119,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 //        final StoreHouseHeader header=new StoreHouseHeader(this);
 //        header.setPadding(dp2px(20), dp2px(20), 0, 0);
 //        header.initWithString("xiaoma is good");
-        final PtrClassicDefaultHeader header=new PtrClassicDefaultHeader(this);
+        final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
         header.setPadding(dp2px(20), dp2px(20), 0, 0);
         mPtrFrame.setHeaderView(header);
         mPtrFrame.addPtrUIHandler(header);
@@ -148,15 +141,15 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
 
         ry_goods_cart.setLayoutManager(linearLayoutManager);
-        ry_goods_cart.addItemDecoration(new SpaceItemDecoration(0,20,0));
+        ry_goods_cart.addItemDecoration(new SpaceItemDecoration(0, 20, 0));
     }
 
-    public void setData(){
+    public void setData() {
         orderPresenter.getList(ProApplication.SESSIONID(this));
     }
 
-    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.tv_cart_edit,R.id.go_pay,R.id.go_shopping,R.id.ll_title_back,R.id.ll_back})
-    public void onClick(View view){
+    @OnClick({R.id.all_checkBox, R.id.del_goods, R.id.tv_cart_edit, R.id.go_pay, R.id.go_shopping, R.id.ll_title_back, R.id.ll_back})
+    public void onClick(View view) {
         AlertDialog dialog;
         if (!ButtonUtils.isFastDoubleClick(view.getId()) && view.getId() != R.id.all_checkBox) {
             switch (view.getId()) {
@@ -197,7 +190,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
                         return;
                     }
 
-                    orderPresenter.getOrderInfo(getOrderList(),ProApplication.SESSIONID(this));
+                    orderPresenter.getOrderInfo(getOrderList(), ProApplication.SESSIONID(this));
 
 //                    orderPresenter.isUserAddress(ProApplication.SESSIONID(this));
                     break;
@@ -221,8 +214,8 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
                     break;
             }
-        }else {
-            if (view.getId() == R.id.all_checkBox){
+        } else {
+            if (view.getId() == R.id.all_checkBox) {
                 doCheckAll();
             }
         }
@@ -256,7 +249,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         calulate();
     }
 
-    private void updataData(){
+    private void updataData() {
         if (orderListBeans != null && orderListBeans.size() > 0) {
             /*for (int i = 0; i < orderListBeans.size(); i++) {
                 OrderGroupBean group = orderListBeans.get(i);
@@ -276,7 +269,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void OrderListSuccess(GoodsCartbean goodsCartbean) {
 
-        orderListBeans = (ArrayList<OrderBean>)goodsCartbean.getList();
+        orderListBeans = (ArrayList<OrderBean>) goodsCartbean.getList();
 
         if (orderListBeans.size() > 0) {
             linearLayout.setVisibility(View.GONE);
@@ -284,18 +277,18 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
             ll_cart.setVisibility(View.VISIBLE);
 
             orderChildBeans = new ArrayList<>();
-            for (OrderBean orderBean : orderListBeans){
+            for (OrderBean orderBean : orderListBeans) {
 
                 OrderChildBean orderChildBean = new OrderChildBean();
                 orderChildBean.setOrderBean(orderBean);
                 orderChildBean.setChoosed(false);
                 orderChildBean.setParentId(orderBean.getCartId());
                 orderChildBeans.add(orderChildBean);
-                map.put(orderBean.getCartId(),orderChildBean);
+                map.put(orderBean.getCartId(), orderChildBean);
             }
 
 
-            myShoppingCarAdapter = new ShoppingCarAdapter(this,orderListBeans,map);
+            myShoppingCarAdapter = new ShoppingCarAdapter(this, orderListBeans, map);
             ry_goods_cart.setAdapter(myShoppingCarAdapter);
             myShoppingCarAdapter.setCheckInterface(this);
             myShoppingCarAdapter.setModifyCountInterface(this); //关键步骤2:设置增删减的接口
@@ -303,16 +296,16 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
                 @Override
                 public void onItemClick(int position) {
                     String type = WlmUtil.MANUFACURE;
-                    if (orderListBeans.get(position).getGoodsType() == 1){
+                    if (orderListBeans.get(position).getGoodsType() == 1) {
                         type = WlmUtil.INTEGRAL;
-                    }else if (orderListBeans.get(position).getGoodsType() == 2){
+                    } else if (orderListBeans.get(position).getGoodsType() == 2) {
                         type = WlmUtil.MANUFACURE;
                     }
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(WlmUtil.GOODSID,orderListBeans.get(position).getGoodsId());
-                    bundle.putString(WlmUtil.TYPE,type);
-                    UiHelper.launcherBundle(ShoppingCarActivity.this, SelfGoodsDetailActivity.class,bundle);
+                    bundle.putString(WlmUtil.GOODSID, orderListBeans.get(position).getGoodsId());
+                    bundle.putString(WlmUtil.TYPE, type);
+                    UiHelper.launcherBundle(ShoppingCarActivity.this, SelfGoodsDetailActivity.class, bundle);
                 }
             });
 //            ry_goods_cart.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -337,7 +330,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 //                    }
 //                }
 //            });
-        }else {
+        } else {
             linearLayout.setVisibility(View.VISIBLE);
             rl_cart_bottom.setVisibility(View.GONE);
             ll_cart.setVisibility(View.GONE);
@@ -351,9 +344,9 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void modifyOrderSuccess(CollectDeleteBean collectDeleteBean, String num, View showCountView) {
-        if (collectDeleteBean.getStatus() != 0){
-            UToast.show(this,collectDeleteBean.getMessage());
-        }else {
+        if (collectDeleteBean.getStatus() != 0) {
+            UToast.show(this, collectDeleteBean.getMessage());
+        } else {
             orderBean.setNum(Integer.valueOf(num));
             ((TextView) showCountView).setText(String.valueOf(num));
             myShoppingCarAdapter.notifyDataSetChanged();
@@ -368,7 +361,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void deleteGoodsSuccess(String collectDeleteBean) {
-        UToast.show(this,"删除成功");
+        UToast.show(this, "删除成功");
         calulate();
         all_checkBox.setChecked(false);
 
@@ -376,30 +369,30 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void deleteGoodsFail(String msg) {
-        UToast.show(this,"删除失败");
+        UToast.show(this, "删除失败");
     }
 
     @Override
     public void cartOrderBuySuccess(String str) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("type",1);
-        bundle.putString("CartId",getOrderList());
-        UiHelper.launcherForResultBundle(this, CartOrderActivity.class,order_result,bundle);
+        bundle.putInt("type", 1);
+        bundle.putString("CartId", getOrderList());
+        UiHelper.launcherForResultBundle(this, CartOrderActivity.class, order_result, bundle);
     }
 
     @Override
     public void cartOrderBuyFail(String msg) {
-        UToast.show(this,msg);
+        UToast.show(this, msg);
     }
 
     @Override
     public void isAddressSuccess(ArrayList<AddressBean> msg) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("type",1);
-        bundle.putString("CartId",getOrderList());
-        UiHelper.launcherForResultBundle(this, CartOrderActivity.class,order_result,bundle);
+        bundle.putInt("type", 1);
+        bundle.putString("CartId", getOrderList());
+        UiHelper.launcherForResultBundle(this, CartOrderActivity.class, order_result, bundle);
     }
 
     @Override
@@ -425,7 +418,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         orderBean = orderListBeans.get(position);
         int count = Integer.valueOf(orderBean.getNum());
         count++;
-        orderPresenter.modifyOrder(count+"",orderBean.getCartId(),showCountView,ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(this));
         orderBean.setNum(count);
         ((TextView) showCountView).setText(String.valueOf(count));
         myShoppingCarAdapter.notifyDataSetChanged();
@@ -440,7 +433,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
             return;
         }
         count--;
-        orderPresenter.modifyOrder(count+"",orderBean.getCartId(),showCountView,ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(this));
         orderBean.setNum(count);
         ((TextView) showCountView).setText("" + count);
         myShoppingCarAdapter.notifyDataSetChanged();
@@ -451,7 +444,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
     public void doUpdate(int position, View showCountView, boolean isChecked) {
 //        orderBean = (OrderChildBean) myShoppingCarAdapter.getChild(groupPosition, childPosition);
         int count = Integer.valueOf(orderBean.getNum());
-        orderPresenter.modifyOrder(count + "", orderBean.getCartId(),showCountView, ProApplication.SESSIONID(this));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(this));
 //        UtilsLog.i("进行更新数据，数量" + count + "");
 //        ((TextView) showCountView).setText(String.valueOf(count));
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -475,18 +468,18 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void sumGoodsNum(int num) {
-        tv_cart_num.setText("总共"+num+"件宝贝");
+        tv_cart_num.setText("总共" + num + "件宝贝");
     }
 
-    public String getOrderList(){
+    public String getOrderList() {
         String OrderStr = "";
         for (int i = 0; i < orderListBeans.size(); i++) {
 
             OrderChildBean child = map.get(orderListBeans.get(i).getCartId());
-            if (child.isChoosed()){
-                if (OrderStr.equals("")){
+            if (child.isChoosed()) {
+                if (OrderStr.equals("")) {
                     OrderStr = orderListBeans.get(i).getCartId();
-                }else {
+                } else {
                     OrderStr = OrderStr + "," + orderListBeans.get(i).getCartId();
                 }
             }
@@ -505,11 +498,11 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         for (int i = 0; i < orderChildBeans.size(); i++) {
             OrderBean orderBean = orderListBeans.get(i);
 
-            if (map.get(orderBean.getCartId()).isChoosed()){
+            if (map.get(orderBean.getCartId()).isChoosed()) {
                 toBeDeleteChilds.add(map.get(orderBean.getCartId()).getOrderBean());
-                if (deleteStr.equals("")){
+                if (deleteStr.equals("")) {
                     deleteStr = orderBean.getCartId();
-                }else {
+                } else {
                     deleteStr = deleteStr + "," + orderBean.getCartId();
                 }
             }
@@ -520,7 +513,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
         setCartNum();
         myShoppingCarAdapter.notifyDataSetChanged();
 
-        orderPresenter.deleteOrder(deleteStr,ProApplication.SESSIONID(this));
+        orderPresenter.deleteOrder(deleteStr, ProApplication.SESSIONID(this));
     }
 
     /**
@@ -568,9 +561,9 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
             }
         }
 
-        if (mtotalCount == 0){
+        if (mtotalCount == 0) {
             goPay.setText("结算(" + mtotalCount + ")");
-        }else {
+        } else {
             goPay.setText("结算(" + mtotalCount + ")");
         }
 
@@ -599,11 +592,11 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK){
-            if(requestCode == order_result){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == order_result) {
                 orderPresenter.getList(ProApplication.SESSIONID(this));
             }
-            if (requestCode == goods_result){
+            if (requestCode == goods_result) {
                 orderPresenter.getList(ProApplication.SESSIONID(this));
             }
         }
@@ -632,7 +625,7 @@ public class ShoppingCarActivity extends BaseActivity implements View.OnClickLis
     private boolean isCheckAll() {
         for (OrderBean orderBean : orderListBeans) {
 
-            if (!map.get(orderBean.getCartId()).isChoosed()){
+            if (!map.get(orderBean.getCartId()).isChoosed()) {
                 return false;
             }
         }

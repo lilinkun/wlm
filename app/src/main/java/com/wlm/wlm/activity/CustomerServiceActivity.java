@@ -24,14 +24,12 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
 
         wv_customer.getSettings().setJavaScriptEnabled(true);
-        wv_customer.setWebViewClient(new WebViewClient()
-        {
-            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
-            {
+        wv_customer.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });
@@ -40,8 +38,8 @@ public class CustomerServiceActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();

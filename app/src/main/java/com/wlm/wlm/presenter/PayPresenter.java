@@ -46,22 +46,22 @@ public class PayPresenter extends BasePresenter {
         }
     }
 
-    public void getWxPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String Integral,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+    public void getWxPayOrderInfo(String OrderSn, String OpenId, String OrderAmount, String Logo_ID, String payType, String Integral, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取数据中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","OrderInfo");
-        params.put("fun","OrderInfoPay");
-        params.put("OrderSn",OrderSn);
-        params.put("OpenId",OpenId);
-        params.put("OrderAmount",OrderAmount);
-        params.put("Logo_ID",Logo_ID);
-        params.put("Integral",Integral);
-        params.put("payType",payType);
-        params.put("SessionId",SessionId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoPay");
+        params.put("OrderSn", OrderSn);
+        params.put("OpenId", OpenId);
+        params.put("OrderAmount", OrderAmount);
+        params.put("Logo_ID", Logo_ID);
+        params.put("Integral", Integral);
+        params.put("payType", payType);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.sureWxGoodsOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<WxInfo,Object>() {
+                .subscribe(new HttpResultCallBack<WxInfo, Object>() {
                     @Override
                     public void onResponse(WxInfo rightNows, String status, Object page) {
                         payContract.sureWxOrderSuccess(rightNows);
@@ -80,23 +80,23 @@ public class PayPresenter extends BasePresenter {
                 }));
     }
 
-    public void getPayOrderInfo(String OrderSn,String OpenId,String OrderAmount,String Logo_ID,String payType,String Integral,String PassWordTwo,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+    public void getPayOrderInfo(String OrderSn, String OpenId, String OrderAmount, String Logo_ID, String payType, String Integral, String PassWordTwo, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取数据中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","OrderInfo");
-        params.put("fun","OrderInfoPay");
-        params.put("OrderSn",OrderSn);
-        params.put("OpenId",OpenId);
-        params.put("OrderAmount",OrderAmount);
-        params.put("Logo_ID",Logo_ID);
-        params.put("payType",payType);
-        params.put("Integral",Integral);
-        params.put("PassWordTwo",PassWordTwo);
-        params.put("SessionId",SessionId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoPay");
+        params.put("OrderSn", OrderSn);
+        params.put("OpenId", OpenId);
+        params.put("OrderAmount", OrderAmount);
+        params.put("Logo_ID", Logo_ID);
+        params.put("payType", payType);
+        params.put("Integral", Integral);
+        params.put("PassWordTwo", PassWordTwo);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.sureGoodsOrder(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<String, Object>() {
                     @Override
                     public void onResponse(String s, String status, Object page) {
                         payContract.sureOrderSuccess(s);
@@ -115,16 +115,16 @@ public class PayPresenter extends BasePresenter {
                 }));
     }
 
-    public void getBalance(String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+    public void getBalance(String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取数据中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankBase_GetBalance");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankBase_GetBalance");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBalance(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                .subscribe(new HttpResultCallBack<BalanceBean, Object>() {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         payContract.getBalanceSuccess(balanceBean);
@@ -144,20 +144,21 @@ public class PayPresenter extends BasePresenter {
     }
 
     /**
-     *　订单详情
+     * 　订单详情
+     *
      * @param OrderSn
      * @param SessionId
      */
-    public void orderDetail(String OrderSn,String SessionId){
+    public void orderDetail(String OrderSn, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","OrderInfo");
-        params.put("fun","OrderInfoGoodsDetail");
-        params.put("OrderSn",OrderSn);
-        params.put("SessionId",SessionId);
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoGoodsDetail");
+        params.put("OrderSn", OrderSn);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getOrderDetail(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<OrderDetailAddressBean,Object>() {
+                .subscribe(new HttpResultCallBack<OrderDetailAddressBean, Object>() {
                     @Override
                     public void onResponse(OrderDetailAddressBean orderDetailBeans, String status, Object page) {
                         payContract.setDataSuccess(orderDetailBeans);

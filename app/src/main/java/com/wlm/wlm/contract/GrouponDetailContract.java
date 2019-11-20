@@ -9,5 +9,6 @@ import com.wlm.wlm.mvp.IView;
 public interface GrouponDetailContract extends IView {
 
     public void getDataSuccess(GrouponDetailBean goodsListBean);
+
     public void getDataFail(String msg);
 }

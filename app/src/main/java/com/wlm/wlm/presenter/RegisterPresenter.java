@@ -1,8 +1,6 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.contract.RegisterContract;
 import com.wlm.wlm.entity.ResultBean;
@@ -27,7 +25,7 @@ public class RegisterPresenter extends BasePresenter {
     private RegisterContract registerContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -48,10 +46,11 @@ public class RegisterPresenter extends BasePresenter {
 
     /**
      * 发送短信验证码
+     *
      * @param mobile
      * @param sessionId
      */
-    public void SendSms(String mobile,String sessionId){
+    public void SendSms(String mobile, String sessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "SendSms");
@@ -61,10 +60,10 @@ public class RegisterPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         registerContract.onSendVcodeSuccess();
                     }
 
@@ -120,17 +119,18 @@ public class RegisterPresenter extends BasePresenter {
 
     /**
      * 注册
+     *
      * @param Mobile
      * @param code
      */
-    public void register(String Mobile,String NickName, String code, String Referees,String UnionId,String OpenId,String Portrait,String TPLType,String SessionId){
+    public void register(String Mobile, String NickName, String code, String Referees, String UnionId, String OpenId, String Portrait, String TPLType, String SessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "UserBaseRegister");
         params.put("Referees", Referees);
         params.put("Mobile", Mobile);
-        params.put("Code",code);
+        params.put("Code", code);
         params.put("UnionId", UnionId);
         params.put("OpenId", OpenId);
         params.put("NickName", NickName);
@@ -140,10 +140,10 @@ public class RegisterPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         registerContract.onRegisterSuccess();
                     }
 
@@ -162,13 +162,13 @@ public class RegisterPresenter extends BasePresenter {
     }
 
 
-
     /**
      * 修改密码
+     *
      * @param mobile
      * @param code
      */
-    public void modify(String mobile, String code, String psd,String SessionId){
+    public void modify(String mobile, String code, String psd, String SessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
@@ -176,14 +176,14 @@ public class RegisterPresenter extends BasePresenter {
         params.put("new_password", psd);
         params.put("mobile", mobile);
         params.put("Code", code);
-        params.put("SessionId",SessionId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         registerContract.onRegisterSuccess();
                     }
 

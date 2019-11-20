@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.TextViewBeforeTextChangeEvent;
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
-import com.squareup.picasso.Picasso;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -24,18 +21,18 @@ import java.util.ArrayList;
 
 public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.ViewHolder> implements View.OnClickListener {
 
-    private ArrayList<GoodsListBean> selfGoodsBeans ;
+    private ArrayList<GoodsListBean> selfGoodsBeans;
     private Context context;
     private OnItemClickListener mItemClickListener;
-    private int num =0;
+    private int num = 0;
 
-    public SelfGoodsAdapter(Context context, ArrayList<GoodsListBean> selfGoodsBeans, int num){
+    public SelfGoodsAdapter(Context context, ArrayList<GoodsListBean> selfGoodsBeans, int num) {
         this.context = context;
         this.selfGoodsBeans = selfGoodsBeans;
         this.num = num;
     }
 
-    public void setData(ArrayList<GoodsListBean> selfGoodsBeans){
+    public void setData(ArrayList<GoodsListBean> selfGoodsBeans) {
         this.selfGoodsBeans = selfGoodsBeans;
         notifyDataSetChanged();
     }
@@ -45,8 +42,8 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
         View view = null;
         if (num == 2) {
             view = LayoutInflater.from(context).inflate(R.layout.adapter_self_goods, null);
-        }else if (num == 3){
-            view =  LayoutInflater.from(context).inflate(R.layout.adapter_self_recommend, null);
+        } else if (num == 3) {
+            view = LayoutInflater.from(context).inflate(R.layout.adapter_self_recommend, null);
         }
 
         ViewHolder viewHolder = new ViewHolder(view);
@@ -60,15 +57,15 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
         holder.itemView.setTag(position);
 
         holder.tvself_title.setText(selfGoodsBeans.get(position).getGoodsName());
-        holder.tvself_price.setText( "¥"+selfGoodsBeans.get(position).getPrice());
+        holder.tvself_price.setText("¥" + selfGoodsBeans.get(position).getPrice());
 
-        holder.tv_goods_volume.setText(selfGoodsBeans.get(position).getUseNumber()+"");
-        if (num == 2){
+        holder.tv_goods_volume.setText(selfGoodsBeans.get(position).getUseNumber() + "");
+        if (num == 2) {
             holder.tv_integral.setVisibility(View.VISIBLE);
             holder.tv_integral.setText("可用积分抵扣" + selfGoodsBeans.get(position).getIntegral());
         }
 
-        Picasso.with(context).load(ProApplication.HEADIMG+selfGoodsBeans.get(position).getGoodsImg()).error(R.color.white).into(holder.ivself_goods);
+        Picasso.with(context).load(ProApplication.HEADIMG + selfGoodsBeans.get(position).getGoodsImg()).error(R.color.white).into(holder.ivself_goods);
     }
 
     @Override
@@ -81,7 +78,7 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
         return selfGoodsBeans.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvself_price;
         private TextView tvself_title;
@@ -101,7 +98,7 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -110,7 +107,7 @@ public class SelfGoodsAdapter extends RecyclerView.Adapter<SelfGoodsAdapter.View
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 

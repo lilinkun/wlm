@@ -30,7 +30,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     private ArrayList<TextView> textViews = new ArrayList<>();
     private int point = 0;
 
-    public OrderListAdapter(Context context, BuyBean buyBeans,OnDataGetFare onDataGetFare){
+    public OrderListAdapter(Context context, BuyBean buyBeans, OnDataGetFare onDataGetFare) {
         this.context = context;
         this.buyBeans = buyBeans;
         this.onDataGetFare = onDataGetFare;
@@ -38,7 +38,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.parent_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.parent_item, null);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -51,13 +51,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
         ArrayList<ChildListBean> childListBeans = buyBeans.getStoremodel().get(position).getGoodsList();
 
-        if (storeIds.equals("")){
+        if (storeIds.equals("")) {
             storeIds = buyBeans.getStoremodel().get(position).getStore_id();
-        }else {
+        } else {
             storeIds = storeIds + buyBeans.getStoremodel().get(position).getStore_id();
         }
 
-        OrderShopAdapter orderShopAdapter = new OrderShopAdapter(context,childListBeans);
+        OrderShopAdapter orderShopAdapter = new OrderShopAdapter(context, childListBeans);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setAdapter(orderShopAdapter);
 
@@ -71,31 +71,30 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 //                UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class,bundle);
             }
         });
-        for (ChildListBean childListBean : childListBeans){
-            if (goodsIds.equals("")){
-                goodsIds =  childListBean.getGoods_id()+"";
-            }else {
+        for (ChildListBean childListBean : childListBeans) {
+            if (goodsIds.equals("")) {
+                goodsIds = childListBean.getGoods_id() + "";
+            } else {
                 goodsIds = "," + childListBean.getGoods_id();
             }
             if (spec.equals("")) {
                 spec = childListBean.getAttr_id();
-            }else {
+            } else {
                 spec = spec + "," + childListBean.getAttr_id();
             }
 
-                num += childListBean.getNum();
+            num += childListBean.getNum();
         }
 
-        if (position == buyBeans.getStoremodel().size()-1){
-            onDataGetFare.onGetFare(goodsIds,storeIds,spec,num+"");
+        if (position == buyBeans.getStoremodel().size() - 1) {
+            onDataGetFare.onGetFare(goodsIds, storeIds, spec, num + "");
             onDataGetFare.onPoint(point);
         }
 
 
-
     }
 
-    public void setFreight(String price){
+    public void setFreight(String price) {
         textViews.get(0).setText(price);
     }
 
@@ -109,16 +108,18 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         return position;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.rv_child);
         }
     }
 
-    public interface OnDataGetFare{
+    public interface OnDataGetFare {
         public void onGetFare(String goodsids, String storeIds, String spec, String num);
+
         public void onPoint(int point);
     }
 }

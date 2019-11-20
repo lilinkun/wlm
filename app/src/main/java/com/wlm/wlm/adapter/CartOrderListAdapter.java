@@ -1,27 +1,18 @@
 package com.wlm.wlm.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.entity.CartBuyBean;
-import com.wlm.wlm.entity.ChildListBean;
 import com.wlm.wlm.entity.RightNowBuyBean;
-import com.wlm.wlm.entity.RightNowGoodsBean;
-import com.wlm.wlm.util.UToast;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,7 +33,7 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
     private int point = 0;
     private OnDataGetFare onDataGetFare;
 
-    public CartOrderListAdapter(Context context, RightNowBuyBean<CartBuyBean> buyBeans, OnDataGetFare onDataGetFare){
+    public CartOrderListAdapter(Context context, RightNowBuyBean<CartBuyBean> buyBeans, OnDataGetFare onDataGetFare) {
         this.context = context;
         this.buyBeans = buyBeans;
         this.onDataGetFare = onDataGetFare;
@@ -50,7 +41,7 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_groupon_order,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_groupon_order, null);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -66,7 +57,7 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
         if (cartBuyBean.getQty() == 2) {
             holder.tv_goods_spec1.setText(cartBuyBean.getSpec1());
             holder.tv_goods_spec2.setText(" " + cartBuyBean.getSpec2());
-        }else if(cartBuyBean.getQty() == 1){
+        } else if (cartBuyBean.getQty() == 1) {
             holder.tv_goods_spec1.setText(cartBuyBean.getSpec1());
         }
 
@@ -88,13 +79,14 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
 //        return position;
 //    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_goods_pic;
         TextView tv_goods_title;
         TextView tv_goods_spec1;
         TextView tv_goods_spec2;
         TextView tv_goods_price;
         TextView tv_coupon_price;
+
         public ViewHolder(View itemView) {
             super(itemView);
             iv_goods_pic = itemView.findViewById(R.id.iv_goods_pic);
@@ -106,8 +98,9 @@ public class CartOrderListAdapter extends RecyclerView.Adapter<CartOrderListAdap
         }
     }
 
-    public interface OnDataGetFare{
+    public interface OnDataGetFare {
         public void onPoint(int point, int position, int changint);
+
         public void onOrderFares();
     }
 }

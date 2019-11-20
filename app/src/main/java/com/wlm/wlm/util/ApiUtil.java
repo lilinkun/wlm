@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * *请求控制工具类
-
+ * <p>
  * Created by LG on 2018/12/26.
  */
 public class ApiUtil {
@@ -58,13 +58,13 @@ public class ApiUtil {
     /**
      * 上传头像
      */
-    public static Call<Result<String>> uploadMemberIcon(List<MultipartBody.Part> partList,String HeadPic,String SessionId) {
-        HashMap<String ,String> hashMap = new HashMap<>();
-        hashMap.put("cls","UserBase");
-        hashMap.put("fun","UploadHeadPic");
-        hashMap.put("HeadPic",HeadPic);
-        hashMap.put("SessionId",SessionId);
-        return ApiUtil.getApiService().uploadMemberIcon(partList,hashMap);
+    public static Call<Result<String>> uploadMemberIcon(List<MultipartBody.Part> partList, String HeadPic, String SessionId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("cls", "UserBase");
+        hashMap.put("fun", "UploadHeadPic");
+        hashMap.put("HeadPic", HeadPic);
+        hashMap.put("SessionId", SessionId);
+        return ApiUtil.getApiService().uploadMemberIcon(partList, hashMap);
     }
 
 }

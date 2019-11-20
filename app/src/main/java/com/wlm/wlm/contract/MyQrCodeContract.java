@@ -8,5 +8,6 @@ import com.wlm.wlm.mvp.IView;
  */
 public interface MyQrCodeContract extends IView {
     public void getQrCodeSuccess(LoginBean loginBean);
+
     public void getQrCodeFail(String msg);
 }

@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class DeviceData {
 
-    public static String getUniqueId(Context context){
+    public static String getUniqueId(Context context) {
         String androidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         String id = androidID + Build.SERIAL;
         try {
@@ -46,5 +46,5 @@ public class DeviceData {
         }
         //返回整个结果
         return sb.toString();
-        }
     }
+}

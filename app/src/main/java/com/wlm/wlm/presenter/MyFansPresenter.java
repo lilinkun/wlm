@@ -27,7 +27,7 @@ public class MyFansPresenter extends BasePresenter {
     private MyFansContract myFansContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,23 +47,23 @@ public class MyFansPresenter extends BasePresenter {
     }
 
 
-    public void getFansData(String PageIndex,String PageCount,String NickName,String sessionId){
+    public void getFansData(String PageIndex, String PageCount, String NickName, String sessionId) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "UserBaseRefereesList_Vip");
-        params.put("NickName",NickName);
+        params.put("NickName", NickName);
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.getFansData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<FansBean>,PageBean>() {
+                .subscribe(new HttpResultCallBack<ArrayList<FansBean>, PageBean>() {
                     @Override
                     public void onResponse(ArrayList<FansBean> integralBean, String status, PageBean page) {
-                        myFansContract.getFansSuccess(integralBean,page);
+                        myFansContract.getFansSuccess(integralBean, page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }

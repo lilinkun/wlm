@@ -122,10 +122,10 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     @Override
     public void initEventAndData() {
         translucentScrollView.init(this);
-        mePresenter.onCreate(getActivity(),this);
+        mePresenter.onCreate(getActivity(), this);
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
 
-        iwxapi = WXAPIFactory.createWXAPI(getActivity(),WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(getActivity(), WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
         WXEntryActivity.wxType(WlmUtil.WXTYPE_SHARED);
@@ -133,8 +133,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, getActivity().MODE_PRIVATE);
 
-        mTvAccount.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
-        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL,"").isEmpty()) {
+        mTvAccount.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, ""));
+        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL, "").isEmpty()) {
             Picasso.with(getActivity()).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(roundImageView);
         }
 //        BadgeView badgeView = new BadgeView(getActivity());
@@ -145,7 +145,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
         header.setPadding(dp2px(20), dp2px(20), 0, 0);
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_ptr_head,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_ptr_head, null);
 
         CustomerPtrHandler customerPtrHandler = new CustomerPtrHandler(getActivity());
 
@@ -166,13 +166,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         });
     }
 
-    public void setPoint(){
+    public void setPoint() {
         mePresenter.getBalance(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.iv_me_setting,  R.id.ll_integral, R.id.ll_collection,R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,
-            R.id.ll_bind_card,R.id.ll_customer_service,R.id.ll_wait_pay,R.id.ll_wait_deliver,R.id.ll_wait_receiver,R.id.rl_vip,R.id.ll_qrcode,
-            R.id.ll_wlm_coin,R.id.rl_fans,R.id.ll_shared,R.id.ll_wlm_income_coin,R.id.rl_me_message})
+    @OnClick({R.id.iv_me_setting, R.id.ll_integral, R.id.ll_collection, R.id.rl_me_tuan, R.id.ll_coupon, R.id.rl_my_all_order, R.id.riv_head_img,
+            R.id.ll_bind_card, R.id.ll_customer_service, R.id.ll_wait_pay, R.id.ll_wait_deliver, R.id.ll_wait_receiver, R.id.rl_vip, R.id.ll_qrcode,
+            R.id.ll_wlm_coin, R.id.rl_fans, R.id.ll_shared, R.id.ll_wlm_income_coin, R.id.rl_me_message})
     public void onClick(View v) {
         if (!ButtonUtils.isFastDoubleClick(v.getId())) {
             switch (v.getId()) {
@@ -194,8 +194,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.rl_my_all_order:
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt("position",0);
-                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle);
+                    bundle.putInt("position", 0);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class, bundle);
 
                     break;
 
@@ -205,13 +205,12 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     break;
 
 
-
                 case R.id.ll_integral:
 
                     Bundle bundle4 = new Bundle();
                     bundle4.putInt("style", 0);
-                    bundle4.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
-                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class,0x1987, bundle4);
+                    bundle4.putSerializable(WlmUtil.BALANCEBEAN, balanceBean);
+                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class, 0x1987, bundle4);
 
                     break;
 
@@ -225,9 +224,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     Bundle csBundle = new Bundle();
                     csBundle.putString("CategoryId", MessageType.values()[2].getCategoryId());
-                    csBundle.putSerializable("title",MessageType.values()[2].getTypeName());
-                    csBundle.putString("from","me");
-                    UiHelper.launcherBundle(getActivity(),MessageDetitleActivity.class,csBundle);
+                    csBundle.putSerializable("title", MessageType.values()[2].getTypeName());
+                    csBundle.putString("from", "me");
+                    UiHelper.launcherBundle(getActivity(), MessageDetitleActivity.class, csBundle);
 
                     break;
 
@@ -240,21 +239,21 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                 case R.id.ll_wait_pay:
 
                     Bundle bundle9 = new Bundle();
-                    bundle9.putInt("position",1);
-                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle9);
+                    bundle9.putInt("position", 1);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class, bundle9);
                     break;
 
                 case R.id.ll_wait_deliver:
 
                     Bundle bundle6 = new Bundle();
-                    bundle6.putInt("position",2);
-                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle6);
+                    bundle6.putInt("position", 2);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class, bundle6);
                     break;
                 case R.id.ll_wait_receiver:
 
                     Bundle bundle8 = new Bundle();
-                    bundle8.putInt("position",3);
-                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class,bundle8);
+                    bundle8.putInt("position", 3);
+                    UiHelper.launcherBundle(getActivity(), OrderListActivity.class, bundle8);
                     break;
 
                 case R.id.rl_vip:
@@ -273,8 +272,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     Bundle bundle5 = new Bundle();
                     bundle5.putInt("style", 1);
-                    bundle5.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
-                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class,result_coin, bundle5);
+                    bundle5.putSerializable(WlmUtil.BALANCEBEAN, balanceBean);
+                    UiHelper.launcherForResultBundle(getActivity(), IntegralActivity.class, result_coin, bundle5);
 
                     break;
 
@@ -282,7 +281,7 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                     Bundle bundle10 = new Bundle();
                     bundle10.putInt("style", 2);
-                    bundle10.putSerializable(WlmUtil.BALANCEBEAN,balanceBean);
+                    bundle10.putSerializable(WlmUtil.BALANCEBEAN, balanceBean);
                     UiHelper.launcherBundle(getActivity(), IntegralActivity.class, bundle10);
 
 
@@ -303,8 +302,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                    String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-                    WlmUtil.setShared(iwxapi,path,"唯乐美商城","唯乐美商城",baos.toByteArray());
+                    String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
+                    WlmUtil.setShared(iwxapi, path, "唯乐美商城", "唯乐美商城", baos.toByteArray());
 
                     break;
 
@@ -379,8 +378,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
                         roundImageView.setImageResource(R.mipmap.ic_head);
                     }
                 }
-            }else if (requestCode == result_recharge){
-            }else if (requestCode == result_coin){
+            } else if (requestCode == result_recharge) {
+            } else if (requestCode == result_coin) {
                 balanceBean = (BalanceBean) data.getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.BALANCEBEAN);
             }
         }
@@ -425,13 +424,13 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     @Override
     public void getBalanceSuccess(BalanceBean balanceBean) {
         this.balanceBean = balanceBean;
-        tv_shopping_balance.setText(balanceBean.getMoney5Balance()+"");
-        tv_balance_wait_income.setText(balanceBean.getMoney4Balance()+"");
-        tv_integral_balance.setText(balanceBean.getMoney2Balance()+"");
+        tv_shopping_balance.setText(balanceBean.getMoney5Balance() + "");
+        tv_balance_wait_income.setText(balanceBean.getMoney4Balance() + "");
+        tv_integral_balance.setText(balanceBean.getMoney2Balance() + "");
 
-        if (balanceBean.getUserLevel() <= 0){
+        if (balanceBean.getUserLevel() <= 0) {
             iv_me_vip.setVisibility(View.GONE);
-        }else {
+        } else {
             tv_open_vip.setText("立即续费");
         }
 

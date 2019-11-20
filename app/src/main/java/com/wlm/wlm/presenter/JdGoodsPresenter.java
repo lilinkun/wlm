@@ -3,7 +3,6 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.JdGoodsContract;
-import com.wlm.wlm.entity.IntegralBean;
 import com.wlm.wlm.entity.JdGoodsBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -27,7 +26,7 @@ public class JdGoodsPresenter extends BasePresenter {
     private JdGoodsContract jdGoodsContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -46,22 +45,22 @@ public class JdGoodsPresenter extends BasePresenter {
         }
     }
 
-    public void setData(String PageIndex,String PageCount,String Sort,String eliteId,String sortName,String SessionId){
+    public void setData(String PageIndex, String PageCount, String Sort, String eliteId, String sortName, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","JDK");
-        params.put("fun","goods_jingfen_query");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("Sort",Sort);
-        params.put("eliteId",eliteId);
-        params.put("sortName",sortName);
-        params.put("SessionId",SessionId);
+        params.put("cls", "JDK");
+        params.put("fun", "goods_jingfen_query");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("Sort", Sort);
+        params.put("eliteId", eliteId);
+        params.put("sortName", sortName);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getJdGoods(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<JdGoodsBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<JdGoodsBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<JdGoodsBean> jdGoodsBean, String status,Object page) {
+                    public void onResponse(ArrayList<JdGoodsBean> jdGoodsBean, String status, Object page) {
                         jdGoodsContract.getDataSuccess(jdGoodsBean);
                     }
 

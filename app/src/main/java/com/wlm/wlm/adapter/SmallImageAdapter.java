@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.wlm.wlm.R;
 import com.squareup.picasso.Picasso;
+import com.wlm.wlm.R;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class SmallImageAdapter extends RecyclerView.Adapter<SmallImageAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> arrayList ;
+    ArrayList<String> arrayList;
 
-    public SmallImageAdapter(Context context,ArrayList<String> arrayList){
+    public SmallImageAdapter(Context context, ArrayList<String> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -29,7 +29,7 @@ public class SmallImageAdapter extends RecyclerView.Adapter<SmallImageAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_small_image,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_small_image, null);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -53,7 +53,7 @@ public class SmallImageAdapter extends RecyclerView.Adapter<SmallImageAdapter.Vi
         return position;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
 

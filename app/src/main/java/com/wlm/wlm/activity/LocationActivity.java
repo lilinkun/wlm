@@ -4,14 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -24,9 +20,6 @@ import android.widget.Toast;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.util.LocationUtils;
-
-import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,11 +49,11 @@ public class LocationActivity extends BaseActivity {
 
         LocationUtils.getInstance(this);
 
-        if(ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED){//未开启定位权限
+        if (ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
             //开启定位权限,200是标识码
-            ActivityCompat.requestPermissions(LocationActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},200);
-        }else {
+            ActivityCompat.requestPermissions(LocationActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        } else {
             // 获取到权限，作相应处理
             getLocation();
             Toast.makeText(LocationActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
@@ -69,7 +62,7 @@ public class LocationActivity extends BaseActivity {
 
 
     @OnClick({R.id.btn_location})
-    public void onClick(View view){
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_location:
 
@@ -99,15 +92,16 @@ public class LocationActivity extends BaseActivity {
 
     /**
      * 获取到当前位置的经纬度
+     *
      * @param location
      */
     private void updateLocation(Location location) {
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            Log.e("locationactivity","维度：" + latitude + "\n经度" + longitude);
+            Log.e("locationactivity", "维度：" + latitude + "\n经度" + longitude);
         } else {
-            Log.e("locationactivity","无法获取到位置信息");
+            Log.e("locationactivity", "无法获取到位置信息");
         }
     }
 

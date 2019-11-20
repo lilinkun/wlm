@@ -3,8 +3,6 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.BindCardContract;
-import com.wlm.wlm.contract.ChooseAddressContract;
-import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.BankBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.UserBankBean;
@@ -29,7 +27,7 @@ public class BindCardPresenter extends BasePresenter {
     private BindCardContract bindCardContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -51,19 +49,20 @@ public class BindCardPresenter extends BasePresenter {
 
     /**
      * 获取银行卡信息
+     *
      * @param SessionId
      */
-    public void getBankCard(String SessionId){
+    public void getBankCard(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBaseBankGet");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseBankGet");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBankBean(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<UserBankBean,Object>() {
+                .subscribe(new HttpResultCallBack<UserBankBean, Object>() {
                     @Override
-                    public void onResponse(UserBankBean balanceDetailBeans, String status,Object page) {
+                    public void onResponse(UserBankBean balanceDetailBeans, String status, Object page) {
                         bindCardContract.getBankSuccess(balanceDetailBeans);
                     }
 
@@ -74,11 +73,11 @@ public class BindCardPresenter extends BasePresenter {
                 }));
     }
 
-    public void getBankInfo(String SessionId){
+    public void getBankInfo(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankNameList");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankNameList");
+        params.put("SessionId", SessionId);
 
         mCompositeSubscription.add(manager.getBankInfo(params)
                 .subscribeOn(Schedulers.io())
@@ -86,7 +85,7 @@ public class BindCardPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<BankBean>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<BankBean> addressBeans, String status,Object page) {
+                    public void onResponse(ArrayList<BankBean> addressBeans, String status, Object page) {
                         bindCardContract.getBankInfoSuccess(addressBeans);
                     }
 
@@ -98,17 +97,17 @@ public class BindCardPresenter extends BasePresenter {
         );
     }
 
-    public void upBankInfo(String BankName,String BankDetails,String BankUserName,String BankNo,String Code,String UserCode,String SessionId){
+    public void upBankInfo(String BankName, String BankDetails, String BankUserName, String BankNo, String Code, String UserCode, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBaseBankUpdate");
-        params.put("BankName",BankName);
-        params.put("BankDetails",BankDetails);
-        params.put("BankUserName",BankUserName);
-        params.put("BankNo",BankNo);
-        params.put("Code",Code);
-        params.put("UserCode",UserCode);
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseBankUpdate");
+        params.put("BankName", BankName);
+        params.put("BankDetails", BankDetails);
+        params.put("BankUserName", BankUserName);
+        params.put("BankNo", BankNo);
+        params.put("Code", Code);
+        params.put("UserCode", UserCode);
+        params.put("SessionId", SessionId);
 
         mCompositeSubscription.add(manager.upBankInfo(params)
                 .subscribeOn(Schedulers.io())
@@ -116,7 +115,7 @@ public class BindCardPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<String, Object>() {
 
                     @Override
-                    public void onResponse(String s, String status,Object page) {
+                    public void onResponse(String s, String status, Object page) {
                         bindCardContract.upBankInfoSuccess(s);
                     }
 
@@ -131,9 +130,10 @@ public class BindCardPresenter extends BasePresenter {
 
     /**
      * 发送短信验证码
+     *
      * @param sessionId
      */
-    public void SendSms(String sessionId){
+    public void SendSms(String sessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "SendSms");
@@ -142,10 +142,10 @@ public class BindCardPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         bindCardContract.onSendVcodeSuccess();
                     }
 

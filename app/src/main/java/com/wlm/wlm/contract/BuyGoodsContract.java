@@ -9,9 +9,11 @@ import com.wlm.wlm.mvp.IView;
 
 public interface BuyGoodsContract extends IView {
     public void collectSuccess(CollectDeleteBean collectDeleteBean);
+
     public void collectFail(String msg);
 
     public void exReChangeSuccess(String msg);
+
     public void exReChangeFail(String msg);
 
 }

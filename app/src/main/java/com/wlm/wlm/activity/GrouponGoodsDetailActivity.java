@@ -83,24 +83,24 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(this,false);
+        Eyes.translucentStatusBar(this, false);
 
         ActivityUtil.addHomeActivity(this);
         ActivityUtil.addActivity(this);
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
-        if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null){
+        if (bundle != null && bundle.getSerializable(WlmUtil.GROUPONGOODS) != null) {
             goodsListBean = (GoodsListBean) bundle.getSerializable(WlmUtil.GROUPONGOODS);
             goodsid = goodsListBean.getGoodsId();
-        }else if (bundle != null && bundle.getString(WlmUtil.GOODSID) != null && bundle.getString(WlmUtil.GOODSID).equals("")){
+        } else if (bundle != null && bundle.getString(WlmUtil.GOODSID) != null && bundle.getString(WlmUtil.GOODSID).equals("")) {
             goodsid = bundle.getString(WlmUtil.GOODSID);
         }
 
-        grouponGoodsDetailPresenter.onCreate(this,this);
+        grouponGoodsDetailPresenter.onCreate(this, this);
         grouponGoodsDetailPresenter.getGoodsDetail(goodsid, ProApplication.SESSIONID(this));
 
-        grouponGoodsDetailPresenter.randomGoods("2",goodsid);
+        grouponGoodsDetailPresenter.randomGoods("2", goodsid);
 
 
         FullyGridLayoutManager fullyGridLayoutManager = new FullyGridLayoutManager(this, 2);
@@ -110,18 +110,18 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         int spacing = 20; // 50px
 
         boolean includeEdge = false;
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
         recyclerView.setLayoutManager(fullyGridLayoutManager);
 
 
     }
 
-    public void startBanner(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean){
+    public void startBanner(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         ArrayList<String> strings = new ArrayList<>();
 
         String[] str = goodsDetailBean.getGoodsImgList().split(",");
 
-        for (int i = 0; i< str.length;i++) {
+        for (int i = 0; i < str.length; i++) {
             strings.add(str[i]);
         }
 
@@ -158,7 +158,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void getDataSuccess(GoodsDetailInfoBean<ArrayList<GoodsChooseBean>> goodsDetailBean) {
         this.goodsDetailBean = goodsDetailBean;
-        tv_groupon_price.setText(goodsDetailBean.getPrice()+"");
+        tv_groupon_price.setText(goodsDetailBean.getPrice() + "");
 
         tv_groupon_old_price.setText("¥" + goodsDetailBean.getMarketPrice());
 
@@ -185,12 +185,12 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
 
         startBanner(goodsDetailBean);
 
-        if(WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 0){
+        if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(), goodsDetailBean.getEndDate(), tv_rush_time) == 0) {
             tv_right_now_groupon.setVisibility(View.GONE);
             tv_distance_ends.setText("距开始");
-        }else if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(),goodsDetailBean.getEndDate(),tv_rush_time) == 1){
+        } else if (WlmUtil.isCountdown(goodsDetailBean.getBeginDate(), goodsDetailBean.getEndDate(), tv_rush_time) == 1) {
             tv_distance_ends.setText("距结束");
-        }else {
+        } else {
             tv_right_now_groupon.setVisibility(View.GONE);
         }
     }
@@ -203,7 +203,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
     @Override
     public void getCommendGoodsSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.goodsListBeans = goodsListBeans;
-        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,goodsListBeans,getLayoutInflater());
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this, goodsListBeans, getLayoutInflater());
         recyclerView.setAdapter(tbHotGoodsAdapter);
         tbHotGoodsAdapter.setItemClickListener(this);
     }
@@ -218,7 +218,7 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
             bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
-            bundle.putString(WlmUtil.TYPE,goodsListBeans.get(position).getGoodsType());
+            bundle.putString(WlmUtil.TYPE, goodsListBeans.get(position).getGoodsType());
             UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
             if (ActivityUtil.activityList.size() > 2) {
@@ -233,15 +233,15 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
 
-            Picasso.with(context).load(ProApplication.BANNERIMG+(String) path).error(R.mipmap.ic_adapter_error).into(imageView);
+            Picasso.with(context).load(ProApplication.BANNERIMG + (String) path).error(R.mipmap.ic_adapter_error).into(imageView);
 //            imageView.setImageResource(R.mipmap.ic_goods_pic);90
 
         }
     }
 
-    @OnClick({R.id.ll_back,R.id.tv_right_now_groupon})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.tv_right_now_groupon})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
@@ -249,11 +249,11 @@ public class GrouponGoodsDetailActivity extends BaseActivity implements OnBanner
             case R.id.tv_right_now_groupon:
 
                 Bundle bundle = new Bundle();
-                bundle.putString(WlmUtil.GOODSID,goodsDetailBean.getGoodsId());
-                bundle.putInt(WlmUtil.GOODSNUM,1);
-                bundle.putString(WlmUtil.TYPE,WlmUtil.GROUPONGOODS);
-                bundle.putString(WlmUtil.ATTRID,"");
-                UiHelper.launcherBundle(this, GrouponOrderActivity.class,bundle);
+                bundle.putString(WlmUtil.GOODSID, goodsDetailBean.getGoodsId());
+                bundle.putInt(WlmUtil.GOODSNUM, 1);
+                bundle.putString(WlmUtil.TYPE, WlmUtil.GROUPONGOODS);
+                bundle.putString(WlmUtil.ATTRID, "");
+                UiHelper.launcherBundle(this, GrouponOrderActivity.class, bundle);
 
                 break;
         }

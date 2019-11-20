@@ -13,12 +13,12 @@ import java.util.regex.PatternSyntaxException;
  * Created by LG on 2018/11/13.
  * 手机号码java验证
  */
-public class PhoneFormatCheckUtils{
+public class PhoneFormatCheckUtils {
 
     /**
      * 大陆号码或香港号码均可
      */
-    public static boolean isPhoneLegal(String str)throws PatternSyntaxException {
+    public static boolean isPhoneLegal(String str) throws PatternSyntaxException {
         return isChinaPhoneLegal(str) || isHKPhoneLegal(str);
     }
 
@@ -42,17 +42,17 @@ public class PhoneFormatCheckUtils{
     /**
      * 香港手机号码8位数，5|6|8|9开头+7位任意数
      */
-    public static boolean isHKPhoneLegal(String str)throws PatternSyntaxException {
+    public static boolean isHKPhoneLegal(String str) throws PatternSyntaxException {
         String regExp = "^(5|6|8|9)\\d{7}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(str);
         return m.matches();
     }
 
-    public static StringBuilder phoneAddress(String phone){
+    public static StringBuilder phoneAddress(String phone) {
         StringBuilder sb = new StringBuilder(phone);
         //取中间四位
-        if(sb.length() > 7) {
+        if (sb.length() > 7) {
             sb.replace(3, 7, "****");
         }
         return sb;
@@ -61,13 +61,14 @@ public class PhoneFormatCheckUtils{
 
     /**
      * 利用正则表达式判断字符串是否是数字
+     *
      * @param str
      * @return
      */
-    public static boolean isNumeric(String str){
+    public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if( !isNum.matches() ){
+        if (!isNum.matches()) {
             return false;
         }
         return true;
@@ -75,53 +76,54 @@ public class PhoneFormatCheckUtils{
 
     /**
      * 校验银行卡卡号
+     *
      * @param cardId
      * @return
      */
     public static boolean checkBankCard(String cardId) {
-        char  bit = getBankCardCheckCode(cardId.substring( 0 , cardId.length() -  1 ));
-        if (bit ==  'N' ){
-            return   false ;
+        char bit = getBankCardCheckCode(cardId.substring(0, cardId.length() - 1));
+        if (bit == 'N') {
+            return false;
         }
-        return  cardId.charAt(cardId.length() -  1 ) == bit;
+        return cardId.charAt(cardId.length() - 1) == bit;
     }
 
     /**
      * 从不含校验位的银行卡卡号采用 Luhm 校验算法获得校验位
+     *
      * @param nonCheckCodeCardId
      * @return
      */
-    public   static   char  getBankCardCheckCode(String nonCheckCodeCardId){
-        if (nonCheckCodeCardId ==  null  || nonCheckCodeCardId.trim().length() ==  0
-                || !nonCheckCodeCardId.matches("\\d+" )) {
+    public static char getBankCardCheckCode(String nonCheckCodeCardId) {
+        if (nonCheckCodeCardId == null || nonCheckCodeCardId.trim().length() == 0
+                || !nonCheckCodeCardId.matches("\\d+")) {
             //如果传的不是数据返回N
-            return   'N' ;
+            return 'N';
         }
-        char [] chs = nonCheckCodeCardId.trim().toCharArray();
-        int  luhmSum =  0 ;
-        for ( int  i = chs.length -  1 , j =  0 ; i >=  0 ; i--, j++) {
-            int  k = chs[i] -  '0' ;
-            if (j %  2  ==  0 ) {
-                k *= 2 ;
-                k = k / 10  + k %  10 ;
+        char[] chs = nonCheckCodeCardId.trim().toCharArray();
+        int luhmSum = 0;
+        for (int i = chs.length - 1, j = 0; i >= 0; i--, j++) {
+            int k = chs[i] - '0';
+            if (j % 2 == 0) {
+                k *= 2;
+                k = k / 10 + k % 10;
             }
             luhmSum += k;
         }
-        return  (luhmSum %  10  ==  0 ) ?  '0'  : ( char )(( 10  - luhmSum %  10 ) +  '0' );
+        return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0');
     }
 
 
     /**
      * 功能：身份证的有效验证
      *
-     * @param IDStr
-     *            身份证号
+     * @param IDStr 身份证号
      * @return true 有效：false 无效
      * @throws ParseException
      */
     public static boolean IDCardValidate(String IDStr) throws ParseException {
-        String[] ValCodeArr = { "1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2" };
-        String[] Wi = { "7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2" };
+        String[] ValCodeArr = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+        String[] Wi = {"7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"};
         String Ai = "";
         // ================ 号码的长度18位 ================
         if (IDStr.length() != 18) {
@@ -267,7 +269,6 @@ public class PhoneFormatCheckUtils{
             return false;
         }
     }
-
 
 
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface MyGrouponContrct extends IView {
 
     public void getGrouponDataSuccess(ArrayList<GrouponListBean> grouponListBeans);
+
     public void getGrouponDataFail(String msg);
 
 }

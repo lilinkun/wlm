@@ -55,7 +55,7 @@ public class MyProgressBar extends ProgressBar {
 
         mViewWidth = getMeasuredWidth();
         mViewHeight = getMeasuredHeight();
-        setMeasuredDimension(mViewWidth,mViewHeight);//设置宽高
+        setMeasuredDimension(mViewWidth, mViewHeight);//设置宽高
     }
 
     @Override
@@ -68,13 +68,13 @@ public class MyProgressBar extends ProgressBar {
         canvas.drawRoundRect(new RectF(0, 0, mViewWidth, mViewHeight), mViewHeight / 2, mViewHeight / 2, onDrawPaint);
         onDrawPaint.setXfermode(xfermode);
         onDrawPaint.setColor(Color.parseColor(colorProgress));
-        canvas.drawRoundRect(new RectF(width-mViewWidth, 0, width, mViewHeight), mViewHeight / 2, mViewHeight / 2, onDrawPaint);
+        canvas.drawRoundRect(new RectF(width - mViewWidth, 0, width, mViewHeight), mViewHeight / 2, mViewHeight / 2, onDrawPaint);
         onDrawPaint.setXfermode(null);
 
-        int y = (int)-((onDrawPaint.descent() + onDrawPaint.ascent())/2);
+        int y = (int) -((onDrawPaint.descent() + onDrawPaint.ascent()) / 2);
         onDrawPaint.setColor(Color.parseColor(colorText));
         int gettop = getPaddingTop();
-        canvas.drawText(mProgress+"%",width-getTextWidth(onDrawPaint, mProgress+"%")-10,gettop+y+getMeasuredHeight()/2,onDrawPaint);
+        canvas.drawText(mProgress + "%", width - getTextWidth(onDrawPaint, mProgress + "%") - 10, gettop + y + getMeasuredHeight() / 2, onDrawPaint);
 
         canvas.restoreToCount(saved);
     }

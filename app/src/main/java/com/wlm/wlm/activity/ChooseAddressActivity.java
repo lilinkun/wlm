@@ -14,12 +14,11 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.ChooseAddressContract;
 import com.wlm.wlm.entity.AddressBean;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.presenter.ChooseAddressPresenter;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -53,13 +52,13 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        chooseAddressPresenter.onCreate(this,this);
+        chooseAddressPresenter.onCreate(this, this);
 
-        if (getIntent() != null){
-            if (getIntent().getBundleExtra(WlmUtil.TYPEID) != null){
-                if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type") != null  && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type").isEmpty()){
+        if (getIntent() != null) {
+            if (getIntent().getBundleExtra(WlmUtil.TYPEID) != null) {
+                if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type") != null && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type").isEmpty()) {
                     if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("type").equals("me")) {
                         isMe = true;
                     }
@@ -75,7 +74,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
         mChooseAddressRv.setLayoutManager(linearLayoutManager);
 //        mChooseAddressRv.setAdapter(chooseAddressAdapter);
-        if (refreshLayout != null){
+        if (refreshLayout != null) {
             refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -85,7 +84,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
         }
     }
 
-    @OnClick({R.id.tv_add_address,R.id.ll_back})
+    @OnClick({R.id.tv_add_address, R.id.ll_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_add_address:
@@ -113,7 +112,7 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
     @Override
     public void setDataSuccess(ArrayList<AddressBean> addressBeanArrayList) {
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         mChooseAddressRv.setVisibility(View.VISIBLE);
@@ -132,10 +131,10 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
     @Override
     public void setDataFail(String msg) {
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             mEmptyLayout.setVisibility(View.VISIBLE);
             mChooseAddressRv.setVisibility(View.GONE);
         }
@@ -164,25 +163,25 @@ public class ChooseAddressActivity extends BaseActivity implements ChooseAddress
 
     @Override
     public void delete(String userAddressId) {
-        chooseAddressPresenter.deletAddress(userAddressId,ProApplication.SESSIONID(this));
+        chooseAddressPresenter.deletAddress(userAddressId, ProApplication.SESSIONID(this));
     }
 
     @Override
     public void modify(int position) {
         AddressBean addressBean = addressBeans.get(position);
         if (addressBean.isDefault()) {
-            String isDefault =  "1";
+            String isDefault = "1";
         }
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("addressBean",addressBean);
-        UiHelper.launcherForResultBundle(this,AddAddressActivity.class,resultAddAddress,bundle);
+        bundle.putSerializable("addressBean", addressBean);
+        UiHelper.launcherForResultBundle(this, AddAddressActivity.class, resultAddAddress, bundle);
 
     }
 
     @Override
     public void isDefault(int addressId) {
-        chooseAddressPresenter.isDefault(addressBeans.get(addressId).getAddressID(),ProApplication.SESSIONID(this));
+        chooseAddressPresenter.isDefault(addressBeans.get(addressId).getAddressID(), ProApplication.SESSIONID(this));
     }
 
     @Override

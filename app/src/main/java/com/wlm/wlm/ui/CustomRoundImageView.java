@@ -89,12 +89,12 @@ public class CustomRoundImageView extends AppCompatImageView {
         int minHeight = maxTop + maxBottom;
 
         //画边框
-        Rect rec=canvas.getClipBounds();
+        Rect rec = canvas.getClipBounds();
         rec.bottom--;
         rec.right--;
         rec.left--;
         rec.top--;
-        Paint paint=new Paint();
+        Paint paint = new Paint();
         paint.setColor(color);
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawRect(rec, paint);

@@ -3,7 +3,6 @@ package com.wlm.wlm.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 import com.wlm.wlm.R;
@@ -23,7 +22,6 @@ import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,7 +49,7 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     private ArrayList<String> strings = new ArrayList<>();
     Category1Bean category1Bean;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -72,22 +70,22 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.point_red));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.point_red));
 
         ActivityUtil.addHomeActivity(this);
 
-        integralStorePresenter.onCreate(this,this);
+        integralStorePresenter.onCreate(this, this);
 
-        integralStorePresenter.getCategoryList("1","100",WlmUtil.GOODSTYPE_INTEGRAL+"");
+        integralStorePresenter.getCategoryList("1", "100", WlmUtil.GOODSTYPE_INTEGRAL + "");
 
         custom_sort.setListener(this);
 
         ll_top.setListener(this);
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_search})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.ll_search})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -97,8 +95,8 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
             case R.id.ll_search:
 
                 Bundle bundle = new Bundle();
-                bundle.putString("id","1");
-                UiHelper.launcherBundle(this,SearchActivity.class,bundle);
+                bundle.putString("id", "1");
+                UiHelper.launcherBundle(this, SearchActivity.class, bundle);
 
                 break;
         }
@@ -109,14 +107,14 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
         this.goodsListBeans = goodsListBeans;
         this.pageBean = pageBean;
         custom_sort.setVisibility(View.VISIBLE);
-        custom_sort.setPageIndex(PAGEINDEX,pageBean);
+        custom_sort.setPageIndex(PAGEINDEX, pageBean);
         custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_INTEGRAL);
 
     }
 
     @Override
     public void getFail(String msg) {
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             custom_sort.setVisibility(View.GONE);
         }
     }
@@ -131,13 +129,13 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
 
         category1Beans.addAll(category1BeanList);
 
-        for (Category1Bean category1Bean : category1Beans){
+        for (Category1Bean category1Bean : category1Beans) {
             strings.add(category1Bean.getCategoryName());
         }
 
         category1Bean = category1Beans.get(0);
         tab_strip.setTitles(strings, 0, handler);
-        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"0");
+        integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "0");
     }
 
     @Override
@@ -148,52 +146,52 @@ public class IntegralStoreActivity extends BaseActivity implements IntegralStore
     @Override
     public void onRefresh() {
         PAGEINDEX = 1;
-        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"0");
+        integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "0");
     }
 
     @Override
     public void onLoadding(int page) {
         this.PAGEINDEX = page;
-        integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"0");
+        integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "0");
     }
 
     @Override
     public void getSortType(int sortType) {
-        switch (sortType){
+        switch (sortType) {
             case 1:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"0");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "0");
 
                 break;
 
             case 2:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"5");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "5");
 
                 break;
 
 
             case 3:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"1");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "1");
 
                 break;
 
             case 4:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"2");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "2");
 
                 break;
 
             case 5:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"3");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "3");
 
                 break;
 
             case 6:
 
-                integralStorePresenter.getData(PAGEINDEX+"",WlmUtil.PAGE_COUNT,goodstype,category1Bean.getCategoryID(),"4");
+                integralStorePresenter.getData(PAGEINDEX + "", WlmUtil.PAGE_COUNT, goodstype, category1Bean.getCategoryID(), "4");
 
                 break;
 

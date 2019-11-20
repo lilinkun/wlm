@@ -13,12 +13,11 @@ import com.wlm.wlm.adapter.SelfOrderAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfOrderContract;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -49,33 +48,33 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
 
     @Override
     public void initEventAndData() {
-        selfOrderPresenter.onCreate(getActivity(),this);
+        selfOrderPresenter.onCreate(getActivity(), this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         over_pay_rv.setLayoutManager(linearLayoutManager);
 
-        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"4", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
             }
         });
     }
 
-    public void setData(){
+    public void setData() {
         if (getActivity() != null) {
-            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
+            selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "4", ProApplication.SESSIONID(getActivity()));
         }
     }
 
     @Override
     public void getDataSuccess(ArrayList<SelfOrderBean> selfOrderBeans) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         over_pay_rv.setVisibility(View.VISIBLE);
@@ -88,10 +87,10 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
                 over_pay_rv.setVisibility(View.VISIBLE);
                 ll_no_order.setVisibility(View.GONE);
                 selfOrderAdapter.setItemClickListener(this);
-            }else {
+            } else {
                 selfOrderAdapter.setData(selfOrderBeans);
             }
-        }else {
+        } else {
             ll_no_order.setVisibility(View.VISIBLE);
             over_pay_rv.setVisibility(View.GONE);
         }
@@ -99,7 +98,7 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
 
     @Override
     public void getDataFail(String msg) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         ll_no_order.setVisibility(View.VISIBLE);

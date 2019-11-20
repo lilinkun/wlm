@@ -87,7 +87,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     private FragmentManager manager;
     private WlmCartFragment lzyMallFragment = new WlmCartFragment();
     private MeFragment meFragment = new MeFragment();
-    public static String username ="";
+    public static String username = "";
     private MainFragmentPresenter mainFragmentPresenter = new MainFragmentPresenter();
     /*
      * 下载文件权限请求码
@@ -101,7 +101,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     private DownloadingDialog mDownloadingDialog;
     private String mNewVersion = "2";
     private String mApkUrl = "https://appapi.100zt.com/update/datalife.apk";
-//    private DownloadBean downloadBean;
+    //    private DownloadBean downloadBean;
     private List<RelativeLayout> relativeLayouts = new ArrayList<>();
     private final SparseArray<BaseFragment> sparseArray = new SparseArray<>();
     private CheckBean bean;
@@ -118,10 +118,10 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     public void initEventAndData() {
         Eyes.translucentStatusBar(this);
 
-        mainFragmentPresenter.onCreate(this,this);
+        mainFragmentPresenter.onCreate(this, this);
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(broadcastReceiver,filter);
+        registerReceiver(broadcastReceiver, filter);
 
 
         onPageBind();
@@ -151,28 +151,28 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         mainFragmentPresenter.getUrl();
     }
 
-    @OnClick({R.id.menu_bottom_1,R.id.menu_bottom_2,R.id.menu_bottom_3,R.id.menu_bottom_4})
-    public void onClick(View view){
+    @OnClick({R.id.menu_bottom_1, R.id.menu_bottom_2, R.id.menu_bottom_3, R.id.menu_bottom_4})
+    public void onClick(View view) {
 //        FragmentTransaction transaction = manager.beginTransaction();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.menu_bottom_1:
 //                transaction.replace(R.id.top_bar,new HomeFragment());
                 setMenuBg(menu_bottom_1);
-                mViewPager.setCurrentItem(0,false);
+                mViewPager.setCurrentItem(0, false);
                 break;
             case R.id.menu_bottom_2:
 //                transaction.replace(R.id.top_bar,lzyMallFragment);
                 setMenuBg(menu_bottom_2);
-                mViewPager.setCurrentItem(2,false);
+                mViewPager.setCurrentItem(2, false);
                 break;
             case R.id.menu_bottom_3:
 //                transaction.replace(R.id.top_bar,new MeFragment());
                 setMenuBg(menu_bottom_3);
-                mViewPager.setCurrentItem(3,false);
+                mViewPager.setCurrentItem(3, false);
                 break;
             case R.id.menu_bottom_4:
                 setMenuBg(menu_bottom_4);
-                mViewPager.setCurrentItem(1,false);
+                mViewPager.setCurrentItem(1, false);
                 break;
         }
 //        transaction.commit();
@@ -194,14 +194,14 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         sparseArray.put(WlmUtil.PAGE_ME, meFragment);
     }
 
-    private void setMenuBg(RelativeLayout layout){
+    private void setMenuBg(RelativeLayout layout) {
         Object o = relativeLayouts.iterator();
 
-        while (((Iterator)o).hasNext()){
+        while (((Iterator) o).hasNext()) {
             RelativeLayout relativeLayout = (RelativeLayout) ((Iterator) o).next();
-            if (relativeLayout == layout){
+            if (relativeLayout == layout) {
                 relativeLayout.setSelected(true);
-            }else {
+            } else {
                 relativeLayout.setSelected(false);
             }
         }
@@ -210,8 +210,8 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (isHome){
-            mViewPager.setCurrentItem(0,true);
+        if (isHome) {
+            mViewPager.setCurrentItem(0, true);
             isHome = false;
         }
     }
@@ -232,19 +232,20 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     }
 
     boolean isExit = false;
+
     private void exitByDoubleClick() {
-        Timer tExit=null;
-        if(!isExit){
-            isExit=true;
+        Timer tExit = null;
+        if (!isExit) {
+            isExit = true;
             toast("再按一次退出程序");
-            tExit=new Timer();
+            tExit = new Timer();
             tExit.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    isExit=false;//取消退出
+                    isExit = false;//取消退出
                 }
-            },2000);// 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
-        }else{
+            }, 2000);// 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+        } else {
             finish();
             System.exit(0);
         }
@@ -252,15 +253,15 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK){
-            if (requestCode == MyShoppingCarAdapter.child_goods_result){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MyShoppingCarAdapter.child_goods_result) {
                 lzyMallFragment.setData();
-            }else if (requestCode == RC_PERMISSION_DOWNLOAD){
+            } else if (requestCode == RC_PERMISSION_DOWNLOAD) {
                 String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 if (EasyPermissions.hasPermissions(this, perms)) {
                     downNewApk();
                 }
-            }else if (requestCode == RC_PERMISSION_DELETE){
+            } else if (requestCode == RC_PERMISSION_DELETE) {
                 String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 if (EasyPermissions.hasPermissions(this, perms)) {
                     // 删除之前升级时下载的老的 apk 文件
@@ -292,21 +293,21 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     public void onLoginSuccess(LoginBean loginBean) {
         ProApplication.USERLEVEL = loginBean.getUserLevel();
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.ACCOUNT,loginBean.getNickName()).putString(WlmUtil.TELEPHONE,loginBean.getMobile())
-                .putString(WlmUtil.USERNAME,loginBean.getUserName()).putString(WlmUtil.USERID,loginBean.getUserId())
-                .putString(WlmUtil.HEADIMGURL,loginBean.getPortrait())
-                .putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
+        sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN, true)
+                .putString(WlmUtil.ACCOUNT, loginBean.getNickName()).putString(WlmUtil.TELEPHONE, loginBean.getMobile())
+                .putString(WlmUtil.USERNAME, loginBean.getUserName()).putString(WlmUtil.USERID, loginBean.getUserId())
+                .putString(WlmUtil.HEADIMGURL, loginBean.getPortrait())
+                .putString(WlmUtil.VIPVALIDITY, loginBean.getVipValidity()).commit();
 
         ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
-        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
-        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER,"");
-        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG,"");
+        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, "");
+        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER, "");
+        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG, "");
     }
 
     @Override
     public void onLoginFail(String msg) {
-        if (msg.equals("登录已失效")){
+        if (msg.equals("登录已失效")) {
             UiHelper.launcher(this, LoginActivity.class);
         }
     }
@@ -319,19 +320,20 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
         ProApplication.PHONE = urlBean.getKFMobile();
 
-        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
-            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG)) {
+            ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
             SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
-                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
+            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG)
+                    .putString(WlmUtil.CUSTOMER, ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG, ProApplication.SHAREDIMG).commit();
         }
     }
 
     private CheckBean bean1;
-    private void update(UrlBean urlBean){
+
+    private void update(UrlBean urlBean) {
         String url = urlBean.getUpgradeUrl();
         OkHttpUtils.get()
                 .url(url)
@@ -420,7 +422,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
             case RC_PERMISSION_DOWNLOAD:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downNewApk();
-                } else if (grantResults[0] == RC_PERMISSION_DELETE){
+                } else if (grantResults[0] == RC_PERMISSION_DELETE) {
                     // 删除之前升级时下载的老的 apk 文件
                     BGAUpgradeUtil.deleteOldApk();
                 }
@@ -431,7 +433,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     }
 
 
-    private void downNewApk(){
+    private void downNewApk() {
         // 如果新版 apk 文件已经下载过了，直接 return，此时不需要开发者调用安装 apk 文件的方法，在 isApkFileDownloaded 里已经调用了安装」
         if (BGAUpgradeUtil.isApkFileDownloaded(mNewVersion)) {
             return;
@@ -499,13 +501,13 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (position == 0) {
             setMenuBg(menu_bottom_1);
-        }else if (position == 1){
+        } else if (position == 1) {
             setMenuBg(menu_bottom_4);
 //            lzyMallFragment.setData();
-        }else if (position == 2){
+        } else if (position == 2) {
             setMenuBg(menu_bottom_2);
             lzyMallFragment.setData();
-        }else if (position == 3){
+        } else if (position == 3) {
             setMenuBg(menu_bottom_3);
             meFragment.setPoint();
         }
@@ -520,7 +522,6 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     public void onPageScrollStateChanged(int state) {
 
     }
-
 
 
 }

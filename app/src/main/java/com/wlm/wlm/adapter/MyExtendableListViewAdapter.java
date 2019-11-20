@@ -8,13 +8,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.BuyBean;
 import com.wlm.wlm.ui.MyTextView;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * Created by LG on 2018/12/15.
@@ -24,7 +22,7 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
     private Context mcontext;
     private BuyBean orderGroupBeans;
 
-    public MyExtendableListViewAdapter(Context context, BuyBean orderGroupBeans){
+    public MyExtendableListViewAdapter(Context context, BuyBean orderGroupBeans) {
         this.mcontext = context;
         this.orderGroupBeans = orderGroupBeans;
     }
@@ -71,12 +69,12 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         GroupViewHolder groupViewHolder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_item, parent, false);
             groupViewHolder = new GroupViewHolder();
             convertView.setTag(groupViewHolder);
-        }else {
-            groupViewHolder = (GroupViewHolder)convertView.getTag();
+        } else {
+            groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
         groupViewHolder.tvShopName.setText(orderGroupBeans.getStoremodel().get(groupPosition).getShop_name());
 //        groupViewHolder.tvFreight.setText(orderGroupBeans.get(groupPosition).getFreight());
@@ -88,8 +86,8 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildViewHolder childViewHolder;
-        if (convertView==null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item, parent, false);
             childViewHolder = new ChildViewHolder();
             childViewHolder.ivGoodsImg = (ImageView) convertView.findViewById(R.id.iv_goods_pic);
             childViewHolder.tvGoodsTitle = (TextView) convertView.findViewById(R.id.tv_goods_title);
@@ -98,7 +96,7 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
             childViewHolder.tvGoodsSpec2 = (TextView) convertView.findViewById(R.id.tv_goods_spec2);
             convertView.setTag(childViewHolder);
 
-        }else {
+        } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
         childViewHolder.tvGoodsTitle.setText(orderGroupBeans.getStoremodel().get(groupPosition).getGoodsList().get(childPosition).getGoods_name());

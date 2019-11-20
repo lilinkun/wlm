@@ -46,9 +46,13 @@ public class SlideDetailsLayout extends ViewGroup {
     }
 
     public enum Status {
-        /** Panel is closed */
+        /**
+         * Panel is closed
+         */
         CLOSE,
-        /** Panel is opened */
+        /**
+         * Panel is opened
+         */
         OPEN;
 
         public static Status valueOf(int stats) {
@@ -291,8 +295,8 @@ public class SlideDetailsLayout extends ViewGroup {
                     // 2. Panel stauts is CLOSE：slide up
                     // 3. Panel status is OPEN：slide down
                     if (yDiffabs > mTouchSlop && yDiffabs >= xDiffabs
-                        && !(mStatus == Status.CLOSE && yDiff > 0
-                             || mStatus == Status.OPEN && yDiff < 0)) {
+                            && !(mStatus == Status.CLOSE && yDiff > 0
+                            || mStatus == Status.OPEN && yDiff < 0)) {
                         shouldIntercept = true;
                         if (DEBUG) {
                             Log.d(TAG, "intercept, intercept events");
@@ -312,8 +316,8 @@ public class SlideDetailsLayout extends ViewGroup {
         return shouldIntercept;
     }
 
-    private void recycleVelocityTracker(){
-        if(null != mVelocityTracker){
+    private void recycleVelocityTracker() {
+        if (null != mVelocityTracker) {
             mVelocityTracker.recycle();
             mVelocityTracker = null;
         }
@@ -521,7 +525,6 @@ public class SlideDetailsLayout extends ViewGroup {
      * Check child view can srcollable in vertical direction.
      *
      * @param direction Negative to check scrolling up, positive to check scrolling down.
-     *
      * @return true if this view can be scrolled in the specified direction, false otherwise.
      */
     protected boolean canChildScrollVertically(int direction) {
@@ -553,15 +556,15 @@ public class SlideDetailsLayout extends ViewGroup {
     protected boolean canListViewSroll(AbsListView absListView) {
         if (mStatus == Status.OPEN) {
             return absListView.getChildCount() > 0
-                   && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
-                                                                               .getTop() <
-                                                                    absListView.getPaddingTop());
+                    && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
+                    .getTop() <
+                    absListView.getPaddingTop());
         } else {
             final int count = absListView.getChildCount();
             return count > 0
-                   && (absListView.getLastVisiblePosition() < count - 1
-                       || absListView.getChildAt(count - 1)
-                                     .getBottom() > absListView.getMeasuredHeight());
+                    && (absListView.getLastVisiblePosition() < count - 1
+                    || absListView.getChildAt(count - 1)
+                    .getBottom() > absListView.getMeasuredHeight());
         }
     }
 

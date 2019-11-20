@@ -25,7 +25,7 @@ public class ModifyPayPsdPresenter extends BasePresenter {
     private ModifyPayPsdContract modifyPayPsdContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -46,9 +46,10 @@ public class ModifyPayPsdPresenter extends BasePresenter {
 
     /**
      * 发送短信验证码
+     *
      * @param sessionId
      */
-    public void SendSms(String sessionId){
+    public void SendSms(String sessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "SendSms");
@@ -57,10 +58,10 @@ public class ModifyPayPsdPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         modifyPayPsdContract.onSendVcodeSuccess();
                     }
 
@@ -80,24 +81,25 @@ public class ModifyPayPsdPresenter extends BasePresenter {
 
     /**
      * 修改支付密码
+     *
      * @param sessionId
      */
-    public void modifyPsd(String Code,String PassWord,String ConfirmPassWord,String sessionId){
+    public void modifyPsd(String Code, String PassWord, String ConfirmPassWord, String sessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "UserBaseChangePassWord_Two");
-        params.put("Code",Code);
-        params.put("PassWord",PassWord);
-        params.put("ConfirmPassWord",ConfirmPassWord);
+        params.put("Code", Code);
+        params.put("PassWord", PassWord);
+        params.put("ConfirmPassWord", ConfirmPassWord);
         params.put("SessionId", sessionId);
         mCompositeSubscription.add(manager.modifyPsd(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         modifyPayPsdContract.modifySuccess();
                     }
 
@@ -117,10 +119,11 @@ public class ModifyPayPsdPresenter extends BasePresenter {
 
     /**
      * 修改密码
+     *
      * @param mobile
      * @param code
      */
-    public void modify(String mobile, String code, String psd,String SessionId){
+    public void modify(String mobile, String code, String psd, String SessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
@@ -128,14 +131,14 @@ public class ModifyPayPsdPresenter extends BasePresenter {
         params.put("new_password", psd);
         params.put("mobile", mobile);
         params.put("Code", code);
-        params.put("SessionId",SessionId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         modifyPayPsdContract.modifyPsdSuccess();
                     }
 

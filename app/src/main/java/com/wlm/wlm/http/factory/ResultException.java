@@ -8,7 +8,7 @@ public class ResultException extends IOException {
     private String errMsg;
     private String errCode;
 
-    public ResultException(String errMsg, String errCode){
+    public ResultException(String errMsg, String errCode) {
         this.errMsg = errMsg;
         this.errCode = errCode;
     }

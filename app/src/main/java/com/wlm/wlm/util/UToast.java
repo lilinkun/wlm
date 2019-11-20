@@ -12,7 +12,7 @@ public class UToast {
     private static Toast mToast;
 
     private UToast() {
-		/* cannot be instantiated */
+        /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -42,6 +42,7 @@ public class UToast {
         mToast = Toast.makeText(context, text, duration);
         mToast.show();
     }
+
     /**
      * 短时间显示Toast
      *

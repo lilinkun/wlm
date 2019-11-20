@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public interface CrowdFundingContract extends IView {
 
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
+
     public void onFlashFail(String msg);
 
 
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
+
     public void getDataFail(String msg);
 
 

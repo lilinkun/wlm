@@ -6,14 +6,12 @@ import android.view.View;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.contract.PointContract;
 import com.wlm.wlm.contract.WlmBuyContract;
 import com.wlm.wlm.entity.Category1Bean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
-import com.wlm.wlm.presenter.PointPresenter;
 import com.wlm.wlm.presenter.WlmBuyPresenter;
 import com.wlm.wlm.ui.CustomBannerView;
 import com.wlm.wlm.ui.CustomSortLayout;
@@ -50,20 +48,20 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
     private String orderby = "0";
     private ArrayList<Category1Bean> category1Beans = new ArrayList<>();
     ArrayList<String> strings = new ArrayList<>();
-    private Category1Bean category1Bean  = null ;
+    private Category1Bean category1Bean = null;
     private PageBean pageBean;
 
     private ArrayList<FlashBean> flashBeans;
     private ArrayList<GoodsListBean> goodsListBeans;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 0x110:
                     int position = msg.getData().getInt("position");
                     category1Bean = category1Beans.get(position);
-                    wlmBuyPresenter.getData(pageIndex + "",WlmUtil.PAGE_COUNT,goodstype+"","0",category1Bean.getCategoryID(),false);
+                    wlmBuyPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", "0", category1Bean.getCategoryID(), false);
                     break;
             }
         }
@@ -77,9 +75,9 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.point_red));
 
-        wlmBuyPresenter.onCreate(this,this);
+        wlmBuyPresenter.onCreate(this, this);
 
         ActivityUtil.addHomeActivity(this);
         ll_top.setListener(this);
@@ -87,13 +85,13 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
 
         wlmBuyPresenter.setFlash("6");
 
-        wlmBuyPresenter.getCategoryList("1","100",WlmUtil.GOODSTYPE_WLMBUY+"");
+        wlmBuyPresenter.getCategoryList("1", "100", WlmUtil.GOODSTYPE_WLMBUY + "");
 
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -107,13 +105,13 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
         this.goodsListBeans = goodsListBeans;
         this.pageBean = pageBean;
         custom_sort.setVisibility(View.VISIBLE);
-        custom_sort.setPageIndex(pageIndex,pageBean);
+        custom_sort.setPageIndex(pageIndex, pageBean);
         custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_POINT);
     }
 
     @Override
     public void getDataFail(String msg) {
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             custom_sort.setVisibility(View.GONE);
         }
     }
@@ -123,7 +121,7 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
 
         this.flashBeans = flashBeans;
 
-        CustomBannerView.startBanner(flashBeans,bannerView,this,true);
+        CustomBannerView.startBanner(flashBeans, bannerView, this, true);
     }
 
     @Override
@@ -140,13 +138,13 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
         category1Beans.add(categoryBean);
 
         category1Beans.addAll(category1BeanList);
-        for (Category1Bean category1Bean : category1Beans){
+        for (Category1Bean category1Bean : category1Beans) {
             strings.add(category1Bean.getCategoryName());
         }
 
         category1Bean = category1Beans.get(0);
         tab_strip.setTitles(strings, 0, handler);
-        wlmBuyPresenter.getData(pageIndex + "",WlmUtil.PAGE_COUNT,goodstype+"","0",category1Bean.getCategoryID(),true);
+        wlmBuyPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", "0", category1Bean.getCategoryID(), true);
 
     }
 
@@ -158,7 +156,7 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
     @Override
     public void getSortType(int sortType) {
         pageIndex = 1;
-        switch (sortType){
+        switch (sortType) {
             case 1:
                 orderby = "0";
 
@@ -187,18 +185,18 @@ public class WlmBuyActivity extends BaseActivity implements WlmBuyContract, IGoo
 
                 break;
         }
-        wlmBuyPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,category1Bean.getCategoryID(),true);
+        wlmBuyPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, category1Bean.getCategoryID(), true);
     }
 
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        wlmBuyPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,category1Bean.getCategoryID(),true);
+        wlmBuyPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, category1Bean.getCategoryID(), true);
     }
 
     @Override
     public void onLoadding(int page) {
         pageIndex = page;
-        wlmBuyPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,category1Bean.getCategoryID(),true);
+        wlmBuyPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, category1Bean.getCategoryID(), true);
     }
 }

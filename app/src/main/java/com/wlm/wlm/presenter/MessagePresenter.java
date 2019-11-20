@@ -1,15 +1,10 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Message;
 
 import com.wlm.wlm.contract.MessageContract;
-import com.wlm.wlm.contract.ModifyPayPsdContract;
 import com.wlm.wlm.entity.ArticleBean;
-import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -32,7 +27,7 @@ public class MessagePresenter extends BasePresenter {
     private MessageContract messageContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -55,7 +50,7 @@ public class MessagePresenter extends BasePresenter {
     /**
      * @param sessionId
      */
-    public void getArticleList(String PageIndex,String PageCount,String CategoryId,String sessionId){
+    public void getArticleList(String PageIndex, String PageCount, String CategoryId, String sessionId) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
@@ -71,7 +66,7 @@ public class MessagePresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<ArticleBean>, PageBean>() {
                     @Override
                     public void onResponse(ArrayList<ArticleBean> articleBeans, String status, PageBean page) {
-                        messageContract.getArticleSuccess(articleBeans,page);
+                        messageContract.getArticleSuccess(articleBeans, page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -86,7 +81,6 @@ public class MessagePresenter extends BasePresenter {
                     }
                 }));
     }
-
 
 
 }

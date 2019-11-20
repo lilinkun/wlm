@@ -79,9 +79,9 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.setting_title_color));
 
-        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
         WXEntryActivity.wxType(WlmUtil.WXTYPE_SHARED);
@@ -90,23 +90,23 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
 
-        getGoodsDetail.onCreate(this,this);
+        getGoodsDetail.onCreate(this, this);
 
-        if (bundle != null && bundle.getString(WlmUtil.TEAMID) != null){
+        if (bundle != null && bundle.getString(WlmUtil.TEAMID) != null) {
             teamId = bundle.getString(WlmUtil.TEAMID);
         }
 
         getGoodsDetail.getGoodsDetail(teamId, ProApplication.SESSIONID(this));
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")+"").error(R.mipmap.ic_adapter_error).into(riv_rc);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "") + "").error(R.mipmap.ic_adapter_error).into(riv_rc);
 
 
     }
 
-    @OnClick({R.id.ll_back,R.id.tv_join_groupon,R.id.rl_more})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.tv_join_groupon, R.id.rl_more})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -121,12 +121,12 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-                        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 
-                        String path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId="+ grouponDetailBean.getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
+                        String path = "/pages/Grouping/wantGrouping/wantGrouping?TeamId=" + grouponDetailBean.getTeamId() + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        WlmUtil.setShared(iwxapi,path,grouponDetailBean.getGoodsName(),grouponDetailBean.getGoodsName(),baos.toByteArray());
+                        WlmUtil.setShared(iwxapi, path, grouponDetailBean.getGoodsName(), grouponDetailBean.getGoodsName(), baos.toByteArray());
                     }
 
                     @Override
@@ -140,7 +140,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
                     }
                 });
 
-            break;
+                break;
         }
     }
 
@@ -151,7 +151,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         Picasso.with(this).load(ProApplication.HEADIMG + goodsListBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(iv_goods_pic);
 
-        tv_groupon_price.setText(goodsListBean.getPrice()+"");
+        tv_groupon_price.setText(goodsListBean.getPrice() + "");
 
         tv_goods_title.setText(goodsListBean.getGoodsName());
 
@@ -160,27 +160,27 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         tv_grounon_info.setText(goodsListBean.getGoodsSmallName());
 
-        if(WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 0){
+        if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time) == 0) {
             tv_end_time.setText("至开始");
-        }else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(),goodsListBean.getEndDate(),tv_rush_time) == 1){
+        } else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time) == 1) {
             tv_end_time.setText("至截止");
-        }else {
+        } else {
             tv_grouponing.setVisibility(View.GONE);
         }
 
-        if (goodsListBean.getTeamType() == 1){
+        if (goodsListBean.getTeamType() == 1) {
             tv_rule.setText("三人团：团长佣金获得规则为25%-35%-40%");
-        }else if (goodsListBean.getTeamType() == 2){
+        } else if (goodsListBean.getTeamType() == 2) {
             tv_rule.setText("五人团：团长佣金获得规则为10%-20%-20-25%-25%");
         }
 
-        if (goodsListBean.getListUser() != null){
+        if (goodsListBean.getListUser() != null) {
             joinGrouponBeans = goodsListBean.getListUser();
-            tv_friends_num.setText(joinGrouponBeans.size()+"");
+            tv_friends_num.setText(joinGrouponBeans.size() + "");
 
-            GrouponDetailAdapter grouponParticipantAdapter = new GrouponDetailAdapter(this,joinGrouponBeans);
+            GrouponDetailAdapter grouponParticipantAdapter = new GrouponDetailAdapter(this, joinGrouponBeans);
 
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this,7);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 7);
             gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
 
             rv_groupon_list.setLayoutManager(gridLayoutManager);
@@ -193,7 +193,6 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     public void getDataFail(String msg) {
         toast(msg);
     }
-
 
 
 }

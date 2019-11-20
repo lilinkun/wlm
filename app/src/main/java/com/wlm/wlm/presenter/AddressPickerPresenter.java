@@ -2,7 +2,6 @@ package com.wlm.wlm.presenter;
 
 import android.content.Context;
 
-import com.wlm.wlm.contract.AddAddressContract;
 import com.wlm.wlm.contract.AddressPickerContract;
 import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
@@ -27,7 +26,7 @@ public class AddressPickerPresenter extends BasePresenter {
     private AddressPickerContract addressPickerContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,18 +46,18 @@ public class AddressPickerPresenter extends BasePresenter {
     }
 
 
-    public void getLocalData(String parentId,final int localType){
+    public void getLocalData(String parentId, final int localType) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Region");
-        params.put("fun","RegionListDrop");
-        params.put("ParentId",parentId);
+        params.put("cls", "Region");
+        params.put("fun", "RegionListDrop");
+        params.put("ParentId", parentId);
         mCompositeSubscription.add(manager.getLocalData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<ProvinceBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<ProvinceBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<ProvinceBean> provinceBeans, String status,Object page) {
-                        addressPickerContract.getDataSuccess(provinceBeans,localType);
+                    public void onResponse(ArrayList<ProvinceBean> provinceBeans, String status, Object page) {
+                        addressPickerContract.getDataSuccess(provinceBeans, localType);
                     }
 
                     @Override

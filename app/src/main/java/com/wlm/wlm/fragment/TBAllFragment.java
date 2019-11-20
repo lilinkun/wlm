@@ -18,8 +18,8 @@ import com.wlm.wlm.contract.TbAllContract;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.presenter.TbAllPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ import butterknife.BindView;
  * Created by LG on 2018/11/14.
  */
 
-public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoodsAdapter.OnItemClickListener{
+public class TBAllFragment extends BaseFragment implements TbAllContract, TbGoodsAdapter.OnItemClickListener {
 
     @BindView(R.id.rv_all_tbgoods)
     RecyclerView mAllTbGoodsRv;
@@ -56,13 +56,13 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
 //            UToast.show(getActivity(),getArguments().getString("TBId"));
 //        mTvTb.setText(getArguments().getString("TBId"));
 
-        tbAllPresenter.onCreate(getActivity(),this);
-        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+        tbAllPresenter.onCreate(getActivity(), this);
+        tbAllPresenter.setList(PAGE_INDEX + "", PAGE_COUNT, "64362000477", getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall + "");
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+                tbAllPresenter.setList(PAGE_INDEX + "", PAGE_COUNT, "64362000477", getArguments().getString("TBId"), WlmUtil.strs[page_des], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall + "");
             }
         });
 
@@ -80,14 +80,15 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
                                 @Override
                                 public void run() {
                                     PAGE_INDEX++;
-                                    tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"),"tk_total_sales_des", ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+                                    tbAllPresenter.setList(PAGE_INDEX + "", PAGE_COUNT, "64362000477", getArguments().getString("TBId"), "tk_total_sales_des", ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall + "");
                                 }
                             }, 200);
                         }
 
                     }
                 }
-        }
+            }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -103,16 +104,16 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
     @Override
     public void onSuccess(ArrayList<TbMaterielBean> tbShopBeans) {
 
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
 
-        if (tbDisCountBeans == null){
+        if (tbDisCountBeans == null) {
             tbDisCountBeans = tbShopBeans;
-            tbGoodsAdapter = new TbGoodsAdapter(getActivity(), tbDisCountBeans,getLayoutInflater());
+            tbGoodsAdapter = new TbGoodsAdapter(getActivity(), tbDisCountBeans, getLayoutInflater());
             mAllTbGoodsRv.setAdapter(tbGoodsAdapter);
             tbGoodsAdapter.setItemClickListener(this);
-        }else {
+        } else {
             tbDisCountBeans.addAll(tbShopBeans);
             tbGoodsAdapter.setDatas(tbDisCountBeans);
         }
@@ -124,15 +125,15 @@ public class TBAllFragment extends BaseFragment implements TbAllContract,TbGoods
     }
 
 
-    public void onPageChange(int page){
+    public void onPageChange(int page) {
         tbDisCountBeans.clear();
         PAGE_INDEX = 1;
-        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), WlmUtil.strs[page], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall+"");
+        tbAllPresenter.setList(PAGE_INDEX + "", PAGE_COUNT, "64362000477", getArguments().getString("TBId"), WlmUtil.strs[page], ProApplication.SESSIONID(getActivity()), GoodsTypeActivity.isMall + "");
     }
 
 
     @Override
-    public void onItemClick(int position,TbMaterielBean tbDisCountBean) {
+    public void onItemClick(int position, TbMaterielBean tbDisCountBean) {
         if (!ButtonUtils.isFastDoubleClick()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("discount", tbDisCountBean);

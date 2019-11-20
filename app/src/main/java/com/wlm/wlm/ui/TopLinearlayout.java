@@ -22,12 +22,12 @@ import java.util.Iterator;
  */
 public class TopLinearlayout extends LinearLayout implements View.OnClickListener {
     private Context context;
-    private TextView tx_moren,tx_host,tx_price,tx_top;
+    private TextView tx_moren, tx_host, tx_price, tx_top;
     private LinearLayout ll_top;
     private RelativeLayout rl_host;
     private ImageView iv_host_arrow;
     private ArrayList<TextView> textViewList = new ArrayList<>();
-    private ImageView img1,img2,img3,img4;
+    private ImageView img1, img2, img3, img4;
     private boolean isView3 = false;
     private boolean isView4 = false;
     private int arrow_up;
@@ -52,17 +52,17 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
         super(context, attrs, defStyleAttr);
     }
 
-    private void init(AttributeSet attrs){
+    private void init(AttributeSet attrs) {
 
-        TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.TopLayout);
-        textcolor = a.getColor(R.styleable.TopLayout_textcolor,getResources().getColor(R.color.main_app_color));
-        textnormalcolor = a.getColor(R.styleable.TopLayout_textnormalcolor,getResources().getColor(R.color.text_question));
-        arrow_up = a.getResourceId(R.styleable.TopLayout_up_arrow,R.mipmap.ic_store_dot_up);
-        arrow_down = a.getResourceId(R.styleable.TopLayout_down_arrow,R.mipmap.ic_store_dot_down);
-        type = a.getInteger(R.styleable.TopLayout_type,1);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TopLayout);
+        textcolor = a.getColor(R.styleable.TopLayout_textcolor, getResources().getColor(R.color.main_app_color));
+        textnormalcolor = a.getColor(R.styleable.TopLayout_textnormalcolor, getResources().getColor(R.color.text_question));
+        arrow_up = a.getResourceId(R.styleable.TopLayout_up_arrow, R.mipmap.ic_store_dot_up);
+        arrow_down = a.getResourceId(R.styleable.TopLayout_down_arrow, R.mipmap.ic_store_dot_down);
+        type = a.getInteger(R.styleable.TopLayout_type, 1);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_top,this,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_top, this, false);
 
         tx_moren = view.findViewById(R.id.tx_moren);
         tx_host = view.findViewById(R.id.tx_host);
@@ -82,12 +82,12 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
         textViewList.add(tx_price);
         textViewList.add(tx_top);
 
-        if (type == 2){
+        if (type == 2) {
             tx_host.setText(getResources().getString(R.string.groupon_all));
             iv_host_arrow.setVisibility(VISIBLE);
-        }else if (type == 3){
+        } else if (type == 3) {
             rl_host.setVisibility(GONE);
-        }else if (type == 4){
+        } else if (type == 4) {
             tx_host.setText(getResources().getString(R.string.search_all_mall));
             iv_host_arrow.setVisibility(VISIBLE);
         }
@@ -103,14 +103,14 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
 
     }
 
-    public void setText(String str){
+    public void setText(String str) {
         tx_host.setText(str);
     }
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tx_moren:
 
                 bottomLine(tx_moren);
@@ -188,7 +188,7 @@ public class TopLinearlayout extends LinearLayout implements View.OnClickListene
 
     }
 
-    public void setListener(IGoodsTypeListener listener){
+    public void setListener(IGoodsTypeListener listener) {
         iGoodsTypeListener = listener;
     }
 }

@@ -8,12 +8,15 @@ import com.wlm.wlm.mvp.IView;
 
 public interface ModifyPayPsdContract extends IView {
     public void onSendVcodeSuccess();
+
     public void onSendVcodeFail(String str);
 
     public void modifySuccess();
+
     public void modifyFail(String str);
 
     public void modifyPsdSuccess();
+
     public void modifyPsdFail(String msg);
 
 }

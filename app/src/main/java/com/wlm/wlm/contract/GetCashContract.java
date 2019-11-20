@@ -8,6 +8,7 @@ import com.wlm.wlm.mvp.IView;
 public interface GetCashContract extends IView {
 
     public void getCashSuccess();
+
     public void getCashFail(String msg);
 
 }

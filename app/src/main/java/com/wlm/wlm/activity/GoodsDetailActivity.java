@@ -69,7 +69,7 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
 
     @Override
     public void initEventAndData() {
-        Eyes.translucentStatusBar(this,false);
+        Eyes.translucentStatusBar(this, false);
 
         tsv_home.init(this);
 
@@ -105,12 +105,12 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
                 .start();
         int spanCount = 2; // 2 columns
         int spacing = 20; // 50px
-        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this,2);
+        FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(this, 2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         boolean includeEdge = false;
         rv_goods_detail.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
 
-        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this,null,getLayoutInflater());
+        TbHotGoodsAdapter tbHotGoodsAdapter = new TbHotGoodsAdapter(this, null, getLayoutInflater());
 
         rv_goods_detail.setLayoutManager(layoutManager);
         rv_goods_detail.setAdapter(tbHotGoodsAdapter);
@@ -139,11 +139,11 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         float offset = 1 - Math.max((headerBarOffsetY - scrollY) / headerBarOffsetY, 0f);
         toolbar.setAlpha(offset);
 
-        if (wv_goods_detail.getTop() <= (int)scrollY){
+        if (wv_goods_detail.getTop() <= (int) scrollY) {
             if (iv_turn_top != null && !iv_turn_top.isShown()) {
                 iv_turn_top.setVisibility(View.VISIBLE);
             }
-        }else if (wv_goods_detail.getTop() > (int)scrollY){
+        } else if (wv_goods_detail.getTop() > (int) scrollY) {
             if (iv_turn_top != null && iv_turn_top.isShown()) {
                 iv_turn_top.setVisibility(View.GONE);
             }
@@ -167,20 +167,20 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
         }
     }
 
-    @OnClick({R.id.ll_back,R.id.rl_no_delivery,R.id.ll_title_back,R.id.iv_turn_top})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.rl_no_delivery, R.id.ll_title_back, R.id.iv_turn_top})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
 
             case R.id.rl_no_delivery:
 
-                if (isOpen){
+                if (isOpen) {
                     isOpen = !isOpen;
                     tv_no_delivery.setMaxLines(1);
                     iv_more.setRotation(0);
-                }else {
+                } else {
                     isOpen = !isOpen;
                     tv_no_delivery.setMaxLines(10);
                     iv_more.setRotation(90);
@@ -198,7 +198,7 @@ public class GoodsDetailActivity extends BaseActivity implements OnBannerListene
 
             case R.id.iv_turn_top:
 
-                tsv_home.scrollTo(0,0);
+                tsv_home.scrollTo(0, 0);
 
                 break;
 

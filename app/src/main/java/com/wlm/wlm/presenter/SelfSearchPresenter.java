@@ -3,13 +3,8 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.SelfSearchContract;
-import com.wlm.wlm.contract.TbAllContract;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.entity.ResultBean;
-import com.wlm.wlm.entity.SelfGoodsBean;
-import com.wlm.wlm.entity.TbMaterielBean;
-import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -33,7 +28,7 @@ public class SelfSearchPresenter extends BasePresenter {
     private SelfSearchContract selfSearchContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -52,7 +47,7 @@ public class SelfSearchPresenter extends BasePresenter {
         }
     }
 
-    public void selfSearch(String SessionId){
+    public void selfSearch(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "Goods");
         params.put("fun", "Serach_Goods");
@@ -60,10 +55,10 @@ public class SelfSearchPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.getselfSearch(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<String>,Object>(){
+                .subscribe(new HttpResultCallBack<ArrayList<String>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<String> selfGoodsBeans, String status,Object page) {
+                    public void onResponse(ArrayList<String> selfGoodsBeans, String status, Object page) {
                         selfSearchContract.onSelfSuccess(selfGoodsBeans);
                     }
 
@@ -78,31 +73,32 @@ public class SelfSearchPresenter extends BasePresenter {
 
     /**
      * 获取查询商品信息
+     *
      * @param PageIndex
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String GoodsName){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String OrderBy, String GoodsName) {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("GoodsName",GoodsName);
-        params.put("GoodsFlag","2");
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("GoodsName", GoodsName);
+        params.put("GoodsFlag", "2");
         if (!GoodsType.equals("")) {
             params.put("GoodsType", GoodsType);
         }
-        params.put("OrderBy",OrderBy);
+        params.put("OrderBy", OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status, PageBean page) {
                         selfSearchContract.getSearchResultSuccess(integralBean);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();

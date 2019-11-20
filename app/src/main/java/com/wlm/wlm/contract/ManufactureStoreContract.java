@@ -12,8 +12,10 @@ import java.util.ArrayList;
  */
 public interface ManufactureStoreContract extends IView {
     public void getSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
+
     public void getFail(String msg);
 
     public void getCategorySuccess(ArrayList<Category1Bean> category1Beans);
+
     public void getCategoryFail(String msg);
 }

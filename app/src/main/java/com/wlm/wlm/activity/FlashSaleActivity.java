@@ -62,14 +62,14 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
-        flashSalePresenter.onCreate(this,this);
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.point_red));
+        flashSalePresenter.onCreate(this, this);
         flashSalePresenter.setFlash("3");
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
         ll_top.setListener(this);
         ActivityUtil.addHomeActivity(this);
 
-        rv_flash_sale.addItemDecoration(new SpaceItemDecoration(0, 20,10));
+        rv_flash_sale.addItemDecoration(new SpaceItemDecoration(0, 20, 10));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -80,18 +80,18 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
         rv_flash_sale.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                flashSalePresenter.getData(pageIndex+"",WlmUtil.PAGE_COUNT,goodstype + "",orderby,false);
+                flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, false);
             }
 
             @Override
             public void onLoadMore() {
                 if (grouponAdapter != null) {
-                    if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
+                    if (pageIndex >= Integer.valueOf(pageBean.getMaxPage())) {
 //                        rv_groupon.loadMoreComplete();
                         rv_flash_sale.setNoMore(true);
-                    }else {
+                    } else {
                         pageIndex++;
-                        flashSalePresenter.getData(pageIndex+"",WlmUtil.PAGE_COUNT,goodstype + "",orderby,false);
+                        flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, false);
                     }
 
                 }
@@ -101,8 +101,8 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -122,16 +122,16 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
         rv_flash_sale.setVisibility(View.VISIBLE);
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
-            grouponAdapter = new GrouponAdapter(this,goodsListBeans,goodstype);
+            grouponAdapter = new GrouponAdapter(this, goodsListBeans, goodstype);
             rv_flash_sale.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
-        }else {
+        } else {
 //            if(swipeRefreshLayout.isRefreshing()) {
 //                swipeRefreshLayout.setRefreshing(false);
 //            }
-            if (pageBean.getPageIndex() == 1){
+            if (pageBean.getPageIndex() == 1) {
                 grouponAdapter.setData(goodsListBeans);
-            }else {
+            } else {
                 this.goodsListBeans.addAll(goodsListBeans);
                 grouponAdapter.setData(this.goodsListBeans);
             }
@@ -140,7 +140,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
     @Override
     public void getDataFail(String msg) {
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             rv_flash_sale.setVisibility(View.GONE);
         }
     }
@@ -150,7 +150,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
         this.flashBeans = flashBeans;
 
-        CustomBannerView.startBanner(flashBeans,bannerView,this,true);
+        CustomBannerView.startBanner(flashBeans, bannerView, this, true);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
     @Override
     public void getSortType(int sortType) {
         pageIndex = 1;
-        switch (sortType){
+        switch (sortType) {
             case 1:
                 orderby = "0";
 
@@ -190,19 +190,19 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
                 break;
         }
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @Override
     public void onLoadding(int page) {
         pageIndex = page;
-        flashSalePresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
 

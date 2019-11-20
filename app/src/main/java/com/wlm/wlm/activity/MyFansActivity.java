@@ -20,8 +20,6 @@ import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.MyFansPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.UToast;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -41,7 +39,7 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
     private MyFansPresenter myFansPresenter = new MyFansPresenter();
     private MyFansAdapter myFansAdapter = null;
     private int pageIndex = 1;
-    private int lastVisibleItem =0;
+    private int lastVisibleItem = 0;
     private PageBean pagebean = null;
     private ArrayList<FansBean> fansBeans = null;
 
@@ -53,10 +51,10 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        myFansPresenter.onCreate(this,this);
-        myFansPresenter.getFansData(pageIndex+"","20", "",ProApplication.SESSIONID(this));
+        myFansPresenter.onCreate(this, this);
+        myFansPresenter.getFansData(pageIndex + "", "20", "", ProApplication.SESSIONID(this));
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
@@ -77,7 +75,7 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
                                     toast("已到末尾");
                                 } else {
                                     pageIndex++;
-                                    myFansPresenter.getFansData(pageIndex+"","20", "",ProApplication.SESSIONID(MyFansActivity.this));
+                                    myFansPresenter.getFansData(pageIndex + "", "20", "", ProApplication.SESSIONID(MyFansActivity.this));
                                 }
                             }
 //                                }
@@ -87,6 +85,7 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
                     }
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -122,8 +121,8 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -133,9 +132,9 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
 
     }
 
-    private void doSearch(){
+    private void doSearch() {
         pageIndex = 1;
-        myFansPresenter.getFansData(pageIndex+"","20", et_search.getText().toString(),ProApplication.SESSIONID(this));
+        myFansPresenter.getFansData(pageIndex + "", "20", et_search.getText().toString(), ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -145,12 +144,12 @@ public class MyFansActivity extends BaseActivity implements MyFansContract {
             this.fansBeans = fansBeans;
             myFansAdapter = new MyFansAdapter(this, fansBeans);
             rv_myfans.setAdapter(myFansAdapter);
-        }else {
+        } else {
 
             if (pagebean.getPageIndex() == 1) {
                 this.fansBeans = fansBeans;
                 myFansAdapter.setData(fansBeans);
-            }else {
+            } else {
                 this.fansBeans.addAll(fansBeans);
                 myFansAdapter.setData(fansBeans);
             }

@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.GetCashContract;
-import com.wlm.wlm.contract.GrouponDetailContract;
-import com.wlm.wlm.entity.GrouponDetailBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -46,15 +44,15 @@ public class GetCashPresenter extends BasePresenter {
         }
     }
 
-    public void getCash(String TransactionAamount,String Brokerage,String PassWordTwo,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","提现中...",true);
+    public void getCash(String TransactionAamount, String Brokerage, String PassWordTwo, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "提现中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","WithdrawCash");
-        params.put("fun","WithdrawCash_Add");
-        params.put("TransactionAamount",TransactionAamount);
-        params.put("Brokerage",Brokerage);
-        params.put("PassWordTwo",PassWordTwo);
-        params.put("SessionId",SessionId);
+        params.put("cls", "WithdrawCash");
+        params.put("fun", "WithdrawCash_Add");
+        params.put("TransactionAamount", TransactionAamount);
+        params.put("Brokerage", Brokerage);
+        params.put("PassWordTwo", PassWordTwo);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getCash(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

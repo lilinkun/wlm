@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
  * Created by LG on 2019/9/24.
@@ -62,21 +61,21 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        messagePresenter.onCreate(this,this);
+        messagePresenter.onCreate(this, this);
         String CategoryId = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("CategoryId");
         String title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("title");
 
 
         if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("from") != null &&
-                getIntent().getBundleExtra(WlmUtil.TYPEID).getString("from").equals("me")){
-            if (title.equals(MessageType.values()[2].getTypeName())){
+                getIntent().getBundleExtra(WlmUtil.TYPEID).getString("from").equals("me")) {
+            if (title.equals(MessageType.values()[2].getTypeName())) {
                 ll_customer_service_phone.setVisibility(View.VISIBLE);
             }
         }
 
-        messagePresenter.getArticleList("1",WlmUtil.PAGE_COUNT,CategoryId, ProApplication.SESSIONID(this));
+        messagePresenter.getArticleList("1", WlmUtil.PAGE_COUNT, CategoryId, ProApplication.SESSIONID(this));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -92,7 +91,7 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
     public void getArticleSuccess(ArrayList<ArticleBean> articleBeans, PageBean pageBean) {
         this.articleBeans = articleBeans;
 
-        MessageDetailAdapter messageDetailAdapter = new MessageDetailAdapter(this,articleBeans);
+        MessageDetailAdapter messageDetailAdapter = new MessageDetailAdapter(this, articleBeans);
 
         rv_message_detail.setAdapter(messageDetailAdapter);
 
@@ -108,14 +107,14 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("ArticleBean",articleBeans.get(position));
+        bundle.putSerializable("ArticleBean", articleBeans.get(position));
 
-        UiHelper.launcherBundle(this,ArticleActivity.class,bundle);
+        UiHelper.launcherBundle(this, ArticleActivity.class, bundle);
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_customer_service_phone})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.ll_customer_service_phone})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -149,7 +148,6 @@ public class MessageDetitleActivity extends BaseActivity implements MessageContr
                         requestPermission();
                     }
                 });
-
 
 
                 break;

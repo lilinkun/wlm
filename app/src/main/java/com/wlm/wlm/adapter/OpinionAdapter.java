@@ -21,7 +21,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
     private Context context;
     private OnItemClickListener mItemClickListener;
 
-    public OpinionAdapter(Context context, ArrayList<ErrorBean> errorBeans){
+    public OpinionAdapter(Context context, ArrayList<ErrorBean> errorBeans) {
         this.context = context;
         this.errorBeans = errorBeans;
     }
@@ -29,7 +29,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_choose_groupon,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_choose_groupon, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -53,12 +53,12 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_groupon;
 
@@ -70,11 +70,11 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
         }
     }
 
-    public void setOnItemClick(OnItemClickListener mItemClickListener){
+    public void setOnItemClick(OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         public void onItemClick(int position);
     }
 

@@ -7,22 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.OrderDetailAddressBean;
-import com.wlm.wlm.entity.OrderDetailBean;
-import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.util.UiHelper;
-import com.squareup.picasso.Picasso;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by LG on 2018/12/21.
@@ -34,7 +23,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private OrderDetailAddressBean orderDetailBeans;
     private OnItemClickListener mItemClickListener;
 
-    public OrderAdapter(Context context, OrderDetailAddressBean orderDetailBeans){
+    public OrderAdapter(Context context, OrderDetailAddressBean orderDetailBeans) {
         this.mContext = context;
         this.orderDetailBeans = orderDetailBeans;
     }
@@ -42,7 +31,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.parent_item,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.parent_item, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         view.setOnClickListener(this);
@@ -51,11 +40,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder,final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.itemView.setTag(position);
 
-        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(mContext,orderDetailBeans.getOrderDetail());
+        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(mContext, orderDetailBeans.getOrderDetail());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -63,8 +52,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onItemClick(int positionId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("goodsid",orderDetailBeans.getOrderDetail().get(position).getGoodsId());
-                UiHelper.launcherBundle(mContext,SelfGoodsDetailActivity.class,bundle);
+                bundle.putString("goodsid", orderDetailBeans.getOrderDetail().get(position).getGoodsId());
+                UiHelper.launcherBundle(mContext, SelfGoodsDetailActivity.class, bundle);
             }
         });
 
@@ -80,7 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -90,12 +79,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.rv_child);

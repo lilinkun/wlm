@@ -1,6 +1,5 @@
 package com.wlm.wlm.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,17 +9,9 @@ import android.widget.LinearLayout;
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MessageAdapter;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.MessageContract;
-import com.wlm.wlm.entity.ArticleBean;
-import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.presenter.MessagePresenter;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.MessageType;
 import com.wlm.wlm.util.UiHelper;
-import com.wlm.wlm.util.WlmUtil;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +19,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/9/23.
  */
-public class MessageActivity extends BaseActivity implements  MessageAdapter.OnItemClickListener {
+public class MessageActivity extends BaseActivity implements MessageAdapter.OnItemClickListener {
 
     @BindView(R.id.rv_message)
     RecyclerView rv_message;
@@ -44,7 +35,7 @@ public class MessageActivity extends BaseActivity implements  MessageAdapter.OnI
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
@@ -58,8 +49,8 @@ public class MessageActivity extends BaseActivity implements  MessageAdapter.OnI
 
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
@@ -71,7 +62,7 @@ public class MessageActivity extends BaseActivity implements  MessageAdapter.OnI
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("CategoryId", MessageType.values()[position].getCategoryId());
-        bundle.putSerializable("title",MessageType.values()[position].getTypeName());
-        UiHelper.launcherBundle(this,MessageDetitleActivity.class,bundle);
+        bundle.putSerializable("title", MessageType.values()[position].getTypeName());
+        UiHelper.launcherBundle(this, MessageDetitleActivity.class, bundle);
     }
 }

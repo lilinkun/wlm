@@ -17,7 +17,6 @@ import com.wlm.wlm.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;

@@ -5,7 +5,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/11/21.
  */
 
-public class OpinionActivity extends BaseActivity implements OnTitleBarClickListener,OpinionContract {
+public class OpinionActivity extends BaseActivity implements OnTitleBarClickListener, OpinionContract {
 
     @BindView(R.id.titlebar)
     CustomTitleBar customTitleBar;
@@ -62,14 +61,14 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        opinionPresenter.onCreate(this,this);
+        opinionPresenter.onCreate(this, this);
 
         opinionPresenter.getErrorType(ProApplication.SESSIONID(this));
 
-        opinionPresenter.getList("1","200","",ProApplication.SESSIONID(this));
+        opinionPresenter.getList("1", "200", "", ProApplication.SESSIONID(this));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -77,20 +76,20 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
     }
 
     @OnClick({R.id.tv_opinion_write_btn})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
 
             case R.id.tv_opinion_write_btn:
 
                 dialog = new Dialog(this, R.style.BaseDialog);
 //                dialog.show();
                 LayoutInflater inflater = LayoutInflater.from(this);
-                final View view1 = LayoutInflater.from(this.getApplicationContext()).inflate(R.layout.pop_opinion,null);
+                final View view1 = LayoutInflater.from(this.getApplicationContext()).inflate(R.layout.pop_opinion, null);
                 Display display = this.getWindowManager().getDefaultDisplay();
                 int width = display.getWidth();
                 int height = display.getHeight();
                 //设置dialog的宽高为屏幕的宽高
-                ViewGroup.LayoutParams layoutParams = new  ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
                 dialog.setContentView(view1, layoutParams);
 
                 RelativeLayout rl_opinion_pop = view1.findViewById(R.id.rl_opinion_pop);
@@ -101,17 +100,17 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
                 btn_commit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (errorBean == null){
+                        if (errorBean == null) {
                             toast("请选择反馈类型");
                             return;
                         }
 
-                        if (opinionEditText != null && opinionEditText.getText().toString().trim().isEmpty()){
+                        if (opinionEditText != null && opinionEditText.getText().toString().trim().isEmpty()) {
                             toast("请填写意见");
                             return;
                         }
 
-                        opinionPresenter.upload(errorBean.getId()+"",errorBean.getName(),opinionEditText.getText().toString(), ProApplication.SESSIONID(OpinionActivity.this));
+                        opinionPresenter.upload(errorBean.getId() + "", errorBean.getName(), opinionEditText.getText().toString(), ProApplication.SESSIONID(OpinionActivity.this));
 
                     }
                 });
@@ -128,7 +127,7 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
                 rl_error_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (errorBeans != null && errorBeans.size()>0) {
+                        if (errorBeans != null && errorBeans.size() > 0) {
                             LayoutInflater mLayoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                             View errorView = mLayoutInflater.inflate(R.layout.pop_layout, null);
                             RecyclerView recyclerView = errorView.findViewById(R.id.rv_groupon);
@@ -192,14 +191,14 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
 
     @Override
     public void onUploadSuccess() {
-        if (dialog != null && dialog.isShowing()){
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
-        if (opinionEditText!= null && opinionEditText.getText().toString().length() > 0){
+        if (opinionEditText != null && opinionEditText.getText().toString().length() > 0) {
             opinionEditText.setText("");
         }
         toast("意见反馈成功");
-        opinionPresenter.getList("1","200","",ProApplication.SESSIONID(this));
+        opinionPresenter.getList("1", "200", "", ProApplication.SESSIONID(this));
     }
 
     @Override
@@ -219,10 +218,10 @@ public class OpinionActivity extends BaseActivity implements OnTitleBarClickList
 
     @Override
     public void getOpinionListSuccess(ArrayList<OpinionBean> opinionBeans) {
-        if (opinonAdapter == null){
-            opinonAdapter = new OpinionListAdapter(this,opinionBeans);
+        if (opinonAdapter == null) {
+            opinonAdapter = new OpinionListAdapter(this, opinionBeans);
             rv_opinion.setAdapter(opinonAdapter);
-        }else {
+        } else {
             opinonAdapter.setData(opinionBeans);
         }
     }

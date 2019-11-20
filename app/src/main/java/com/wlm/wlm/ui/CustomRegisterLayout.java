@@ -7,22 +7,17 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.WebViewActivity;
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
@@ -36,9 +31,9 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     private Context context;
     private Resources res;
     private TextView tv_send_vcode;
-    private EditText mEtInputInvitation,mEtInputVcode,mEtInputPhone;
-    private LinearLayout mLlProtocol,ll_input_phone,ll_input_invitation;
-    private RelativeLayout rl_vcode,rl_input_invitation;
+    private EditText mEtInputInvitation, mEtInputVcode, mEtInputPhone;
+    private LinearLayout mLlProtocol, ll_input_phone, ll_input_invitation;
+    private RelativeLayout rl_vcode, rl_input_invitation;
     private Button mOverBtn;
 
     private boolean isOpen = false;
@@ -46,7 +41,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     private Handler handler;
     private boolean isRegister = false;
 
-    public MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
+    public MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000, 1000);
 
     public CustomRegisterLayout(Context context) {
         super(context);
@@ -56,14 +51,14 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
     public CustomRegisterLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
-        TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.register_layout);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.register_layout);
 
-        isRegister = a.getBoolean(R.styleable.register_layout_is_register,false);
-        if (!isRegister){
+        isRegister = a.getBoolean(R.styleable.register_layout_is_register, false);
+        if (!isRegister) {
             mLlProtocol.setVisibility(GONE);
             mOverBtn.setText(R.string.modify_sure);
             mEtInputInvitation.setHint(R.string.modify_new_pwd);
-        }else {
+        } else {
             mOverBtn.setText(R.string.register);
             mEtInputInvitation.setHint(R.string.register_input_invitation);
         }
@@ -74,12 +69,12 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         this.context = context;
         res = context.getResources();
-        View view = LayoutInflater.from(context).inflate(R.layout.custom_register_layout,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_register_layout, null);
 
-        if(!isRegister){
+        if (!isRegister) {
 
         }
 
@@ -92,7 +87,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         rl_vcode = (RelativeLayout) view.findViewById(R.id.rl_vcode);
         ll_input_phone = (LinearLayout) view.findViewById(R.id.ll_input_phone);
 
-        mOverBtn = (Button)view.findViewById(R.id.btn_over);
+        mOverBtn = (Button) view.findViewById(R.id.btn_over);
         tv_send_vcode.setOnClickListener(this);
         mOverBtn.setOnClickListener(this);
 
@@ -100,26 +95,26 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         rl_input_invitation.getBackground().setAlpha(33);
         rl_vcode.getBackground().setAlpha(33);
 
-        this.addView(view , new LayoutParams(LayoutParams.MATCH_PARENT,
+        this.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
 
     }
 
-    public void setVcodeLisener(OnRegisterListener vcodeLisener){
+    public void setVcodeLisener(OnRegisterListener vcodeLisener) {
         onRegisterListener = vcodeLisener;
     }
 
-    public void setHandler(Handler handler){
+    public void setHandler(Handler handler) {
         this.handler = handler;
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_send_vcode:
-                if(mEtInputPhone == null || mEtInputPhone.getText().toString().isEmpty() || !PhoneFormatCheckUtils.isChinaPhoneLegal(mEtInputPhone.getText().toString())){
-                    UToast.show(context,R.string.prompt_phone_number_invalid);
+                if (mEtInputPhone == null || mEtInputPhone.getText().toString().isEmpty() || !PhoneFormatCheckUtils.isChinaPhoneLegal(mEtInputPhone.getText().toString())) {
+                    UToast.show(context, R.string.prompt_phone_number_invalid);
                     return;
                 }
 
@@ -133,24 +128,24 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
             case R.id.btn_over:
 
 
-                if(mEtInputPhone == null || mEtInputPhone.getText().toString().isEmpty() || !PhoneFormatCheckUtils.isChinaPhoneLegal(mEtInputPhone.getText().toString())){
-                    UToast.show(context,R.string.prompt_phone_number_invalid);
+                if (mEtInputPhone == null || mEtInputPhone.getText().toString().isEmpty() || !PhoneFormatCheckUtils.isChinaPhoneLegal(mEtInputPhone.getText().toString())) {
+                    UToast.show(context, R.string.prompt_phone_number_invalid);
                     return;
                 }
 
-                if(mEtInputVcode == null || mEtInputVcode.getText().toString().isEmpty()){
-                    UToast.show(context,R.string.register_vcode_invalid);
+                if (mEtInputVcode == null || mEtInputVcode.getText().toString().isEmpty()) {
+                    UToast.show(context, R.string.register_vcode_invalid);
                     return;
                 }
 
-                if(mEtInputInvitation == null || mEtInputInvitation.getText().toString().isEmpty()){
+                if (mEtInputInvitation == null || mEtInputInvitation.getText().toString().isEmpty()) {
 //                    UToast.show(context,R.string.register_psd_invalid);
 //                    return;
                 }
 
                 if (isRegister) {
                     onRegisterListener.getOver(mEtInputPhone.getText().toString(), mEtInputVcode.getText().toString(), mEtInputInvitation.getText().toString());
-                }else {
+                } else {
                     onRegisterListener.getModify(mEtInputPhone.getText().toString(), mEtInputVcode.getText().toString(), mEtInputInvitation.getText().toString());
                 }
 
@@ -159,14 +154,14 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
             case R.id.ll_protocol:
 
                 Bundle bundle = new Bundle();
-                bundle.putString("type","2");
-                UiHelper.launcherBundle(context, WebViewActivity.class,bundle);
+                bundle.putString("type", "2");
+                UiHelper.launcherBundle(context, WebViewActivity.class, bundle);
 
                 break;
         }
     }
 
-    public void onFinish(){
+    public void onFinish() {
         myCountDownTimer.cancel();
         //重新给Button设置文字
         tv_send_vcode.setText(R.string.register_send_vcoed);
@@ -191,7 +186,7 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         public void onTick(long l) {
             //防止计时过程中重复点击
             tv_send_vcode.setClickable(false);
-            tv_send_vcode.setText(l/1000+"s");
+            tv_send_vcode.setText(l / 1000 + "s");
             tv_send_vcode.setTextColor(getResources().getColor(R.color.line_bg));
         }
 
@@ -207,9 +202,11 @@ public class CustomRegisterLayout extends LinearLayout implements View.OnClickLi
         }
     }
 
-    public interface OnRegisterListener{
+    public interface OnRegisterListener {
         void getVcode(String phone);
-        void getOver( String phone, String vcode, String psd);
+
+        void getOver(String phone, String vcode, String psd);
+
         void getModify(String phone, String vcode, String psd);
     }
 }

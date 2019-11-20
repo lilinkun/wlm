@@ -1,6 +1,5 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.VipContract;
@@ -50,26 +49,26 @@ public class VipPresenter extends BasePresenter {
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,String TeamType){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String OrderBy, String TeamType) {
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("GoodsType",GoodsType);
-        params.put("OrderBy",OrderBy);
-        params.put("GoodsFlag","2");
-        if (!TeamType.equals("0")){
-            params.put("TeamType",TeamType);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("GoodsType", GoodsType);
+        params.put("OrderBy", OrderBy);
+        params.put("GoodsFlag", "2");
+        if (!TeamType.equals("0")) {
+            params.put("TeamType", TeamType);
         }
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
-                        vipContract.getDataSuccess(integralBean,page);
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status, PageBean page) {
+                        vipContract.getDataSuccess(integralBean, page);
                     }
 
                     @Override
@@ -79,13 +78,13 @@ public class VipPresenter extends BasePresenter {
                 }));
     }
 
-    public void getUpdataData(String SessionId){
+    public void getUpdataData(String SessionId) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBaseGet");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseGet");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getUpdataData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

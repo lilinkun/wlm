@@ -1,19 +1,11 @@
 package com.wlm.wlm.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.contract.HomeContract;
-import com.wlm.wlm.entity.BalanceDetailBean;
-import com.wlm.wlm.entity.FansBean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeBean;
-import com.wlm.wlm.entity.HomeHeadBean;
-import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.entity.ResultBean;
-import com.wlm.wlm.entity.TbMaterielBean;
-import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -37,7 +29,7 @@ public class HomePresenter extends BasePresenter {
     private HomeContract homeContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -56,17 +48,17 @@ public class HomePresenter extends BasePresenter {
         }
     }
 
-    public void getHomeData(String SessionId){
+    public void getHomeData(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Home");
-        params.put("fun","Mobile");
-        params.put("SessionId",SessionId);
+        params.put("cls", "Home");
+        params.put("fun", "Mobile");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getHomeData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<HomeBean,Object>() {
+                .subscribe(new HttpResultCallBack<HomeBean, Object>() {
                     @Override
-                    public void onResponse(HomeBean homeBean, String status,Object page) {
+                    public void onResponse(HomeBean homeBean, String status, Object page) {
                         homeContract.getHomeDataSuccess(homeBean);
                     }
 
@@ -81,47 +73,49 @@ public class HomePresenter extends BasePresenter {
 
     /**
      * 获取首页信息
+     *
      * @param Style
      */
-    public void setFlash(String Style){
+    public void setFlash(String Style) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Flash");
-        params.put("fun","FlashVipList");
-        params.put("Style",Style);
+        params.put("cls", "Flash");
+        params.put("fun", "FlashVipList");
+        params.put("Style", Style);
         mCompositeSubscription.add(manager.getFlash(params)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
-            @Override
-            public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
-                homeContract.onFlashSuccess(flashBeans);
-            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<FlashBean>, Object>() {
+                    @Override
+                    public void onResponse(ArrayList<FlashBean> flashBeans, String status, Object page) {
+                        homeContract.onFlashSuccess(flashBeans);
+                    }
 
-            @Override
-            public void onErr(String msg, String status) {
-                homeContract.onFlashFail(msg);
-            }
+                    @Override
+                    public void onErr(String msg, String status) {
+                        homeContract.onFlashFail(msg);
+                    }
 
-        }));
+                }));
     }
 
     /**
      * 获取图片地址前缀
+     *
      * @param SessionId
      */
-    public void getUrl(String SessionId){
+    public void getUrl(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Home");
-        params.put("fun","SettingParameter");
-        params.put("SessionId",SessionId);
+        params.put("cls", "Home");
+        params.put("fun", "SettingParameter");
+        params.put("SessionId", SessionId);
 
         mCompositeSubscription.add(manager.getUrl(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<UrlBean,Object>(){
+                .subscribe(new HttpResultCallBack<UrlBean, Object>() {
 
                     @Override
-                    public void onResponse(UrlBean urlBean, String status,Object page) {
+                    public void onResponse(UrlBean urlBean, String status, Object page) {
                         homeContract.getUrlSuccess(urlBean);
                     }
 
@@ -138,18 +132,18 @@ public class HomePresenter extends BasePresenter {
      * 获取首页热门商品
      */
 
-    public void getGoodsList(String type){
+    public void getGoodsList(String type) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListRecommendVip");
-        params.put("GoodsFlag","2");
-        params.put("type",type);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListRecommendVip");
+        params.put("GoodsFlag", "2");
+        params.put("type", type);
         mCompositeSubscription.add(manager.getGoodsList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> balanceDetailBeans, String status,Object page) {
+                    public void onResponse(ArrayList<GoodsListBean> balanceDetailBeans, String status, Object page) {
                         homeContract.onGoodsListSuccess(balanceDetailBeans);
                     }
 

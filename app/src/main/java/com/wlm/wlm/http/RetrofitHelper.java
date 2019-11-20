@@ -24,7 +24,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 public class RetrofitHelper {
     private Context mCntext;
-//        接口根地址
+    //        接口根地址
     public static final String BASE_URL = "http://wlm.mmibb.net:99/api/WebService/";
 //    public static final String BASE_URL = "https://api.vlmei.com/api/WebService/";
 

@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  * Created by LG on 2018/11/29.
  */
 
-public class ProApplication extends Application{
+public class ProApplication extends Application {
     private static Context mContext;
     private static ProApplication instance;
 
@@ -33,8 +33,8 @@ public class ProApplication extends Application{
     /**
      * 反射 禁止弹窗
      */
-    private void disableAPIDialog(){
-        if (Build.VERSION.SDK_INT < 28)return;
+    private void disableAPIDialog() {
+        if (Build.VERSION.SDK_INT < 28) return;
         try {
             Class clazz = Class.forName("android.app.ActivityThread");
             Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
@@ -82,9 +82,9 @@ public class ProApplication extends Application{
     }
 
 
-    public static String SESSIONID(Context mContext){
+    public static String SESSIONID(Context mContext) {
 //      return  "wlm06afbb052494856945c98f32d8be2c45";
-      return  "wlm" + DeviceData.getUniqueId(mContext);
+        return "wlm" + DeviceData.getUniqueId(mContext);
     }
 
     public static String HEADIMG = "";

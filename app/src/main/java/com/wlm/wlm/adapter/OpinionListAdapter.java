@@ -2,7 +2,6 @@ package com.wlm.wlm.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.opengl.Visibility;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,7 @@ public class OpinionListAdapter extends RecyclerView.Adapter<OpinionListAdapter.
     private Context context;
     private ArrayList<OpinionBean> opinionBeans;
 
-    public OpinionListAdapter(Context context,ArrayList<OpinionBean> opinionBeans){
+    public OpinionListAdapter(Context context, ArrayList<OpinionBean> opinionBeans) {
         this.context = context;
         this.opinionBeans = opinionBeans;
     }
@@ -34,7 +33,7 @@ public class OpinionListAdapter extends RecyclerView.Adapter<OpinionListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_list_opinion,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_list_opinion, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -44,8 +43,8 @@ public class OpinionListAdapter extends RecyclerView.Adapter<OpinionListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(WlmUtil.LOGIN,context.MODE_PRIVATE);
-        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL,"").equals("")) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(WlmUtil.LOGIN, context.MODE_PRIVATE);
+        if (!sharedPreferences.getString(WlmUtil.HEADIMGURL, "").equals("")) {
             Picasso.with(context).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).into(holder.riv_opinion);
         }
 
@@ -56,7 +55,7 @@ public class OpinionListAdapter extends RecyclerView.Adapter<OpinionListAdapter.
         holder.tv_opinion_date.setText(opinionBeans.get(position).getCreateDate());
 
 
-        if (opinionBeans.get(position).getStatus() == 0){
+        if (opinionBeans.get(position).getStatus() == 0) {
             holder.rl_retry.setVisibility(View.GONE);
         }
     }
@@ -66,12 +65,12 @@ public class OpinionListAdapter extends RecyclerView.Adapter<OpinionListAdapter.
         return opinionBeans.size();
     }
 
-    public void setData(ArrayList<OpinionBean> opinionBeans){
+    public void setData(ArrayList<OpinionBean> opinionBeans) {
         this.opinionBeans = opinionBeans;
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private RoundImageView riv_opinion;
         private TextView tv_opinion_name;

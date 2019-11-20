@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
-import com.squareup.picasso.Picasso;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.child_item,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.child_item, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         view.setOnClickListener(this);
@@ -50,7 +49,7 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
         holder.goodsTitle.setText(childListBeans.get(position).getGoodsName());
 
         holder.goodsPrice.setText("¥ " + childListBeans.get(position).getPrice());
-        if (childListBeans.get(position).getAttrOne() != null&& !childListBeans.get(position).getAttrOne().isEmpty()) {
+        if (childListBeans.get(position).getAttrOne() != null && !childListBeans.get(position).getAttrOne().isEmpty()) {
             holder.goodsSpec1.setText(childListBeans.get(position).getAttrOne() + "");
         }
         if (childListBeans.get(position).getAttrTwo() != null && !childListBeans.get(position).getAttrTwo().isEmpty()) {
@@ -67,7 +66,7 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -76,11 +75,11 @@ public class OrderChildAdapter extends RecyclerView.Adapter<OrderChildAdapter.Vi
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView childImg;
         TextView goodsTitle;
         TextView goodsnum;

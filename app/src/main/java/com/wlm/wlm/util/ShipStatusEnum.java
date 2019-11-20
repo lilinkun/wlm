@@ -5,16 +5,16 @@ package com.wlm.wlm.util;
  */
 
 public enum ShipStatusEnum {
-    STATUS0(0,"待付款"),
-    STATUS1(1,"待发货"),
-    STATUS2(2,"待收货"),
-    STATUS3(4,"交易成功"),
-    STATUS4(5,"交易关闭");
+    STATUS0(0, "待付款"),
+    STATUS1(1, "待发货"),
+    STATUS2(2, "待收货"),
+    STATUS3(4, "交易成功"),
+    STATUS4(5, "交易关闭");
 
     private int id;
     private String statusMsg;
 
-    private ShipStatusEnum(int id,String statusMsg) {
+    private ShipStatusEnum(int id, String statusMsg) {
         this.id = id;
         this.statusMsg = statusMsg;
     }

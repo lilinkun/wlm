@@ -14,19 +14,15 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.LoginContract;
-import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.IWxLoginListener;
-import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.presenter.LoginPresenter;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXEntryActivity;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,34 +50,34 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
 
-        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
         WXEntryActivity.wxType(WlmUtil.WXTYPE_LOGIN);
         WXEntryActivity.setLoginListener(this);
 
-        loginPresenter.onCreate(this,this);
+        loginPresenter.onCreate(this, this);
         loginPresenter.getUrl();
     }
 
-    @OnClick({R.id.ll_wx_login,R.id.tv_service_agreement})
+    @OnClick({R.id.ll_wx_login, R.id.tv_service_agreement})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_wx_login:
 //                UiHelper.launcher(this, RegisterActivity.class);
                 SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-                if (sharedPreferences.getBoolean(WlmUtil.LOGIN,false)){
-                    if (!sharedPreferences.getString(WlmUtil.OPENID,"").equals("")) {
+                if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false)) {
+                    if (!sharedPreferences.getString(WlmUtil.OPENID, "").equals("")) {
                         loginPresenter.login(sharedPreferences.getString(WlmUtil.OPENID, ""), sharedPreferences.getString(WlmUtil.UNIONID, ""), "2", ProApplication.SESSIONID(this));
-                    }else {
+                    } else {
                         final SendAuth.Req req = new SendAuth.Req();
                         req.scope = "snsapi_userinfo";
                         req.state = "wechat_sdk_微信登录";
                         iwxapi.sendReq(req);
                     }
-                }else {
+                } else {
 //                    loginPresenter.login("o-Pjfvyivj1VphDd0OZYQH5Str3A","obdLtwjcQ-yXsVEhggAJnxrNu4A4","2",ProApplication.SESSIONID(this));
                     final SendAuth.Req req = new SendAuth.Req();
                     req.scope = "snsapi_userinfo";
@@ -93,8 +89,8 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
             case R.id.tv_service_agreement:
 
                 Bundle bundle = new Bundle();
-                bundle.putString("type","2");
-                UiHelper.launcherBundle(this,WebViewActivity.class,bundle);
+                bundle.putString("type", "2");
+                UiHelper.launcherBundle(this, WebViewActivity.class, bundle);
 
 
                 break;
@@ -103,10 +99,10 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK){
-            if (requestCode == 0x1212){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x1212) {
                 finish();
-            }else if(requestCode == 0x1233){
+            } else if (requestCode == 0x1233) {
                 finish();
             }
         }
@@ -130,13 +126,13 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
         }*/
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.ACCOUNT,mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE,mLoginBean.getMobile())
-                .putString(WlmUtil.USERNAME,mLoginBean.getUserName()).putString(WlmUtil.USERID,mLoginBean.getUserId())
-                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl())
-                .putString(WlmUtil.VIPVALIDITY,mLoginBean.getVipValidity())
-                .putString(WlmUtil.USERLEVEL,mLoginBean.getUserLevel()+"")
-                .putString(WlmUtil.USERLEVELNAME,mLoginBean.getUserLevelName()).commit();
+        sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN, true)
+                .putString(WlmUtil.ACCOUNT, mLoginBean.getNickName()).putString(WlmUtil.TELEPHONE, mLoginBean.getMobile())
+                .putString(WlmUtil.USERNAME, mLoginBean.getUserName()).putString(WlmUtil.USERID, mLoginBean.getUserId())
+                .putString(WlmUtil.HEADIMGURL, wxUserInfo.getHeadimgurl())
+                .putString(WlmUtil.VIPVALIDITY, mLoginBean.getVipValidity())
+                .putString(WlmUtil.USERLEVEL, mLoginBean.getUserLevel() + "")
+                .putString(WlmUtil.USERLEVELNAME, mLoginBean.getUserLevelName()).commit();
 
         UiHelper.launcher(this, MainFragmentActivity.class);
         finish();
@@ -146,15 +142,15 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
     @Override
     public void onLoginFail(String msg) {
-        if (wxUserInfo == null){
+        if (wxUserInfo == null) {
             final SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             req.state = "wechat_sdk_微信登录";
             iwxapi.sendReq(req);
-        }else {
+        } else {
             Bundle bundle = new Bundle();
             bundle.putSerializable("wxinfo", wxUserInfo);
-            UiHelper.launcherForResultBundle(this, RegisterActivity.class,0x1233, bundle);
+            UiHelper.launcherForResultBundle(this, RegisterActivity.class, 0x1233, bundle);
         }
     }
 
@@ -166,19 +162,19 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     public void getUrlSuccess(UrlBean urlBean) {
 
-            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
-            ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
-            ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
-            ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
-            ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
-            ProApplication.LOGISTICSURL = urlBean.getLogisticsUrl();
-            ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
-            ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
-            ProApplication.PHONE = urlBean.getKFMobile();
-            ProApplication.SERVIESVIP = urlBean.getServiesVip();
-            SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
-                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
+        ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
+        ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+        ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
+        ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
+        ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
+        ProApplication.LOGISTICSURL = urlBean.getLogisticsUrl();
+        ProApplication.UPGRADEURL = urlBean.getUpgradeUrl();
+        ProApplication.UPGRADETOKEN = urlBean.getUpgradeToken();
+        ProApplication.PHONE = urlBean.getKFMobile();
+        ProApplication.SERVIESVIP = urlBean.getServiesVip();
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG)
+                .putString(WlmUtil.CUSTOMER, ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG, ProApplication.SHAREDIMG).commit();
 
     }
 
@@ -194,7 +190,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 //        Bundle bundle = new Bundle();
 //        bundle.putSerializable("wxinfo",wxUserInfo);
 //        UiHelper.launcherBundle(this, RegisterActivity.class,bundle);
-        loginPresenter.login(wxSuccess.getOpenid(),wxSuccess.getUnionid(),"2",ProApplication.SESSIONID(this));
+        loginPresenter.login(wxSuccess.getOpenid(), wxSuccess.getUnionid(), "2", ProApplication.SESSIONID(this));
     }
 
     @Override

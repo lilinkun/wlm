@@ -2,7 +2,6 @@ package com.wlm.wlm.presenter;
 
 import android.content.Context;
 
-import com.wlm.wlm.contract.CrowdFundingContract;
 import com.wlm.wlm.contract.FlashSaleContract;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
@@ -29,7 +28,7 @@ public class FlashSalePresenter extends BasePresenter {
     private FlashSaleContract flashSaleContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -51,19 +50,20 @@ public class FlashSalePresenter extends BasePresenter {
 
     /**
      * 获取Flash
+     *
      * @param Style
      */
-    public void setFlash(String Style){
+    public void setFlash(String Style) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Flash");
-        params.put("fun","FlashVipList");
-        params.put("Style",Style);
+        params.put("cls", "Flash");
+        params.put("fun", "FlashVipList");
+        params.put("Style", Style);
         mCompositeSubscription.add(manager.getFlash(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<FlashBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<FlashBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<FlashBean> flashBeans, String status,Object page) {
+                    public void onResponse(ArrayList<FlashBean> flashBeans, String status, Object page) {
                         flashSaleContract.onFlashSuccess(flashBeans);
                     }
 
@@ -77,23 +77,24 @@ public class FlashSalePresenter extends BasePresenter {
 
     /**
      * 获取众筹信息
+     *
      * @param PageIndex
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType,String OrderBy,boolean showload){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String OrderBy, boolean showload) {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         if (showload) {
             loaddingDialog.show();
         }
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("GoodsType",GoodsType);
-        params.put("OrderBy",OrderBy);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("GoodsType", GoodsType);
+        params.put("OrderBy", OrderBy);
         params.put("GoodsFlag", "2");
 
         mCompositeSubscription.add(manager.grouponData(params)
@@ -101,8 +102,8 @@ public class FlashSalePresenter extends BasePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status,PageBean page) {
-                        flashSaleContract.getDataSuccess(goodsListBeans,page);
+                    public void onResponse(ArrayList<GoodsListBean> goodsListBeans, String status, PageBean page) {
+                        flashSaleContract.getDataSuccess(goodsListBeans, page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }

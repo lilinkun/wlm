@@ -2,7 +2,6 @@ package com.wlm.wlm.activity;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,7 +11,6 @@ import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.MyGrouponAdapter;
 import com.wlm.wlm.adapter.TabPageAdapter;
 import com.wlm.wlm.base.BaseActivity;
-import com.wlm.wlm.fragment.GrouponAllFragment;
 import com.wlm.wlm.fragment.GrouponOverFragment;
 import com.wlm.wlm.fragment.GrouponUnOverFragment;
 import com.wlm.wlm.util.Eyes;
@@ -40,10 +38,10 @@ public class MyGrouponActivity extends BaseActivity {
     private GrouponUnOverFragment grouponUnOverFragment = new GrouponUnOverFragment();
 
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 0x110:
                     int position = msg.getData().getInt("position");
                     break;
@@ -62,12 +60,12 @@ public class MyGrouponActivity extends BaseActivity {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
 
         initData();
 
-        TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(),fragments,mTitles);
+        TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), fragments, mTitles);
         pageAdapter.setTitles(mTitles);
         order_list_vp_groupon.setAdapter(pageAdapter);
 //        order_list_groupon.setupWithViewPager(order_list_vp_groupon);
@@ -95,8 +93,8 @@ public class MyGrouponActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -116,7 +114,6 @@ public class MyGrouponActivity extends BaseActivity {
         fragments.add(grouponOverFragment);
 
     }
-
 
 
 }

@@ -13,13 +13,16 @@ import java.util.ArrayList;
  */
 public interface WlmBuyContract extends IView {
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
+
     public void getDataFail(String msg);
 
 
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
+
     public void onFlashFail(String msg);
 
 
     public void getCategorySuccess(ArrayList<Category1Bean> category1Beans);
+
     public void getCategoryFail(String msg);
 }

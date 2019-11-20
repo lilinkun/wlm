@@ -3,14 +3,8 @@ package com.wlm.wlm.presenter;
 import android.content.Context;
 
 import com.wlm.wlm.contract.CollectContract;
-import com.wlm.wlm.contract.HomeContract;
 import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.CollectDeleteBean;
-import com.wlm.wlm.entity.HomeHeadBean;
 import com.wlm.wlm.entity.PageBean;
-import com.wlm.wlm.entity.ResultBean;
-import com.wlm.wlm.entity.TbMaterielBean;
-import com.wlm.wlm.entity.TbjsonBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
@@ -33,7 +27,7 @@ public class CollectPresenter extends BasePresenter {
     private CollectContract collectContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -52,21 +46,21 @@ public class CollectPresenter extends BasePresenter {
         }
     }
 
-    public void getCollectDataList(String PageIndex,String PageCount,String CollectType,String SessionId){
+    public void getCollectDataList(String PageIndex, String PageCount, String CollectType, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("CollectType",CollectType);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "CollectList");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("CollectType", CollectType);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.GoodCollectList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<CollectBean>,PageBean>() {
+                .subscribe(new HttpResultCallBack<ArrayList<CollectBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<CollectBean> collectBeans, String status,PageBean page) {
-                        collectContract.getCollectDataSuccess(collectBeans,page.getMaxPage()+"");
+                    public void onResponse(ArrayList<CollectBean> collectBeans, String status, PageBean page) {
+                        collectContract.getCollectDataSuccess(collectBeans, page.getMaxPage() + "");
                     }
 
                     @Override

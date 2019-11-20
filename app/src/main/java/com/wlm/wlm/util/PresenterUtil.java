@@ -14,18 +14,18 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class PresenterUtil {
 
-    public static void collectGoods(CompositeSubscription mCompositeSubscription, DataManager manager, String goodsId, String SessionId){
+    public static void collectGoods(CompositeSubscription mCompositeSubscription, DataManager manager, String goodsId, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectCreate");
-        params.put("goodsId",goodsId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "CollectCreate");
+        params.put("goodsId", goodsId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getCollect(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack() {
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
 
                     }
 

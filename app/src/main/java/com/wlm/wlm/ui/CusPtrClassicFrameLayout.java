@@ -25,12 +25,14 @@ public class CusPtrClassicFrameLayout extends PtrClassicFrameLayout {
 
     private GestureDetector detector;
     private boolean mIsDisallowIntercept = false;
+
     private void initGesture() {
-        detector = new GestureDetector(getContext(),gestureListener);
+        detector = new GestureDetector(getContext(), gestureListener);
     }
 
     private boolean mIsHorizontalMode = false;
     private boolean isFirst = true;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_UP) {
@@ -39,7 +41,7 @@ public class CusPtrClassicFrameLayout extends PtrClassicFrameLayout {
             mIsDisallowIntercept = false;
             return super.dispatchTouchEvent(e);
         }
-        if (detector.onTouchEvent(e) && mIsDisallowIntercept && mIsHorizontalMode){
+        if (detector.onTouchEvent(e) && mIsDisallowIntercept && mIsHorizontalMode) {
             return dispatchTouchEventSupper(e);
         }
         if (mIsHorizontalMode) {
@@ -72,12 +74,12 @@ public class CusPtrClassicFrameLayout extends PtrClassicFrameLayout {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             float disX, disY;
-            if(distanceX < 0) {
+            if (distanceX < 0) {
                 disX = -distanceX;
             } else {
                 disX = distanceX;
             }
-            if(distanceY < 0) {
+            if (distanceY < 0) {
                 disY = -distanceY;
             } else {
                 disY = distanceY;

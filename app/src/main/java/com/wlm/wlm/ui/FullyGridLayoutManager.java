@@ -1,18 +1,10 @@
 package com.wlm.wlm.ui;
 
 import android.content.Context;
-import android.graphics.Rect;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.appcompat.BuildConfig;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by LG on 2018/12/14.
@@ -125,14 +117,15 @@ public class FullyGridLayoutManager extends GridLayoutManager {
 
     /**
      * 重写该方法，去捕捉该异常
+     *
      * @param recycler
      * @param state
      */
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        try{
+        try {
             super.onLayoutChildren(recycler, state);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 

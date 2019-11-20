@@ -13,9 +13,11 @@ import java.util.ArrayList;
 public interface FlashSaleContract extends IView {
 
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean);
+
     public void getDataFail(String msg);
 
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans);
+
     public void onFlashFail(String msg);
 
 }

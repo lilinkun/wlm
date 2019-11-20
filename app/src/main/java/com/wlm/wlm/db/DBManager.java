@@ -80,9 +80,10 @@ public class DBManager {
 
     /**
      * 插入微信用户
+     *
      * @param wxUserInfo
      */
-    public void insertWxInfo(WxUserInfo wxUserInfo){
+    public void insertWxInfo(WxUserInfo wxUserInfo) {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
@@ -92,14 +93,14 @@ public class DBManager {
     /**
      * 删除记录
      */
-    public void deleteWxInfo(){
+    public void deleteWxInfo() {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
         wxUserInfoDao.deleteAll();
     }
 
-    public WxUserInfo queryWxInfo(){
+    public WxUserInfo queryWxInfo() {
         DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         WxUserInfoDao wxUserInfoDao = daoSession.getWxUserInfoDao();
@@ -317,6 +318,7 @@ public class DBManager {
         List<BrowseRecordBean> list = qb.list();
         return list;
     }
+
     /**
      * 查询用户列表
      */
@@ -431,7 +433,7 @@ public class DBManager {
      *
      * @param recordBean
      */
-    public void updateOneRecordBean(RecordBean recordBean){
+    public void updateOneRecordBean(RecordBean recordBean) {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         RecordBeanDao recordBeanDao = daoSession.getRecordBeanDao();

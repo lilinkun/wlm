@@ -28,26 +28,23 @@ public class CouponLinkActivity extends BaseActivity {
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
 
         this.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         this.webview.getSettings().setLoadWithOverviewMode(true);
 
         String mUrlLink = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("link");
 
-        if (mUrlLink.startsWith("//")){
+        if (mUrlLink.startsWith("//")) {
             mUrlLink = "https:" + mUrlLink;
         }
         loadDataFromService(mUrlLink);
     }
 
-    protected void loadDataFromService(String paramString)
-    {
+    protected void loadDataFromService(String paramString) {
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.setWebViewClient(new WebViewClient()
-        {
-            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
-            {
+        webview.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });

@@ -25,7 +25,6 @@ import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
 import com.wlm.wlm.util.WlmUtil;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -64,7 +63,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
     private boolean isTrue = false;
 
 
-    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
+    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000, 1000);
 
     @Override
     public int getLayoutId() {
@@ -73,23 +72,23 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        bindCardPresenter.onCreate(this,this);
+        bindCardPresenter.onCreate(this, this);
 
         bindCardPresenter.getBankCard(ProApplication.SESSIONID(this));
 
         bindCardPresenter.getBankInfo(ProApplication.SESSIONID(this));
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 
-        tv_bank_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE,"")));
+        tv_bank_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE, "")));
 
 
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_bank_name,R.id.tv_bind_card,R.id.tv_code})
-    public void onClick(View view){
+    @OnClick({R.id.ll_back, R.id.ll_bank_name, R.id.tv_bind_card, R.id.tv_code})
+    public void onClick(View view) {
         switch (view.getId()) {
 
             case R.id.ll_back:
@@ -105,7 +104,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
                         popupWindow.showAsDropDown(ll_bank_name);
                         iv_pop_show.setVisibility(View.VISIBLE);
                     }
-                }else {
+                } else {
                     isTrue = true;
                     bindCardPresenter.getBankInfo(ProApplication.SESSIONID(this));
                 }
@@ -114,41 +113,41 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
 
             case R.id.tv_bind_card:
 
-                if (et_bank_name.getText().toString().trim().length() == 0){
+                if (et_bank_name.getText().toString().trim().length() == 0) {
                     toast("请填写真实姓名");
                     return;
                 }
 
-                if (et_code.getText().toString().trim().length() == 0){
+                if (et_code.getText().toString().trim().length() == 0) {
                     toast("请填写验证码");
                     return;
                 }
 
 //                try {
-                    if (et_bank_card_id.getText().toString().trim().length() == 15 || et_bank_card_id.getText().toString().trim().length() == 18) {
-                    }else {
-                        toast(R.string.input_bank_card);
-                        return;
-                    }
+                if (et_bank_card_id.getText().toString().trim().length() == 15 || et_bank_card_id.getText().toString().trim().length() == 18) {
+                } else {
+                    toast(R.string.input_bank_card);
+                    return;
+                }
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
 
 
-                if (et_bank_card_num.getText().toString().trim().length() == 0 ){
+                if (et_bank_card_num.getText().toString().trim().length() == 0) {
 //                if (et_bank_card_num.getText().toString().trim().length() == 0 || !PhoneFormatCheckUtils.checkBankCard(et_bank_card_num.getText().toString())){
                     toast("请输入银行卡号码");
                     return;
                 }
 
-                if (tv_bank_name.getText().toString().trim().length() == 0){
+                if (tv_bank_name.getText().toString().trim().length() == 0) {
                     toast("请填写开户银行");
                     return;
                 }
 
 
-                bindCardPresenter.upBankInfo(bankBean.getId()+"",tv_first_bank.getText().toString(),et_bank_name.getText().toString(),
-                        et_bank_card_num.getText().toString(),et_code.getText().toString(),et_bank_card_id.getText().toString(),ProApplication.SESSIONID(this));
+                bindCardPresenter.upBankInfo(bankBean.getId() + "", tv_first_bank.getText().toString(), et_bank_name.getText().toString(),
+                        et_bank_card_num.getText().toString(), et_code.getText().toString(), et_bank_card_id.getText().toString(), ProApplication.SESSIONID(this));
 
                 break;
 
@@ -167,10 +166,10 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
     @Override
     public void getBankInfoSuccess(ArrayList<BankBean> bankBeans) {
         this.bankBeans = bankBeans;
-        if (popupWindow == null){
+        if (popupWindow == null) {
             initPop();
         }
-        if (isTrue){
+        if (isTrue) {
             if (popupWindow != null) {
                 popupWindow.showAsDropDown(ll_bank_name);
             }
@@ -215,7 +214,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
 
     }
 
-    public void initPop(){
+    public void initPop() {
         View rootview = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
         RecyclerView recyclerView = rootview.findViewById(R.id.rv_groupon);
 
@@ -248,7 +247,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if(iv_pop_show.isShown()){
+                if (iv_pop_show.isShown()) {
                     iv_pop_show.setVisibility(View.GONE);
                 }
             }
@@ -281,7 +280,7 @@ public class BindCardActivity extends BaseActivity implements BindCardContract {
         public void onTick(long l) {
             //防止计时过程中重复点击
             tv_code.setClickable(false);
-            tv_code.setText(l/1000+"s");
+            tv_code.setText(l / 1000 + "s");
         }
 
         //计时完毕的方法

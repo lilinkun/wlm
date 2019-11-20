@@ -15,12 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.wlm.wlm.R;
-import com.wlm.wlm.contract.AddAddressContract;
 import com.wlm.wlm.contract.AddressPickerContract;
 import com.wlm.wlm.entity.ProvinceBean;
-import com.wlm.wlm.presenter.AddAddressPresenter;
 import com.wlm.wlm.presenter.AddressPickerPresenter;
 
 import java.io.BufferedReader;
@@ -34,7 +31,7 @@ import java.util.List;
  * 自定义仿京东地址选择器
  */
 
-public class AddressPickerView extends RelativeLayout implements View.OnClickListener,AddressPickerContract{
+public class AddressPickerView extends RelativeLayout implements View.OnClickListener, AddressPickerContract {
     // recyclerView 选中Item 的颜色
     private int defaultSelectedColor = Color.parseColor("#999999");
     // recyclerView 未选中Item 的颜色
@@ -94,8 +91,8 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
         mContext = context;
         mRvData = new ArrayList<>();
 
-        addAddressPresenter.onCreate(context,this);
-        addAddressPresenter.getLocalData("1",TYPE_PROVINCE);
+        addAddressPresenter.onCreate(context, this);
+        addAddressPresenter.getLocalData("1", TYPE_PROVINCE);
 
         // UI
         View rootView = inflate(mContext, R.layout.address_picker_view, this);
@@ -187,7 +184,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
             //   回调接口
             if (mOnAddressPickerSureListener != null) {
                 mOnAddressPickerSureListener.onSureClick(mSelectProvice.getRegionName() + " " + mSelectCity.getRegionName() + " " + mSelectDistrict.getRegionName() + " ",
-                        mSelectProvice.getRegionId(), mSelectCity.getRegionId(), mSelectDistrict.getRegionId(),mSelectDistrict.getRegionId());
+                        mSelectProvice.getRegionId(), mSelectCity.getRegionId(), mSelectDistrict.getRegionId(), mSelectDistrict.getRegionId());
             }
         } else {
             Toast.makeText(mContext, "地址还没有选完整哦", Toast.LENGTH_SHORT).show();
@@ -229,8 +226,8 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                     }*/
                     int oldContentSize = mProAddressBean.size();//获取刷新前数据长度
                     mRvData.clear();
-                    mAdapter.notifyItemRangeRemoved(0,oldContentSize );
-                    if (mCityAddressBean != null && mCityAddressBean.size() > 0){
+                    mAdapter.notifyItemRangeRemoved(0, oldContentSize);
+                    if (mCityAddressBean != null && mCityAddressBean.size() > 0) {
                         mRvData.addAll(mCityAddressBean);
                         mAdapter.notifyDataSetChanged();
                         // 滚动到这个位置
@@ -270,14 +267,14 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
 
     @Override
     public void getDataSuccess(ArrayList<ProvinceBean> provinceBeans, int id) {
-        if (id == TYPE_PROVINCE){
+        if (id == TYPE_PROVINCE) {
             initData(provinceBeans);
-        }else if (id == TYPE_CITY){
+        } else if (id == TYPE_CITY) {
             this.mCityAddressBean = provinceBeans;
             mRvData.clear();
             mRvData.addAll(provinceBeans);
             mAdapter.notifyDataSetChanged();
-        }else if (id == TYPE_AREA){
+        } else if (id == TYPE_AREA) {
             this.mAreaAddressBean = provinceBeans;
             mRvData.clear();
             mRvData.addAll(provinceBeans);
@@ -340,7 +337,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                         case 0:
                             mSelectProvice = mRvData.get(position);
 
-                            addAddressPresenter.getLocalData(mSelectProvice.getRegionId(),TYPE_CITY);
+                            addAddressPresenter.getLocalData(mSelectProvice.getRegionId(), TYPE_CITY);
 
                             // 清空后面两个的数据
                             mSelectCity = null;
@@ -358,7 +355,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
                         case 1:
                             mSelectCity = mRvData.get(position);
 
-                            addAddressPresenter.getLocalData(mSelectCity.getRegionId(),TYPE_AREA);
+                            addAddressPresenter.getLocalData(mSelectCity.getRegionId(), TYPE_AREA);
                             // 清空后面一个的数据
                             mSelectDistrict = null;
                             mSelectDistrictPosition = 0;
@@ -405,6 +402,7 @@ public class AddressPickerView extends RelativeLayout implements View.OnClickLis
      */
     public interface OnAddressPickerSureListener {
         void onSureClick(String address, String provinceCode, String cityCode, String districtCode, String zipCode);
+
         void onExit();
     }
 

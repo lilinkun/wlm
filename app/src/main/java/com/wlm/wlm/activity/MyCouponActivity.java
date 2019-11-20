@@ -34,7 +34,7 @@ public class MyCouponActivity extends BaseActivity implements OnTitleBarClickLis
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
         customTitleBar.SetOnTitleClickListener(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -42,7 +42,7 @@ public class MyCouponActivity extends BaseActivity implements OnTitleBarClickLis
 
         List<TbGoodsBean> tbGoodsBeans = new ArrayList<>();
 
-        for (int i = 0; i < 10 ; i++){
+        for (int i = 0; i < 10; i++) {
             TbGoodsBean tbGoodsBean = new TbGoodsBean();
             tbGoodsBean.setD_title("Nike 耐克官方NIKETANJUN男子运动休闲鞋812654");
             tbGoodsBean.setFrom("淘宝");
@@ -58,7 +58,7 @@ public class MyCouponActivity extends BaseActivity implements OnTitleBarClickLis
             tbGoodsBean.setYedh(111);
             tbGoodsBeans.add(tbGoodsBean);
         }
-        CouponAdapter couponAdapter = new CouponAdapter(this,tbGoodsBeans);
+        CouponAdapter couponAdapter = new CouponAdapter(this, tbGoodsBeans);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(couponAdapter);
     }

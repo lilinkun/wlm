@@ -8,7 +8,7 @@ import android.view.View;
  * Created by LG on 2018/11/22.
  */
 
-public class GridSpacingItemDecoration  extends RecyclerView.ItemDecoration {
+public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
     private int spanCount; //列数
     private int spacing; //间隔

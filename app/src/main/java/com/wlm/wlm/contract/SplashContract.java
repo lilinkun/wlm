@@ -9,6 +9,7 @@ import com.wlm.wlm.mvp.IView;
 public interface SplashContract extends IView {
 
     public void getUrlSuccess(UrlBean urlBean);
+
     public void getUrlFail(String msg);
 
 

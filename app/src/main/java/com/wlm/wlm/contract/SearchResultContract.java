@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface SearchResultContract extends IView {
 
     public void getSearchResultSuccess(ArrayList<GoodsListBean> goodsListBeans);
+
     public void getSearchResultFail(String msg);
 
 }

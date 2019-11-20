@@ -6,7 +6,10 @@ package com.wlm.wlm.interf;
 
 public interface IOrderItemClickListener {
     void toPayOrder(int position);
+
     void tosendOrder(int position);
+
     void toCancleOrder(int position);
+
     void sureGetOrder(int position);
 }

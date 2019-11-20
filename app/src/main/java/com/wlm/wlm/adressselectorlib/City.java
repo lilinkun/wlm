@@ -4,7 +4,7 @@ package com.wlm.wlm.adressselectorlib;
  * Created by LG on 2018/12/10.
  */
 
-public class City implements CityInterface{
+public class City implements CityInterface {
     private String Name;
     private String id;
     private String Grade;

@@ -2,7 +2,6 @@ package com.wlm.wlm.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Unique;
 
 import java.io.Serializable;
 

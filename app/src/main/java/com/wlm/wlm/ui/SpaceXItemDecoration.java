@@ -39,7 +39,7 @@ public class SpaceXItemDecoration extends RecyclerView.ItemDecoration {
         //设置底部边距
         outRect.bottom = this.bottomSpace;
 
-        if (position == 0){
+        if (position == 0) {
             outRect.top = this.topSpace;
         }
 

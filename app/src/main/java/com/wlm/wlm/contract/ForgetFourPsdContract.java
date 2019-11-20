@@ -9,8 +9,10 @@ import com.wlm.wlm.mvp.IView;
 
 public interface ForgetFourPsdContract extends IView {
     public void onModifyPsdSuccess(String message);
+
     public void onModiftPsdFail(String msg);
 
     public void onLoginSuccess(LoginBean loginBean);
+
     public void onLoginFail(String msg);
 }

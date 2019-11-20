@@ -1,15 +1,10 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.wlm.wlm.contract.IntegralContract;
-import com.wlm.wlm.entity.AmountPriceBean;
 import com.wlm.wlm.entity.BalanceBean;
 import com.wlm.wlm.entity.BalanceDetailBean;
-import com.wlm.wlm.entity.IntegralBean;
-import com.wlm.wlm.entity.OrderBean;
-import com.wlm.wlm.entity.OrderListBean;
 import com.wlm.wlm.entity.UserBankBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
@@ -34,7 +29,7 @@ public class IntegralPresenter extends BasePresenter {
     private IntegralContract integralContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -54,20 +49,20 @@ public class IntegralPresenter extends BasePresenter {
     }
 
 
-    public void getPriceData(String PageIndex,String PageCount,String type,String SessionId){
+    public void getPriceData(String PageIndex, String PageCount, String type, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankCurrency");
-        params.put("fun","CurrencyList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("type",type);
-        params.put("SessionId",SessionId);
+        params.put("cls", "BankCurrency");
+        params.put("fun", "CurrencyList");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("type", type);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getAmountPrice(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<BalanceDetailBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<BalanceDetailBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<BalanceDetailBean> balanceDetailBeans, String status,Object page) {
+                    public void onResponse(ArrayList<BalanceDetailBean> balanceDetailBeans, String status, Object page) {
                         integralContract.getDataSuccess(balanceDetailBeans);
                     }
 
@@ -80,19 +75,20 @@ public class IntegralPresenter extends BasePresenter {
 
     /**
      * 获取银行卡信息
+     *
      * @param SessionId
      */
-    public void getBankCard(String SessionId){
+    public void getBankCard(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBaseBankGet");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBaseBankGet");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBankBean(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<UserBankBean,Object>() {
+                .subscribe(new HttpResultCallBack<UserBankBean, Object>() {
                     @Override
-                    public void onResponse(UserBankBean balanceDetailBeans, String status,Object page) {
+                    public void onResponse(UserBankBean balanceDetailBeans, String status, Object page) {
                         integralContract.getBankSuccess(balanceDetailBeans);
                     }
 
@@ -103,17 +99,17 @@ public class IntegralPresenter extends BasePresenter {
                 }));
     }
 
-    public void getBalance(String SessionId){
+    public void getBalance(String SessionId) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankBase_GetBalance");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankBase_GetBalance");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBalance(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                .subscribe(new HttpResultCallBack<BalanceBean, Object>() {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         integralContract.getBalanceSuccess(balanceBean);

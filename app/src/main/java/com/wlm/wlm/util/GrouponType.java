@@ -11,7 +11,7 @@ public enum GrouponType {
 
     private String typeName;
 
-    private GrouponType(String typeName){
+    private GrouponType(String typeName) {
         this.typeName = typeName;
     }
 

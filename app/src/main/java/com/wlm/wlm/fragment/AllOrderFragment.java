@@ -12,14 +12,13 @@ import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.adapter.SelfOrderAdapter;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfOrderContract;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.interf.IPayOrderClickListener;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ import butterknife.BindView;
  * 全部订单
  * Created by LG on 2018/12/5.
  */
-public class AllOrderFragment  extends BasePagerFragment implements SelfOrderContract, SelfOrderAdapter.OnItemClick, SelfOrderAdapter.OnItemClickListener {
+public class AllOrderFragment extends BasePagerFragment implements SelfOrderContract, SelfOrderAdapter.OnItemClick, SelfOrderAdapter.OnItemClickListener {
 
     @BindView(R.id.all_order_rv)
     RecyclerView allOrderRv;
@@ -44,7 +43,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     private SelfOrderAdapter selfOrderAdapter;
     private IPayOrderClickListener payListener;
     private int pageIndex = 1;
-    private int lastVisibleItem =0;
+    private int lastVisibleItem = 0;
 
     @Override
     public int getlayoutId() {
@@ -54,7 +53,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     @Override
     public void initEventAndData() {
 
-        selfOrderPresenter.onCreate(getActivity(),this);
+        selfOrderPresenter.onCreate(getActivity(), this);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -66,14 +65,14 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 //        divider.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.custom_divider));
 //        allOrderRv.addItemDecoration(divider);
 
-        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
 
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
             }
         });
 
@@ -87,11 +86,11 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 //                            mHandler.postDelayed(new Runnable() {
 //                                @Override
 //                                public void run() {
-                            if (pageIndex * Integer.valueOf(WlmUtil.PAGE_COUNT) > selfOrderBeans.size()){
-                                UToast.show(getActivity(),"已到末尾");
-                            }else {
+                            if (pageIndex * Integer.valueOf(WlmUtil.PAGE_COUNT) > selfOrderBeans.size()) {
+                                UToast.show(getActivity(), "已到末尾");
+                            } else {
                                 pageIndex++;
-                                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+                                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
                             }
 //                                }
 //                            }, 200);
@@ -100,6 +99,7 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
                     }
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -108,20 +108,20 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
         });
     }
 
-    public void setData(){
-        if (getActivity() != null){
-            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+    public void setData() {
+        if (getActivity() != null) {
+            selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
         }
     }
 
-    public void setPayListener(IPayOrderClickListener payListener){
+    public void setPayListener(IPayOrderClickListener payListener) {
         this.payListener = payListener;
     }
 
 
     @Override
     public void getDataSuccess(ArrayList<SelfOrderBean> selfOrderBeans) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         if (selfOrderBeans.size() > 0) {
@@ -132,22 +132,22 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
                 allOrderRv.setAdapter(selfOrderAdapter);
                 ll_no_order.setVisibility(View.GONE);
                 selfOrderAdapter.setItemClickListener(this);
-            }else {
-                if (pageIndex == 1){
+            } else {
+                if (pageIndex == 1) {
                     this.selfOrderBeans = selfOrderBeans;
-                }else {
+                } else {
                     this.selfOrderBeans.addAll(selfOrderBeans);
                 }
                 selfOrderAdapter.setData(this.selfOrderBeans);
             }
-        }else {
+        } else {
             ll_no_order.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void getDataFail(String msg) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         ll_no_order.setVisibility(View.VISIBLE);
@@ -156,8 +156,8 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     @Override
     public void exitOrderSuccess(String collectDeleteBean) {
 
-        for (int i = 0;i<selfOrderBeans.size();i++){
-            if(selfOrderBeans.get(i).getOrderSn().equals(orderId)){
+        for (int i = 0; i < selfOrderBeans.size(); i++) {
+            if (selfOrderBeans.get(i).getOrderSn().equals(orderId)) {
                 selfOrderBeans.remove(i);
                 if (selfOrderAdapter != null) {
                     selfOrderAdapter.setData(selfOrderBeans);
@@ -175,12 +175,12 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
     @Override
     public void exit_order(String orderId) {
         this.orderId = orderId;
-        selfOrderPresenter.exitOrder(orderId,ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.exitOrder(orderId, ProApplication.SESSIONID(getActivity()));
     }
 
     @Override
     public void go_pay(SelfOrderBean orderId) {
-        payListener.payMode(orderId,1);
+        payListener.payMode(orderId, 1);
     }
 
     @Override
@@ -205,6 +205,6 @@ public class AllOrderFragment  extends BasePagerFragment implements SelfOrderCon
 
     @Override
     public void loadData() {
-        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
     }
 }

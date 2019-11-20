@@ -28,8 +28,8 @@ import com.wlm.wlm.ui.GridSpacingItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +93,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     private SelfGoodFragment selfGoodFragment;
     private int position = 0;
     private int lastVisibleItem = 0;
-    private HashMap<String,BaseFragment> hashMap= new HashMap<>();
+    private HashMap<String, BaseFragment> hashMap = new HashMap<>();
     private SelfGoodsPresenter selfGoodsPresenter = new SelfGoodsPresenter();
     private ArrayList<SelfGoodsBean> selfGoodsBeans;
     private SelfGoodsAdapter selfGoodsAdapter;
@@ -103,13 +103,13 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     private String SortType = "";
     private String goodsname = "";
     private HomeCategoryBean homeCategoryBean;
-    private String catid ="";
+    private String catid = "";
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0x110) {
-                Log.v("TAG","hander");
+                Log.v("TAG", "hander");
                 position = msg.getData().getInt("position");
             }
         }
@@ -123,19 +123,19 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         homeCategoryBean = (HomeCategoryBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("home");
         if (homeCategoryBean != null && homeCategoryBean.getCategoryId() != null) {
             catid = homeCategoryBean.getCategoryId() + "";
         }
         ActivityUtil.addActivity(this);
 
-        if(getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname") != null  && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname").isEmpty()){
+        if (getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname") != null && !getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname").isEmpty()) {
             goodsname = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("goodsname");
             text_search.setText(goodsname);
         }
 
-        selfGoodsPresenter.onCreate(this,this);
+        selfGoodsPresenter.onCreate(this, this);
 
         viewList.add(view4);
         viewList.add(view1);
@@ -147,17 +147,17 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
         textViewList.add(mTvTop);
 
         //selfGoodsPresenter.getGoodList("1","20",homeCategoryBean.getCat_id(),"add_time", ProApplication.SESSIONID(this));
-        selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(this));
+        selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(this));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 PAGE_INDEX = 1;
-                selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(SelfGoodsTypeActivity.this));
+                selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(SelfGoodsTypeActivity.this));
             }
         });
 
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         int spanCount = 2; // 2 columns
@@ -177,9 +177,9 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
 //                            mHandler.postDelayed(new Runnable() {
 //                                @Override
 //                                public void run() {
-                            if (!isLoad){
+                            if (!isLoad) {
                                 toast("已到末尾");
-                            }else {
+                            } else {
                                 PAGE_INDEX++;
                                 selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(SelfGoodsTypeActivity.this));
                             }
@@ -190,6 +190,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
                     }
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -199,42 +200,42 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
 
     }
 
-    @OnClick({R.id.tx_top,R.id.tx_moren, R.id.tx_pople, R.id.tx_price,R.id.lin_list,R.id.text_search})
+    @OnClick({R.id.tx_top, R.id.tx_moren, R.id.tx_pople, R.id.tx_price, R.id.lin_list, R.id.text_search})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tx_top:
                 bottomLine(view2, mTvTop);
-                if (isTop){
+                if (isTop) {
                     SortType = "1";
                     isTop = !isTop;
-                }else {
+                } else {
                     SortType = "0";
                     isTop = !isTop;
                 }
                 this.SortField = "use_number";
-                selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(this));
+                selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(this));
                 break;
             case R.id.tx_moren:
                 bottomLine(view4, mTvMoren);
                 this.SortField = "add_time";
-                selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(this));
+                selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(this));
                 break;
             case R.id.tx_pople:
                 bottomLine(view1, mTvPople);
                 this.SortField = "click_count";
-                selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(this));
+                selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(this));
                 break;
             case R.id.tx_price:
                 bottomLine(view3, mTvPrice);
-                if (isPrice){
+                if (isPrice) {
                     SortType = "1";
                     isPrice = !isPrice;
-                }else {
+                } else {
                     SortType = "0";
                     isPrice = !isPrice;
                 }
                 this.SortField = "shop_price";
-                selfGoodsPresenter.getGoodList(PAGE_INDEX+"",PAGE_COUNT,catid,SortField,SortType,goodsname, ProApplication.SESSIONID(this));
+                selfGoodsPresenter.getGoodList(PAGE_INDEX + "", PAGE_COUNT, catid, SortField, SortType, goodsname, ProApplication.SESSIONID(this));
                 break;
 
             case R.id.lin_list:
@@ -245,7 +246,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
             case R.id.text_search:
                 UiHelper.launcher(this, SearchActivity.class);
 
-                if (ActivityUtil.activityList.size() > 1){
+                if (ActivityUtil.activityList.size() > 1) {
                     ActivityUtil.removeOldActivity();
                 }
 
@@ -255,7 +256,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             setResult(RESULT_OK);
             finish();
             return true;
@@ -283,7 +284,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
             isView3 = false;
         }
 
-        if(view2 == paramView){
+        if (view2 == paramView) {
             if (isView4) {
                 img3.setImageResource(R.mipmap.j_1);
                 img4.setImageResource(R.mipmap.j_2_1);
@@ -302,11 +303,11 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
         }
 
 
-        if (view1 == paramView){
+        if (view1 == paramView) {
 //            selfGoodFragment.onPageChange(0);
-        }else if(view2 == paramView){
+        } else if (view2 == paramView) {
 //            selfGoodFragment.onPageChange(1);
-        }else if(view3 == paramView){
+        } else if (view3 == paramView) {
 //            selfGoodFragment.onPageChange(2);
         }
 
@@ -333,9 +334,9 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
     }
 
     @Override
-    public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans,boolean page) {
+    public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans, boolean page) {
         this.isLoad = page;
-        if (refreshLayout != null  && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
 //        if (selfGoodsAdapter == null) {
@@ -356,7 +357,7 @@ public class SelfGoodsTypeActivity extends BaseActivity implements SelfGoodsCont
 
     @Override
     public void getDataFail(String msg) {
-        if (refreshLayout != null  && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setEnabled(false);
         }
     }

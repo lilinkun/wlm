@@ -3,7 +3,6 @@ package com.wlm.wlm.util;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -12,10 +11,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -152,7 +149,7 @@ public class LocationUtils {
                         + "\n" + "locality is " + locality//深圳市
                         + "\n" + "subAdminArea is " + subAdminArea//null
                         + "\n" + "featureName is " + featureName;//蔡屋围一街深圳瑞吉酒店
-                Log.v("LG",address.toString());
+                Log.v("LG", address.toString());
                 System.out.println(currentPosition);
             }
         } catch (IOException e) {

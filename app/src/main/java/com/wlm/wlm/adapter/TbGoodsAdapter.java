@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.entity.TbGoodsBean;
 import com.wlm.wlm.entity.TbMaterielBean;
 import com.wlm.wlm.ui.MyTextView;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ArrayList<TbMaterielBean> tbShopBeans = new ArrayList<>();
     private OnItemClickListener mItemClickListener;
     private TbMaterielBean tbDisCountBean;
-    private HashMap<String,TbMaterielBean> mHashMap = new HashMap<>();
+    private HashMap<String, TbMaterielBean> mHashMap = new HashMap<>();
     private int normalType = 0;
     private int footType = 1;
     private boolean hasMore = true;
@@ -56,7 +56,7 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             return viewHolder;
 
-        }else {
+        } else {
             return new FootHolder(mInflater.inflate(R.layout.footview, null));
         }
     }
@@ -74,12 +74,12 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (pictUrl.startsWith("//")) {
                 pictUrl = "https:" + tbDisCountBean.getPictUrl();
             }
-            Picasso.with(this.context).load(pictUrl).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(((ViewHolder)holder).img_goods_icon);
-            ((ViewHolder)holder).tx_goods_title.setText(tbDisCountBean.getTitle() + "");
+            Picasso.with(this.context).load(pictUrl).resize(300, 300).centerCrop().config(Bitmap.Config.RGB_565).into(((ViewHolder) holder).img_goods_icon);
+            ((ViewHolder) holder).tx_goods_title.setText(tbDisCountBean.getTitle() + "");
             String CouponAmount = "0";
-            if (tbDisCountBean.getCouponInfo().contains("减") && tbDisCountBean.getCouponInfo().contains("元") ) {
+            if (tbDisCountBean.getCouponInfo().contains("减") && tbDisCountBean.getCouponInfo().contains("元")) {
                 CouponAmount = tbDisCountBean.getCouponInfo().substring(tbDisCountBean.getCouponInfo().indexOf("减") + 1, tbDisCountBean.getCouponInfo().lastIndexOf("元"));
-            }else {
+            } else {
                 if (tbDisCountBean.getCouponInfo() != null && !tbDisCountBean.getCouponInfo().equals("")) {
                     CouponAmount = tbDisCountBean.getCouponInfo();
                 }
@@ -87,7 +87,7 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tbDisCountBean.setCouponInfo(CouponAmount);
 
             String ZkFinalPrice = tbDisCountBean.getZkFinalPrice();
-            if (ZkFinalPrice.equals("")){
+            if (ZkFinalPrice.equals("")) {
                 ZkFinalPrice = "0";
             }
             BigDecimal zkFinalPrice = new BigDecimal(ZkFinalPrice);
@@ -95,8 +95,8 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             BigDecimal couponInfo = new BigDecimal(CouponAmount);
             double couponPrice = zkFinalPrice.subtract(couponInfo).doubleValue();
             String price = String.valueOf(couponPrice);
-            if (couponPrice > 0 && price.endsWith(".0")){
-                price = price.substring(0,price.length() - 2);
+            if (couponPrice > 0 && price.endsWith(".0")) {
+                price = price.substring(0, price.length() - 2);
             }
             /*if(Math.round(couponPrice) - couponPrice == 0){
                 price = String.valueOf((long) couponPrice);
@@ -104,17 +104,17 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 price = String.valueOf(couponPrice);
             }*/
 
-            ((ViewHolder)holder).tx_goods_msg.setText("¥" + price + "");
-            ((ViewHolder)holder).tv_original_price.setText("¥" + tbDisCountBean.getZkFinalPrice() + "");
-            ((ViewHolder)holder).tv_goods_sales_volume.setText(tbDisCountBean.getVolume() + "人已买");
-            ((ViewHolder)holder).tv_coupon_price.setText(CouponAmount + "元券");
+            ((ViewHolder) holder).tx_goods_msg.setText("¥" + price + "");
+            ((ViewHolder) holder).tv_original_price.setText("¥" + tbDisCountBean.getZkFinalPrice() + "");
+            ((ViewHolder) holder).tv_goods_sales_volume.setText(tbDisCountBean.getVolume() + "人已买");
+            ((ViewHolder) holder).tv_coupon_price.setText(CouponAmount + "元券");
 
             if (Integer.valueOf(tbDisCountBean.getUserType()) == 1) {
-                ((ViewHolder)holder).tv_goods_type_price.setText("天猫价");
+                ((ViewHolder) holder).tv_goods_type_price.setText("天猫价");
             } else {
-                ((ViewHolder)holder).tv_goods_type_price.setText("淘宝价");
+                ((ViewHolder) holder).tv_goods_type_price.setText("淘宝价");
             }
-        }else {
+        } else {
             ((FootHolder) holder).tips.setVisibility(View.VISIBLE);
 //            if (hasMore == true) {
             fadeTips = false;
@@ -145,8 +145,8 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
-            mItemClickListener.onItemClick((Integer) v.getTag(),mHashMap.get((Integer) v.getTag() + ""));
+        if (mItemClickListener != null) {
+            mItemClickListener.onItemClick((Integer) v.getTag(), mHashMap.get((Integer) v.getTag() + ""));
         }
     }
 
@@ -154,7 +154,7 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position, TbMaterielBean tbDisCountBean);
     }
 
@@ -162,7 +162,7 @@ public class TbGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView img_goods_icon;
-        private TextView  tx_goods_title, tv_original_price, tv_coupon_price, tv_goods_type_price, tv_goods_sales_volume;
+        private TextView tx_goods_title, tv_original_price, tv_coupon_price, tv_goods_type_price, tv_goods_sales_volume;
         private MyTextView tx_goods_msg;
 
         public ViewHolder(View itemView) {

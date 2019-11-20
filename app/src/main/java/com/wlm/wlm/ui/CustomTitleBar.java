@@ -23,8 +23,8 @@ public class CustomTitleBar extends LinearLayout implements View.OnClickListener
     private Context context;
     private Resources res;
     private View view;
-    private TextView tv_common_title,tv_head_right;
-    private ImageView iv_back,iv_head_right;
+    private TextView tv_common_title, tv_head_right;
+    private ImageView iv_back, iv_head_right;
     private LinearLayout ll_back;
     private RelativeLayout mRlTopLayout;
     private OnTitleBarClickListener clickListener;
@@ -39,12 +39,12 @@ public class CustomTitleBar extends LinearLayout implements View.OnClickListener
         init(context);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.titlebar);
         tv_common_title.setText(a.getString(R.styleable.titlebar_text_title));
-        tv_common_title.setTextColor(a.getColor(R.styleable.titlebar_text_color,getResources().getColor(R.color.login_title_text)));
-        mRlTopLayout.setBackgroundColor(a.getColor(R.styleable.titlebar_title_color,getResources().getColor(R.color.white)));
+        tv_common_title.setTextColor(a.getColor(R.styleable.titlebar_text_color, getResources().getColor(R.color.login_title_text)));
+        mRlTopLayout.setBackgroundColor(a.getColor(R.styleable.titlebar_title_color, getResources().getColor(R.color.white)));
         iv_back.setImageDrawable(a.getDrawable(R.styleable.titlebar_img_left));
         tv_head_right.setText(a.getString(R.styleable.titlebar_text_right));
-        tv_head_right.setTextColor(a.getColor(R.styleable.titlebar_right_color,getResources().getColor(R.color.white)));
-        tv_head_right.setTextSize(a.getDimension(R.styleable.titlebar_right_TextSize,15));
+        tv_head_right.setTextColor(a.getColor(R.styleable.titlebar_right_color, getResources().getColor(R.color.white)));
+        tv_head_right.setTextSize(a.getDimension(R.styleable.titlebar_right_TextSize, 15));
         iv_head_right.setImageDrawable(a.getDrawable(R.styleable.titlebar_img_right));
     }
 
@@ -52,10 +52,10 @@ public class CustomTitleBar extends LinearLayout implements View.OnClickListener
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         this.context = context;
-        res=context.getResources();
-        view = LayoutInflater.from(context).inflate(R.layout.custom_titlebar,null);
+        res = context.getResources();
+        view = LayoutInflater.from(context).inflate(R.layout.custom_titlebar, null);
 
         tv_common_title = (TextView) view.findViewById(R.id.tv_headtop);
         iv_back = (ImageView) view.findViewById(R.id.iv_head_left);
@@ -70,23 +70,23 @@ public class CustomTitleBar extends LinearLayout implements View.OnClickListener
                 LayoutParams.MATCH_PARENT));
     }
 
-    public void SetOnTitleClickListener(OnTitleBarClickListener clickListener){
-        this.clickListener=clickListener;
+    public void SetOnTitleClickListener(OnTitleBarClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
-    public void setTileName(String titleName){
+    public void setTileName(String titleName) {
         tv_common_title.setText(titleName);
     }
 
-    public void setRightText(String rightText){
+    public void setRightText(String rightText) {
         tv_head_right.setText(rightText);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_back:
-                if (clickListener != null){
+                if (clickListener != null) {
                     clickListener.onBackClick();
                 }
                 break;

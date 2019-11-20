@@ -54,12 +54,12 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.bg_crowdfunding));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.bg_crowdfunding));
 
 //        startBanner(null);
-        crowdFundingPresenter.onCreate(this,this);
+        crowdFundingPresenter.onCreate(this, this);
         crowdFundingPresenter.setFlash("3");
-        crowdFundingPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        crowdFundingPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
         ll_top.setListener(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -70,18 +70,18 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                crowdFundingPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+                crowdFundingPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
             }
 
             @Override
             public void onLoadMore() {
                 if (grouponAdapter != null) {
-                    if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
+                    if (pageIndex >= Integer.valueOf(pageBean.getMaxPage())) {
 //                        rv_groupon.loadMoreComplete();
                         rv_crowd_funding.setNoMore(true);
-                    }else {
+                    } else {
                         pageIndex++;
-                        crowdFundingPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,false);
+                        crowdFundingPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, false);
                     }
 
                 }
@@ -93,7 +93,7 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
     @Override
     public void getSortType(int sortType) {
         pageIndex = 1;
-        switch (sortType){
+        switch (sortType) {
             case 1:
                 orderby = "0";
 
@@ -122,12 +122,12 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
 
                 break;
         }
-        crowdFundingPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        crowdFundingPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -139,7 +139,7 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
     @Override
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
 
-        CustomBannerView.startBanner(flashBeans,banner,this,false);
+        CustomBannerView.startBanner(flashBeans, banner, this, false);
 
     }
 
@@ -158,17 +158,17 @@ public class CrowdFundingActivity extends BaseActivity implements IGoodsTypeList
 
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
-            grouponAdapter = new GrouponAdapter(this, goodsListBeans,goodstype);
+            grouponAdapter = new GrouponAdapter(this, goodsListBeans, goodstype);
 
             rv_crowd_funding.setAdapter(grouponAdapter);
 
             grouponAdapter.setItemClickListener(this);
 
-        }else {
-            if (pageBean.getPageIndex() == 1){
+        } else {
+            if (pageBean.getPageIndex() == 1) {
                 this.goodsListBeans = goodsListBeans;
                 grouponAdapter.setData(goodsListBeans);
-            }else {
+            } else {
                 this.goodsListBeans.addAll(goodsListBeans);
                 grouponAdapter.setData(this.goodsListBeans);
             }

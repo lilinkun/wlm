@@ -24,8 +24,8 @@ import com.wlm.wlm.presenter.AddAddressPresenter;
 import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.PhoneFormatCheckUtils;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -74,17 +74,17 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
-        addAddressPresenter.onCreate(this,this);
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
+        addAddressPresenter.onCreate(this, this);
         addAddressPresenter.getLocalData("1", TYPE_PROVINCE);
 
-        if(getIntent() != null){
+        if (getIntent() != null) {
             if (getIntent().getBundleExtra(WlmUtil.TYPEID) != null) {
                 addressBean = (AddressBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("addressBean");
             }
         }
 
-        if (addressBean != null){
+        if (addressBean != null) {
             mSwitch.setChecked(addressBean.isDefault());
             phoneAddress.setText(addressBean.getMobile());
             addressDetails.setText(addressBean.getAddress());
@@ -112,7 +112,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressContra
 
     }
 
-    @OnClick({R.id.ll_province, R.id.tv_head_right,R.id.ll_back})
+    @OnClick({R.id.ll_province, R.id.tv_head_right, R.id.ll_back})
     public void onClick(View view) {
 
         if (!ButtonUtils.isFastDoubleClick()) {

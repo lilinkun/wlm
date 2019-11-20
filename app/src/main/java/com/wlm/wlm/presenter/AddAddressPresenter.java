@@ -7,7 +7,6 @@ import com.wlm.wlm.entity.ProvinceBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
-import com.wlm.wlm.util.UToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class AddAddressPresenter extends BasePresenter {
     private AddAddressContract addAddressContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -46,18 +45,18 @@ public class AddAddressPresenter extends BasePresenter {
         }
     }
 
-    public void getLocalData(String parentId,final int localType){
+    public void getLocalData(String parentId, final int localType) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Dict_Region");
-        params.put("fun","RegionListDrop");
-        params.put("parentId",parentId);
+        params.put("cls", "Dict_Region");
+        params.put("fun", "RegionListDrop");
+        params.put("parentId", parentId);
         mCompositeSubscription.add(manager.getLocalData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<ProvinceBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<ProvinceBean>, Object>() {
                     @Override
-                    public void onResponse(ArrayList<ProvinceBean> provinceBeans, String status,Object page) {
-                        addAddressContract.getDataSuccess(provinceBeans,localType);
+                    public void onResponse(ArrayList<ProvinceBean> provinceBeans, String status, Object page) {
+                        addAddressContract.getDataSuccess(provinceBeans, localType);
                     }
 
                     @Override
@@ -67,26 +66,26 @@ public class AddAddressPresenter extends BasePresenter {
                 }));
     }
 
-    public void getSaveAddress(String Name,String Province,String City,String District,String Address,String ZipCode,String Mobile,String IsDefault,String SessionId){
+    public void getSaveAddress(String Name, String Province, String City, String District, String Address, String ZipCode, String Mobile, String IsDefault, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddressCreate");
-        params.put("Name",Name);
-        params.put("prov",Province);
-        params.put("city",City);
-        params.put("area",District);
-        params.put("Address",Address);
-        params.put("Post",ZipCode);
-        params.put("Mobile",Mobile);
-        params.put("IsDefault",IsDefault);
-        params.put("SessionId",SessionId);
+        params.put("cls", "ReceiptAddress");
+        params.put("fun", "ReceiptAddressCreate");
+        params.put("Name", Name);
+        params.put("prov", Province);
+        params.put("city", City);
+        params.put("area", District);
+        params.put("Address", Address);
+        params.put("Post", ZipCode);
+        params.put("Mobile", Mobile);
+        params.put("IsDefault", IsDefault);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getSaveAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         addAddressContract.getSaveSuccess();
                     }
 
@@ -100,27 +99,27 @@ public class AddAddressPresenter extends BasePresenter {
     /**
      * 修改地址
      */
-    public void modifyAddress(String AddressId,String Consignee,String Province,String City,String District,String Address,String ZipCode,String Mobile,String IsDefault,String SessionId){
+    public void modifyAddress(String AddressId, String Consignee, String Province, String City, String District, String Address, String ZipCode, String Mobile, String IsDefault, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","ReceiptAddress");
-        params.put("fun","ReceiptAddressUpdate");
-        params.put("Name",Consignee);
-        params.put("AddressID",AddressId);
-        params.put("prov",Province);
-        params.put("city",City);
-        params.put("area",District);
-        params.put("Address",Address);
-        params.put("Post",ZipCode);
-        params.put("Mobile",Mobile);
-        params.put("IsDefault",IsDefault);
-        params.put("SessionId",SessionId);
+        params.put("cls", "ReceiptAddress");
+        params.put("fun", "ReceiptAddressUpdate");
+        params.put("Name", Consignee);
+        params.put("AddressID", AddressId);
+        params.put("prov", Province);
+        params.put("city", City);
+        params.put("area", District);
+        params.put("Address", Address);
+        params.put("Post", ZipCode);
+        params.put("Mobile", Mobile);
+        params.put("IsDefault", IsDefault);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getSaveAddress(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         addAddressContract.modifySuccess();
                     }
 

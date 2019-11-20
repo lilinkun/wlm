@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,8 +34,8 @@ public class DownloadUtil {
     }
 
     /**
-     * @param url 下载连接
-     * @param saveDir 储存下载文件的SDCard目录
+     * @param url      下载连接
+     * @param saveDir  储存下载文件的SDCard目录
      * @param listener 下载监听
      */
     public void download(final String url, final String saveDir, final OnDownloadListener listener) {
@@ -48,6 +46,7 @@ public class DownloadUtil {
                 // 下载失败
                 listener.onDownloadFailed(e.getMessage());
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream is = null;
@@ -67,7 +66,7 @@ public class DownloadUtil {
                         sum += len;
                         int progress = (int) (sum * 1.0f / total * 100);
                         // 下载中
-                        listener.onDownloading(progress,total);
+                        listener.onDownloading(progress, total);
                     }
                     fos.flush();
                     // 下载完成
@@ -93,8 +92,7 @@ public class DownloadUtil {
     /**
      * @param saveDir
      * @return
-     * @throws IOException
-     * 判断下载目录是否存在
+     * @throws IOException 判断下载目录是否存在
      */
     private String isExistDir(String saveDir) throws IOException {
         // 下载位置
@@ -108,8 +106,7 @@ public class DownloadUtil {
 
     /**
      * @param url
-     * @return
-     * 从下载连接中解析出文件名
+     * @return 从下载连接中解析出文件名
      */
     @NonNull
     private String getNameFromUrl(String url) {
@@ -123,8 +120,7 @@ public class DownloadUtil {
         void onDownloadSuccess();
 
         /**
-         * @param progress
-         * 下载进度
+         * @param progress 下载进度
          */
         void onDownloading(int progress, long total);
 

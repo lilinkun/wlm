@@ -1,8 +1,6 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.contract.MeContract;
 import com.wlm.wlm.entity.BalanceBean;
@@ -11,7 +9,6 @@ import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
-import com.wlm.wlm.ui.LoaddingDialog;
 
 import java.util.HashMap;
 
@@ -30,7 +27,7 @@ public class MePresenter extends BasePresenter {
     private MeContract meContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -49,18 +46,18 @@ public class MePresenter extends BasePresenter {
         }
     }
 
-    public void getInfo(String session){
+    public void getInfo(String session) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","UserBasedetailById");
-        params.put("SessionId",session);
+        params.put("cls", "UserBase");
+        params.put("fun", "UserBasedetailById");
+        params.put("SessionId", session);
         mCompositeSubscription.add(manager.getInfo(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<PersonalInfoBean,Object>() {
+                .subscribe(new HttpResultCallBack<PersonalInfoBean, Object>() {
 
                     @Override
-                    public void onResponse(PersonalInfoBean loginBean, String status,Object page) {
+                    public void onResponse(PersonalInfoBean loginBean, String status, Object page) {
                         meContract.getInfoSuccess(loginBean);
                     }
 
@@ -70,23 +67,23 @@ public class MePresenter extends BasePresenter {
                     }
 
                     @Override
-                    public void onNext(ResultBean<PersonalInfoBean,Object> o) {
+                    public void onNext(ResultBean<PersonalInfoBean, Object> o) {
                         super.onNext(o);
                     }
 
                 }));
     }
 
-    public void getBalance(String SessionId){
+    public void getBalance(String SessionId) {
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankBase_GetBalance");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankBase_GetBalance");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBalance(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                .subscribe(new HttpResultCallBack<BalanceBean, Object>() {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         meContract.getBalanceSuccess(balanceBean);

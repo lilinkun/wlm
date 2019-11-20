@@ -19,7 +19,6 @@ public interface IPresenter<V extends IView> {
 
 
     /**
-     *
      * @return 获取View
      */
     IView getIView();

@@ -1,28 +1,20 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.ui.CustomRoundAngleImageView;
-import com.wlm.wlm.util.WlmUtil;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,12 +24,12 @@ import java.util.List;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> implements View.OnClickListener {
 
     Context context;
-    List<CollectBean> collectBeans ;
+    List<CollectBean> collectBeans;
     CollectBean collectBean;
     private OnItemClickListener mItemClickListener;
     private String collectId = "";
 
-    public RecordAdapter(Context context, List<CollectBean> collectBeans){
+    public RecordAdapter(Context context, List<CollectBean> collectBeans) {
         this.context = context;
         this.collectBeans = collectBeans;
     }
@@ -45,7 +37,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_hot_goods_grid,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_hot_goods_grid, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         view.setOnClickListener(this);
@@ -67,9 +59,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             holder.goodsPriceTv.setText("" + collectBean.getPrice());
             holder.goodsBuyCountTv.setText(collectBean.getUseNumber() + "");
 
-            holder.tv_add_integral.setText(collectBean.getIntegral()+"");
-            holder.tv_old_price.setText("¥"+collectBean.getMarketPrice());
-            holder.tv_old_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            holder.tv_add_integral.setText(collectBean.getIntegral() + "");
+            holder.tv_old_price.setText("¥" + collectBean.getMarketPrice());
+            holder.tv_old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             if (collectBean.getGoodsImg() != null && !collectBean.getGoodsImg().isEmpty()) {
                 Picasso.with(context).load(ProApplication.HEADIMG + collectBean.getGoodsImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
@@ -89,14 +81,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     }
 
 
-    public void setData(List<CollectBean> collectBeans){
+    public void setData(List<CollectBean> collectBeans) {
         this.collectBeans = collectBeans;
         notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -105,13 +97,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
 
-
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView goodsTitleNameTv;
         private TextView goodsPriceTv;

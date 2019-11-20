@@ -2,9 +2,6 @@ package com.wlm.wlm.activity;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wlm.wlm.R;
@@ -26,22 +21,16 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.interf.IGoodsTypeListener;
 import com.wlm.wlm.presenter.GrouponPresenter;
-import com.wlm.wlm.transform.BannerTransform;
 import com.wlm.wlm.ui.CustomBannerView;
-import com.wlm.wlm.ui.LoadRecyclerView;
 import com.wlm.wlm.ui.RecyclerViewScrollListener;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TopLinearlayout;
 import com.wlm.wlm.util.ActivityUtil;
-import com.wlm.wlm.util.CustomRoundedImageLoader;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.GrouponType;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
-import com.xw.banner.BannerConfig;
-import com.xw.banner.Transformer;
-import com.xw.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 
@@ -52,7 +41,7 @@ import butterknife.OnClick;
  * 拼团
  * Created by LG on 2019/8/19.
  */
-public class GrouponActivity extends BaseActivity implements GrouponContract,GrouponAdapter.OnItemClickListener, IGoodsTypeListener, RecyclerViewScrollListener.OnLoadListener {
+public class GrouponActivity extends BaseActivity implements GrouponContract, GrouponAdapter.OnItemClickListener, IGoodsTypeListener, RecyclerViewScrollListener.OnLoadListener {
 
     @BindView(R.id.bannerView)
     Banner banner;
@@ -83,16 +72,16 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.point_red));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.point_red));
 
         ActivityUtil.addHomeActivity(this);
 
         ll_top.setListener(this);
 
-        groupon.onCreate(this,this);
+        groupon.onCreate(this, this);
 
 
-        rv_groupon.addItemDecoration(new SpaceItemDecoration(0, 20,10));
+        rv_groupon.addItemDecoration(new SpaceItemDecoration(0, 20, 10));
 
 //        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -102,7 +91,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
 //        rv_groupon.setOnLoadListener(this);
 
-        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,true);
+        groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, true);
 
         groupon.setFlash("2");
 
@@ -118,18 +107,18 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
         rv_groupon.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,false);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, false);
             }
 
             @Override
             public void onLoadMore() {
                 if (grouponAdapter != null) {
-                    if (pageIndex  >= Integer.valueOf(pageBean.getMaxPage())){
+                    if (pageIndex >= Integer.valueOf(pageBean.getMaxPage())) {
 //                        rv_groupon.loadMoreComplete();
                         rv_groupon.setNoMore(true);
-                    }else {
+                    } else {
                         pageIndex++;
-                        groupon.getData(pageIndex+"","20",goodstype + "",orderby,mTeamType,false);
+                        groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, false);
                     }
 
                 }
@@ -138,8 +127,8 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -160,10 +149,10 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     @Override
     public void getSortType(int sortType) {
         pageIndex = 1;
-        switch (sortType){
+        switch (sortType) {
             case 1://默认排序
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,"0",true);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, "0", true);
                 ll_top.setText(getString(R.string.groupon_all));
                 break;
 
@@ -173,7 +162,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
                     View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
                     RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
 
-                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this,0);
+                    ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this, 0);
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -198,16 +187,16 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
                                 mTeamType = "1";
                             } else if (position == 1) {
                                 mTeamType = "2";
-                            } else if (position == 2){
+                            } else if (position == 2) {
                                 mTeamType = "0";
                             }
                             ll_top.setText(GrouponType.values()[position].getTypeName());
                             orderby = "0";
-                            groupon.getData("1", "20", goodstype + "", orderby, mTeamType,true);
+                            groupon.getData("1", "20", goodstype + "", orderby, mTeamType, true);
                             popupWindow.dismiss();
                         }
                     });
-                }else {
+                } else {
                     isGrouponType = true;
                 }
                 break;
@@ -216,7 +205,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
             case 3://销量上
                 orderby = "1";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, true);
 
                 break;
 
@@ -225,7 +214,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
                 orderby = "2";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, true);
 
                 break;
 
@@ -233,7 +222,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
                 orderby = "3";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, true);
 
                 break;
 
@@ -241,7 +230,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
                 orderby = "4";
                 isGrouponType = false;
-                groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,true);
+                groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, true);
 
                 break;
         }
@@ -258,16 +247,16 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
         rv_groupon.setVisibility(View.VISIBLE);
         if (grouponAdapter == null) {
             this.goodsListBeans = goodsListBeans;
-            grouponAdapter = new GrouponAdapter(this,goodsListBeans,goodstype);
+            grouponAdapter = new GrouponAdapter(this, goodsListBeans, goodstype);
             rv_groupon.setAdapter(grouponAdapter);
             grouponAdapter.setItemClickListener(this);
-        }else {
+        } else {
 //            if(swipeRefreshLayout.isRefreshing()) {
 //                swipeRefreshLayout.setRefreshing(false);
 //            }
-            if (page.getPageIndex() == 1){
+            if (page.getPageIndex() == 1) {
                 grouponAdapter.setData(goodsListBeans);
-            }else {
+            } else {
                 this.goodsListBeans.addAll(goodsListBeans);
                 grouponAdapter.setData(this.goodsListBeans);
             }
@@ -276,7 +265,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
 
     @Override
     public void getFail(String msg) {
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             rv_groupon.setVisibility(View.GONE);
         }
     }
@@ -284,7 +273,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     @Override
     public void onFlashSuccess(ArrayList<FlashBean> flashBeans) {
         this.flashBeans = flashBeans;
-        CustomBannerView.startBanner(flashBeans,banner,this,true);
+        CustomBannerView.startBanner(flashBeans, banner, this, true);
     }
 
     @Override
@@ -295,7 +284,7 @@ public class GrouponActivity extends BaseActivity implements GrouponContract,Gro
     @Override
     public void onLoad() {
         pageIndex++;
-        groupon.getData(pageIndex+"","20",goodstype+"",orderby,mTeamType,false);
+        groupon.getData(pageIndex + "", "20", goodstype + "", orderby, mTeamType, false);
 //        toast("asdasdads");
     }
 }

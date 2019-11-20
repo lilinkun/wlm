@@ -1,10 +1,8 @@
 package com.wlm.wlm.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.contract.OpinionContract;
-import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.ErrorBean;
 import com.wlm.wlm.entity.OpinionBean;
 import com.wlm.wlm.entity.ResultBean;
@@ -30,7 +28,7 @@ public class OpinionPresenter extends BasePresenter {
     private OpinionContract opinionContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -49,14 +47,14 @@ public class OpinionPresenter extends BasePresenter {
         }
     }
 
-    public void upload(String Type,String Title,String Question,String SessionId){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("cls","Message");
-        hashMap.put("fun","MessageCreate");
-        hashMap.put("Type",Type);
-        hashMap.put("Title",Title);
-        hashMap.put("Question",Question);
-        hashMap.put("SessionId",SessionId);
+    public void upload(String Type, String Title, String Question, String SessionId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("cls", "Message");
+        hashMap.put("fun", "MessageCreate");
+        hashMap.put("Type", Type);
+        hashMap.put("Title", Title);
+        hashMap.put("Question", Question);
+        hashMap.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.opinion(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +62,7 @@ public class OpinionPresenter extends BasePresenter {
 
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         opinionContract.onUploadSuccess();
                     }
 
@@ -81,18 +79,18 @@ public class OpinionPresenter extends BasePresenter {
     }
 
 
-    public void getErrorType(String SessionId){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("cls","Message");
-        hashMap.put("fun","MessageType");
-        hashMap.put("SessionId",SessionId);
+    public void getErrorType(String SessionId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("cls", "Message");
+        hashMap.put("fun", "MessageType");
+        hashMap.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getErrorType(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<ErrorBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<ErrorBean>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<ErrorBean> errorBeans, String status,Object page) {
+                    public void onResponse(ArrayList<ErrorBean> errorBeans, String status, Object page) {
                         opinionContract.getTypeSuccess(errorBeans);
                     }
 
@@ -105,26 +103,27 @@ public class OpinionPresenter extends BasePresenter {
 
     /**
      * 获取留言历史列表
+     *
      * @param Type
      * @param SessionId
      */
-    public void getList(String PageIndex,String PageCount,String Type,String SessionId){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("cls","Message");
-        hashMap.put("fun","MessageList");
-        hashMap.put("PageIndex",PageIndex);
-        hashMap.put("PageCount",PageCount);
+    public void getList(String PageIndex, String PageCount, String Type, String SessionId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("cls", "Message");
+        hashMap.put("fun", "MessageList");
+        hashMap.put("PageIndex", PageIndex);
+        hashMap.put("PageCount", PageCount);
         if (!Type.equals("")) {
             hashMap.put("Type", Type);
         }
-        hashMap.put("SessionId",SessionId);
+        hashMap.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.opinionHistory(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<OpinionBean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<OpinionBean>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<OpinionBean> errorBeans, String status,Object page) {
+                    public void onResponse(ArrayList<OpinionBean> errorBeans, String status, Object page) {
                         opinionContract.getOpinionListSuccess(errorBeans);
                     }
 

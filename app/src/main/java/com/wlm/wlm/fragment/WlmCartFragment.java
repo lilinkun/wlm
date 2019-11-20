@@ -18,11 +18,9 @@ import com.wlm.wlm.activity.CartOrderActivity;
 import com.wlm.wlm.activity.ChooseAddressActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.SelfGoodsDetailActivity;
-import com.wlm.wlm.activity.SelfGoodsTypeActivity;
 import com.wlm.wlm.adapter.ShoppingCarAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.ManufactureStoreContract;
 import com.wlm.wlm.contract.OrderContract;
 import com.wlm.wlm.entity.AddressBean;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -87,7 +85,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     private OrderPresenter orderPresenter = new OrderPresenter();
     private ShoppingCarAdapter myShoppingCarAdapter;
     private ArrayList<OrderBean> orderListBeans;
-    private Map<String,OrderChildBean> map = new HashMap<>();
+    private Map<String, OrderChildBean> map = new HashMap<>();
     private double mtotalPrice = 0.00;
     private int mtotalCount = 0;
     //false就是编辑，ture就是完成
@@ -106,7 +104,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void initEventAndData() {
 //        Eyes.setStatusBarWhiteColor(getActivity(),getResources().getColor(R.color.white));
-        orderPresenter.onCreate(getActivity(),this);
+        orderPresenter.onCreate(getActivity(), this);
         orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
 
         initPtrFrame();
@@ -116,7 +114,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 //        final StoreHouseHeader header=new StoreHouseHeader(this);
 //        header.setPadding(dp2px(20), dp2px(20), 0, 0);
 //        header.initWithString("xiaoma is good");
-        final PtrClassicDefaultHeader header=new PtrClassicDefaultHeader(getActivity());
+        final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
         header.setPadding(dp2px(20), dp2px(20), 0, 0);
         mPtrFrame.setHeaderView(header);
         mPtrFrame.addPtrUIHandler(header);
@@ -138,17 +136,17 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
 
         ry_goods_cart.setLayoutManager(linearLayoutManager);
-        ry_goods_cart.addItemDecoration(new SpaceItemDecoration(0,20,0));
+        ry_goods_cart.addItemDecoration(new SpaceItemDecoration(0, 20, 0));
         ry_goods_cart.setHasFixedSize(true);
         ry_goods_cart.setNestedScrollingEnabled(false);
     }
 
-    public void setData(){
+    public void setData() {
         orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
     }
 
-    @OnClick({R.id.all_checkBox,R.id.del_goods,R.id.tv_cart_edit,R.id.go_pay,R.id.go_shopping})
-    public void onClick(View view){
+    @OnClick({R.id.all_checkBox, R.id.del_goods, R.id.tv_cart_edit, R.id.go_pay, R.id.go_shopping})
+    public void onClick(View view) {
         AlertDialog dialog;
         if (!ButtonUtils.isFastDoubleClick(view.getId()) && view.getId() != R.id.all_checkBox) {
             switch (view.getId()) {
@@ -189,7 +187,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
                         return;
                     }
 
-                    orderPresenter.getOrderInfo(getOrderList(),ProApplication.SESSIONID(getActivity()));
+                    orderPresenter.getOrderInfo(getOrderList(), ProApplication.SESSIONID(getActivity()));
 
 //                    orderPresenter.isUserAddress(ProApplication.SESSIONID(getActivity()));
                     break;
@@ -201,8 +199,8 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
                     break;
             }
-        }else {
-            if (view.getId() == R.id.all_checkBox){
+        } else {
+            if (view.getId() == R.id.all_checkBox) {
                 doCheckAll();
             }
         }
@@ -236,7 +234,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         calulate();
     }
 
-    private void updataData(){
+    private void updataData() {
         if (orderListBeans != null && orderListBeans.size() > 0) {
             /*for (int i = 0; i < orderListBeans.size(); i++) {
                 OrderGroupBean group = orderListBeans.get(i);
@@ -256,7 +254,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void OrderListSuccess(GoodsCartbean goodsCartbean) {
 
-        orderListBeans = (ArrayList<OrderBean>)goodsCartbean.getList();
+        orderListBeans = (ArrayList<OrderBean>) goodsCartbean.getList();
 
         if (orderListBeans.size() > 0) {
             linearLayout.setVisibility(View.GONE);
@@ -264,18 +262,18 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
             ll_cart.setVisibility(View.VISIBLE);
 
             orderChildBeans = new ArrayList<>();
-            for (OrderBean orderBean : orderListBeans){
+            for (OrderBean orderBean : orderListBeans) {
 
                 OrderChildBean orderChildBean = new OrderChildBean();
                 orderChildBean.setOrderBean(orderBean);
                 orderChildBean.setChoosed(false);
                 orderChildBean.setParentId(orderBean.getCartId());
                 orderChildBeans.add(orderChildBean);
-                map.put(orderBean.getCartId(),orderChildBean);
+                map.put(orderBean.getCartId(), orderChildBean);
             }
 
 
-            myShoppingCarAdapter = new ShoppingCarAdapter(getActivity(),orderListBeans,map);
+            myShoppingCarAdapter = new ShoppingCarAdapter(getActivity(), orderListBeans, map);
             ry_goods_cart.setAdapter(myShoppingCarAdapter);
             myShoppingCarAdapter.setCheckInterface(this);
             myShoppingCarAdapter.setModifyCountInterface(this); //关键步骤2:设置增删减的接口
@@ -283,16 +281,16 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
                 @Override
                 public void onItemClick(int position) {
                     String type = WlmUtil.MANUFACURE;
-                    if (orderListBeans.get(position).getGoodsType() == 1){
-                            type = WlmUtil.INTEGRAL;
-                    }else if (orderListBeans.get(position).getGoodsType() == 2){
-                            type = WlmUtil.MANUFACURE;
+                    if (orderListBeans.get(position).getGoodsType() == 1) {
+                        type = WlmUtil.INTEGRAL;
+                    } else if (orderListBeans.get(position).getGoodsType() == 2) {
+                        type = WlmUtil.MANUFACURE;
                     }
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(WlmUtil.GOODSID,orderListBeans.get(position).getGoodsId());
-                    bundle.putString(WlmUtil.TYPE,type);
-                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class,bundle);
+                    bundle.putString(WlmUtil.GOODSID, orderListBeans.get(position).getGoodsId());
+                    bundle.putString(WlmUtil.TYPE, type);
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
                 }
             });
 //            ry_goods_cart.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -317,7 +315,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 //                    }
 //                }
 //            });
-        }else {
+        } else {
             linearLayout.setVisibility(View.VISIBLE);
             rl_cart_bottom.setVisibility(View.GONE);
             ll_cart.setVisibility(View.GONE);
@@ -331,9 +329,9 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void modifyOrderSuccess(CollectDeleteBean collectDeleteBean, String num, View showCountView) {
-        if (collectDeleteBean.getStatus() != 0){
-            UToast.show(getActivity(),collectDeleteBean.getMessage());
-        }else {
+        if (collectDeleteBean.getStatus() != 0) {
+            UToast.show(getActivity(), collectDeleteBean.getMessage());
+        } else {
             orderBean.setNum(Integer.valueOf(num));
             ((TextView) showCountView).setText(String.valueOf(num));
             myShoppingCarAdapter.notifyDataSetChanged();
@@ -348,38 +346,38 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void deleteGoodsSuccess(String collectDeleteBean) {
-            UToast.show(getActivity(),"删除成功");
-            calulate();
-            all_checkBox.setChecked(false);
+        UToast.show(getActivity(), "删除成功");
+        calulate();
+        all_checkBox.setChecked(false);
 
     }
 
     @Override
     public void deleteGoodsFail(String msg) {
-        UToast.show(getActivity(),"删除失败");
+        UToast.show(getActivity(), "删除失败");
     }
 
     @Override
     public void cartOrderBuySuccess(String str) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("type",1);
-        bundle.putString("CartId",getOrderList());
-        UiHelper.launcherForResultBundle(this, CartOrderActivity.class,order_result,bundle);
+        bundle.putInt("type", 1);
+        bundle.putString("CartId", getOrderList());
+        UiHelper.launcherForResultBundle(this, CartOrderActivity.class, order_result, bundle);
     }
 
     @Override
     public void cartOrderBuyFail(String msg) {
-        UToast.show(getActivity(),msg);
+        UToast.show(getActivity(), msg);
     }
 
     @Override
     public void isAddressSuccess(ArrayList<AddressBean> msg) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("type",1);
-        bundle.putString("CartId",getOrderList());
-        UiHelper.launcherForResultBundle(this, CartOrderActivity.class,order_result,bundle);
+        bundle.putInt("type", 1);
+        bundle.putString("CartId", getOrderList());
+        UiHelper.launcherForResultBundle(this, CartOrderActivity.class, order_result, bundle);
     }
 
     @Override
@@ -405,7 +403,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         orderBean = orderListBeans.get(position);
         int count = Integer.valueOf(orderBean.getNum());
         count++;
-        orderPresenter.modifyOrder(count+"",orderBean.getCartId(),showCountView,ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(getActivity()));
         orderBean.setNum(count);
         ((TextView) showCountView).setText(String.valueOf(count));
         myShoppingCarAdapter.notifyDataSetChanged();
@@ -420,7 +418,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
             return;
         }
         count--;
-        orderPresenter.modifyOrder(count+"",orderBean.getCartId(),showCountView,ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(getActivity()));
         orderBean.setNum(count);
         ((TextView) showCountView).setText("" + count);
         myShoppingCarAdapter.notifyDataSetChanged();
@@ -431,7 +429,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     public void doUpdate(int position, View showCountView, boolean isChecked) {
 //        orderBean = (OrderChildBean) myShoppingCarAdapter.getChild(groupPosition, childPosition);
         int count = Integer.valueOf(orderBean.getNum());
-        orderPresenter.modifyOrder(count + "", orderBean.getCartId(),showCountView, ProApplication.SESSIONID(getActivity()));
+        orderPresenter.modifyOrder(count + "", orderBean.getCartId(), showCountView, ProApplication.SESSIONID(getActivity()));
 //        UtilsLog.i("进行更新数据，数量" + count + "");
 //        ((TextView) showCountView).setText(String.valueOf(count));
 //        myShoppingCarAdapter.notifyDataSetChanged();
@@ -455,18 +453,18 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void sumGoodsNum(int num) {
-        tv_cart_num.setText("总共"+num+"件宝贝");
+        tv_cart_num.setText("总共" + num + "件宝贝");
     }
 
-    public String getOrderList(){
+    public String getOrderList() {
         String OrderStr = "";
         for (int i = 0; i < orderListBeans.size(); i++) {
 
             OrderChildBean child = map.get(orderListBeans.get(i).getCartId());
-            if (child.isChoosed()){
-                if (OrderStr.equals("")){
+            if (child.isChoosed()) {
+                if (OrderStr.equals("")) {
                     OrderStr = orderListBeans.get(i).getCartId();
-                }else {
+                } else {
                     OrderStr = OrderStr + "," + orderListBeans.get(i).getCartId();
                 }
             }
@@ -485,11 +483,11 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         for (int i = 0; i < orderChildBeans.size(); i++) {
             OrderBean orderBean = orderListBeans.get(i);
 
-            if (map.get(orderBean.getCartId()).isChoosed()){
+            if (map.get(orderBean.getCartId()).isChoosed()) {
                 toBeDeleteChilds.add(map.get(orderBean.getCartId()).getOrderBean());
-                if (deleteStr.equals("")){
+                if (deleteStr.equals("")) {
                     deleteStr = orderBean.getCartId();
-                }else {
+                } else {
                     deleteStr = deleteStr + "," + orderBean.getCartId();
                 }
             }
@@ -500,7 +498,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
         setCartNum();
         myShoppingCarAdapter.notifyDataSetChanged();
 
-        orderPresenter.deleteOrder(deleteStr,ProApplication.SESSIONID(getActivity()));
+        orderPresenter.deleteOrder(deleteStr, ProApplication.SESSIONID(getActivity()));
     }
 
     /**
@@ -542,15 +540,15 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
         for (int i = 0; i < orderListBeans.size(); i++) {
             OrderChildBean good = map.get(orderListBeans.get(i).getCartId());
-                if (good.isChoosed()) {
-                    mtotalCount += Integer.valueOf(good.getOrderBean().getNum());
-                    mtotalPrice += good.getOrderBean().getPrice() * Integer.valueOf(good.getOrderBean().getNum());
-                }
+            if (good.isChoosed()) {
+                mtotalCount += Integer.valueOf(good.getOrderBean().getNum());
+                mtotalPrice += good.getOrderBean().getPrice() * Integer.valueOf(good.getOrderBean().getNum());
+            }
         }
 
-        if (mtotalCount == 0){
+        if (mtotalCount == 0) {
             goPay.setText("结算(" + mtotalCount + ")");
-        }else {
+        } else {
             goPay.setText("结算(" + mtotalCount + ")");
         }
 
@@ -579,11 +577,11 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK){
-            if(requestCode == order_result){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == order_result) {
                 orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
             }
-            if (requestCode == goods_result){
+            if (requestCode == goods_result) {
                 orderPresenter.getList(ProApplication.SESSIONID(getActivity()));
             }
         }
@@ -612,7 +610,7 @@ public class WlmCartFragment extends BaseFragment implements View.OnClickListene
     private boolean isCheckAll() {
         for (OrderBean orderBean : orderListBeans) {
 
-            if (!map.get(orderBean.getCartId()).isChoosed()){
+            if (!map.get(orderBean.getCartId()).isChoosed()) {
                 return false;
             }
         }

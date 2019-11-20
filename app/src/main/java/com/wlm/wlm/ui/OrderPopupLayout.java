@@ -24,8 +24,8 @@ public class OrderPopupLayout extends PopupWindow {
 
     private Context context;
 
-    private RelativeLayout rl_self,rl_wx;
-    private TextView tv_price,tv_pay_self,tv_right_now_pay;
+    private RelativeLayout rl_self, rl_wx;
+    private TextView tv_price, tv_pay_self, tv_right_now_pay;
     private CountdownView tv_time;
     private IOrderChoosePayTypeListener iOrderChoosePayTypeListener;
 
@@ -35,7 +35,7 @@ public class OrderPopupLayout extends PopupWindow {
         init();
     }
 
-    public void setListener(IOrderChoosePayTypeListener iOrderChoosePayTypeListener){
+    public void setListener(IOrderChoosePayTypeListener iOrderChoosePayTypeListener) {
         this.iOrderChoosePayTypeListener = iOrderChoosePayTypeListener;
     }
 
@@ -48,9 +48,9 @@ public class OrderPopupLayout extends PopupWindow {
         super(context, attrs, defStyleAttr);
     }
 
-    private void init(){
+    private void init() {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.popup_order,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.popup_order, null);
 
         ImageView imageView = view.findViewById(R.id.iv_right_delete);
         final CheckBox check_self = view.findViewById(R.id.check_self);
@@ -99,15 +99,15 @@ public class OrderPopupLayout extends PopupWindow {
         tv_right_now_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check_self.isChecked()){
+                if (check_self.isChecked()) {
                     dismiss();
                     iOrderChoosePayTypeListener.chooseType(2);
 
-                }else if (check_wx.isChecked()){
+                } else if (check_wx.isChecked()) {
                     dismiss();
                     iOrderChoosePayTypeListener.chooseType(1);
-                }else {
-                    UToast.show(context,"请选择支付方式");
+                } else {
+                    UToast.show(context, "请选择支付方式");
                 }
             }
         });

@@ -10,7 +10,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected boolean isScrolling = false;
 
 
-    public void setScrolling(boolean scrolling){
+    public void setScrolling(boolean scrolling) {
         isScrolling = scrolling;
     }
 

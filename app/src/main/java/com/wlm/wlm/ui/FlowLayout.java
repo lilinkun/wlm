@@ -2,8 +2,6 @@ package com.wlm.wlm.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,7 @@ import android.view.ViewGroup;
 import com.wlm.wlm.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LG on 2018/12/8.
@@ -166,7 +162,7 @@ public class FlowLayout extends ViewGroup {
                 }
             }
             child.layout(left, top, right, bottom);
-            lineNum ++;
+            lineNum++;
             if (spaceHeight > lineHeight) {
                 lineHeight = spaceHeight;
             }
@@ -188,6 +184,7 @@ public class FlowLayout extends ViewGroup {
             }
         });
     }
+
     private void compress() {
         int childCount = this.getChildCount();
         if (0 == childCount) {
@@ -216,7 +213,7 @@ public class FlowLayout extends ViewGroup {
             LayoutParams childLp = v.getLayoutParams();
             int childWidth = v.getMeasuredWidth();
             if (childLp instanceof MarginLayoutParams) {
-                MarginLayoutParams mlp = (MarginLayoutParams) childLp ;
+                MarginLayoutParams mlp = (MarginLayoutParams) childLp;
                 spaces[n] = mlp.leftMargin + childWidth + mlp.rightMargin;
             } else {
                 spaces[n] = childWidth;
@@ -238,7 +235,7 @@ public class FlowLayout extends ViewGroup {
     private void sortToCompress(View[] childs, int[] spaces) {
         int childCount = childs.length;
         int[][] table = new int[childCount + 1][usefulWidth + 1];
-        for (int i = 0; i < childCount +1; i++) {
+        for (int i = 0; i < childCount + 1; i++) {
             for (int j = 0; j < usefulWidth; j++) {
                 table[i][j] = 0;
             }
@@ -248,14 +245,14 @@ public class FlowLayout extends ViewGroup {
             flag[i] = false;
         }
         for (int i = 1; i <= childCount; i++) {
-            for (int j = spaces[i-1]; j <= usefulWidth; j++) {
-                table[i][j] = (table[i-1][j] > table[i-1][j-spaces[i-1]] + spaces[i-1]) ? table[i-1][j] : table[i-1][j-spaces[i-1]] + spaces[i-1];
+            for (int j = spaces[i - 1]; j <= usefulWidth; j++) {
+                table[i][j] = (table[i - 1][j] > table[i - 1][j - spaces[i - 1]] + spaces[i - 1]) ? table[i - 1][j] : table[i - 1][j - spaces[i - 1]] + spaces[i - 1];
             }
         }
         int v = usefulWidth;
-        for (int i = childCount ; i > 0 && v >= spaces[i-1]; i--) {
-            if (table[i][v] == table[i-1][v-spaces[i-1]] + spaces[i-1]) {
-                flag[i-1] =  true;
+        for (int i = childCount; i > 0 && v >= spaces[i - 1]; i--) {
+            if (table[i][v] == table[i - 1][v - spaces[i - 1]] + spaces[i - 1]) {
+                flag[i - 1] = true;
                 v = v - spaces[i - 1];
             }
         }
@@ -328,7 +325,7 @@ public class FlowLayout extends ViewGroup {
             LayoutParams childLp = v.getLayoutParams();
             int childWidth = v.getMeasuredWidth();
             if (childLp instanceof MarginLayoutParams) {
-                MarginLayoutParams mlp = (MarginLayoutParams) childLp ;
+                MarginLayoutParams mlp = (MarginLayoutParams) childLp;
                 spaces[n] = mlp.leftMargin + childWidth + mlp.rightMargin;
             } else {
                 spaces[n] = childWidth;
@@ -355,7 +352,7 @@ public class FlowLayout extends ViewGroup {
                     }
                     this.addView(childs[end]);
                     start = i;
-                    i --;
+                    i--;
                     lineTotal = 0;
                 } else {
                     this.addView(childs[i]);
@@ -374,7 +371,7 @@ public class FlowLayout extends ViewGroup {
     /**
      * use both of relayout methods together
      */
-    public void relayoutToCompressAndAlign(){
+    public void relayoutToCompressAndAlign() {
         post(new Runnable() {
             @Override
             public void run() {
@@ -386,6 +383,7 @@ public class FlowLayout extends ViewGroup {
 
     /**
      * cut the flowlayout to the specified num of lines
+     *
      * @param line_num_now
      */
     public void specifyLines(final int line_num_now) {
@@ -411,14 +409,14 @@ public class FlowLayout extends ViewGroup {
             }
         });
     }
+
     @Override
     protected LayoutParams generateLayoutParams(LayoutParams p) {
         return new MarginLayoutParams(p);
     }
 
     @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs)
-    {
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
     }
 

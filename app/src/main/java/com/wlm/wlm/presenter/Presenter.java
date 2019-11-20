@@ -1,7 +1,6 @@
 package com.wlm.wlm.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.mvp.IView;
 
@@ -11,12 +10,11 @@ import com.wlm.wlm.mvp.IView;
  */
 
 public interface Presenter {
-    void onCreate(Context context,IView view);
+    void onCreate(Context context, IView view);
 
     void onStart();
 
     void onDestory();
-
 
 
 }

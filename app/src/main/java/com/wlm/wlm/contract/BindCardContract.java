@@ -12,16 +12,20 @@ import java.util.ArrayList;
 public interface BindCardContract extends IView {
 
     public void getBankInfoSuccess(ArrayList<BankBean> bankBeans);
+
     public void getBankInfoFail(String msg);
 
     public void upBankInfoSuccess(String info);
+
     public void upBankInfoFail(String msg);
 
 
     public void onSendVcodeSuccess();
+
     public void onSendVcodeFail(String str);
 
 
     public void getBankSuccess(UserBankBean userBankBean);
+
     public void getBankFail(String msg);
 }

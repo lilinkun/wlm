@@ -10,11 +10,13 @@ import com.wlm.wlm.mvp.IView;
 
 public interface LoginContract extends IView {
     public void onLoginSuccess(LoginBean loginBean);
+
     public void onLoginFail(String msg);
 
     public void showPromptMessage(int str);
 
     public void getUrlSuccess(UrlBean urlBean);
+
     public void getUrlFail(String msg);
 
 }

@@ -45,7 +45,7 @@ import rx.functions.Action1;
  * Created by LG on 2018/11/13.
  */
 
-public class SettingActivity extends BaseActivity implements OnTitleBarClickListener ,SettingContract{
+public class SettingActivity extends BaseActivity implements OnTitleBarClickListener, SettingContract {
 
     @BindView(R.id.custom_title)
     CustomTitleBar customTitleBar;
@@ -64,7 +64,7 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
     private DownloadingDialog mDownloadingDialog;
     private String mNewVersion = "2";
     private String mApkUrl = "";
-//    private DownloadBean downloadBean;
+    //    private DownloadBean downloadBean;
     private CheckBean bean;
 
     private SettingPresenter settingPresenter = new SettingPresenter();
@@ -76,10 +76,10 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        settingPresenter.onCreate(this,this);
+        settingPresenter.onCreate(this, this);
 
         try {
             String cacheSize = DataCleanManager.getTotalCacheSize(this);
@@ -106,18 +106,18 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
     @Override
     public void onBackClick() {
         Intent intent = new Intent();
-        intent.putExtra("loginout",false);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("loginout", false);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             Intent intent = new Intent();
-            intent.putExtra("loginout",false);
-            setResult(RESULT_OK,intent);
+            intent.putExtra("loginout", false);
+            setResult(RESULT_OK, intent);
             finish();
 
             return true;
@@ -126,20 +126,20 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick({R.id.rl_personal_info,R.id.rl_modify_psd,R.id.ll_loginout,R.id.rl_modify_pay_psd,R.id.rl_clear,R.id.rl_update})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.rl_personal_info, R.id.rl_modify_psd, R.id.ll_loginout, R.id.rl_modify_pay_psd, R.id.rl_clear, R.id.rl_update})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_personal_info:
 
-                UiHelper.launcher(this,PersonalInfoActivity.class);
+                UiHelper.launcher(this, PersonalInfoActivity.class);
 
                 break;
 
             case R.id.rl_modify_psd:
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("modify",1);
-                UiHelper.launcherBundle(this,ModifyPayActivity.class,bundle);
+                bundle.putInt("modify", 1);
+                UiHelper.launcherBundle(this, ModifyPayActivity.class, bundle);
 
                 break;
 
@@ -152,8 +152,8 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
             case R.id.rl_modify_pay_psd:
 
                 Bundle bundle2 = new Bundle();
-                bundle2.putInt("modify",2);
-                UiHelper.launcherBundle(this,ModifyPayActivity.class,bundle2);
+                bundle2.putInt("modify", 2);
+                UiHelper.launcherBundle(this, ModifyPayActivity.class, bundle2);
 
                 break;
 
@@ -213,12 +213,11 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
                                     });
                                     builder.show();
 
-                                }else {
+                                } else {
                                     toast("已经是最新版本");
                                 }
                             }
                         });
-
 
 
 //                settingPresenter.update(ProApplication.SESSIONID(this));
@@ -229,14 +228,14 @@ public class SettingActivity extends BaseActivity implements OnTitleBarClickList
 
     @Override
     public void LoginOutSuccess(String msg) {
-        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
 
         UiHelper.launcher(this, LoginActivity.class);
 
         Intent intent = new Intent();
-        intent.putExtra("loginout",true);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("loginout", true);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

@@ -7,18 +7,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.adapter.RecordAdapter;
-import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.CollectContract;
-import com.wlm.wlm.db.DBManager;
-import com.wlm.wlm.entity.BrowseRecordBean;
 import com.wlm.wlm.entity.CollectBean;
 import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.CollectPresenter;
@@ -26,16 +20,13 @@ import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.ButtonUtils;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 import static com.wlm.wlm.util.WlmUtil.PAGE_COUNT;
 
@@ -43,7 +34,7 @@ import static com.wlm.wlm.util.WlmUtil.PAGE_COUNT;
  * Created by LG on 2018/11/21.
  */
 
-public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarClickListener, RecordAdapter.OnItemClickListener, CollectContract{
+public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarClickListener, RecordAdapter.OnItemClickListener, CollectContract {
 
     @BindView(R.id.titlebar)
     CustomTitleBar customTitleBar;
@@ -76,30 +67,30 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
         Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         customTitleBar.SetOnTitleClickListener(this);
 
-        collectPresenter.onCreate(this,this);
+        collectPresenter.onCreate(this, this);
 
         position = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("position");
 
-        collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(this));
+        collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, "1", ProApplication.SESSIONID(this));
 
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                    PageIndex = 1;
-                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
+                PageIndex = 1;
+                collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, "1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
 
             }
         });
 
-        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         int spanCount = 5; // 2 columns
         int spacing = 20; // 50px
 //        api.registerApp("wx3686dfb825618610");
 
         boolean includeEdge = false;
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -112,7 +103,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                             if (position == 2) {
                                 if (PageIndex < maxPage) {
                                     PageIndex++;
-                                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
+                                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, "1", ProApplication.SESSIONID(BrowseRecordsActivity.this));
                                 }
                             }
                         }
@@ -127,7 +118,6 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
             }
         });
-
 
 
     }
@@ -146,7 +136,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
             Bundle bundle = new Bundle();
             bundle.putString(WlmUtil.GOODSID, collectBeans.get(position).getGoodsId() + "");
 
-            switch (collectBeans.get(position).getGoodsType()){
+            switch (collectBeans.get(position).getGoodsType()) {
                 case 1:
 
                     bundle.putString(WlmUtil.TYPE, WlmUtil.INTEGRAL);
@@ -170,7 +160,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
 
 
             UiHelper.launcherForResultBundle(this, SelfGoodsDetailActivity.class, record_result, bundle);
-            }
+        }
 
     }
 
@@ -182,20 +172,20 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
                 if (position == 2) {
                     isChange = 2;
                     PageIndex = 1;
-                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT,"1", ProApplication.SESSIONID(this));
+                    collectPresenter.getCollectDataList(PageIndex + "", PAGE_COUNT, "1", ProApplication.SESSIONID(this));
                 }
             }
         }
     }
 
     @Override
-    public void getCollectDataSuccess(ArrayList<CollectBean> collectBeans,String maxPage) {
+    public void getCollectDataSuccess(ArrayList<CollectBean> collectBeans, String maxPage) {
 
-        if (maxPage != null && maxPage.toString().length() >= 1){
+        if (maxPage != null && maxPage.toString().length() >= 1) {
             this.maxPage = Integer.valueOf(maxPage);
         }
 
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
 
@@ -211,7 +201,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
             } else {
                 if (PageIndex != 1) {
                     collectBeans.addAll(collectBeans);
-                }else {
+                } else {
                     this.collectBeans = collectBeans;
                 }
                 recordAdapter.setData(collectBeans);
@@ -221,7 +211,7 @@ public class BrowseRecordsActivity extends BaseActivity implements OnTitleBarCli
 
     @Override
     public void getCollectFail(String msg) {
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         if (msg.contains("查无数据")) {

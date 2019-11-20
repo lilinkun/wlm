@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
-import com.wlm.wlm.entity.ArticleBean;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.MessageType;
-
-import java.util.ArrayList;
 
 /**
  * Created by LG on 2019/9/23.
@@ -23,14 +20,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private OnItemClickListener mItemClickListener;
     private MessageType messageType;
 
-    public MessageAdapter(Context context){
+    public MessageAdapter(Context context) {
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_message,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_message, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         view.setOnClickListener(this);
 
@@ -54,7 +51,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -63,11 +60,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private RoundImageView riv_message;
         private TextView tv_title;

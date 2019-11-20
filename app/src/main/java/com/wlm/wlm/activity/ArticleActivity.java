@@ -18,7 +18,7 @@ import butterknife.OnClick;
 /**
  * Created by LG on 2019/9/23.
  */
-public class ArticleActivity extends BaseActivity  {
+public class ArticleActivity extends BaseActivity {
 
     @BindView(R.id.web_article)
     WebView web_article;
@@ -33,7 +33,7 @@ public class ArticleActivity extends BaseActivity  {
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         ArticleBean articleBean = (ArticleBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable("ArticleBean");
 
         web_article.getSettings().setJavaScriptEnabled(true);
@@ -54,8 +54,8 @@ public class ArticleActivity extends BaseActivity  {
 
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
                 finish();
                 break;

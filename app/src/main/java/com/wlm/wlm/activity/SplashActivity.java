@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity implements SplashContract {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
 //        getSupportActionBar().hide();//隐藏标题栏
 
-        splashPresenter.onCreate(this,this);
+        splashPresenter.onCreate(this, this);
         splashPresenter.getUrl();
         myCountDownTimer.start();
 
@@ -69,12 +69,12 @@ public class SplashActivity extends BaseActivity implements SplashContract {
     @Override
     public void getUrlSuccess(UrlBean urlBean) {
 
-        ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+        ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
         ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
         ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
         ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
         ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();
-        if (urlBean.getIsAndroidAuditing() == 1){
+        if (urlBean.getIsAndroidAuditing() == 1) {
             isLogin = true;
         }
         turnHome();
@@ -114,15 +114,15 @@ public class SplashActivity extends BaseActivity implements SplashContract {
         super.onDestroy();
     }
 
-    private void turnHome(){
+    private void turnHome() {
         Intent intent = null;
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         if (sharedPreferences.getBoolean(WlmUtil.LOGIN, false) == true) {
             intent = new Intent(getBaseContext(), MainFragmentActivity.class);
         } else {
-            if (isLogin){
+            if (isLogin) {
                 intent = new Intent(getBaseContext(), LoginActivity.class);
-            }else {
+            } else {
                 intent = new Intent(getBaseContext(), LoginActivity.class);
             }
         }

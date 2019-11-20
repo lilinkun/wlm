@@ -11,9 +11,14 @@ import java.util.ArrayList;
 
 public interface AddAddressContract extends IView {
     public void getDataSuccess(ArrayList<ProvinceBean> provinceBeans, int id);
+
     public void getDataFail(String msg);
+
     public void getSaveSuccess();
+
     public void getSaveFail(String msg);
+
     public void modifySuccess();
+
     public void modifyFail(String msg);
 }

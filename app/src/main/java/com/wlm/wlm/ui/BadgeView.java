@@ -117,7 +117,7 @@ public class BadgeView extends View {
         init(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BadgeView);
 
         iconSrc = array.getResourceId(R.styleable.BadgeView_iconSrc, 0);
@@ -164,7 +164,7 @@ public class BadgeView extends View {
         hasBadgeBottomAttr = array.hasValue(R.styleable.BadgeView_badgeBottom);
         hasBadgeLeftAttr = array.hasValue(R.styleable.BadgeView_badgeLeft);
         badgeBottom = array.getDimension(R.styleable.BadgeView_badgeBottom, 0);
-        badgeLeft = array.getDimension(R.styleable.BadgeView_badgeLeft,  0);
+        badgeLeft = array.getDimension(R.styleable.BadgeView_badgeLeft, 0);
         //关闭清空TypedArray
         array.recycle();
 
@@ -215,7 +215,7 @@ public class BadgeView extends View {
             canvas.save();
             // 若是设置的高宽大于所需要的高宽, 对画布进行操作
             float paddingLeft = viewPaddingLeft + (viewWidth - viewPaddingLeft - viewPaddingRight - viewMinWidth) / 2;
-            float paddingTop = viewPaddingTop + (viewHeight -viewPaddingTop -viewPaddingBootom - viewMinHeight) / 2;
+            float paddingTop = viewPaddingTop + (viewHeight - viewPaddingTop - viewPaddingBootom - viewMinHeight) / 2;
             // 移动布局, 改变原点
             canvas.translate(paddingLeft, paddingTop);
         }
@@ -230,6 +230,7 @@ public class BadgeView extends View {
 
     /**
      * 绘制整个内容
+     *
      * @param canvas
      */
     private void onDrawContent(Canvas canvas) {
@@ -362,6 +363,7 @@ public class BadgeView extends View {
 
     /**
      * 获取默认的位置
+     *
      * @return
      */
     private float getBadgeDefaultLocation() {
@@ -373,6 +375,7 @@ public class BadgeView extends View {
      * 构造未读数显示的文本
      * 1) 未读数默认显示形式9/23/99+
      * 2) 有些设计要求未读前面加"+", (至少我们设计师这么设计) 显示成 +1/+34/+99, 取配置badgeNumPre
+     *
      * @param unread
      * @return
      */
@@ -404,6 +407,7 @@ public class BadgeView extends View {
     /**
      * android-自定义View解决wrap_content无效的问题
      * see  https://my.oschina.net/ccqy66/blog/616662
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
@@ -438,7 +442,7 @@ public class BadgeView extends View {
             viewHeight = viewMinHeight;
         }
         if (viewHeight < viewMinHeight + VIEW_PADDING * 2) {
-            viewHeight =  viewMinHeight + VIEW_PADDING * 2;
+            viewHeight = viewMinHeight + VIEW_PADDING * 2;
         }
         viewHeight += viewPaddingTop + viewPaddingBootom;
 

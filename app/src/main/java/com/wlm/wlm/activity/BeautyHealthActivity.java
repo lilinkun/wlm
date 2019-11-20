@@ -50,9 +50,9 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarColor1(this,getResources().getColor(R.color.point_red));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.point_red));
 
-        beautyHealthPresenter.onCreate(this,this);
+        beautyHealthPresenter.onCreate(this, this);
 
         ActivityUtil.addHomeActivity(this);
 
@@ -60,12 +60,12 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
 
         beautyHealthPresenter.setFlash("7");
 
-        beautyHealthPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        beautyHealthPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
-    @OnClick({R.id.ll_back,R.id.ll_search})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.ll_search})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -75,8 +75,8 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
             case R.id.ll_search:
 
                 Bundle bundle = new Bundle();
-                bundle.putString("id","1");
-                UiHelper.launcherBundle(this,SearchActivity.class,bundle);
+                bundle.putString("id", "1");
+                UiHelper.launcherBundle(this, SearchActivity.class, bundle);
 
                 break;
         }
@@ -85,7 +85,7 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
     @Override
     public void getDataSuccess(ArrayList<GoodsListBean> goodsListBeans, PageBean pageBean) {
 
-        custom_sort.setPageIndex(pageIndex,pageBean);
+        custom_sort.setPageIndex(pageIndex, pageBean);
         custom_sort.setData(goodsListBeans, WlmUtil.GOODSTYPE_BEAUTY_HEALTH);
     }
 
@@ -99,7 +99,7 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
 
         this.flashBeans = flashBeans;
 
-        CustomBannerView.startBanner(flashBeans,bannerView,this,true);
+        CustomBannerView.startBanner(flashBeans, bannerView, this, true);
     }
 
     @Override
@@ -111,12 +111,12 @@ public class BeautyHealthActivity extends BaseActivity implements BeautyHealthCo
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        beautyHealthPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        beautyHealthPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 
     @Override
     public void onLoadding(int page) {
         pageIndex = page;
-        beautyHealthPresenter.getData(pageIndex+"", WlmUtil.PAGE_COUNT,goodstype + "",orderby,true);
+        beautyHealthPresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
     }
 }

@@ -2,7 +2,6 @@ package com.wlm.wlm.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -23,20 +22,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
 import com.wlm.wlm.activity.BeautyHealthActivity;
-import com.wlm.wlm.activity.CrowdFundingActivity;
 import com.wlm.wlm.activity.FlashSaleActivity;
 import com.wlm.wlm.activity.GrouponActivity;
-import com.wlm.wlm.activity.GrouponGoodsDetailActivity;
 import com.wlm.wlm.activity.IntegralStoreActivity;
 import com.wlm.wlm.activity.ManufactureStoreActivity;
 import com.wlm.wlm.activity.PointActivity;
@@ -49,7 +42,6 @@ import com.wlm.wlm.activity.WlmBuyActivity;
 import com.wlm.wlm.adapter.GridHomeAdapter;
 import com.wlm.wlm.adapter.HomeFragmentAdapter;
 import com.wlm.wlm.adapter.HomeHotAdapter;
-import com.wlm.wlm.adapter.TbHotGoodsAdapter;
 import com.wlm.wlm.base.BaseFragment;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HomeContract;
@@ -60,7 +52,6 @@ import com.wlm.wlm.entity.HomeBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
-import com.wlm.wlm.transform.BannerTransform;
 import com.wlm.wlm.ui.CountdownView;
 import com.wlm.wlm.ui.CusPtrClassicFrameLayout;
 import com.wlm.wlm.ui.CustomBannerView;
@@ -69,16 +60,11 @@ import com.wlm.wlm.ui.DownloadingDialog;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.ui.TranslucentScrollView;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.DensityUtil;
 import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.UpdateManager;
 import com.wlm.wlm.util.WlmUtil;
 import com.xw.banner.Banner;
-import com.xw.banner.BannerConfig;
-import com.xw.banner.Transformer;
-import com.xw.banner.listener.OnBannerListener;
-import com.xw.banner.loader.ImageLoaderInterface;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -167,11 +153,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         ProApplication.HEADIMG = sharedPreferences.getString(WlmUtil.IMG, "");
-        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG,"");
-        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER,"");
-        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG,"");
+        ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, "");
+        ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER, "");
+        ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG, "");
 
-        homePresenter.onCreate(getActivity(),this);
+        homePresenter.onCreate(getActivity(), this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
 
         if (ProApplication.HEADIMG != null && !ProApplication.HEADIMG.isEmpty()) {
@@ -188,7 +174,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        api.registerApp("wx3686dfb825618610");
 
         boolean includeEdge = false;
-        rv_home_commodities.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        rv_home_commodities.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
         rv_home_commodities.setLayoutManager(linearLayoutManager);
         rv_home_commodities.setHasFixedSize(true);
         rv_home_commodities.setNestedScrollingEnabled(false);
@@ -201,7 +187,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
         header.setPadding(dp2px(20), dp2px(20), 0, 0);
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_ptr_head,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_ptr_head, null);
 
         CustomerPtrHandler customerPtrHandler = new CustomerPtrHandler(getActivity());
 
@@ -223,8 +209,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    private void initRv(){
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),4);
+    private void initRv() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
 
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
@@ -239,21 +225,21 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     UiHelper.launcher(getActivity(), PointActivity.class);
                 } else if (position == 1) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(WlmUtil.TYPE,"4");
-                    UiHelper.launcherBundle(getActivity(), WebViewActivity.class,bundle);
-                }else if (position == 2) {
+                    bundle.putString(WlmUtil.TYPE, "4");
+                    UiHelper.launcherBundle(getActivity(), WebViewActivity.class, bundle);
+                } else if (position == 2) {
                     UiHelper.launcher(getActivity(), GrouponActivity.class);
-                }else if(position == 3){
+                } else if (position == 3) {
                     UiHelper.launcher(getActivity(), FlashSaleActivity.class);
-                }else if(position == 4){
+                } else if (position == 4) {
 //                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
 //                }else if (position == 5){
                     UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
-                }else if (position == 5){
+                } else if (position == 5) {
                     UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
-                }else if (position == 6){
+                } else if (position == 6) {
                     UiHelper.launcher(getActivity(), WlmBuyActivity.class);
-                }else if (position == 7){
+                } else if (position == 7) {
                     UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
 //                }else if (position == 9){
                 }
@@ -267,7 +253,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
 
-    @OnClick({ R.id.ll_search,R.id.big_1,R.id.iv_vip_icon1,R.id.iv_vip_icon2})
+    @OnClick({R.id.ll_search, R.id.big_1, R.id.iv_vip_icon1, R.id.iv_vip_icon2})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -386,8 +372,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.SERVIESVIP = urlBean.getServiesVip();
         ProApplication.LOGISTICSURL = urlBean.getLogisticsUrl();
 
-        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG) ) {
-            ProApplication.HEADIMG = urlBean.getImgUrl()+ ProApplication.IMG_SMALL;
+        if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG)) {
+            ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
@@ -395,14 +381,15 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //            homePresenter.getGoodsList("1");
             homePresenter.getHomeData(ProApplication.SESSIONID(getActivity()));
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG,ProApplication.BANNERIMG)
-                    .putString(WlmUtil.CUSTOMER,ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG,ProApplication.SHAREDIMG).commit();
+            sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG)
+                    .putString(WlmUtil.CUSTOMER, ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG, ProApplication.SHAREDIMG).commit();
         }
 
     }
 
     private CheckBean bean;
-    private void update(UrlBean urlBean){
+
+    private void update(UrlBean urlBean) {
         String url = urlBean.getUpgradeUrl();
         OkHttpUtils.get()
                 .url(url)
@@ -470,7 +457,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             mPtrFrame.refreshComplete();
         }
 
-        CustomBannerView.startBanner(flashBeans,banner,getActivity(),true);
+        CustomBannerView.startBanner(flashBeans, banner, getActivity(), true);
 
     }
 
@@ -478,7 +465,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onFlashFail(String msg) {
 //        UToast.show(getActivity(), msg);
         if (msg.contains("网络异常")) {
-        }else {
+        } else {
 //            UiHelper.launcher(getActivity(), LoginActivity.class);
 //            getActivity().finish();
         }
@@ -488,7 +475,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.hotHomeBeans = goodsListBeans;
 
-        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(),goodsListBeans);
+        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(), goodsListBeans);
         rv_home_commodities.setAdapter(homeHotAdapter);
         homeHotAdapter.setItemClickListener(this);
 
@@ -523,9 +510,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         onGoodsListSuccess(homeBean.getGoodsList());
 
 //        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG+homeBean.getVipList().get(0).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
-        if (homeBean.getVipList().size()>=2) {
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getVipList().get(0).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
+        if (homeBean.getVipList().size() >= 2) {
             Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getVipList().get(1).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
         }
 
@@ -543,7 +530,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void getHomeDataFail(String msg) {
-        UToast.show(getActivity(),msg);
+        UToast.show(getActivity(), msg);
     }
 
 
@@ -551,12 +538,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onItemClick(int position) {
 
         if (!ButtonUtils.isFastDoubleClick()) {
-                Bundle bundle = new Bundle();
-                bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
-                String type = WlmUtil.getType(hotHomeBeans.get(position).getGoodsType());
+            Bundle bundle = new Bundle();
+            bundle.putString("goodsid", hotHomeBeans.get(position).getGoodsId());
+            String type = WlmUtil.getType(hotHomeBeans.get(position).getGoodsType());
 
-                bundle.putString(WlmUtil.TYPE, type);
-                UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+            bundle.putString(WlmUtil.TYPE, type);
+            UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
 
         }
     }
@@ -589,7 +576,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
-    private void downNewApk(){
+    private void downNewApk() {
         // 如果新版 apk 文件已经下载过了，直接 return，此时不需要开发者调用安装 apk 文件的方法，在 isApkFileDownloaded 里已经调用了安装」
         if (BGAUpgradeUtil.isApkFileDownloaded(mNewVersion)) {
             return;
@@ -658,28 +645,28 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         @Override
         public Bitmap transform(Bitmap source) {
 
-            if(source.getWidth()==0){
+            if (source.getWidth() == 0) {
                 return source;
             }
 
             int a = big_1.getWidth();
-            if (source.getWidth() > source.getHeight()){
-                int h = source.getHeight()*a/source.getWidth();
+            if (source.getWidth() > source.getHeight()) {
+                int h = source.getHeight() * a / source.getWidth();
                 Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() < source.getHeight()){
-                int w = source.getWidth()*a/source.getHeight();
+            } else if (source.getWidth() < source.getHeight()) {
+                int w = source.getWidth() * a / source.getHeight();
                 Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() == source.getHeight()){
+            } else if (source.getWidth() == source.getHeight()) {
                 Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
@@ -702,28 +689,28 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         @Override
         public Bitmap transform(Bitmap source) {
 
-            if(source.getWidth()==0){
+            if (source.getWidth() == 0) {
                 return source;
             }
 
             int a = iv_vip_icon2.getWidth();
-            if (source.getWidth() > source.getHeight()){
-                int h = source.getHeight()*a/source.getWidth();
+            if (source.getWidth() > source.getHeight()) {
+                int h = source.getHeight() * a / source.getWidth();
                 Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() < source.getHeight()){
-                int w = source.getWidth()*a/source.getHeight();
+            } else if (source.getWidth() < source.getHeight()) {
+                int w = source.getWidth() * a / source.getHeight();
                 Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same
                     source.recycle();
                 }
                 return result;
-            }else if (source.getWidth() == source.getHeight()){
+            } else if (source.getWidth() == source.getHeight()) {
                 Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
                 if (result != source) {
                     // Same bitmap is returned if sizes are the same

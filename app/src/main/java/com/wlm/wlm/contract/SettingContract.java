@@ -10,8 +10,10 @@ import com.wlm.wlm.mvp.IView;
 public interface SettingContract extends IView {
 
     public void LoginOutSuccess(String msg);
+
     public void LoginOutFail(String msg);
 
     public void updateSuccess(DownloadBean downloadBean);
+
     public void updateFail(String failMsg);
 }

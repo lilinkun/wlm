@@ -11,5 +11,6 @@ import java.util.ArrayList;
  */
 public interface MyFansContract extends IView {
     public void getFansSuccess(ArrayList<FansBean> integralBean, PageBean pageBean);
+
     public void getFansFail(String msg);
 }

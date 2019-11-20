@@ -49,20 +49,20 @@ public class GetCashActivity extends BaseActivity implements GetCashContract {
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        getCashPresenter.onCreate(this,this);
+        getCashPresenter.onCreate(this, this);
 
         userBankBean = (UserBankBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.USERBANKBEAN);
         String wlmCoin = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.WLMCOIN);
         tv_wlm_coin.setText(wlmCoin);
-        String bankStr = userBankBean.getBankNo().substring(userBankBean.getBankNo().length() - 4,userBankBean.getBankNo().length());
-        tv_bank_name.setText(userBankBean.getBankNameDesc() + "(" + bankStr +")");
+        String bankStr = userBankBean.getBankNo().substring(userBankBean.getBankNo().length() - 4, userBankBean.getBankNo().length());
+        tv_bank_name.setText(userBankBean.getBankNameDesc() + "(" + bankStr + ")");
     }
 
-    @OnClick({R.id.tv_all_getcash,R.id.tv_getcash,R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.tv_all_getcash, R.id.tv_getcash, R.id.ll_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_all_getcash:
 
                 et_wlm_coin.setText(tv_wlm_coin.getText().toString());
@@ -72,14 +72,14 @@ public class GetCashActivity extends BaseActivity implements GetCashContract {
 
             case R.id.tv_getcash:
 
-                if (Double.valueOf(et_wlm_coin.getText().toString()) > Double.valueOf(tv_wlm_coin.getText().toString())){
+                if (Double.valueOf(et_wlm_coin.getText().toString()) > Double.valueOf(tv_wlm_coin.getText().toString())) {
                     toast("提现金额大于余额，不能提现");
                     return;
                 }
 
                 final int coinAmount = Integer.valueOf(et_wlm_coin.getText().toString());
 
-                View view1 = LayoutInflater.from(this).inflate(R.layout.dialog_pay,null);
+                View view1 = LayoutInflater.from(this).inflate(R.layout.dialog_pay, null);
                 LinearLayout linearLayout = view1.findViewById(R.id.ll_cash);
                 linearLayout.setVisibility(View.VISIBLE);
 
@@ -98,11 +98,11 @@ public class GetCashActivity extends BaseActivity implements GetCashContract {
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 numberFormat.setGroupingUsed(false);
                 final String s = numberFormat.format(coinAmount * userBankBean.getRate());
-                passwordView.gettext(coinAmount - coinAmount * userBankBean.getRate() ,Double.valueOf(s));
+                passwordView.gettext(coinAmount - coinAmount * userBankBean.getRate(), Double.valueOf(s));
                 passwordView.setOnFinishInput(new OnPasswordInputFinish() {
                     @Override
                     public void inputFinish() {
-                        getCashPresenter.getCash(coinAmount+"", Double.valueOf(s) + "" , passwordView.getStrPassword() + "",  ProApplication.SESSIONID(GetCashActivity.this));
+                        getCashPresenter.getCash(coinAmount + "", Double.valueOf(s) + "", passwordView.getStrPassword() + "", ProApplication.SESSIONID(GetCashActivity.this));
                     }
 
                     @Override
@@ -112,7 +112,7 @@ public class GetCashActivity extends BaseActivity implements GetCashContract {
 
                     @Override
                     public void forgetPwd() {
-                        UiHelper.launcher(GetCashActivity.this,ModifyPayActivity.class);
+                        UiHelper.launcher(GetCashActivity.this, ModifyPayActivity.class);
                     }
                 });
 
@@ -135,7 +135,7 @@ public class GetCashActivity extends BaseActivity implements GetCashContract {
 
     @Override
     public void getCashSuccess() {
-        if (popupWindow != null && popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
         setResult(RESULT_OK);

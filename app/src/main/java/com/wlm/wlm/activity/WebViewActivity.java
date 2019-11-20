@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * Created by LG on 2018/12/27.
  */
 
-public class WebViewActivity extends BaseActivity implements WebviewContract{
+public class WebViewActivity extends BaseActivity implements WebviewContract {
 
     @BindView(R.id.wv_me)
     WebView webView;
@@ -43,18 +43,18 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
-        webviewPresenter.onCreate(this,this);
+        webviewPresenter.onCreate(this, this);
 
         title = getIntent().getBundleExtra(WlmUtil.TYPEID).getString(WlmUtil.TYPE);
-        if (title.equals("2")){
+        if (title.equals("2")) {
             titleBar.setTileName("服务协议");
-        }else if (title.equals("3")){
+        } else if (title.equals("3")) {
             titleBar.setTileName("关于我们");
-        }else if (title.equals("4")){
+        } else if (title.equals("4")) {
             titleBar.setTileName("VIP宝典");
-        }else if(title.equals("5")){
+        } else if (title.equals("5")) {
             ordersn = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("ordersn");
             titleBar.setTileName("查看物流");
         }
@@ -62,15 +62,13 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setTextZoom(100);
-        webView.setWebViewClient(new WebViewClient()
-        {
-            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
-            {
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });
 
-        webView.setWebChromeClient(new WebChromeClient(){
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
@@ -79,12 +77,12 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-        if (title.equals("4")){
+        if (title.equals("4")) {
             webView.loadUrl(ProApplication.SERVIESVIP);
-        }else if(title.equals("5")){
+        } else if (title.equals("5")) {
 //            webView.loadUrl("http://192.168.0.147:88/wuliu.html");
-            webView.loadUrl(ProApplication.LOGISTICSURL+"?OrderSn=" + ordersn);
-        }else {
+            webView.loadUrl(ProApplication.LOGISTICSURL + "?OrderSn=" + ordersn);
+        } else {
             if (ProApplication.REGISTERREQUIREMENTS != null && !ProApplication.REGISTERREQUIREMENTS.equals("")) {
                 webView.loadUrl(ProApplication.REGISTERREQUIREMENTS);
             }
@@ -95,8 +93,8 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 finish();
@@ -105,13 +103,10 @@ public class WebViewActivity extends BaseActivity implements WebviewContract{
         }
     }
 
-    protected void loadDataFromService(String paramString)
-    {
+    protected void loadDataFromService(String paramString) {
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient()
-        {
-            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString)
-            {
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView paramAnonymousWebView, String paramAnonymousString) {
                 return false;
             }
         });

@@ -16,7 +16,7 @@ public class TabPageAdapter extends FragmentPagerAdapter {
     private List<String> titles;
     FragmentManager fm;
 
-    public TabPageAdapter(FragmentManager fm,List<Fragment> fragments,List<String> titles) {
+    public TabPageAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;
@@ -38,7 +38,9 @@ public class TabPageAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    public void setTitles(List<String> titles){this.titles = titles;}
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {

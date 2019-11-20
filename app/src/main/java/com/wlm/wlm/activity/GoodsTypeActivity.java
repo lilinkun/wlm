@@ -21,8 +21,8 @@ import com.wlm.wlm.ui.MotionViewPager;
 import com.wlm.wlm.ui.PagerSlidingTabStrip;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,23 +77,23 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
     private boolean isView3 = false;
     private boolean isView4 = false;
 
-//    String[] strs = {"全部","男装", "女装", "美食", "母婴", "居家", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
+    //    String[] strs = {"全部","男装", "女装", "美食", "母婴", "居家", "化妆品", "文体车品", "鞋包", "数码", "内衣"};
     ArrayList<String> strs = new ArrayList<>();
     int[] ints = {WlmUtil.GOODS_ALL_WEAR, WlmUtil.GOODS_MAN_WEAR, WlmUtil.GOODS_WOMAN_WEAR, WlmUtil.GOODS_FOOD, WlmUtil.GOODS_MOTHER, WlmUtil.GOODS_HOUSE, WlmUtil.GOODS_MAKEUP, WlmUtil.GOODS_MOTION, WlmUtil.GOODS_SHOES, WlmUtil.GOODS_DIGITAL, WlmUtil.GOODS_UNDERWEAR};
     private GetRecordsPagerAdapter getRecordsPagerAdapter;
     private TBAllFragment tbAllFragment;
     private int position = 0;
     public static int isMall = 0;
-    private HashMap<String,BaseFragment> hashMap= new HashMap<>();
+    private HashMap<String, BaseFragment> hashMap = new HashMap<>();
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0x110) {
-                Log.v("TAG","hander");
+                Log.v("TAG", "hander");
                 position = msg.getData().getInt("position");
                 customTitleBar.setTileName(strs.get(msg.getData().getInt("position")));
-                tbAllFragment =(TBAllFragment) hashMap.get(strs.get(position));
+                tbAllFragment = (TBAllFragment) hashMap.get(strs.get(position));
             }
         }
     };
@@ -105,7 +105,7 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
         position = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("position");
         isMall = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("isMall");
 
@@ -120,29 +120,29 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
         textViewList.add(mTvTop);
         textViewList.add(mTvNewest);
 
-        if (position == 20){
+        if (position == 20) {
             pagerSlidingTabStrip.setVisibility(View.GONE);
         }
         pagerSlidingTabStrip.setTitles(strs, position, handler);
 
 //        pagerSlidingTabStrip.setLineheight(15);
-        if (position == 20){
+        if (position == 20) {
             String searchName = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("str");
             TBbean tBbean = new TBbean();
             tBbean.setId("1");
             tBbean.setCate_name(searchName);
             tBbean.setCate_icon("");
             listTb.add(tBbean);
-            getRecordsPagerAdapter = new GetRecordsPagerAdapter(getSupportFragmentManager(),listTb,true,searchName, new GetRecordsPagerAdapter.OnPageChange() {
+            getRecordsPagerAdapter = new GetRecordsPagerAdapter(getSupportFragmentManager(), listTb, true, searchName, new GetRecordsPagerAdapter.OnPageChange() {
                 @Override
                 public void getChange(BaseFragment baseFragment, String str) {
 //                    if (str.equals(searchName).getString("str"))) {
-                        tbAllFragment = (TBAllFragment) baseFragment;
+                    tbAllFragment = (TBAllFragment) baseFragment;
 //                    }
                     hashMap.put(str, baseFragment);
                 }
             });
-        }else {
+        } else {
             for (int i = 0; i < strs.size(); i++) {
                 TBbean tBbean = new TBbean();
                 tBbean.setId(ints[i] + "");
@@ -164,15 +164,15 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
         motionViewPager.setAdapter(getRecordsPagerAdapter);
         pagerSlidingTabStrip.setViewPager(motionViewPager);
         customTitleBar.SetOnTitleClickListener(this);
-        if (position == 20){
+        if (position == 20) {
             customTitleBar.setTileName("淘宝");
-        }else {
+        } else {
             customTitleBar.setTileName(strs.get(position));
         }
 
     }
 
-    @OnClick({R.id.tx_top, R.id.tx_newest, R.id.tx_pople, R.id.tx_price,R.id.iv_head_right})
+    @OnClick({R.id.tx_top, R.id.tx_newest, R.id.tx_pople, R.id.tx_price, R.id.iv_head_right})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tx_top:
@@ -189,8 +189,8 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
                 break;
             case R.id.iv_head_right:
                 Bundle bundle = new Bundle();
-                bundle.putString("search","taobao");
-                UiHelper.launcherBundle(this,SearchActivity.class,bundle);
+                bundle.putString("search", "taobao");
+                UiHelper.launcherBundle(this, SearchActivity.class, bundle);
                 break;
         }
     }
@@ -232,9 +232,9 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
             img2_offer.setImageResource(R.mipmap.j_2);
             isView4 = false;
         }
-        if (view1 == paramView){
+        if (view1 == paramView) {
             tbAllFragment.onPageChange(0);
-        }else if(view2 == paramView){
+        } else if (view2 == paramView) {
             tbAllFragment.onPageChange(1);
         }
 
@@ -263,7 +263,7 @@ public class GoodsTypeActivity extends BaseActivity implements OnTitleBarClickLi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             setResult(RESULT_OK);
             finish();

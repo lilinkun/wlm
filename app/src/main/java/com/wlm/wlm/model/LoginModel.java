@@ -1,23 +1,13 @@
 package com.wlm.wlm.model;
 
-import android.content.SharedPreferences;
-
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.LoginBean;
-import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -26,9 +16,9 @@ import rx.schedulers.Schedulers;
 public class LoginModel extends BaseMvpModel {
 
 
-    public void login(HttpResultCallBack<LoginBean,Object> subscriber,DataManager dataManager){
+    public void login(HttpResultCallBack<LoginBean, Object> subscriber, DataManager dataManager) {
 
-        HashMap<String,String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
 
         Subscription subscription = dataManager.login(params).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
 

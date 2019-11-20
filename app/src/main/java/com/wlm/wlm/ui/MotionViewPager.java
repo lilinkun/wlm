@@ -9,21 +9,17 @@ import android.view.MotionEvent;
  * Created by LG on 2018/11/14.
  */
 
-public class MotionViewPager extends ViewPager
-{
-    public MotionViewPager(Context paramContext)
-    {
+public class MotionViewPager extends ViewPager {
+    public MotionViewPager(Context paramContext) {
         super(paramContext);
     }
 
-    public MotionViewPager(Context paramContext, AttributeSet paramAttributeSet)
-    {
+    public MotionViewPager(Context paramContext, AttributeSet paramAttributeSet) {
         super(paramContext, paramAttributeSet);
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent paramMotionEvent)
-    {
+    public boolean onInterceptTouchEvent(MotionEvent paramMotionEvent) {
         return false;
     }
 

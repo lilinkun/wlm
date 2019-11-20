@@ -10,11 +10,11 @@ import android.net.NetworkInfo;
 
 public class NetUtil {
 
-    public static boolean isConnected(Context context){
+    public static boolean isConnected(Context context) {
 
-        if (getNetWorkState(context) == NETWORK_NONE){
+        if (getNetWorkState(context) == NETWORK_NONE) {
             return false;
-        }else {
+        } else {
             return true;
         }
 

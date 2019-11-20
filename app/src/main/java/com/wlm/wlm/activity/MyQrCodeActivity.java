@@ -63,14 +63,14 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
     public void initEventAndData() {
         Eyes.translucentStatusBar(this);
 
-        iwxapi = WXAPIFactory.createWXAPI(this,WlmUtil.APP_ID,true);
+        iwxapi = WXAPIFactory.createWXAPI(this, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
 
-        tv_qr_name.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,""));
+        tv_qr_name.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, ""));
 
-        if (sharedPreferences.getString(WlmUtil.HEADIMGURL,"") != null && !sharedPreferences.getString(WlmUtil.HEADIMGURL,"").equals("")) {
+        if (sharedPreferences.getString(WlmUtil.HEADIMGURL, "") != null && !sharedPreferences.getString(WlmUtil.HEADIMGURL, "").equals("")) {
             Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(ic_head);
         }
 
@@ -78,14 +78,14 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
 //        Bitmap bitmap1 = QRCodeUtil.createQRCodeWithLogo("大王叫"+tv_qr_name.getText().toString()+"来巡山",bitmap);
 //        ic_qrcode.setImageBitmap(bitmap1);
 
-        myQrCodePresenter.onCreate(this,this);
+        myQrCodePresenter.onCreate(this, this);
         myQrCodePresenter.getUpdataData(ProApplication.SESSIONID(this));
     }
 
 
-    @OnClick({R.id.tv_exit,R.id.ll_wx,R.id.ll_save})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.tv_exit, R.id.ll_wx, R.id.ll_save})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_exit:
 
                 finish();
@@ -101,14 +101,14 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME,"");
-                WlmUtil.setShared(iwxapi,path,"唯乐美商城","唯乐美商城",baos.toByteArray());
+                String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
+                WlmUtil.setShared(iwxapi, path, "唯乐美商城", "唯乐美商城", baos.toByteArray());
 
                 break;
 
             case R.id.ll_save:
 
-                saveBitmap(ll_pic,"pic");
+                saveBitmap(ll_pic, "pic");
 
                 break;
         }
@@ -127,8 +127,8 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
         v.draw(canvas);
         String TAG = "TIKTOK";
         Log.e(TAG, "保存图片");
-        String dir = Environment.getExternalStorageDirectory().getAbsolutePath() +  "/tencent/MicroMsg/WeiXin/";
-        File f = new File( dir,fileName);
+        String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tencent/MicroMsg/WeiXin/";
+        File f = new File(dir, fileName);
 //        File f = new File("/sdcard/DCIM/Screenshots/", fileName);
         if (f.exists()) {
             f.delete();
@@ -140,10 +140,10 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
             out.close();
             Log.i(TAG, "已经保存");
         } catch (FileNotFoundException e) {
-    // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-    // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

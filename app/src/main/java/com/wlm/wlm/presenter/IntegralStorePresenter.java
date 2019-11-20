@@ -47,32 +47,33 @@ public class IntegralStorePresenter extends BasePresenter {
 
     /**
      * 获取商品列表
+     *
      * @param PageIndex
      * @param PageCount
      * @param GoodsType
      */
-    public void getData(String PageIndex,String PageCount,String GoodsType, String CategoryId,String OrderBy){
+    public void getData(String PageIndex, String PageCount, String GoodsType, String CategoryId, String OrderBy) {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         if (Integer.valueOf(PageIndex) == 1) {
             loaddingDialog.show();
         }
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Goods");
-        params.put("fun","GoodsListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("GoodsType",GoodsType);
-        params.put("CategoryId",CategoryId);
-        params.put("GoodsFlag","2");
-        params.put("OrderBy",OrderBy);
+        params.put("cls", "Goods");
+        params.put("fun", "GoodsListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("GoodsType", GoodsType);
+        params.put("CategoryId", CategoryId);
+        params.put("GoodsFlag", "2");
+        params.put("OrderBy", OrderBy);
         mCompositeSubscription.add(manager.grouponData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsListBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status,PageBean page) {
-                        integralStoreContract.getSuccess(integralBean,page);
+                    public void onResponse(ArrayList<GoodsListBean> integralBean, String status, PageBean page) {
+                        integralStoreContract.getSuccess(integralBean, page);
                         if (loaddingDialog != null && loaddingDialog.isShowing()) {
                             loaddingDialog.dismiss();
                         }
@@ -90,23 +91,24 @@ public class IntegralStorePresenter extends BasePresenter {
 
     /**
      * 获取分类
+     *
      * @param PageIndex
      * @param PageCount
      */
-    public void getCategoryList(String PageIndex,String PageCount,String CategoryLevel){
+    public void getCategoryList(String PageIndex, String PageCount, String CategoryLevel) {
 
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Category");
-        params.put("fun","CategoryVipList");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
-        params.put("CategoryLevel",CategoryLevel);
+        params.put("cls", "Category");
+        params.put("fun", "CategoryVipList");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
+        params.put("CategoryLevel", CategoryLevel);
         mCompositeSubscription.add(manager.getCategoryList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<Category1Bean>,Object>() {
+                .subscribe(new HttpResultCallBack<ArrayList<Category1Bean>, Object>() {
                     @Override
                     public void onResponse(ArrayList<Category1Bean> integralBean, String status, Object page) {
                         integralStoreContract.getCategorySuccess(integralBean);

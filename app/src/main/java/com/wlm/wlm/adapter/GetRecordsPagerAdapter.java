@@ -24,14 +24,14 @@ public class GetRecordsPagerAdapter extends FragmentStatePagerAdapter {
     private boolean isSearch = false;
     private String searchStr = "";
 
-    public GetRecordsPagerAdapter(FragmentManager fm, List<TBbean> paramList,OnPageChange onPageChange) {
+    public GetRecordsPagerAdapter(FragmentManager fm, List<TBbean> paramList, OnPageChange onPageChange) {
         super(fm);
         List localList;
         this.list = paramList;
         this.onPageChange = onPageChange;
     }
 
-    public GetRecordsPagerAdapter(FragmentManager fm, List<TBbean> paramList, boolean isSearch,String searchStr,OnPageChange onPageChange) {
+    public GetRecordsPagerAdapter(FragmentManager fm, List<TBbean> paramList, boolean isSearch, String searchStr, OnPageChange onPageChange) {
         super(fm);
         List localList;
         this.list = paramList;
@@ -53,18 +53,18 @@ public class GetRecordsPagerAdapter extends FragmentStatePagerAdapter {
         if (!isSearch) {
             localBundle.putString("TBId", ((TBbean) this.list.get(position)).getCate_name());
             tbAllFragment.setArguments(localBundle);
-            Log.v("TAG","getrrecords");
-            onPageChange.getChange(tbAllFragment,(list.get(position)).getCate_name());
-        }else {
+            Log.v("TAG", "getrrecords");
+            onPageChange.getChange(tbAllFragment, (list.get(position)).getCate_name());
+        } else {
             localBundle.putString("TBId", searchStr);
-            onPageChange.getChange(tbAllFragment,searchStr);
+            onPageChange.getChange(tbAllFragment, searchStr);
             tbAllFragment.setArguments(localBundle);
         }
         return tbAllFragment;
     }
 
-    public void setPage(int page){
-        if (tbAllFragment != null){
+    public void setPage(int page) {
+        if (tbAllFragment != null) {
             tbAllFragment.onPageChange(page);
         }
     }
@@ -74,7 +74,7 @@ public class GetRecordsPagerAdapter extends FragmentStatePagerAdapter {
         return list.size();
     }
 
-    public interface OnPageChange{
+    public interface OnPageChange {
         void getChange(BaseFragment baseFragment, String str);
     }
 }

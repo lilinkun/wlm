@@ -8,5 +8,6 @@ import com.wlm.wlm.mvp.IView;
  */
 public interface HaiWeiLoginContract extends IView {
     public void onLoginSuccess(LoginBean loginBean);
+
     public void onLoginFail(String msg);
 }

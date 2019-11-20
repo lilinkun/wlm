@@ -28,7 +28,7 @@ public class CategoryPresenter extends BasePresenter {
     private CategoryContract categoryContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,20 +47,20 @@ public class CategoryPresenter extends BasePresenter {
         }
     }
 
-    public void getCategoryList(String SessionId){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("cls","Category");
-        hashMap.put("fun","CategoryList");
-        hashMap.put("SessionId",SessionId);
+    public void getCategoryList(String SessionId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("cls", "Category");
+        hashMap.put("fun", "CategoryList");
+        hashMap.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getCategory(hashMap)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new HttpResultCallBack<ArrayList<CategoryListBean<ArrayList<Object>>>, Object>() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<ArrayList<CategoryListBean<ArrayList<Object>>>, Object>() {
 
-            @Override
-            public void onResponse(ArrayList<CategoryListBean<ArrayList<Object>>> categoryListBeans, String status,Object o) {
+                    @Override
+                    public void onResponse(ArrayList<CategoryListBean<ArrayList<Object>>> categoryListBeans, String status, Object o) {
 
-                categoryContract.getDataSuccess(categoryListBeans);
+                        categoryContract.getDataSuccess(categoryListBeans);
                 /*if (homeHeadBeanCategoryListBean.get(0).getSubclass().size() > 0){
                     ArrayList<Object> getSubclass = (ArrayList<Object>)homeHeadBeanCategoryListBean.get(0).getSubclass();
                     Gson gson = new Gson();
@@ -70,17 +70,17 @@ public class CategoryPresenter extends BasePresenter {
                         UToast.show(mContext,homeCategoryBean.getCat_id() + "");
                     }
                 }*/
-            }
+                    }
 
-            @Override
-            public void onErr(String msg, String status) {
-                UToast.show(mContext,msg);
-            }
+                    @Override
+                    public void onErr(String msg, String status) {
+                        UToast.show(mContext, msg);
+                    }
 
-            @Override
-            public void onNext(ResultBean<ArrayList<CategoryListBean<ArrayList<Object>>>, Object> result) {
-                super.onNext(result);
-            }
-        }));
+                    @Override
+                    public void onNext(ResultBean<ArrayList<CategoryListBean<ArrayList<Object>>>, Object> result) {
+                        super.onNext(result);
+                    }
+                }));
     }
 }

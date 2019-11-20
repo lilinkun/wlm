@@ -27,7 +27,7 @@ public class RushBuyPresenter extends BasePresenter {
     private RushBuyContract rushBuyContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,21 +47,21 @@ public class RushBuyPresenter extends BasePresenter {
     }
 
 
-    public void getRushBuyData(String PageIndex,String PageCount,String GoodsType,String SessionId){
+    public void getRushBuyData(String PageIndex, String PageCount, String GoodsType, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "Goods");
         params.put("fun", "LimitedActivityGoods_List");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
         params.put("GoodsType", GoodsType);
-        params.put("SessionId",SessionId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.rushBuy(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<RushBuyBean>,Object>(){
+                .subscribe(new HttpResultCallBack<ArrayList<RushBuyBean>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<RushBuyBean> o, String status,Object page) {
+                    public void onResponse(ArrayList<RushBuyBean> o, String status, Object page) {
                         rushBuyContract.getDataSuccess(o);
                     }
 
@@ -71,7 +71,7 @@ public class RushBuyPresenter extends BasePresenter {
                     }
 
                     @Override
-                    public void onNext(ResultBean<ArrayList<RushBuyBean>,Object> o) {
+                    public void onNext(ResultBean<ArrayList<RushBuyBean>, Object> o) {
                         super.onNext(o);
                     }
 
@@ -79,7 +79,7 @@ public class RushBuyPresenter extends BasePresenter {
         );
     }
 
-    public void getData(String PageIndex,String PageCount,String GoodsType,String SessionId) {
+    public void getData(String PageIndex, String PageCount, String GoodsType, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "Goods");
         params.put("fun", "aheadActivityGoods_List");
@@ -93,7 +93,7 @@ public class RushBuyPresenter extends BasePresenter {
                 .subscribe(new HttpResultCallBack<ArrayList<RushBuyBean>, Object>() {
 
                     @Override
-                    public void onResponse(ArrayList<RushBuyBean> o, String status,Object page) {
+                    public void onResponse(ArrayList<RushBuyBean> o, String status, Object page) {
                         rushBuyContract.getDataSuccess(o);
                     }
 

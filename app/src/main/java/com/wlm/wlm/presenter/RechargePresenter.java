@@ -5,17 +5,12 @@ import android.content.Context;
 
 import com.wlm.wlm.contract.RechargeContract;
 import com.wlm.wlm.entity.BalanceBean;
-import com.wlm.wlm.entity.CollectBean;
-import com.wlm.wlm.entity.CountBean;
 import com.wlm.wlm.entity.WxInfo;
-import com.wlm.wlm.entity.WxInfoBean;
-import com.wlm.wlm.entity.WxRechangeBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
 import com.wlm.wlm.ui.LoaddingDialog;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,7 +28,7 @@ public class RechargePresenter extends BasePresenter {
     private RechargeContract rechargeContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -86,18 +81,18 @@ public class RechargePresenter extends BasePresenter {
                 }));
     }*/
 
-    public void getBalance(String SessionId){
+    public void getBalance(String SessionId) {
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
         final LoaddingDialog loaddingDialog = new LoaddingDialog(mContext);
         loaddingDialog.show();
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","UserBase");
-        params.put("fun","BankBase_GetBalance");
-        params.put("SessionId",SessionId);
+        params.put("cls", "UserBase");
+        params.put("fun", "BankBase_GetBalance");
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getBalance(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<BalanceBean,Object>() {
+                .subscribe(new HttpResultCallBack<BalanceBean, Object>() {
                     @Override
                     public void onResponse(BalanceBean balanceBean, String status, Object page) {
                         rechargeContract.InfoAccountSuccess(balanceBean);
@@ -116,21 +111,21 @@ public class RechargePresenter extends BasePresenter {
                 }));
     }
 
-    public void setWxPay(String Charge_Type,String Charge_Amt,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取余额中...",true);
+    public void setWxPay(String Charge_Type, String Charge_Amt, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取余额中...", true);
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankCharge");
-        params.put("fun","BankChargeRecharge");
-        params.put("Charge_Type",Charge_Type);
-        params.put("Logo_ID","11");
-        params.put("Charge_Amt",Charge_Amt);
-        params.put("SessionId",SessionId);
+        params.put("cls", "BankCharge");
+        params.put("fun", "BankChargeRecharge");
+        params.put("Charge_Type", Charge_Type);
+        params.put("Logo_ID", "11");
+        params.put("Charge_Amt", Charge_Amt);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.wxPay(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<WxInfo,Object>() {
+                .subscribe(new HttpResultCallBack<WxInfo, Object>() {
                     @Override
-                    public void onResponse(WxInfo wxInfoBean, String status,Object page) {
+                    public void onResponse(WxInfo wxInfoBean, String status, Object page) {
                         rechargeContract.setReChargeSuccess(wxInfoBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();

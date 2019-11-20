@@ -3,7 +3,6 @@ package com.wlm.wlm.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import com.wlm.wlm.db.DBManager;
 import com.wlm.wlm.entity.OkHttpUtils;
 import com.wlm.wlm.entity.WxUserInfo;
 import com.wlm.wlm.interf.IWxLoginListener;
-import com.wlm.wlm.interf.IWxResultListener;
 import com.wlm.wlm.util.WlmUtil;
 
 import org.json.JSONException;
@@ -61,7 +59,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                     String code = ((SendAuth.Resp) baseResp).code;
                     //获取用户信息
                     getAccessToken(code);
-                }else {
+                } else {
                     finish();
                 }
                 break;
@@ -72,7 +70,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_BAN:
-                Toast.makeText(this,"签名错误",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "签名错误", Toast.LENGTH_LONG).show();
                 break;
             case RETURN_MSG_TYPE_SHARE:
                 finish();
@@ -140,8 +138,8 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 //                                    city, country, headimgurl, unionid);
                             iWxResult.setWxLoginSuccess(wxInfomation);
                             Intent intent = new Intent();
-                            intent.putExtra("wxinfo",wxInfomation);
-                            setResult(RESULT_OK,intent);
+                            intent.putExtra("wxinfo", wxInfomation);
+                            setResult(RESULT_OK, intent);
                             finish();
 
 
@@ -177,11 +175,11 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         super.onPause();
     }
 
-    public static void setLoginListener(IWxLoginListener iWxResultListener){
+    public static void setLoginListener(IWxLoginListener iWxResultListener) {
         iWxResult = iWxResultListener;
     }
 
-    public static void wxType(int type){
+    public static void wxType(int type) {
         wxType = type;
     }
 

@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.ChildListBean;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class OrderShopAdapter extends RecyclerView.Adapter<OrderShopAdapter.View
     private OnItemClickListener mItemClickListener;
 
 
-    public OrderShopAdapter(Context context,ArrayList<ChildListBean> childListBeans){
+    public OrderShopAdapter(Context context, ArrayList<ChildListBean> childListBeans) {
         this.context = context;
         this.childListBeans = childListBeans;
     }
@@ -34,7 +34,7 @@ public class OrderShopAdapter extends RecyclerView.Adapter<OrderShopAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.child_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.child_item, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
         view.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class OrderShopAdapter extends RecyclerView.Adapter<OrderShopAdapter.View
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
@@ -82,12 +82,12 @@ public class OrderShopAdapter extends RecyclerView.Adapter<OrderShopAdapter.View
         mItemClickListener = itemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView childImg;
         TextView goodsTitle;

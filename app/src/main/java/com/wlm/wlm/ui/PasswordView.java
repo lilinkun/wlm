@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wlm.wlm.R;
@@ -211,9 +210,9 @@ public class PasswordView extends LinearLayout {
 
     };
 
-    public void gettext(double a,double b){
-        tv_cash_amount.setText(a+"");
-        tv_cash_service_amount.setText(b+"");
+    public void gettext(double a, double b) {
+        tv_cash_amount.setText(a + "");
+        tv_cash_service_amount.setText(b + "");
     }
 
 

@@ -11,34 +11,34 @@ import com.squareup.picasso.Transformation;
 public class MatchTransform implements Transformation {
     private ImageView big_1;
 
-    public void setView(ImageView big_1){
+    public void setView(ImageView big_1) {
         this.big_1 = big_1;
     }
 
     @Override
     public Bitmap transform(Bitmap source) {
-        if(source.getWidth()==0){
+        if (source.getWidth() == 0) {
             return source;
         }
 
         int a = big_1.getWidth();
-        if (source.getWidth() > source.getHeight()){
-            int h = source.getHeight()*a/source.getWidth();
+        if (source.getWidth() > source.getHeight()) {
+            int h = source.getHeight() * a / source.getWidth();
             Bitmap result = Bitmap.createScaledBitmap(source, a, h, false);
             if (result != source) {
                 // Same bitmap is returned if sizes are the same
                 source.recycle();
             }
             return result;
-        }else if (source.getWidth() < source.getHeight()){
-            int w = source.getWidth()*a/source.getHeight();
+        } else if (source.getWidth() < source.getHeight()) {
+            int w = source.getWidth() * a / source.getHeight();
             Bitmap result = Bitmap.createScaledBitmap(source, w, a, false);
             if (result != source) {
                 // Same bitmap is returned if sizes are the same
                 source.recycle();
             }
             return result;
-        }else if (source.getWidth() == source.getHeight()){
+        } else if (source.getWidth() == source.getHeight()) {
             Bitmap result = Bitmap.createScaledBitmap(source, a, a, false);
             if (result != source) {
                 // Same bitmap is returned if sizes are the same

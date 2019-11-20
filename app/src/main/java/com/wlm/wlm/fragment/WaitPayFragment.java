@@ -12,13 +12,12 @@ import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.adapter.SelfOrderAdapter;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.SelfOrderContract;
-import com.wlm.wlm.entity.CollectDeleteBean;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.interf.IPayOrderClickListener;
 import com.wlm.wlm.presenter.SelfOrderPresenter;
 import com.wlm.wlm.util.ButtonUtils;
-import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.util.UiHelper;
+import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,7 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
 
     @Override
     public void initEventAndData() {
-        selfOrderPresenter.onCreate(getActivity(),this);
+        selfOrderPresenter.onCreate(getActivity(), this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -66,27 +65,27 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
             @Override
             public void onRefresh() {
                 pageIndex = 1;
-                selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"0", ProApplication.SESSIONID(getActivity()));
+                selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "0", ProApplication.SESSIONID(getActivity()));
             }
         });
 
-        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"0", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "0", ProApplication.SESSIONID(getActivity()));
     }
 
-    public void setData(){
+    public void setData() {
         if (getActivity() != null) {
-            selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT, "0", ProApplication.SESSIONID(getActivity()));
+            selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "0", ProApplication.SESSIONID(getActivity()));
         }
     }
 
 
-    public void setPayListener(IPayOrderClickListener payListener){
+    public void setPayListener(IPayOrderClickListener payListener) {
         this.iPayOrderClickListener = payListener;
     }
 
     @Override
     public void getDataSuccess(ArrayList<SelfOrderBean> selfOrderBeans) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         waitPayRv.setVisibility(View.VISIBLE);
@@ -99,10 +98,10 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
                 waitPayRv.setVisibility(View.VISIBLE);
                 ll_no_order.setVisibility(View.GONE);
                 selfOrderAdapter.setItemClickListener(this);
-            }else {
+            } else {
                 selfOrderAdapter.setData(selfOrderBeans);
             }
-        }else {
+        } else {
             ll_no_order.setVisibility(View.VISIBLE);
             waitPayRv.setVisibility(View.GONE);
         }
@@ -110,7 +109,7 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
 
     @Override
     public void getDataFail(String msg) {
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         ll_no_order.setVisibility(View.VISIBLE);
@@ -122,8 +121,8 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     @Override
     public void exitOrderSuccess(String deleteBean) {
 
-        for (int i = 0;i<selfOrderBeans.size();i++){
-            if(selfOrderBeans.get(i).getOrderSn().equals(orderId)){
+        for (int i = 0; i < selfOrderBeans.size(); i++) {
+            if (selfOrderBeans.get(i).getOrderSn().equals(orderId)) {
                 selfOrderBeans.remove(i);
                 if (selfOrderAdapter != null) {
                     selfOrderAdapter.setData(selfOrderBeans);
@@ -140,12 +139,12 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     @Override
     public void exit_order(String orderId) {
         this.orderId = orderId;
-        selfOrderPresenter.exitOrder(orderId,ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.exitOrder(orderId, ProApplication.SESSIONID(getActivity()));
     }
 
     @Override
     public void go_pay(SelfOrderBean orderId) {
-        iPayOrderClickListener.payMode(orderId,1);
+        iPayOrderClickListener.payMode(orderId, 1);
     }
 
     @Override
@@ -171,6 +170,6 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
 
     @Override
     public void loadData() {
-        selfOrderPresenter.getOrderData(pageIndex+"", WlmUtil.PAGE_COUNT,"0", ProApplication.SESSIONID(getActivity()));
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "0", ProApplication.SESSIONID(getActivity()));
     }
 }

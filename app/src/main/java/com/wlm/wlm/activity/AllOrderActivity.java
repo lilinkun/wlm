@@ -118,13 +118,13 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     TextView tv_query_logistics;
 
     AllOrderPresenter allOrderPresenter = new AllOrderPresenter();
-//    private OrderDetailBean orderDetailBean;
+    //    private OrderDetailBean orderDetailBean;
     private OrderDetailAddressBean orderDetailBeans;
     private PopupWindow payPopupWindow;
     private String orderId = "";
     private String orderSn = "";
     private int status = 0;
-    private Dialog payDialog ;
+    private Dialog payDialog;
     double payid = 0;
     double useIntegral = 0;
     double shipping_fee = 0;
@@ -137,14 +137,14 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
         orderSn = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("order_sn");
         status = getIntent().getBundleExtra(WlmUtil.TYPEID).getInt("status");
         order_sn.setText(orderSn);
 
         ActivityUtil.addHomeActivity(this);
 
-        allOrderPresenter.onCreate(this,this);
+        allOrderPresenter.onCreate(this, this);
 
         allOrderPresenter.cartBuy(orderSn, ProApplication.SESSIONID(this));
 
@@ -157,12 +157,12 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
         iv_address_right.setVisibility(View.GONE);
 
-        if (status == 1 ){
+        if (status == 1) {
             tv_pay_style.setText("未发货");
             tv_pay_message.setText("买家已付款，等待发货");
             rl_bottom.setVisibility(View.GONE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_pay);
-        }else if (status == 2){
+        } else if (status == 2) {
             tv_exit_order.setVisibility(View.GONE);
             tv_pay_order.setText("确认收货");
             tv_pay_style.setText("已发货");
@@ -171,13 +171,13 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             ll_lgs_time.setVisibility(View.VISIBLE);
             ll_lgs.setVisibility(View.VISIBLE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
-        }else if (status == 0){
+        } else if (status == 0) {
             tv_exit_order.setText("取消订单");
             tv_pay_order.setText("立即付款");
             tv_pay_style.setText("未付款");
             tv_pay_message.setText("您的订单已提交，请尽快完成支付，确保宝贝早日到达您的身边。");
             iv_order_status.setImageResource(R.mipmap.ic_order_status_unpay);
-        } else if(status == 4){
+        } else if (status == 4) {
             tv_pay_style.setText("交易完成");
             tv_pay_message.setText("您的交易已经完成");
             tv_pay_order.setText("删除订单");
@@ -189,7 +189,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_order.setVisibility(View.GONE);
 //            rl_bottom.setVisibility(View.GONE);
             iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
-        } else if(status == 5){
+        } else if (status == 5) {
             tv_pay_style.setText("交易失效");
             tv_pay_message.setText("");
             rl_bottom.setVisibility(View.GONE);
@@ -197,9 +197,9 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
 
-    @OnClick({R.id.ll_back,R.id.tv_query_logistics})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ll_back, R.id.tv_query_logistics})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_back:
 
                 setResult(RESULT_OK);
@@ -210,9 +210,9 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             case R.id.tv_query_logistics:
 
                 Bundle bundle = new Bundle();
-                bundle.putString("type","5");
-                bundle.putString("ordersn",orderSn);
-                UiHelper.launcherBundle(this, WebViewActivity.class,bundle);
+                bundle.putString("type", "5");
+                bundle.putString("ordersn", orderSn);
+                UiHelper.launcherBundle(this, WebViewActivity.class, bundle);
 
                 break;
         }
@@ -221,7 +221,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             setResult(RESULT_OK);
             finish();
@@ -238,7 +238,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         this.orderDetailBeans = orderDetailBeans;
 //        OrderAdapter orderAdapter = new OrderAdapter(this,orderDetailBeans);
 
-        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(this,orderDetailBeans.getOrderDetail());
+        OrderChildAdapter orderChildAdapter = new OrderChildAdapter(this, orderDetailBeans.getOrderDetail());
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
 //        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 //
@@ -246,8 +246,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             @Override
             public void onItemClick(int positionId) {
                 Bundle bundle = new Bundle();
-                bundle.putString("goodsid",orderDetailBeans.getOrderDetail().get(positionId).getGoodsId());
-                UiHelper.launcherBundle(AllOrderActivity.this,SelfGoodsDetailActivity.class,bundle);
+                bundle.putString("goodsid", orderDetailBeans.getOrderDetail().get(positionId).getGoodsId());
+                UiHelper.launcherBundle(AllOrderActivity.this, SelfGoodsDetailActivity.class, bundle);
             }
         });
 //
@@ -267,24 +267,24 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         BigDecimal b = new BigDecimal(order_amount);
         order_amount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        useIntegral+= orderDetailBeans.getIntegral();
+        useIntegral += orderDetailBeans.getIntegral();
         shipping_fee += orderDetailBeans.getShippingFree();
-        payid+= orderDetailBeans.getOrderAmount();
+        payid += orderDetailBeans.getOrderAmount();
 
-        if (useIntegral == 0){
+        if (useIntegral == 0) {
             rl_need_integral.setVisibility(View.GONE);
             view_need_integral.setVisibility(View.GONE);
         }
 
-        if (ll_point != null){
+        if (ll_point != null) {
             ll_point.setVisibility(View.GONE);
         }
 
-        goods_total_price.setText("¥"+payid + "");
+        goods_total_price.setText("¥" + payid + "");
         tv_use_point.setText("" + useIntegral);
         tv_fare.setText(shipping_fee + "");
-        tv_total.setText("¥"+ order_amount + "");
-        tv_order_pay_price.setText("¥"+ order_amount+"");
+        tv_total.setText("¥" + order_amount + "");
+        tv_order_pay_price.setText("¥" + order_amount + "");
 
         tv_consignee_address.setText(orderDetailBeans.getAddressName() + orderDetailBeans.getAddress());
         tv_consignee_name.setText(orderDetailBeans.getConsignee());
@@ -295,7 +295,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             ll_pay_date.setVisibility(View.VISIBLE);
             tv_pay_date.setText(orderDetailBeans.getPayDate() + "");
         }
-        send_out_date.setText(orderDetailBeans.getShippingDate()+"");
+        send_out_date.setText(orderDetailBeans.getShippingDate() + "");
         logistics_information.setText(orderDetailBeans.getLgsName() + " " + orderDetailBeans.getLgsNumber());
 
         tv_exit_order.setOnClickListener(new View.OnClickListener() {
@@ -327,17 +327,17 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                     if (status == 0) {
 
                         Bundle bundle = new Bundle();
-                        bundle.putString(WlmUtil.ORDERID,orderDetailBeans.getOrderSn()+"");
-                        bundle.putString(WlmUtil.ORDERAMOUNT,orderDetailBeans.getOrderAmount()+"");
-                        bundle.putString(WlmUtil.WHERE,"allorder");
-                        UiHelper.launcherForResultBundle(AllOrderActivity.this,PayActivity.class,0x1231,bundle);
+                        bundle.putString(WlmUtil.ORDERID, orderDetailBeans.getOrderSn() + "");
+                        bundle.putString(WlmUtil.ORDERAMOUNT, orderDetailBeans.getOrderAmount() + "");
+                        bundle.putString(WlmUtil.WHERE, "allorder");
+                        UiHelper.launcherForResultBundle(AllOrderActivity.this, PayActivity.class, 0x1231, bundle);
 //                        allOrderPresenter.getOrderData(ProApplication.SESSIONID(AllOrderActivity.this));
                     } else if (status == 2) {
 
                         new AlertDialog.Builder(AllOrderActivity.this).setMessage("是否确定收货").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn()+"", ProApplication.SESSIONID(AllOrderActivity.this));
+                                allOrderPresenter.sureReceipt(orderDetailBeans.getOrderSn() + "", ProApplication.SESSIONID(AllOrderActivity.this));
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
@@ -361,18 +361,18 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
     @Override
     public void exitOrderSuccess(String collectDeleteBean) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
-            toast("取消订单成功");
-            setResult(RESULT_OK);
-            finish();
+        toast("取消订单成功");
+        setResult(RESULT_OK);
+        finish();
 
     }
 
     @Override
     public void exitOrderFail(String msg) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
         toast(msg);
@@ -390,18 +390,18 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
     @Override
     public void selfPaySuccess(String collectDeleteBean) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
-            payDialog.dismiss();
-            toast("支付成功");
-            setResult(RESULT_OK);
-            finish();
+        payDialog.dismiss();
+        toast("支付成功");
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void selfPayFail(String msg) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
         toast(msg);
@@ -409,17 +409,17 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
     @Override
     public void sureReceiptSuccess(String collectDeleteBean) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
-            toast("收货成功");
-            setResult(RESULT_OK);
-            finish();
+        toast("收货成功");
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void sureReceiptFail(String msg) {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
         toast(msg);
@@ -428,7 +428,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     @Override
     public void wxInfoSuccess(WxRechangeBean wxRechangeBean) {
         WxInfoBean wxInfoBean = wxRechangeBean.getData();
-        WlmUtil.wxPay(wxInfoBean.getAppid(),wxInfoBean.getPartnerid(),wxInfoBean.getPrepayid(),wxInfoBean.getNoncestr(),wxInfoBean.getTimestamp(),wxInfoBean.getSign(),this);
+        WlmUtil.wxPay(wxInfoBean.getAppid(), wxInfoBean.getPartnerid(), wxInfoBean.getPrepayid(), wxInfoBean.getNoncestr(), wxInfoBean.getTimestamp(), wxInfoBean.getSign(), this);
     }
 
     @Override
@@ -437,10 +437,10 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     }
 
 
-    public void showPopup(CountBean countBean){
+    public void showPopup(CountBean countBean) {
         iv_bg.setVisibility(View.VISIBLE);
-        View view = LayoutInflater.from(this).inflate(R.layout.popup_order,null);
-        payPopupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
+        View view = LayoutInflater.from(this).inflate(R.layout.popup_order, null);
+        payPopupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
         payPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         payPopupWindow.setFocusable(true);
         payPopupWindow.setOutsideTouchable(true);
@@ -448,7 +448,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
         payPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             public void onDismiss() {
-                if (iv_bg != null){
+                if (iv_bg != null) {
                     iv_bg.setVisibility(View.GONE);
                 }
             }
@@ -486,9 +486,9 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
         tv_right_now_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check_self.isChecked()){
+                if (check_self.isChecked()) {
                     payPopupWindow.dismiss();
-                    View view = LayoutInflater.from(AllOrderActivity.this).inflate(R.layout.dialog_pay,null);
+                    View view = LayoutInflater.from(AllOrderActivity.this).inflate(R.layout.dialog_pay, null);
 
                     payDialog = new Dialog(AllOrderActivity.this);
                     payDialog.setContentView(view);
@@ -501,17 +501,17 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
                         }
                     });
 
-                }else if (check_wx.isChecked()){
+                } else if (check_wx.isChecked()) {
                     payPopupWindow.dismiss();
 //                    toast("你瞅我干啥，暂时不能微信支付类");
-                    allOrderPresenter.setWxPay(orderDetailBeans.getOrderSn()+"",order_amount+"","29","1","Android","com.wlm.wlm",ProApplication.SESSIONID(AllOrderActivity.this));
-                }else {
+                    allOrderPresenter.setWxPay(orderDetailBeans.getOrderSn() + "", order_amount + "", "29", "1", "Android", "com.wlm.wlm", ProApplication.SESSIONID(AllOrderActivity.this));
+                } else {
                     toast("请选择支付方式");
                 }
             }
         });
 
-        tv_price.setText("¥" + order_amount+"");
+        tv_price.setText("¥" + order_amount + "");
 
         rl_self.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -539,21 +539,21 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
     @Override
     public void setWxSuccess() {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
-        if (payDialog!= null && payDialog.isShowing()) {
+        if (payDialog != null && payDialog.isShowing()) {
             payDialog.dismiss();
         }
-            toast("支付成功");
-            setResult(RESULT_OK);
-            finish();
+        toast("支付成功");
+        setResult(RESULT_OK);
+        finish();
 
     }
 
     @Override
     public void setWxFail() {
-        if (!tv_pay_order.isClickable()){
+        if (!tv_pay_order.isClickable()) {
             tv_pay_order.setClickable(true);
         }
 
@@ -568,7 +568,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == RESULT_OK && requestCode == 0x1231){
+        if (resultCode == RESULT_OK && requestCode == 0x1231) {
             setResult(RESULT_OK);
             finish();
             return;

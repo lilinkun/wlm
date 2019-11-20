@@ -2,14 +2,12 @@ package com.wlm.wlm.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.util.PrefManager;
@@ -43,20 +40,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //在setContentView()前检查是否第一次运行
         prefManager = new PrefManager(this);
-        if(!prefManager.isFirstTimeLaunch()){
+        if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }
 
         //让状态栏透明
-        if(Build.VERSION.SDK_INT >= 21){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager)findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout)findViewById(R.id.layoutDots);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnNext = (Button) findViewById(R.id.btn_next);
 
         //添加欢迎页面
@@ -80,9 +77,9 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int current = getItem(+1);
-                if(current < layouts.length){
+                if (current < layouts.length) {
                     viewPager.setCurrentItem(current);
-                }else{
+                } else {
                     launchHomeScreen();
                 }
             }
@@ -90,42 +87,42 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    private void addBottomDots(int currentPage){
+    private void addBottomDots(int currentPage) {
         dots = new ImageView[layouts.length];
 
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
         dotsLayout.removeAllViews();
-        for(int i = 0; i < dots.length; i++){
+        for (int i = 0; i < dots.length; i++) {
             dots[i] = new ImageView(this);
 //            dots[i].setText(Html.fromHtml("&#8226;"));//圆点
 //            dots[i].setTextSize(35);
 //            dots[i].setTextColor(colorsInactive[currentPage]);
-            if (currentPage%2 == 0) {
+            if (currentPage % 2 == 0) {
                 dots[i].setImageResource(R.mipmap.ic_welcome_unclick1);
-            }else {
+            } else {
                 dots[i].setImageResource(R.mipmap.ic_welcome_unclick2);
             }
-            dots[i].setPadding(15,0,15,0);
+            dots[i].setPadding(15, 0, 15, 0);
             dotsLayout.addView(dots[i]);
         }
 
-        if(dots.length > 0){
-            if (currentPage%2 == 0){
+        if (dots.length > 0) {
+            if (currentPage % 2 == 0) {
                 dots[currentPage].setImageResource(R.mipmap.ic_welcome_click1);
-            }else {
+            } else {
                 dots[currentPage].setImageResource(R.mipmap.ic_welcome_click2);
             }
 //            dots[currentPage].setTextColor(colorsActive[currentPage]);
         }
     }
 
-    private int getItem(int i){
+    private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
 
-    private void launchHomeScreen(){
+    private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
         Intent intent = null;
         intent = new Intent(getBaseContext(), SplashActivity.class);
@@ -136,15 +133,15 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * 让状态栏变透明
      */
-    private void changeStatusBarColor(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
 
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener(){
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -156,10 +153,10 @@ public class WelcomeActivity extends AppCompatActivity {
             addBottomDots(position);
 
             //改变下一步按钮text  “NEXT”或“GOT IT”
-            if(position == layouts.length - 1){
+            if (position == layouts.length - 1) {
                 btnNext.setText("立即体验");
                 btnNext.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 btnNext.setText("下一步");
                 btnNext.setVisibility(View.GONE);
             }
@@ -175,13 +172,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
         private LayoutInflater layoutInflater;
 
-        public MyViewPagerAdapter(){}
+        public MyViewPagerAdapter() {
+        }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position],container,false);
+            View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             return view;
         }
@@ -198,7 +196,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            View view = (View)object;
+            View view = (View) object;
             container.removeView(view);
         }
     }

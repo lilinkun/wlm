@@ -21,7 +21,7 @@ public class GrouponDetailAdapter extends RecyclerView.Adapter<GrouponDetailAdap
     private Context context;
     private ArrayList<JoinGrouponBean> joinGrouponBeans;
 
-    public GrouponDetailAdapter(Context context, ArrayList<JoinGrouponBean> joinGrouponBeans){
+    public GrouponDetailAdapter(Context context, ArrayList<JoinGrouponBean> joinGrouponBeans) {
         this.context = context;
         this.joinGrouponBeans = joinGrouponBeans;
     }
@@ -29,7 +29,7 @@ public class GrouponDetailAdapter extends RecyclerView.Adapter<GrouponDetailAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_groupondetail,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_groupondetail, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -47,7 +47,7 @@ public class GrouponDetailAdapter extends RecyclerView.Adapter<GrouponDetailAdap
         return joinGrouponBeans.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private RoundImageView roundImageView;
 

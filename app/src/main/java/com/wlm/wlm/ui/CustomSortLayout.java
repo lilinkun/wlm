@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +31,8 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     private XRecyclerView recyclerView;
     private TbHotGoodsAdapter tbHotGoodsAdapter = null;
     private ArrayList<GoodsListBean> goodsListBeans = null;
-    private int type ;
-//    private SwipeRefreshLayout refreshLayout;
+    private int type;
+    //    private SwipeRefreshLayout refreshLayout;
     private SortListerner sortListerner;
     private int lastVisibleItem = 0;
     private int PAGE_INDEX = 0;
@@ -45,7 +44,7 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
     public CustomSortLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context,attrs);
+        init(context, attrs);
     }
 
     public CustomSortLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -53,11 +52,11 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     }
 
 
-    private void init(Context context,AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
 
         this.context = context;
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_sort,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_sort, null);
 
 //        refreshLayout = view.findViewById(R.id.refreshLayout);
 
@@ -66,10 +65,10 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
         int spanCount1 = 10; // 2 columns
         int spacing1 = 20; // 50px
 
-        final GridLayoutManager layoutManager = new GridLayoutManager(context,2);
+        final GridLayoutManager layoutManager = new GridLayoutManager(context, 2);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
-        recyclerView.addItemDecoration(new SpaceXItemDecoration(spanCount1, spacing1,0));
+        recyclerView.addItemDecoration(new SpaceXItemDecoration(spanCount1, spacing1, 0));
 
         recyclerView.setLayoutManager(layoutManager);
 
@@ -87,14 +86,14 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
             @Override
             public void onLoadMore() {
                 if (tbHotGoodsAdapter != null) {
-                        if (PAGE_INDEX  >= Integer.valueOf(pageBean.getMaxPage())){
+                    if (PAGE_INDEX >= Integer.valueOf(pageBean.getMaxPage())) {
 //                            recyclerView.loadMoreComplete();
-                            recyclerView.setNoMore(true);
-                        }else {
-                            PAGE_INDEX++;
-                            sortListerner.onLoadding(PAGE_INDEX);
+                        recyclerView.setNoMore(true);
+                    } else {
+                        PAGE_INDEX++;
+                        sortListerner.onLoadding(PAGE_INDEX);
 
-                        }
+                    }
 
                 }
             }
@@ -105,14 +104,15 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
 
     /**
      * 界面点击typeid
+     *
      * @param position
      */
-    public void setType(int position){
+    public void setType(int position) {
 
     }
 
 
-    public void setPageIndex(int pageIndex, PageBean pageBean){
+    public void setPageIndex(int pageIndex, PageBean pageBean) {
 //        if (refreshLayout != null && refreshLayout.isRefreshing()){
 //            refreshLayout.setRefreshing(false);
 //        }
@@ -121,25 +121,25 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     }
 
 
-    public void setData(ArrayList<GoodsListBean> goodsListBeans,int type){
+    public void setData(ArrayList<GoodsListBean> goodsListBeans, int type) {
 
         recyclerView.refreshComplete();
 
         recyclerView.loadMoreComplete();
 
         this.type = type;
-        if(tbHotGoodsAdapter == null){
-            this.goodsListBeans  = goodsListBeans;
-            tbHotGoodsAdapter = new TbHotGoodsAdapter(context,goodsListBeans,LayoutInflater.from(context));
+        if (tbHotGoodsAdapter == null) {
+            this.goodsListBeans = goodsListBeans;
+            tbHotGoodsAdapter = new TbHotGoodsAdapter(context, goodsListBeans, LayoutInflater.from(context));
             if (type == WlmUtil.GOODSTYPE_INTEGRAL) {
                 tbHotGoodsAdapter.setAdd_Integral();
             }
             recyclerView.setAdapter(tbHotGoodsAdapter);
             tbHotGoodsAdapter.setItemClickListener(this);
-        }else {
+        } else {
             if (PAGE_INDEX == 1) {
-                this.goodsListBeans  = goodsListBeans;
-            }else {
+                this.goodsListBeans = goodsListBeans;
+            } else {
                 this.goodsListBeans.addAll(goodsListBeans);
             }
             tbHotGoodsAdapter.setData(this.goodsListBeans);
@@ -151,18 +151,19 @@ public class CustomSortLayout extends LinearLayout implements TbHotGoodsAdapter.
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
+        bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
 //        bundle.putString(WlmUtil.TYPE,type);
-        UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class,bundle);
+        UiHelper.launcherBundle(context, SelfGoodsDetailActivity.class, bundle);
     }
 
-    public void setListener(SortListerner listener){
+    public void setListener(SortListerner listener) {
         this.sortListerner = listener;
     }
 
 
-    public interface SortListerner{
+    public interface SortListerner {
         public void onRefresh();
+
         public void onLoadding(int page);
     }
 }

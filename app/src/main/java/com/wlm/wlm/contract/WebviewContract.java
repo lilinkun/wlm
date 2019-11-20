@@ -9,5 +9,6 @@ import com.wlm.wlm.mvp.IView;
 public interface WebviewContract extends IView {
 
     public void onDataSuccess(String str);
+
     public void onDataFail(String msg);
 }

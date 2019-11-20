@@ -49,9 +49,9 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
     @Override
     public void initEventAndData() {
 
-        selfGoodsPresenter.onCreate(getActivity(),this);
+        selfGoodsPresenter.onCreate(getActivity(), this);
 
-        selfGoodsPresenter.getGoodList("1","20","132","add_time","","",ProApplication.SESSIONID(getActivity()));
+        selfGoodsPresenter.getGoodList("1", "20", "132", "add_time", "", "", ProApplication.SESSIONID(getActivity()));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,7 +60,7 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
             }
         });
 
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         int spanCount = 2; // 2 columns
@@ -89,6 +89,7 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
                     }
                 }
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -100,8 +101,7 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
     }
 
 
-
-    public void onPageChange(int page){
+    public void onPageChange(int page) {
 //        tbDisCountBeans.clear();
 //        PAGE_INDEX = 1;
 //        tbAllPresenter.setList(PAGE_INDEX + "",PAGE_COUNT,"64362000477",getArguments().getString("TBId"), LzyydUtil.strs[page], ProApplication.SESSIONID(getActivity()));
@@ -109,14 +109,14 @@ public class SelfGoodFragment extends BaseFragment implements SelfGoodsContract,
 
 
     @Override
-    public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans,boolean load) {
+    public void getDataSuccess(ArrayList<SelfGoodsBean> selfGoodsBeans, boolean load) {
         this.selfGoodsBeans = selfGoodsBeans;
         this.isLoad = load;
         if (selfGoodsAdapter == null) {
 //            selfGoodsAdapter = new SelfGoodsAdapter(getActivity(), selfGoodsBeans,2);
 //            mSelfGoodsRv.setAdapter(selfGoodsAdapter);
 //            selfGoodsAdapter.setItemClickListener(this);
-        }else {
+        } else {
 
         }
 

@@ -14,16 +14,20 @@ public abstract class BaseCountdownTimeQueueManager {
     protected ArrayList<CountdownTime> timeQueue;
     protected Timer timeTimer;
     protected TimerTask timeTask;
-    public void removeTime(CountdownTime time){
-        if(timeQueue != null){
-            for(int i = 0;i<timeQueue.size();i++){
-                if(TextUtils.equals(time.getId(),timeQueue.get(i).getId())){
+
+    public void removeTime(CountdownTime time) {
+        if (timeQueue != null) {
+            for (int i = 0; i < timeQueue.size(); i++) {
+                if (TextUtils.equals(time.getId(), timeQueue.get(i).getId())) {
                     timeQueue.remove(i);
                 }
             }
         }
     }
+
     abstract void countdownTimeQueue();
+
     abstract void initCountdownTimeQueueManager();
-    public abstract CountdownTime addTime(int time,String id,CountdownTime.OnCountdownTimeListener listener);
+
+    public abstract CountdownTime addTime(int time, String id, CountdownTime.OnCountdownTimeListener listener);
 }

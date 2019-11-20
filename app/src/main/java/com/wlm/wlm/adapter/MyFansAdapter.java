@@ -24,7 +24,7 @@ public class MyFansAdapter extends RecyclerView.Adapter<MyFansAdapter.ViewHolder
     private OnItemClickListener mItemClickListener;
 
 
-    public MyFansAdapter(Context context, ArrayList<FansBean> fansBeans){
+    public MyFansAdapter(Context context, ArrayList<FansBean> fansBeans) {
         this.context = context;
         this.fansBeans = fansBeans;
     }
@@ -32,7 +32,7 @@ public class MyFansAdapter extends RecyclerView.Adapter<MyFansAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_fans,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_fans, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -41,14 +41,14 @@ public class MyFansAdapter extends RecyclerView.Adapter<MyFansAdapter.ViewHolder
         return viewHolder;
     }
 
-    public void setData(ArrayList<FansBean> fansBeans){
+    public void setData(ArrayList<FansBean> fansBeans) {
         this.fansBeans = fansBeans;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(fansBeans.get(position).getPortrait() != null && !fansBeans.get(position).getPortrait().equals("")) {
+        if (fansBeans.get(position).getPortrait() != null && !fansBeans.get(position).getPortrait().equals("")) {
             Picasso.with(context).load(fansBeans.get(position).getPortrait()).error(R.mipmap.ic_adapter_error).into(holder.riv_fans);
         }
 
@@ -64,12 +64,12 @@ public class MyFansAdapter extends RecyclerView.Adapter<MyFansAdapter.ViewHolder
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) v.getTag());
         }
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
@@ -78,10 +78,10 @@ public class MyFansAdapter extends RecyclerView.Adapter<MyFansAdapter.ViewHolder
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         RoundImageView riv_fans;
-        TextView tv_fans_name,tv_status,tv_create_time;
+        TextView tv_fans_name, tv_status, tv_create_time;
 
 
         public ViewHolder(View itemView) {

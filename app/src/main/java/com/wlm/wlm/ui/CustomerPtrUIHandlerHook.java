@@ -7,7 +7,7 @@ import in.srain.cube.views.ptr.PtrUIHandlerHook;
  */
 public class CustomerPtrUIHandlerHook extends PtrUIHandlerHook {
 
-    public interface OnPtrUIHandlerHookCallback{
+    public interface OnPtrUIHandlerHookCallback {
         void onPtrUIHandlerHookStart();
     }
 

@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
-import com.wlm.wlm.util.UToast;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.wlm.wlm.util.UToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,9 @@ public abstract class BaseGoodsActivity extends RxAppCompatActivity {
     public abstract int getLayoutId();
 
     public abstract void initEventAndData();
+
     // 去掉第一个跳转的Activity
-    public void removeLast(){
+    public void removeLast() {
         activityList.get(1).finish();
         activityList.remove(1);
     }
@@ -55,9 +55,9 @@ public abstract class BaseGoodsActivity extends RxAppCompatActivity {
     }
 
     // 移除所有Activity
-    public void finishAll(){
-        for (Activity activity : activityList){
-            if(!activity.isFinishing()){
+    public void finishAll() {
+        for (Activity activity : activityList) {
+            if (!activity.isFinishing()) {
                 activity.finish();
             }
         }

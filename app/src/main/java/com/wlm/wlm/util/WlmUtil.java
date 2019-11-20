@@ -1,9 +1,6 @@
 package com.wlm.wlm.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -14,7 +11,6 @@ import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.ui.CountdownView;
@@ -56,9 +52,9 @@ public class WlmUtil {
     public static final int GOODSTYPE_SECKILL = 128;//秒杀
     public static final int GOODSTYPE_BEAUTY_HEALTH = 256;//医美健康
 
-    public static  final String PAGE_COUNT = "20";
+    public static final String PAGE_COUNT = "20";
 
-//    public static final String APP_ID = "wx7b154709878a1cbe";
+    //    public static final String APP_ID = "wx7b154709878a1cbe";
     public static final String APP_ID = "wx11a116ef840f67f9";
     public static final String SECRET = "579a6a72da743151f2a4eb6c78fef144";
 
@@ -122,16 +118,17 @@ public class WlmUtil {
     public static String RESULT_SUCCESS = "success";
     public static String RESULT_FAIL = "fail";
 
-    public static String[] strs = {"tk_total_sales_des","total_sales_des","price_des","price_asc","tk_total_commi_des","tk_total_commi_asc"};
+    public static String[] strs = {"tk_total_sales_des", "total_sales_des", "price_des", "price_asc", "tk_total_commi_des", "tk_total_commi_asc"};
 
 
-    public static final void setInputMethod(Context context){
+    public static final void setInputMethod(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
      * 序列化对象
+     *
      * @param loginBean
      * @return
      * @throws IOException
@@ -151,6 +148,7 @@ public class WlmUtil {
 
     /**
      * 序列化对象
+     *
      * @return
      * @throws IOException
      */
@@ -169,6 +167,7 @@ public class WlmUtil {
 
     /**
      * 反序列化对象
+     *
      * @param str
      * @throws IOException
      * @throws ClassNotFoundException
@@ -188,6 +187,7 @@ public class WlmUtil {
 
     /**
      * 反序列化对象
+     *
      * @param str
      * @throws IOException
      * @throws ClassNotFoundException
@@ -206,7 +206,7 @@ public class WlmUtil {
     }
 
     //WlmUtil.wxPay(wxInfo.getAppId(),wxInfo.getPartnerid(),wxInfo.getPrepayid(),wxInfo.getNonceStr(),wxInfo.getTimeStamp(),wxInfo.getPaySign(),this);
-    public static void wxPay(String appid,String partnerId,String prepayId,String nonceStr,String timeStamp,String sign,Context context) {
+    public static void wxPay(String appid, String partnerId, String prepayId, String nonceStr, String timeStamp, String sign, Context context) {
         Toast.makeText(context, "获取订单中...", Toast.LENGTH_SHORT).show();
         IWXAPI api = WXAPIFactory.createWXAPI(context, null);
         api.registerApp(appid);
@@ -233,7 +233,7 @@ public class WlmUtil {
         }
     }
 
-    public static void wxPay1(String appid,String prepayId,String partnerId,String nonceStr,String timeStamp,String sign,Context context) {
+    public static void wxPay1(String appid, String prepayId, String partnerId, String nonceStr, String timeStamp, String sign, Context context) {
         Toast.makeText(context, "获取订单中...", Toast.LENGTH_SHORT).show();
         IWXAPI api = WXAPIFactory.createWXAPI(context, null);
         api.registerApp(appid);
@@ -259,24 +259,24 @@ public class WlmUtil {
         }
     }
 
-    public static String getCurDate(){
+    public static String getCurDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         String curDate = simpleDateFormat.format(date);
         return curDate;
     }
 
-    public static String redecuStr(String total,String reduce){
+    public static String redecuStr(String total, String reduce) {
         String dd = "";
-        if(total.contains(reduce)){
-            dd = total.substring(0,total.indexOf(reduce));
-            dd = dd + total.substring(total.indexOf(reduce)+reduce.length(),total.length());
+        if (total.contains(reduce)) {
+            dd = total.substring(0, total.indexOf(reduce));
+            dd = dd + total.substring(total.indexOf(reduce) + reduce.length(), total.length());
         }
         return dd;
     }
 
 
-    public static int isCountdown(String startStr, String endStr, CountdownView countdownView){
+    public static int isCountdown(String startStr, String endStr, CountdownView countdownView) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long startTime = 0;
         long endTime = 0;
@@ -287,38 +287,38 @@ public class WlmUtil {
             e.printStackTrace();
         }
         long nowTime = (new Date()).getTime();
-        if (startTime > nowTime){
+        if (startTime > nowTime) {
             countdownView.start(startTime - nowTime);
             return 0;
-        }else if(endTime > (new Date()).getTime()){
+        } else if (endTime > (new Date()).getTime()) {
             countdownView.start(endTime - nowTime);
             return 1;
-        }else {
+        } else {
             return 2;
         }
     }
 
-    public static String getPriceNum(double price){
+    public static String getPriceNum(double price) {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setGroupingUsed(false);
         String balance = numberFormat.format(price);
         return balance;
     }
 
-    public static String getType(String type){
-        if (type.equals("1")){
+    public static String getType(String type) {
+        if (type.equals("1")) {
             type = WlmUtil.INTEGRAL;
-        }else if (type.equals("4")){
+        } else if (type.equals("4")) {
             type = WlmUtil.VIP;
-        }else if (type.equals("8")){
+        } else if (type.equals("8")) {
             type = WlmUtil.MANUFACURE;
-        }else if (type.equals("2")){
+        } else if (type.equals("2")) {
             type = WlmUtil.GROUPONGOODS;
         }
         return type;
     }
 
-    public static void setShared( IWXAPI iwxapi,String path,String title,String description,byte[] byteArray){
+    public static void setShared(IWXAPI iwxapi, String path, String title, String description, byte[] byteArray) {
 
         WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
         miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public interface FindContract extends IView {
 
     public void onGetDataSuccess(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, PageBean pageBean);
+
     public void onGetDataFail(String msg);
 
 }

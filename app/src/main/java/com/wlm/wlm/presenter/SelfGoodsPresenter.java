@@ -3,9 +3,7 @@ package com.wlm.wlm.presenter;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.contract.SelfGoodsContract;
-import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.SelfGoodsBean;
@@ -31,7 +29,7 @@ public class SelfGoodsPresenter extends BasePresenter {
     private SelfGoodsContract selfGoodsContract;
 
     @Override
-    public void onCreate(Context mContext,IView view) {
+    public void onCreate(Context mContext, IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -51,8 +49,8 @@ public class SelfGoodsPresenter extends BasePresenter {
     }
 
 
-    public void getGoodList(String PageIndex,String PageCount,String CatId,String SortField,String SortType,String GoodsName,String SessionId){
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);
+    public void getGoodList(String PageIndex, String PageCount, String CatId, String SortField, String SortType, String GoodsName, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "获取数据中...", true);
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "Goods");
         params.put("fun", "GoodsList");
@@ -60,19 +58,19 @@ public class SelfGoodsPresenter extends BasePresenter {
         params.put("PageCount", PageCount);
         params.put("SortField", SortField);
         params.put("CatId", CatId);
-        params.put("SortType",SortType);
+        params.put("SortType", SortType);
         params.put("GoodsName", GoodsName);
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getselfGoodList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<ArrayList<SelfGoodsBean>,PageBean>(){
+                .subscribe(new HttpResultCallBack<ArrayList<SelfGoodsBean>, PageBean>() {
 
                     @Override
-                    public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status,PageBean page) {
+                    public void onResponse(ArrayList<SelfGoodsBean> selfGoodsBeans, String status, PageBean page) {
                         if (page.getMaxPage() == page.getPageIndex()) {
                             selfGoodsContract.getDataSuccess(selfGoodsBeans, false);
-                        }else {
+                        } else {
                             selfGoodsContract.getDataSuccess(selfGoodsBeans, true);
                         }
                         if (progressDialog != null && progressDialog.isShowing()) {

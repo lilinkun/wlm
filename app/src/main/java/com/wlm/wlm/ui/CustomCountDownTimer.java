@@ -58,7 +58,7 @@ public abstract class CustomCountDownTimer {
      * 调用{@link #restart()}方法重新开始
      */
     public synchronized final void pause() {
-        if (isStop) return ;
+        if (isStop) return;
 
         isPause = true;
         mPauseTimeInFuture = mStopTimeInFuture - SystemClock.elapsedRealtime();
@@ -69,7 +69,7 @@ public abstract class CustomCountDownTimer {
      * 重新开始
      */
     public synchronized final void restart() {
-        if (isStop || !isPause) return ;
+        if (isStop || !isPause) return;
 
         isPause = false;
         start(mPauseTimeInFuture);
@@ -77,6 +77,7 @@ public abstract class CustomCountDownTimer {
 
     /**
      * 倒计时间隔回调
+     *
      * @param millisUntilFinished 剩余毫秒数
      */
     public abstract void onTick(long millisUntilFinished);

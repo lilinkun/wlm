@@ -2,17 +2,13 @@ package com.wlm.wlm.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.HaiWeiLoginContract;
-import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.HashMap;
 
@@ -28,11 +24,11 @@ public class HaiWeiLoginPresenter extends BasePresenter {
     private DataManager manager;
     private CompositeSubscription mCompositeSubscription;
     private Context mContext;
-    private ResultBean<LoginBean,Object> mLoginBean;
+    private ResultBean<LoginBean, Object> mLoginBean;
     private HaiWeiLoginContract haiWeiLoginContract;
 
     @Override
-    public void onCreate(Context mContext,IView view) {
+    public void onCreate(Context mContext, IView view) {
         this.mContext = mContext;
         manager = new DataManager(mContext);
         mCompositeSubscription = new CompositeSubscription();
@@ -54,9 +50,9 @@ public class HaiWeiLoginPresenter extends BasePresenter {
     /**
      * 登陆
      */
-    public void login(final String UserName,final String PassWord,String sessionId){
+    public void login(final String UserName, final String PassWord, String sessionId) {
 
-        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","登录中...",true);
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "登录中...", true);
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
@@ -67,15 +63,16 @@ public class HaiWeiLoginPresenter extends BasePresenter {
         mCompositeSubscription.add(manager.login(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<LoginBean,Object>() {
+                .subscribe(new HttpResultCallBack<LoginBean, Object>() {
                     @Override
-                    public void onResponse(LoginBean loginBean, String status,Object page) {
+                    public void onResponse(LoginBean loginBean, String status, Object page) {
 
                         haiWeiLoginContract.onLoginSuccess(loginBean);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
                     }
+
                     @Override
                     public void onErr(String msg, String status) {
                         haiWeiLoginContract.onLoginFail(msg);
@@ -83,8 +80,9 @@ public class HaiWeiLoginPresenter extends BasePresenter {
                             progressDialog.dismiss();
                         }
                     }
+
                     @Override
-                    public void onNext(ResultBean<LoginBean,Object> ResultBean) {
+                    public void onNext(ResultBean<LoginBean, Object> ResultBean) {
                         super.onNext(ResultBean);
                     }
                 })

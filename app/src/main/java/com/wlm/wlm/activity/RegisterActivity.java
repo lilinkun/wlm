@@ -10,10 +10,8 @@ import com.wlm.wlm.base.BaseActivity;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.contract.RegisterContract;
 import com.wlm.wlm.entity.WxUserInfo;
-import com.wlm.wlm.interf.OnTitleBarClickListener;
 import com.wlm.wlm.presenter.RegisterPresenter;
 import com.wlm.wlm.ui.CustomRegisterLayout;
-import com.wlm.wlm.ui.CustomTitleBar;
 import com.wlm.wlm.util.Eyes;
 import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
@@ -42,10 +40,10 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarWhiteColor(this, getResources().getColor(R.color.white));
 
         Bundle bundle = getIntent().getBundleExtra(WlmUtil.TYPEID);
-        if (bundle != null && bundle.getSerializable("wxinfo") != null){
+        if (bundle != null && bundle.getSerializable("wxinfo") != null) {
 
             wxUserInfo = (WxUserInfo) bundle.getSerializable("wxinfo");
 
@@ -53,7 +51,7 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
         customRegisterLayout.setVcodeLisener(this);
 
-        mRegisterPresenter.onCreate(this,this);
+        mRegisterPresenter.onCreate(this, this);
 
 //        progressDialog = new ProgressDialog(this);
 //        progressDialog.setMessage(getResources().getString(R.string.login_loading));
@@ -63,14 +61,14 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 
     @Override
     public void getVcode(String phoneNum) {
-        mRegisterPresenter.SendSms(phoneNum,"");
+        mRegisterPresenter.SendSms(phoneNum, "");
     }
 
     @Override
-    public void getOver(String phone,String vcode,String Referees) {
+    public void getOver(String phone, String vcode, String Referees) {
         if (wxUserInfo != null) {
             telephone = phone;
-            mRegisterPresenter.register(phone,wxUserInfo.getNickname(), vcode, Referees,wxUserInfo.getUnionid(),wxUserInfo.getOpenid(),wxUserInfo.getHeadimgurl(),"2", ProApplication.SESSIONID(this));
+            mRegisterPresenter.register(phone, wxUserInfo.getNickname(), vcode, Referees, wxUserInfo.getUnionid(), wxUserInfo.getOpenid(), wxUserInfo.getHeadimgurl(), "2", ProApplication.SESSIONID(this));
         }
     }
 
@@ -95,12 +93,12 @@ public class RegisterActivity extends BaseActivity implements CustomRegisterLayo
 //        progressDialog.dismiss();
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
-        sharedPreferences.edit().putString("sessionid",ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN,true)
-                .putString(WlmUtil.OPENID,wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID,wxUserInfo.getUnionid())
-                .putString(WlmUtil.ACCOUNT,wxUserInfo.getNickname()).putString(WlmUtil.TELEPHONE,telephone)
-                .putString(WlmUtil.HEADIMGURL,wxUserInfo.getHeadimgurl()).commit();
+        sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(this)).putBoolean(WlmUtil.LOGIN, true)
+                .putString(WlmUtil.OPENID, wxUserInfo.getOpenid()).putString(WlmUtil.UNIONID, wxUserInfo.getUnionid())
+                .putString(WlmUtil.ACCOUNT, wxUserInfo.getNickname()).putString(WlmUtil.TELEPHONE, telephone)
+                .putString(WlmUtil.HEADIMGURL, wxUserInfo.getHeadimgurl()).commit();
 
-        UiHelper.launcherMain(this,MainFragmentActivity.class);
+        UiHelper.launcherMain(this, MainFragmentActivity.class);
         setResult(RESULT_OK);
         finish();
     }

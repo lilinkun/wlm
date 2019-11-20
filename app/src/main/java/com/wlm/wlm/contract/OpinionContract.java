@@ -12,11 +12,14 @@ import java.util.ArrayList;
 
 public interface OpinionContract extends IView {
     public void onUploadSuccess();
+
     public void onFail(String msg);
 
     public void getTypeSuccess(ArrayList<ErrorBean> errorBeans);
+
     public void getTypeFail(String msg);
 
     public void getOpinionListSuccess(ArrayList<OpinionBean> opinionBeans);
+
     public void getOpinionListFail(String msg);
 }

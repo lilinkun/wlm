@@ -27,7 +27,7 @@ public class FindPresenter extends BasePresenter {
     private FindContract findContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -49,19 +49,19 @@ public class FindPresenter extends BasePresenter {
     /**
      * 获取find
      */
-    public void getFindData(String PageIndex,String PageCount){
+    public void getFindData(String PageIndex, String PageCount) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","GoodsDiscover");
-        params.put("fun","GoodsDiscoverListVip");
-        params.put("PageIndex",PageIndex);
-        params.put("PageCount",PageCount);
+        params.put("cls", "GoodsDiscover");
+        params.put("fun", "GoodsDiscoverListVip");
+        params.put("PageIndex", PageIndex);
+        params.put("PageCount", PageCount);
         mCompositeSubscription.add(manager.getFindData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack<ArrayList<GoodsDiscoverBean>, PageBean>() {
                     @Override
-                    public void onResponse(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, String status,PageBean page) {
-                        findContract.onGetDataSuccess(goodsDiscoverBeans,page);
+                    public void onResponse(ArrayList<GoodsDiscoverBean> goodsDiscoverBeans, String status, PageBean page) {
+                        findContract.onGetDataSuccess(goodsDiscoverBeans, page);
                     }
 
                     @Override

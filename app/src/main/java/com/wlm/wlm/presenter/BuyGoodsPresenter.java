@@ -1,7 +1,6 @@
 package com.wlm.wlm.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.wlm.wlm.contract.BuyGoodsContract;
 import com.wlm.wlm.entity.CollectDeleteBean;
@@ -27,7 +26,7 @@ public class BuyGoodsPresenter extends BasePresenter {
     private BuyGoodsContract buyGoodsContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.mContext = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -47,22 +46,22 @@ public class BuyGoodsPresenter extends BasePresenter {
     }
 
 
-    public void collectGoods(String goodsId,String SessionId){
+    public void collectGoods(String goodsId, String SessionId) {
 
 
-        PresenterUtil.collectGoods(mCompositeSubscription,manager,goodsId,SessionId);
+        PresenterUtil.collectGoods(mCompositeSubscription, manager, goodsId, SessionId);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","Collect");
-        params.put("fun","CollectCreate");
-        params.put("goodsId",goodsId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "Collect");
+        params.put("fun", "CollectCreate");
+        params.put("goodsId", goodsId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getCollect(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HttpResultCallBack() {
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
 
                     }
 
@@ -74,20 +73,20 @@ public class BuyGoodsPresenter extends BasePresenter {
                 }));
     }
 
-    public void setData(String Point,String SessionId,String NumIid,String CouponId){
+    public void setData(String Point, String SessionId, String NumIid, String CouponId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankBase");
-        params.put("fun","BankBasePointDeduction");
-        params.put("Point",Point);
-        params.put("NumIid",NumIid);
-        params.put("CouponId",CouponId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "BankBase");
+        params.put("fun", "BankBasePointDeduction");
+        params.put("Point", Point);
+        params.put("NumIid", NumIid);
+        params.put("CouponId", CouponId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getData(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<CollectDeleteBean,Object>() {
+                .subscribe(new HttpResultCallBack<CollectDeleteBean, Object>() {
                     @Override
-                    public void onResponse(CollectDeleteBean o, String status,Object page) {
+                    public void onResponse(CollectDeleteBean o, String status, Object page) {
                         buyGoodsContract.collectSuccess(o);
                     }
 
@@ -99,20 +98,20 @@ public class BuyGoodsPresenter extends BasePresenter {
                 }));
     }
 
-    public void isExChange(String Point,String SessionId,String NumIid,String CouponId){
+    public void isExChange(String Point, String SessionId, String NumIid, String CouponId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("cls","BankBase");
-        params.put("fun","BankBaseCheckPointDeduction");
-        params.put("Point",Point);
-        params.put("NumIid",NumIid);
-        params.put("CouponId",CouponId);
-        params.put("SessionId",SessionId);
+        params.put("cls", "BankBase");
+        params.put("fun", "BankBaseCheckPointDeduction");
+        params.put("Point", Point);
+        params.put("NumIid", NumIid);
+        params.put("CouponId", CouponId);
+        params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.isExChange(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<String,Object>() {
+                .subscribe(new HttpResultCallBack<String, Object>() {
                     @Override
-                    public void onResponse(String str, String status,Object page) {
+                    public void onResponse(String str, String status, Object page) {
                         buyGoodsContract.exReChangeSuccess(str);
                     }
 

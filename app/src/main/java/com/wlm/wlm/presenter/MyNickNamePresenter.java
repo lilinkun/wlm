@@ -26,7 +26,7 @@ public class MyNickNamePresenter extends BasePresenter {
     private MyNickNameContract myNickNameContract;
 
     @Override
-    public void onCreate(Context context,IView view) {
+    public void onCreate(Context context, IView view) {
         this.context = context;
         manager = new DataManager(context);
         mCompositeSubscription = new CompositeSubscription();
@@ -45,7 +45,7 @@ public class MyNickNamePresenter extends BasePresenter {
         }
     }
 
-    public void modifyAccout(String NikeName,String SessionId){
+    public void modifyAccout(String NikeName, String SessionId) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
@@ -55,10 +55,10 @@ public class MyNickNamePresenter extends BasePresenter {
         mCompositeSubscription.add(manager.register(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack(){
+                .subscribe(new HttpResultCallBack() {
 
                     @Override
-                    public void onResponse(Object o, String status,Object page) {
+                    public void onResponse(Object o, String status, Object page) {
                         myNickNameContract.modifySuccess();
                     }
 

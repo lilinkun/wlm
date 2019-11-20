@@ -11,13 +11,16 @@ import com.wlm.wlm.mvp.IView;
 
 public interface MainFragmentContract extends IView {
     public void getUpdateSuccess(DownloadBean downloadBean);
+
     public void getUpdateFail(String msg);
 
 
     public void onLoginSuccess(LoginBean loginBean);
+
     public void onLoginFail(String msg);
 
     public void getUrlSuccess(UrlBean urlBean);
+
     public void getUrlFail(String msg);
 
 }

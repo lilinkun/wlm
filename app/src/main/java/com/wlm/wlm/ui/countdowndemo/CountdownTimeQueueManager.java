@@ -10,16 +10,20 @@ import java.util.TimerTask;
  * Created by zhaocheng on 2017/3/27.
  */
 
-public class CountdownTimeQueueManager extends BaseCountdownTimeQueueManager{
+public class CountdownTimeQueueManager extends BaseCountdownTimeQueueManager {
     private static CountdownTimeQueueManager manager;
-    private CountdownTimeQueueManager(){}
-    public static CountdownTimeQueueManager getInstance(){
-        if (manager == null){
+
+    private CountdownTimeQueueManager() {
+    }
+
+    public static CountdownTimeQueueManager getInstance() {
+        if (manager == null) {
             manager = new CountdownTimeQueueManager();
             manager.initCountdownTimeQueueManager();
         }
         return manager;
     }
+
     @Override
     void initCountdownTimeQueueManager() {
         timeQueue = new ArrayList<>();
@@ -30,31 +34,31 @@ public class CountdownTimeQueueManager extends BaseCountdownTimeQueueManager{
                 countdownTimeQueue();
             }
         };
-        timeTimer.schedule(timeTask,1000,1000);
+        timeTimer.schedule(timeTask, 1000, 1000);
     }
 
     @Override
     public CountdownTime addTime(int time, String id, CountdownTime.OnCountdownTimeListener listener) {
         CountdownTime countdownTime;
-        if(timeQueue.size() >0)
-            for(int i =0;i<timeQueue.size();i++){
+        if (timeQueue.size() > 0)
+            for (int i = 0; i < timeQueue.size(); i++) {
                 countdownTime = timeQueue.get(i);
-                if(TextUtils.equals(countdownTime.getId(),id)){
+                if (TextUtils.equals(countdownTime.getId(), id)) {
                     countdownTime.setListener(listener);
                     return countdownTime;
                 }
             }
-        countdownTime = new CountdownTime(time,id,listener);
+        countdownTime = new CountdownTime(time, id, listener);
         timeQueue.add(countdownTime);
         return countdownTime;
     }
 
     @Override
     synchronized void countdownTimeQueue() {
-        if(timeQueue != null&&timeQueue.size()>0){
-            for(int i =0;i<timeQueue.size();i++){
-                if(timeQueue.get(i).countdown())
-                    i --;
+        if (timeQueue != null && timeQueue.size() > 0) {
+            for (int i = 0; i < timeQueue.size(); i++) {
+                if (timeQueue.get(i).countdown())
+                    i--;
             }
         }
     }

@@ -111,17 +111,17 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarColor1(this, getResources().getColor(R.color.white));
 
-        if(getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id") != null){
+        if (getIntent() != null && getIntent().getBundleExtra(WlmUtil.TYPEID) != null && getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id") != null) {
             goodsType = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("id");
             ll_top.setText(MallType.getVipById(goodsType).getTypeName());
         }
 
 
-        selfSearchPresenter.onCreate(this,this);
+        selfSearchPresenter.onCreate(this, this);
 
-        List<SearchBean> searchBean =  DBManager.getInstance(this).querySearchBean(MainFragmentActivity.username);
+        List<SearchBean> searchBean = DBManager.getInstance(this).querySearchBean(MainFragmentActivity.username);
 
         selfSearchPresenter.selfSearch(ProApplication.SESSIONID(this));
 
@@ -150,7 +150,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mEtSearch.setText(((TextView)v).getText());
+                        mEtSearch.setText(((TextView) v).getText());
                         doSearch();
                     }
                 });
@@ -163,16 +163,16 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
             }
         });
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setOrientation(LinearLayout.VERTICAL);
         int spanCount = 5; // 2 columns
         int spacing = 20; // 20px
         boolean includeEdge = false;
-        rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        rv_search_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
 
         rv_search_goods.setLayoutManager(gridLayoutManager);
 
@@ -183,7 +183,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0){
+                if (s.length() == 0) {
                     ll_result.setVisibility(View.GONE);
                     ll_search_goods_type.setVisibility(View.GONE);
                     goodsType = "";
@@ -193,10 +193,10 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() == 0){
-                        if (popupWindow != null && popupWindow.isShowing()){
-                            popupWindow.dismiss();
-                        }
+                if (s.length() == 0) {
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
                 }
             }
         });
@@ -226,10 +226,10 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     }
 
-    private void doSearch(){
+    private void doSearch() {
 
 
-        if(!mEtSearch.getText().toString().isEmpty()) {
+        if (!mEtSearch.getText().toString().isEmpty()) {
             if (DBManager.getInstance(this).querySearch(mEtSearch.getText().toString()).size() == 0) {
                 SearchBean searchBean = new SearchBean();
                 searchBean.setUsername(MainFragmentActivity.username);
@@ -240,7 +240,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
             }
         }
 
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
         mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.setting_title_color));
         tv_search.setVisibility(View.GONE);
         ll_search.setVisibility(View.VISIBLE);
@@ -250,15 +250,15 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
         ll_result.setVisibility(View.VISIBLE);
         ll_search_goods_type.setVisibility(View.VISIBLE);
-        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
     }
 
-    @OnClick({R.id.tv_search,R.id.ic_search_history_delete,R.id.ll_search_goods_type,R.id.ll_search,R.id.rl_search_top})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.tv_search, R.id.ic_search_history_delete, R.id.ll_search_goods_type, R.id.ll_search, R.id.rl_search_top})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_search:
 
-                if (popupWindow != null && popupWindow.isShowing()){
+                if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
 
@@ -290,21 +290,21 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 tv_search.setVisibility(View.VISIBLE);
                 ic_search_icon.setVisibility(View.VISIBLE);
                 mEtSearch.setText("");
-                Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+                Eyes.setStatusBarColor(this, getResources().getColor(R.color.white));
                 mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.white));
 
                 break;
 
             case R.id.rl_search_top:
 
-                if (mEtSearch != null && mEtSearch.getText().toString().length() > 0){
+                if (mEtSearch != null && mEtSearch.getText().toString().length() > 0) {
                     ll_search.setVisibility(View.GONE);
                     ll_search_goods_type.setVisibility(View.GONE);
                     tv_search.setVisibility(View.VISIBLE);
                     ll_result.setVisibility(View.GONE);
                     mEtSearch.setVisibility(View.VISIBLE);
                     ic_search_icon.setVisibility(View.VISIBLE);
-                    Eyes.setStatusBarWhiteColor(this,getResources().getColor(R.color.white));
+                    Eyes.setStatusBarColor(this, getResources().getColor(R.color.white));
                     mSearchTopLayout.setBackgroundColor(getResources().getColor(R.color.white));
                     mEtSearch.setSelection(mEtSearch.getText().toString().length());
                 }
@@ -354,13 +354,13 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     public void onClick(View v) {
                         mEtSearch.setText(((TextView) v).getText());
 
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt("position", 20);
-                    bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
-                    UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
-                    if (ActivityUtil.activityList.size() > 1){
-                        ActivityUtil.removeOldActivity();
-                    }
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putInt("position", 20);
+                        bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
+                        UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
+                        if (ActivityUtil.activityList.size() > 1) {
+                            ActivityUtil.removeOldActivity();
+                        }
                     }
                 });
             }
@@ -374,14 +374,14 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     @Override
     public void getSearchResultSuccess(ArrayList<GoodsListBean> goodsListBeans) {
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
         rv_search_goods.setVisibility(View.VISIBLE);
 
         this.goodsListBeans = goodsListBeans;
-        if(searchAdapter == null){
-            searchAdapter = new SearchAdapter(this,goodsListBeans);
+        if (searchAdapter == null) {
+            searchAdapter = new SearchAdapter(this, goodsListBeans);
             searchAdapter.setItemClickListener(this);
             rv_search_goods.setAdapter(searchAdapter);
         }
@@ -389,19 +389,19 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     @Override
     public void getSearchResultFail(String msg) {
-        if (msg.contains("查无数据")){
+        if (msg.contains("查无数据")) {
             rv_search_goods.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onItemClick(int position) {
-        if (goodsListBeans != null){
+        if (goodsListBeans != null) {
 
             Bundle bundle = new Bundle();
-            bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-            bundle.putString(WlmUtil.TYPE,WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
-            UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
+            bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+            bundle.putString(WlmUtil.TYPE, WlmUtil.getType(goodsListBeans.get(position).getGoodsType()));
+            UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
 
         }
     }
@@ -409,9 +409,9 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
 
-            if (requestCode == 0x4431  || requestCode == 0x4432) {
+            if (requestCode == 0x4431 || requestCode == 0x4432) {
                 List<SearchBean> searchBean = DBManager.getInstance(this).querySearchBean(MainFragmentActivity.username);
 
                 Collections.reverse(searchBean);
@@ -442,7 +442,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                                 bundle1.putInt("position", 20);
                                 bundle1.putString(WlmUtil.GOODSNAME, mEtSearch.getText().toString());
                                 UiHelper.launcherBundle(SearchActivity.this, SearchResultActivity.class, bundle1);
-                                if (ActivityUtil.activityList.size() > 1){
+                                if (ActivityUtil.activityList.size() > 1) {
                                     ActivityUtil.removeOldActivity();
                                 }
                             }
@@ -458,9 +458,9 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
     @Override
     public void getSortType(int sortType) {
-        switch (sortType){
+        switch (sortType) {
             case 1://默认排序
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
                 ll_top.setText(getString(R.string.groupon_all));
                 break;
 
@@ -469,7 +469,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                 View view = LayoutInflater.from(this).inflate(R.layout.pop_layout, null);
                 RecyclerView recyclerView = view.findViewById(R.id.rv_groupon);
 
-                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this,1);
+                ChooseGrouponAdapter chooseGrouponAdapter = new ChooseGrouponAdapter(this, 1);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -492,10 +492,10 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
                     public void onItemClick(int position) {
                         ll_top.setText(MallType.values()[position].getTypeName());
                         goodsType = MallType.values()[position].getTypeId();
-                        if (goodsType.equals("0")){
+                        if (goodsType.equals("0")) {
                             goodsType = "";
                         }
-                        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                        selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
                         popupWindow.dismiss();
                     }
                 });
@@ -505,7 +505,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
             case 3://销量上
                 orderby = "1";
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
 
                 break;
 
@@ -513,7 +513,7 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
             case 4://销量下
 
                 orderby = "2";
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
 
                 break;
 
@@ -521,14 +521,14 @@ public class SearchActivity extends BaseActivity implements SelfSearchContract, 
 
                 orderby = "3";
 //                isGrouponType = false;
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
 
                 break;
 
             case 6://价格下
 
                 orderby = "4";
-                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT,goodsType,"",mEtSearch.getText().toString());
+                selfSearchPresenter.getData("1", WlmUtil.PAGE_COUNT, goodsType, "", mEtSearch.getText().toString());
 
                 break;
         }

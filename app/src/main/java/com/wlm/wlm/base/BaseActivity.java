@@ -9,8 +9,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 
-import com.wlm.wlm.util.UToast;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.wlm.wlm.util.UToast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

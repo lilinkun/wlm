@@ -43,15 +43,15 @@ public class GrouponOverFragment extends BaseFragment implements MyGrouponContrc
     }
 
 
-    public void setHander(Handler hander){
+    public void setHander(Handler hander) {
         this.handler = hander;
     }
 
     @Override
     public void initEventAndData() {
 
-        myGrouponPresenter.onCreate(getActivity(),this);
-        myGrouponPresenter.getMyGrouponData("1","20",isEnd, ProApplication.SESSIONID(getActivity()));
+        myGrouponPresenter.onCreate(getActivity(), this);
+        myGrouponPresenter.getMyGrouponData("1", "20", isEnd, ProApplication.SESSIONID(getActivity()));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -60,7 +60,7 @@ public class GrouponOverFragment extends BaseFragment implements MyGrouponContrc
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                myGrouponPresenter.getMyGrouponData("1","20",isEnd, ProApplication.SESSIONID(getActivity()));
+                myGrouponPresenter.getMyGrouponData("1", "20", isEnd, ProApplication.SESSIONID(getActivity()));
             }
         });
 
@@ -69,14 +69,14 @@ public class GrouponOverFragment extends BaseFragment implements MyGrouponContrc
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.TEAMID,grouponListBeans.get(position).getTeamId()+"");
-        UiHelper.launcherBundle(getActivity(), GrouponDetailActivity.class,bundle);
+        bundle.putString(WlmUtil.TEAMID, grouponListBeans.get(position).getTeamId() + "");
+        UiHelper.launcherBundle(getActivity(), GrouponDetailActivity.class, bundle);
     }
 
     @Override
     public void getGrouponDataSuccess(ArrayList<GrouponListBean> grouponListBeans) {
         this.grouponListBeans = grouponListBeans;
-        if (refreshLayout != null && refreshLayout.isRefreshing()){
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
 
@@ -84,7 +84,7 @@ public class GrouponOverFragment extends BaseFragment implements MyGrouponContrc
             myGrouponAdapter = new MyGrouponAdapter(getActivity(), grouponListBeans);
             rv_all_groupon.setAdapter(myGrouponAdapter);
             myGrouponAdapter.setItemClickListener(this);
-        }else {
+        } else {
             myGrouponAdapter.setData(grouponListBeans);
         }
     }

@@ -31,13 +31,13 @@ public class RecommendActivity extends BaseActivity implements OnTitleBarClickLi
 
     @Override
     public void initEventAndData() {
-        Eyes.setStatusBarColor(this,getResources().getColor(R.color.setting_title_color));
+        Eyes.setStatusBarColor(this, getResources().getColor(R.color.setting_title_color));
         customTitleBar.SetOnTitleClickListener(this);
     }
 
     @OnClick({R.id.recommend_commit})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.recommend_commit:
                 Intent localIntent = new Intent("android.intent.action.VIEW");
                 localIntent.putExtra("sms_body", mEtRecommendContent.getText().toString());

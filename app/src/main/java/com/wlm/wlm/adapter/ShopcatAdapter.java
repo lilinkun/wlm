@@ -13,10 +13,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.wlm.wlm.R;
 import com.wlm.wlm.entity.GoodsInfo;
@@ -44,7 +42,7 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
     private ModifyCountInterface modifyCountInterface;
     private GroupEditorListener groupEditorListener;
     private int count = 0;
-    private boolean flag=true; //组的编辑按钮是否可见，true可见，false不可见
+    private boolean flag = true; //组的编辑按钮是否可见，true可见，false不可见
 
 
     public ShopcatAdapter(List<StoreInfo> groups, Map<String, List<GoodsInfo>> childrens, Context mcontext) {
@@ -130,17 +128,17 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
          * 如果组的编辑按钮可见，那么肯定是组对自己下辖元素的编辑
          * 如果组的编辑按钮不可见，那么肯定是ActionBar对组下辖元素的编辑
          */
-        if(flag){
+        if (flag) {
             if (groups.get(groupPosition).isEditor()) {
                 childViewHolder.goodsData.setVisibility(View.GONE);
             } else {
                 childViewHolder.goodsData.setVisibility(View.VISIBLE);
             }
-        }else{
+        } else {
 
-            if(groups.get(groupPosition).isActionBarEditor()){
+            if (groups.get(groupPosition).isActionBarEditor()) {
                 childViewHolder.goodsData.setVisibility(View.GONE);
-            }else{
+            } else {
                 childViewHolder.goodsData.setVisibility(View.VISIBLE);
             }
         }
@@ -151,12 +149,12 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
             childViewHolder.goodsPrice.setText("¥" + child.getPrice() + "");
             childViewHolder.goodsNum.setText(String.valueOf(child.getCount()));
             childViewHolder.goodsImage.setImageResource(R.color.white);
-            childViewHolder.goods_size1.setText( child.getColor());
-            childViewHolder.goods_size2.setText( child.getSize());
+            childViewHolder.goods_size1.setText(child.getColor());
+            childViewHolder.goods_size2.setText(child.getSize());
             //设置打折前的原价
             SpannableString spannableString = new SpannableString("¥" + child.getPrime_price() + "");
             StrikethroughSpan span = new StrikethroughSpan();
-            spannableString.setSpan(span,0,spannableString.length()-1+1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            spannableString.setSpan(span, 0, spannableString.length() - 1 + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
             childViewHolder.singleCheckBox.setChecked(child.isChoosed());
             childViewHolder.singleCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +180,7 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
             childViewHolder.goodsNum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(groupPosition,childPosition,childViewHolder.goodsNum,childViewHolder.singleCheckBox.isChecked(),child);
+                    showDialog(groupPosition, childPosition, childViewHolder.goodsNum, childViewHolder.singleCheckBox.isChecked(), child);
                 }
             });
         }
@@ -190,32 +188,31 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     *
      * @param groupPosition
      * @param childPosition
      * @param showCountView
      * @param isChecked
      * @param child
      */
-    private void showDialog(final int groupPosition, final int childPosition, final View showCountView, final  boolean isChecked, final  GoodsInfo child) {
-        final AlertDialog.Builder alertDialog_Builder=new AlertDialog.Builder(mcontext);
-        View view= LayoutInflater.from(mcontext).inflate(R.layout.dialog_change_num,null);
-        final AlertDialog dialog=alertDialog_Builder.create();
+    private void showDialog(final int groupPosition, final int childPosition, final View showCountView, final boolean isChecked, final GoodsInfo child) {
+        final AlertDialog.Builder alertDialog_Builder = new AlertDialog.Builder(mcontext);
+        View view = LayoutInflater.from(mcontext).inflate(R.layout.dialog_change_num, null);
+        final AlertDialog dialog = alertDialog_Builder.create();
         dialog.setView(view);//errored,这里是dialog，不是alertDialog_Buidler
-        count=child.getCount();
-        final EditText num= (EditText) view.findViewById(R.id.dialog_num);
-        num.setText(count+"");
+        count = child.getCount();
+        final EditText num = (EditText) view.findViewById(R.id.dialog_num);
+        num.setText(count + "");
         //自动弹出键盘
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                UtilTool.showKeyboard(mcontext,showCountView);
+                UtilTool.showKeyboard(mcontext, showCountView);
             }
         });
-        final TextView increase= (TextView) view.findViewById(R.id.dialog_increaseNum);
-        final TextView DeIncrease=(TextView)view.findViewById(R.id.dialog_reduceNum);
-        final TextView pButton= (TextView) view.findViewById(R.id.dialog_Pbutton);
-        final TextView nButton= (TextView) view.findViewById(R.id.dialog_Nbutton);
+        final TextView increase = (TextView) view.findViewById(R.id.dialog_increaseNum);
+        final TextView DeIncrease = (TextView) view.findViewById(R.id.dialog_reduceNum);
+        final TextView pButton = (TextView) view.findViewById(R.id.dialog_Pbutton);
+        final TextView nButton = (TextView) view.findViewById(R.id.dialog_Nbutton);
         nButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,14 +222,14 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
         pButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number= Integer.parseInt(num.getText().toString().trim());
-                if(number==0){
+                int number = Integer.parseInt(num.getText().toString().trim());
+                if (number == 0) {
                     dialog.dismiss();
-                }else{
-                    UtilsLog.i("数量="+number+"");
+                } else {
+                    UtilsLog.i("数量=" + number + "");
                     num.setText(String.valueOf(number));
                     child.setCount(number);
-                    modifyCountInterface.doUpdate(groupPosition,childPosition,showCountView,isChecked);
+                    modifyCountInterface.doUpdate(groupPosition, childPosition, showCountView, isChecked);
                     dialog.dismiss();
                 }
             }
@@ -247,7 +244,7 @@ public class ShopcatAdapter extends BaseExpandableListAdapter {
         DeIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count>1){
+                if (count > 1) {
                     count--;
                     num.setText(String.valueOf(count));
                 }

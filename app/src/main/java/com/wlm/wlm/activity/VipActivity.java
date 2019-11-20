@@ -18,9 +18,6 @@ import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.LoginBean;
 import com.wlm.wlm.entity.PageBean;
 import com.wlm.wlm.presenter.VipPresenter;
-import com.wlm.wlm.ui.FullyGridLayoutManager;
-import com.wlm.wlm.ui.GridSpacingItemDecoration;
-import com.wlm.wlm.ui.MyTextView;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.ui.SpaceItemDecoration;
 import com.wlm.wlm.util.ActivityUtil;
@@ -66,10 +63,10 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     @Override
     public void initEventAndData() {
 
-        Eyes.setStatusBarLightMode(this,getResources().getColor(R.color.white));
+        Eyes.setStatusBarLightMode(this, getResources().getColor(R.color.white));
 
-        vipPresenter.onCreate(this,this);
-        vipPresenter.getData("1","20",goodsType,"0","0");
+        vipPresenter.onCreate(this, this);
+        vipPresenter.getData("1", "20", goodsType, "0", "0");
 
         vipPresenter.getUpdataData(ProApplication.SESSIONID(this));
 
@@ -82,12 +79,12 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
         int spacing = 20; // 50px
         rv_vip_goods.setLayoutManager(fullyGridLayoutManager);
 
-        rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing,0));
+        rv_vip_goods.addItemDecoration(new SpaceItemDecoration(spanCount, spacing, 0));
 
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        tv_username.setText(sharedPreferences.getString(WlmUtil.ACCOUNT,"") + "");
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        tv_username.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, "") + "");
         String str = tv_username.getText().toString();
-        tv_userid.setText("NO. " + sharedPreferences.getString(WlmUtil.USERNAME,""));
+        tv_userid.setText("NO. " + sharedPreferences.getString(WlmUtil.USERNAME, ""));
         /*if (tv_username.getText().toString().trim().length() > 3) {
             String str = tv_username.getText().toString();
             tv_userid.setText(str);
@@ -95,9 +92,9 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     }
 
     @OnClick({R.id.ll_back})
-    public void onClick(View view){
+    public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.ll_back:
 
@@ -116,7 +113,7 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
             tbHotGoodsAdapter = new TbHotGoodsAdapter(this, integralBean, getLayoutInflater());
             rv_vip_goods.setAdapter(tbHotGoodsAdapter);
             tbHotGoodsAdapter.setItemClickListener(this);
-        }else {
+        } else {
             tbHotGoodsAdapter.setData(integralBean);
         }
     }
@@ -128,23 +125,23 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
 
     @Override
     public void getLevelSuccess(LoginBean loginBean) {
-        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        sharedPreferences.edit().putString(WlmUtil.VIPVALIDITY,loginBean.getVipValidity()).commit();
+        SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
+        sharedPreferences.edit().putString(WlmUtil.VIPVALIDITY, loginBean.getVipValidity()).commit();
         Picasso.with(this).load(loginBean.getPortrait()).error(R.mipmap.ic_adapter_error).into(iv_vip_face);
         tv_vip_level.setText(loginBean.getUserLevelName());
         if (loginBean.getVipValidity() != null && !loginBean.getVipValidity().equals("")) {
             if (Integer.valueOf(loginBean.getUserLevel()) > 0) {
                 tv_vipvalidity.setText("有效期至 " + loginBean.getVipValidity());
-            }else {
+            } else {
                 tv_vipvalidity.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             tv_vipvalidity.setVisibility(View.GONE);
         }
 
-        if (Integer.valueOf(loginBean.getUserLevel()) <= 0){
+        if (Integer.valueOf(loginBean.getUserLevel()) <= 0) {
             iv_vip.setVisibility(View.GONE);
-        }else {
+        } else {
             iv_vip.setVisibility(View.VISIBLE);
         }
 
@@ -158,8 +155,8 @@ public class VipActivity extends BaseActivity implements VipContract, TbHotGoods
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(WlmUtil.GOODSID,goodsListBeans.get(position).getGoodsId());
-        bundle.putString(WlmUtil.TYPE,WlmUtil.VIP);
-        UiHelper.launcherBundle(this,SelfGoodsDetailActivity.class,bundle);
+        bundle.putString(WlmUtil.GOODSID, goodsListBeans.get(position).getGoodsId());
+        bundle.putString(WlmUtil.TYPE, WlmUtil.VIP);
+        UiHelper.launcherBundle(this, SelfGoodsDetailActivity.class, bundle);
     }
 }
