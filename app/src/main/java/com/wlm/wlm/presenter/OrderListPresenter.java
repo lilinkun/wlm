@@ -48,8 +48,10 @@ public class OrderListPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
 

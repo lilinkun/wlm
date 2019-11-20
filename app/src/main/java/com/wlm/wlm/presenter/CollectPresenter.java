@@ -46,8 +46,10 @@ public class CollectPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     public void getCollectDataList(String PageIndex,String PageCount,String CollectType,String SessionId){

@@ -40,8 +40,10 @@ public class BuyGoodsPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
 

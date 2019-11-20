@@ -46,11 +46,11 @@ public class SelfSearchPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
-
-
 
     public void selfSearch(String SessionId){
         HashMap<String, String> params = new HashMap<>();

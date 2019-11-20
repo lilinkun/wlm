@@ -40,7 +40,7 @@ public class GetCashPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
+    public void onDestory() {
         if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }

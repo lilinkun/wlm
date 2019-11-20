@@ -40,8 +40,10 @@ public class AddAddressPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     public void getLocalData(String parentId,final int localType){

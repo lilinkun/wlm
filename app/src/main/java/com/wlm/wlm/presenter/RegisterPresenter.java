@@ -40,10 +40,11 @@ public class RegisterPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
-
 
     /**
      * 发送短信验证码

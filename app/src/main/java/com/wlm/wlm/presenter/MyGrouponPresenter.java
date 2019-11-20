@@ -38,8 +38,10 @@ public class MyGrouponPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     public void getMyGrouponData(String PageIndex,String PageCount,String IsEnd,String SessionId){

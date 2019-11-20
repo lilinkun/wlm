@@ -115,7 +115,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        loginPresenter.onStop();
+        loginPresenter.onDestory();
     }
 
     @Override

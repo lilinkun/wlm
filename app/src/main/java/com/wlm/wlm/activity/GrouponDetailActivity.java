@@ -99,7 +99,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
         getGoodsDetail.getGoodsDetail(teamId, ProApplication.SESSIONID(this));
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN,MODE_PRIVATE);
-        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.ACCOUNT,"")).error(R.mipmap.ic_adapter_error).into(riv_rc);
+        Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL,"")+"").error(R.mipmap.ic_adapter_error).into(riv_rc);
 
 
     }

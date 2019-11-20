@@ -44,7 +44,7 @@ public class BeautyHealthPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
+    public void onDestory() {
         if (mCompositeSubscription.hasSubscriptions()){
             mCompositeSubscription.unsubscribe();
         }

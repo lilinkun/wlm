@@ -46,8 +46,8 @@ public class MainFragmentPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        if (mCompositeSubscription.hasSubscriptions()){
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
     }
@@ -101,7 +101,7 @@ public class MainFragmentPresenter extends BasePresenter {
 
                         SharedPreferences sharedPreferences = mContext.getSharedPreferences(WlmUtil.LOGIN, mContext.MODE_PRIVATE);
                         sharedPreferences.edit().putString("sessionid", ProApplication.SESSIONID(mContext)).putBoolean(WlmUtil.LOGIN, true)
-                                .putString(WlmUtil.OPENID, openid).putString(WlmUtil.UNIONID, unionid).commit();
+                                .putString(WlmUtil.OPENID, openid).putString(WlmUtil.UNIONID, unionid).putString(WlmUtil.HEADIMGURL,loginBean.getPortrait()+"").commit();
 
                         mainFragmentContract.onLoginSuccess(loginBean);
 

@@ -1,19 +1,12 @@
 package com.wlm.wlm.presenter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.wlm.wlm.base.ProApplication;
-import com.wlm.wlm.contract.LoginContract;
 import com.wlm.wlm.contract.SplashContract;
-import com.wlm.wlm.entity.LoginBean;
-import com.wlm.wlm.entity.ResultBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.http.callback.HttpResultCallBack;
 import com.wlm.wlm.manager.DataManager;
 import com.wlm.wlm.mvp.IView;
-import com.wlm.wlm.util.WlmUtil;
 
 import java.util.HashMap;
 
@@ -44,12 +37,11 @@ public class SplashPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        if (mCompositeSubscription.hasSubscriptions()) {
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
     }
-
 
     /**
      * 获取图片地址前缀

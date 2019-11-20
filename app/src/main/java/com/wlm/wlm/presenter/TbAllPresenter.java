@@ -45,13 +45,13 @@ public class TbAllPresenter extends BasePresenter {
 
     }
 
+
     @Override
-    public void onStop() {
-        if (mCompositeSubscription.hasSubscriptions()){
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
     }
-
 
     public void setList(String PageIndex,String PageCount,String adzone_id,String q,String sort,String SessionId,String isMall){
         final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);

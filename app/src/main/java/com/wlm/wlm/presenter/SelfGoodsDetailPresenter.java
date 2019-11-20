@@ -45,12 +45,11 @@ public class SelfGoodsDetailPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
+    public void onDestory() {
         if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
     }
-
 
     public void getGoodsDetail(String goodsId,String SessionId){
 //        final ProgressDialog progressDialog = ProgressDialog.show(mContext,"请稍等...","获取数据中...",true);

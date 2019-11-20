@@ -41,8 +41,8 @@ public class MemberShipPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        if (mCompositeSubscription.hasSubscriptions()){
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
     }

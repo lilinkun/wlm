@@ -50,11 +50,11 @@ public class HomePresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-        mCompositeSubscription.unsubscribe();
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
-
-
 
     public void getHomeData(String SessionId){
         HashMap<String, String> params = new HashMap<>();

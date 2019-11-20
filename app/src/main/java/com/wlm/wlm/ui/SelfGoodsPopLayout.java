@@ -91,12 +91,12 @@ public class SelfGoodsPopLayout extends RelativeLayout implements View.OnClickLi
         this.context = context;
         View view = LayoutInflater.from(context).inflate(R.layout.popup_goods_format,null);
 
+        mSpecLayout1 = (LinearLayout) view.findViewById(R.id.ll_spec1);
+        mSpecLayout2 = (LinearLayout) view.findViewById(R.id.ll_spec2);
+
         flowLayout = (LabelsView) view.findViewById(R.id.fl_goods_detail);
 
         labael_size= (LabelsView) view.findViewById(R.id.fl_goods_size);
-
-        mSpecLayout1 = (LinearLayout) view.findViewById(R.id.ll_spec1);
-        mSpecLayout2 = (LinearLayout) view.findViewById(R.id.ll_spec2);
 
         tv_spec1 = (TextView) view.findViewById(R.id.tv_spec1);
         tv_spec2 = (TextView) view.findViewById(R.id.tv_spec2);

@@ -41,10 +41,11 @@ public class GrouponOrderPresenter extends BasePresenter {
     }
 
     @Override
-    public void onStop() {
-
+    public void onDestory() {
+        if (mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
-
 
     /**
      * 获取单个邮费

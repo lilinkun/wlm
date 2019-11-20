@@ -121,7 +121,7 @@ public class SplashActivity extends BaseActivity implements SplashContract {
             intent = new Intent(getBaseContext(), MainFragmentActivity.class);
         } else {
             if (isLogin){
-                intent = new Intent(getBaseContext(), HaiWeiLoginActivity.class);
+                intent = new Intent(getBaseContext(), LoginActivity.class);
             }else {
                 intent = new Intent(getBaseContext(), LoginActivity.class);
             }
