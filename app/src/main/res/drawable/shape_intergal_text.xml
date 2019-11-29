@@ -7,12 +7,16 @@
     <!--android:width="1dp"-->
     <!--android:color="#ffffff" />-->
     <!-- 填充的颜色(白色) -->
-    <solid android:color="@color/hot_integral" />
+    <corners android:radius="25dp" />
     <!-- 设置按钮的四个角为弧形 -->
     <!-- android:radius 弧形的半径 -->
-    <corners android:radius="25dp" />
+    <padding
+        android:bottom="0dp"
+        android:left="@dimen/padding_10"
+        android:right="@dimen/padding_10"
+        android:top="0dp" />
 
-    <padding android:top="0dp" android:bottom="0dp" android:right="@dimen/padding_10" android:left="@dimen/padding_10"/>
+    <solid android:color="@color/hot_integral" />
 
 
 </shape>

@@ -2,18 +2,18 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_selected="true">
-    <shape>
-        <corners android:radius="5dp" />
-        <padding android:left="20dip" android:top="10dip" android:right="20dip" android:bottom="10dip" />
-        <solid android:color="@color/bg_list" />
-    </shape>
-</item>
-<!-- 标签的正常背景 -->
-<item>
-    <shape>
-        <corners android:radius="5dp" />
-        <padding android:left="20dip" android:top="10dip" android:right="20dip" android:bottom="10dip" />
-        <solid android:color="@color/bg_list" />
-    </shape>
-</item>
+        <shape>
+            <corners android:radius="5dp" />
+            <padding android:bottom="10dip" android:left="20dip" android:right="20dip" android:top="10dip" />
+            <solid android:color="@color/bg_list" />
+        </shape>
+    </item>
+    <!-- 标签的正常背景 -->
+    <item>
+        <shape>
+            <corners android:radius="5dp" />
+            <padding android:bottom="10dip" android:left="20dip" android:right="20dip" android:top="10dip" />
+            <solid android:color="@color/bg_list" />
+        </shape>
+    </item>
 </selector>

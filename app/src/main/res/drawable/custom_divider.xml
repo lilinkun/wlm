@@ -5,7 +5,7 @@
     <gradient
         android:centerColor="@color/line_bg"
         android:endColor="@color/line_bg"
-        android:startColor="@color/line_bg"  />
+        android:startColor="@color/line_bg" />
     <size android:height="15dp" />
 
 </shape>

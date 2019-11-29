@@ -5,7 +5,7 @@
     <gradient
         android:centerColor="@color/member_bg"
         android:endColor="@color/member_bg"
-        android:startColor="@color/member_bg"  />
+        android:startColor="@color/member_bg" />
     <size android:height="15dp" />
 
 </shape>

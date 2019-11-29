@@ -6,11 +6,11 @@
         android:right="-2dp"
         android:top="-2dp">
         <shape>
+            <padding android:bottom="4dp" />
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="0.5dp"
                 android:color="@color/register_text_hint_bg" />
-            <padding android:bottom="4dp" />
         </shape>
     </item>
 

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke android:width="1dp" android:color="@color/login_title_text"/>
-    <solid android:color="@color/white"/>
-    <padding android:left="@dimen/margin_20" android:right="@dimen/margin_20" android:bottom="@dimen/margin_10" android:top="@dimen/margin_10"/>
-    <corners android:radius="@dimen/margin_5"/>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/margin_5" />
+    <padding
+        android:bottom="@dimen/margin_10"
+        android:left="@dimen/margin_20"
+        android:right="@dimen/margin_20"
+        android:top="@dimen/margin_10" />
+    <solid android:color="@color/white" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/login_title_text" />
 </shape>
