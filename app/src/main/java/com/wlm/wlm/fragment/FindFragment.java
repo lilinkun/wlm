@@ -134,7 +134,7 @@ public class FindFragment extends BaseFragment implements FindContract, FindAdap
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
 
-                WlmUtil.setShared(iwxapi, path, goodsname, goodsname, baos.toByteArray());
+                WlmUtil.setShared(iwxapi, path, goodsname, goodsname, baos.toByteArray(),0);
             }
 
             @Override

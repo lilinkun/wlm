@@ -67,6 +67,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by LG on 2018/12/8.
@@ -116,6 +117,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     LinearLayout toolbar;
     @BindView(R.id.iv_turn_top)
     ImageView iv_turn_top;
+    @BindView(R.id.iv_shared)
+    GifImageView iv_shared;
     @BindView(R.id.iv_more)
     ImageView iv_more;
     @BindView(R.id.tv_no_delivery)
@@ -239,7 +242,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
     }
 
 
-    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_shared_right, R.id.ll_shared, R.id.ll_collect, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase, R.id.iv_turn_top, R.id.rl_no_delivery, R.id.ll_title_back})
+    @OnClick({R.id.rl_goods_format, R.id.ll_back, R.id.ll_shared_right, R.id.ll_shared, R.id.ll_collect, R.id.ll_shop_car, R.id.rl_add_cart, R.id.rl_immediate_purchase,
+            R.id.iv_turn_top, R.id.rl_no_delivery, R.id.ll_title_back,R.id.iv_shared})
     public void onClick(View view) {
         if (!ButtonUtils.isFastDoubleClick(view.getId())) {
             switch (view.getId()) {
@@ -369,7 +373,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                             String path = "/pages/cart/productdetail/productdetail?GoodsId=" + goodsid + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
 
-                            WlmUtil.setShared(iwxapi, path, goodsDetailBean.getGoodsName(), goodsDetailBean.getGoodsName(), baos.toByteArray());
+                            WlmUtil.setShared(iwxapi, path, goodsDetailBean.getGoodsName(), goodsDetailBean.getGoodsName(), baos.toByteArray(),0);
                         }
 
                         @Override
@@ -383,6 +387,15 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                         }
                     });
 
+
+                    break;
+
+                case R.id.iv_shared:
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("shared","goods");
+                    bundle.putSerializable(WlmUtil.GOODS,goodsDetailBean);
+                    UiHelper.launcherBundle(this, MyQrCodeActivity.class,bundle);
 
                     break;
             }
@@ -489,8 +502,8 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
                 rl_immediate_purchase.setVisibility(View.GONE);
             }
         } else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_WLMBUY) {
-            ll_shared.setVisibility(View.VISIBLE);
-            ll_shared_right.setVisibility(View.VISIBLE);
+//            ll_shared.setVisibility(View.VISIBLE);
+//            ll_shared_right.setVisibility(View.VISIBLE);
         }
 
 
@@ -670,7 +683,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             }
         } else if (webView.getTop() > (int) scrollY) {
             if (iv_turn_top != null && iv_turn_top.isShown()) {
-                iv_turn_top.setVisibility(View.GONE);
+                iv_turn_top.setVisibility(View.INVISIBLE);
             }
         }
     }

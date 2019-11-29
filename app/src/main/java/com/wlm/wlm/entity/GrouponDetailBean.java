@@ -1,11 +1,12 @@
 package com.wlm.wlm.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by LG on 2019/9/17.
  */
-public class GrouponDetailBean {
+public class GrouponDetailBean implements Serializable {
     private int TeamId;
     private int UserId;
     private String UserName;

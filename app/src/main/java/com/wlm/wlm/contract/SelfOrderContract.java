@@ -17,4 +17,8 @@ public interface SelfOrderContract extends IView {
     public void exitOrderSuccess(String collectDeleteBean);
 
     public void exitOrderFail(String smg);
+
+    public void cancelOrderSuccess(String collectDeleteBean);
+
+    public void cancelOrderFail(String smg);
 }

@@ -295,15 +295,24 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
 
                 case R.id.ll_shared:
 
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
+                    new Thread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, Context.MODE_PRIVATE);
 
 
-                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                                    Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
+                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                    thumbBmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
-                    String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
-                    WlmUtil.setShared(iwxapi, path, "唯乐美商城", "唯乐美商城", baos.toByteArray());
+                                    String path = "/pages/index/index?scene=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
+                                    WlmUtil.setShared(iwxapi, path, "唯乐美商城", "唯乐美商城", baos.toByteArray(),0);
+
+                                }
+                            }
+                    ).start();
 
                     break;
 

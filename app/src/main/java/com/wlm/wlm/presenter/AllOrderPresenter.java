@@ -113,6 +113,43 @@ public class AllOrderPresenter extends BasePresenter {
         );
     }
 
+    public void cancelOrder(String OrderId, String SessionId) {
+        final ProgressDialog progressDialog = ProgressDialog.show(mContext, "请稍等...", "申请退款中...", true);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("cls", "OrderInfo");
+        params.put("fun", "OrderInfoVIPRefund");
+        params.put("OrderSn", OrderId);
+        params.put("SessionId", SessionId);
+        mCompositeSubscription.add(manager.exitOrder(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HttpResultCallBack<String, Object>() {
+
+                    @Override
+                    public void onResponse(String collectDeleteBean, String status, Object page) {
+                        allOrderContract.cancelOrderSuccess(collectDeleteBean);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onErr(String msg, String status) {
+                        allOrderContract.cancelOrderFail(msg);
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(ResultBean o) {
+                        super.onNext(o);
+                    }
+
+                })
+        );
+    }
+
     public void getOrderData(String SessionId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "BankBase");

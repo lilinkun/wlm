@@ -447,6 +447,7 @@ public class OrderListActivity extends BaseActivity implements IPayOrderClickLis
             if (requestCode == 0x0987) {
                 allOrderFragment.setData();
                 waitPayFragment.setData();
+                waitReceiveFragment.setData();
                 completedOrderFragment.setData();
             }
         }

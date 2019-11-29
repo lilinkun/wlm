@@ -95,6 +95,8 @@ public class ProApplication extends Application {
 
     public static String SHAREDIMG = "";
 
+    public static String SHAREDMEIMG = "";
+
     public static String REGISTERREQUIREMENTS = "";
 
     public static String UPGRADEURL = "";

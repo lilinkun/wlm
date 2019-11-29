@@ -157,43 +157,7 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
         iv_address_right.setVisibility(View.GONE);
 
-        if (status == 1) {
-            tv_pay_style.setText("未发货");
-            tv_pay_message.setText("买家已付款，等待发货");
-            rl_bottom.setVisibility(View.GONE);
-            iv_order_status.setImageResource(R.mipmap.ic_order_status_pay);
-        } else if (status == 2) {
-            tv_exit_order.setVisibility(View.GONE);
-            tv_pay_order.setText("确认收货");
-            tv_pay_style.setText("已发货");
-            tv_pay_message.setText("您的商品正在运输中");
-            tv_query_logistics.setVisibility(View.VISIBLE);
-            ll_lgs_time.setVisibility(View.VISIBLE);
-            ll_lgs.setVisibility(View.VISIBLE);
-            iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
-        } else if (status == 0) {
-            tv_exit_order.setText("取消订单");
-            tv_pay_order.setText("立即付款");
-            tv_pay_style.setText("未付款");
-            tv_pay_message.setText("您的订单已提交，请尽快完成支付，确保宝贝早日到达您的身边。");
-            iv_order_status.setImageResource(R.mipmap.ic_order_status_unpay);
-        } else if (status == 4) {
-            tv_pay_style.setText("交易完成");
-            tv_pay_message.setText("您的交易已经完成");
-            tv_pay_order.setText("删除订单");
-            tv_query_logistics.setVisibility(View.VISIBLE);
-            ll_lgs.setVisibility(View.VISIBLE);
-            ll_lgs_time.setVisibility(View.VISIBLE);
-            ll_price_status.setVisibility(View.GONE);
-            tv_exit_order.setVisibility(View.GONE);
-            tv_pay_order.setVisibility(View.GONE);
-//            rl_bottom.setVisibility(View.GONE);
-            iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
-        } else if (status == 5) {
-            tv_pay_style.setText("交易失效");
-            tv_pay_message.setText("");
-            rl_bottom.setVisibility(View.GONE);
-        }
+
     }
 
 
@@ -261,6 +225,8 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 //        recyclerView.addItemDecoration(divider);
         order_date.setText(orderDetailBeans.getCreateDate());
 
+        status = orderDetailBeans.getOrderStatus();
+        tv_pay_style.setText(orderDetailBeans.getOrderStatusName());
 
         order_amount += orderDetailBeans.getOrderAmount();
 
@@ -295,6 +261,48 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             ll_pay_date.setVisibility(View.VISIBLE);
             tv_pay_date.setText(orderDetailBeans.getPayDate() + "");
         }
+
+        if (status == 1) {
+            tv_pay_message.setText("买家已付款，等待发货");
+            tv_exit_order.setText("申请退款");
+            tv_exit_order.setVisibility(View.VISIBLE);
+            tv_pay_order.setVisibility(View.GONE);
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_pay);
+        } else if (status == 2) {
+            tv_exit_order.setText("申请退款");
+            tv_exit_order.setVisibility(View.VISIBLE);
+            tv_pay_order.setText("确认收货");
+            tv_pay_message.setText("您的商品正在运输中");
+            tv_query_logistics.setVisibility(View.VISIBLE);
+            ll_lgs_time.setVisibility(View.VISIBLE);
+            ll_lgs.setVisibility(View.VISIBLE);
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_unover);
+        } else if (status == 0) {
+            tv_exit_order.setText("取消订单");
+            tv_pay_order.setText("立即付款");
+            tv_pay_message.setText("您的订单已提交，请尽快完成支付，确保宝贝早日到达您的身边。");
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_unpay);
+        } else if (status == 4) {
+            tv_pay_message.setText("您的交易已经完成");
+            tv_pay_order.setText("删除订单");
+            tv_query_logistics.setVisibility(View.VISIBLE);
+            ll_lgs.setVisibility(View.VISIBLE);
+            ll_lgs_time.setVisibility(View.VISIBLE);
+            ll_price_status.setVisibility(View.GONE);
+            tv_exit_order.setVisibility(View.GONE);
+            tv_pay_order.setVisibility(View.GONE);
+//            rl_bottom.setVisibility(View.GONE);
+            iv_order_status.setImageResource(R.mipmap.ic_order_status_over);
+        } else if (status == 5) {
+            tv_pay_message.setText("");
+            rl_bottom.setVisibility(View.GONE);
+        } else if(status == 6){
+            tv_pay_message.setText("买家已申请退款，等待商家审核");
+            rl_bottom.setVisibility(View.GONE);
+        }
+
+
+
         send_out_date.setText(orderDetailBeans.getShippingDate() + "");
         logistics_information.setText(orderDetailBeans.getLgsName() + " " + orderDetailBeans.getLgsNumber());
 
@@ -304,17 +312,31 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
 
                 if (!ButtonUtils.isFastDoubleClick()) {
 
-                    new AlertDialog.Builder(AllOrderActivity.this).setTitle("温馨提示").setMessage("您确定要取消订单？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            allOrderPresenter.exitOrder(orderDetailBeans.getOrderSn(), ProApplication.SESSIONID(AllOrderActivity.this));
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+                    if (status == 1 || status == 2){
+                        new AlertDialog.Builder(AllOrderActivity.this).setMessage("您确定要申请退款？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                allOrderPresenter.cancelOrder(orderDetailBeans.getOrderSn(), ProApplication.SESSIONID(AllOrderActivity.this));
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }else {
+                        new AlertDialog.Builder(AllOrderActivity.this).setTitle("温馨提示").setMessage("您确定要取消订单？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                allOrderPresenter.exitOrder(orderDetailBeans.getOrderSn(), ProApplication.SESSIONID(AllOrderActivity.this));
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }
                 }
 
             }
@@ -376,6 +398,16 @@ public class AllOrderActivity extends BaseActivity implements AllOrderContract, 
             tv_pay_order.setClickable(true);
         }
         toast(msg);
+    }
+
+    @Override
+    public void cancelOrderSuccess(String collectDeleteBean) {
+        allOrderPresenter.cartBuy(orderSn, ProApplication.SESSIONID(this));
+    }
+
+    @Override
+    public void cancelOrderFail(String msg) {
+            toast(msg);
     }
 
     @Override

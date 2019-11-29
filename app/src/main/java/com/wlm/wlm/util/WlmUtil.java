@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -113,6 +114,7 @@ public class WlmUtil {
     public static final String USERBANKBEAN = "UserBankBean";
     public static final String USERLEVEL = "UserLevel";
     public static final String USERLEVELNAME = "UserLevelName";
+    public static final String SHAREDMEIMG = "Sharedmeimg";
 
 
     public static String RESULT_SUCCESS = "success";
@@ -318,7 +320,16 @@ public class WlmUtil {
         return type;
     }
 
-    public static void setShared(IWXAPI iwxapi, String path, String title, String description, byte[] byteArray) {
+    /**
+     *
+     * @param iwxapi
+     * @param path
+     * @param title
+     * @param description
+     * @param byteArray
+     * @param which  0:分享微信好友 1:分享微信朋友圈 2:分享微信收藏
+     */
+    public static void setShared(IWXAPI iwxapi, String path, String title, String description, byte[] byteArray,int which) {
 
         WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
         miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
@@ -334,9 +345,48 @@ public class WlmUtil {
         msg.thumbData = byteArray;// 小程序消息封面图片，小于128k
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = "";
+        req.transaction = String.valueOf(System.currentTimeMillis());
         req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneSession;  // 目前只支持会话
+        if (which == 0) {
+            req.scene = SendMessageToWX.Req.WXSceneSession;  // 发送到好友界面
+        }else if (which == 1){
+            req.scene = SendMessageToWX.Req.WXSceneTimeline;//发送到朋友圈
+        } else if (which == 2) {
+            req.scene = SendMessageToWX.Req.WXSceneFavorite;//添加到微信收藏
+        }
+        iwxapi.sendReq(req);
+    }
+
+    public static void setShared1(IWXAPI iwxapi, String path, String title, String description, byte[] byteArray,int which) {
+
+        /*WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
+        miniProgramObj.webpageUrl = ProApplication.SHAREDIMG; // 兼容低版本的网页链接
+//        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPROGRAM_TYPE_TEST;
+        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
+        miniProgramObj.userName = "gh_aa9e3dbf8fd0";     // 小程序原始id
+        miniProgramObj.path = path;*/
+
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = ProApplication.SHAREDIMG;
+
+        //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = title;                    // 小程序消息title
+        msg.description = description;               // 小程序消息desc
+
+        msg.thumbData = byteArray;// 小程序消息封面图片，小于128k
+
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        if (which == 0) {
+            req.scene = SendMessageToWX.Req.WXSceneSession;  // 发送到好友界面
+        }else if (which == 1){
+            req.scene = SendMessageToWX.Req.WXSceneTimeline;//发送到朋友圈
+        } else if (which == 2) {
+            req.scene = SendMessageToWX.Req.WXSceneFavorite;//添加到微信收藏
+        }
         iwxapi.sendReq(req);
     }
 

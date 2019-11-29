@@ -16,6 +16,7 @@ public class UrlBean {
     private int IsAuditing;
     private int IsAndroidAuditing;
     private String LogisticsUrl;
+    private String ShareImg;
 
     public String getLogisticsUrl() {
         return LogisticsUrl;
@@ -103,5 +104,13 @@ public class UrlBean {
 
     public void setKFMobile(String KFMobile) {
         this.KFMobile = KFMobile;
+    }
+
+    public String getShareImg() {
+        return ShareImg;
+    }
+
+    public void setShareImg(String shareImg) {
+        ShareImg = shareImg;
     }
 }

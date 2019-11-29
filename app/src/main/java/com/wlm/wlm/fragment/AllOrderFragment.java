@@ -156,19 +156,31 @@ public class AllOrderFragment extends BasePagerFragment implements SelfOrderCont
     @Override
     public void exitOrderSuccess(String collectDeleteBean) {
 
-        for (int i = 0; i < selfOrderBeans.size(); i++) {
+        /*for (int i = 0; i < selfOrderBeans.size(); i++) {
             if (selfOrderBeans.get(i).getOrderSn().equals(orderId)) {
                 selfOrderBeans.remove(i);
                 if (selfOrderAdapter != null) {
                     selfOrderAdapter.setData(selfOrderBeans);
                 }
             }
-        }
+        }*/
+
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
 
     }
 
     @Override
     public void exitOrderFail(String smg) {
+
+    }
+
+    @Override
+    public void cancelOrderSuccess(String collectDeleteBean) {
+        selfOrderPresenter.getOrderData(pageIndex + "", WlmUtil.PAGE_COUNT, "", ProApplication.SESSIONID(getActivity()));
+    }
+
+    @Override
+    public void cancelOrderFail(String smg) {
 
     }
 
@@ -186,6 +198,12 @@ public class AllOrderFragment extends BasePagerFragment implements SelfOrderCont
     @Override
     public void sureReceipt(String orderId) {
         payListener.SureReceive(orderId);
+    }
+
+    @Override
+    public void cancelOrder(String orderId) {
+        this.orderId = orderId;
+        selfOrderPresenter.cancelOrder(orderId, ProApplication.SESSIONID(getActivity()));
     }
 
     @Override

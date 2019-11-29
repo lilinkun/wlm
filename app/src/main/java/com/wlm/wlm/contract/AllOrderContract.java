@@ -16,7 +16,11 @@ public interface AllOrderContract extends IView {
 
     public void exitOrderSuccess(String collectDeleteBean);
 
-    public void exitOrderFail(String smg);
+    public void exitOrderFail(String msg);
+
+    public void cancelOrderSuccess(String collectDeleteBean);
+
+    public void cancelOrderFail(String msg);
 
     public void InfoAccountSuccess(CountBean orderDetailBean);
 

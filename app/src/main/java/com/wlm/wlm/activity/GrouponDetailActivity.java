@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +29,7 @@ import com.wlm.wlm.ui.PriceTextView;
 import com.wlm.wlm.ui.RoundImageView;
 import com.wlm.wlm.util.ActivityUtil;
 import com.wlm.wlm.util.Eyes;
+import com.wlm.wlm.util.UiHelper;
 import com.wlm.wlm.util.WlmUtil;
 import com.wlm.wlm.wxapi.WXEntryActivity;
 
@@ -65,12 +67,19 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
     CustomRoundAngleImageView iv_goods_pic;
     @BindView(R.id.tv_rule)
     TextView tv_rule;
+    @BindView(R.id.tv_join_groupon)
+    TextView tv_join_groupon;
+    @BindView(R.id.rl_more)
+    RelativeLayout rl_more;
+    @BindView(R.id.tv_rush_time_flash_sale)
+    CountdownView tv_rush_time_flash_sale;
 
     private String teamId;
     private GrouponDetailPresenter getGoodsDetail = new GrouponDetailPresenter();
     private ArrayList<JoinGrouponBean> joinGrouponBeans;
     private GrouponDetailBean grouponDetailBean;
     IWXAPI iwxapi = null;
+    private boolean isEnd = false;
 
     @Override
     public int getLayoutId() {
@@ -94,13 +103,25 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         if (bundle != null && bundle.getString(WlmUtil.TEAMID) != null) {
             teamId = bundle.getString(WlmUtil.TEAMID);
+            isEnd = bundle.getBoolean("over",false);
         }
+
+        tv_rush_time.setVisibility(View.GONE);
+
+        tv_rush_time_flash_sale.setVisibility(View.VISIBLE);
+
 
         getGoodsDetail.getGoodsDetail(teamId, ProApplication.SESSIONID(this));
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         Picasso.with(this).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "") + "").error(R.mipmap.ic_adapter_error).into(riv_rc);
 
+        if (isEnd){
+            tv_join_groupon.setText("拼团已经完成");
+            tv_join_groupon.setTextColor(getResources().getColor(R.color.gray));
+            tv_join_groupon.setBackground(getResources().getDrawable(R.drawable.shape_groupon_black_btn));
+            rl_more.setVisibility(View.GONE);
+        }
 
     }
 
@@ -117,7 +138,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
             case R.id.rl_more:
 
-                Picasso.with(this).load(ProApplication.HEADIMG + grouponDetailBean.getGoodsImg()).into(new Target() {
+                /*Picasso.with(this).load(ProApplication.HEADIMG + grouponDetailBean.getGoodsImg()).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
@@ -138,7 +159,14 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
                     public void onPrepareLoad(Drawable placeHolderDrawable) {
 
                     }
-                });
+                });*/
+                if (!isEnd) {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("shared", "group");
+                    bundle.putSerializable(WlmUtil.GOODS, grouponDetailBean);
+                    UiHelper.launcherBundle(this, MyQrCodeActivity.class, bundle);
+                }
 
                 break;
         }
@@ -160,9 +188,9 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
         tv_grounon_info.setText(goodsListBean.getGoodsSmallName());
 
-        if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time) == 0) {
+        if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time_flash_sale) == 0) {
             tv_end_time.setText("至开始");
-        } else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time) == 1) {
+        } else if (WlmUtil.isCountdown(goodsListBean.getBeginDate(), goodsListBean.getEndDate(), tv_rush_time_flash_sale) == 1) {
             tv_end_time.setText("至截止");
         } else {
             tv_grouponing.setVisibility(View.GONE);

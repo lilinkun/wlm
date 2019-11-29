@@ -11,16 +11,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wlm.wlm.R;
+import com.wlm.wlm.activity.AllOrderActivity;
 import com.wlm.wlm.activity.WebViewActivity;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.SelfOrderBean;
 import com.wlm.wlm.entity.SelfOrderInfoBean;
 import com.wlm.wlm.util.ButtonUtils;
+import com.wlm.wlm.util.UToast;
 import com.wlm.wlm.util.UiHelper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import butterknife.OnItemClick;
 
 /**
  * Created by LG on 2018/12/18.
@@ -75,7 +81,8 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         holder.tv_order_time.setText(selfOrderBeans.get(position).getCreateDate());
 
         if (selfOrderBeans.get(position).getOrderStatus() == 1) {
-            holder.tv_exit_order.setVisibility(View.GONE);
+            holder.tv_exit_order.setVisibility(View.VISIBLE);
+            holder.tv_exit_order.setText("申请退款");
             holder.tv_go_pay.setVisibility(View.GONE);
         } else if (selfOrderBeans.get(position).getOrderStatus() == 0) {
             holder.tv_exit_order.setVisibility(View.VISIBLE);
@@ -102,12 +109,16 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             holder.tv_go_pay.setVisibility(View.VISIBLE);
             holder.tv_go_pay.setText("确认收货");
             holder.tv_query_logistics.setVisibility(View.VISIBLE);
-            holder.tv_exit_order.setVisibility(View.GONE);
+            holder.tv_exit_order.setVisibility(View.VISIBLE);
+            holder.tv_exit_order.setText("申请退款");
         } else if (selfOrderBeans.get(position).getOrderStatus() == 4) {
             holder.tv_go_pay.setVisibility(View.GONE);
             holder.tv_exit_order.setVisibility(View.GONE);
             holder.tv_query_logistics.setVisibility(View.VISIBLE);
         } else if (selfOrderBeans.get(position).getOrderStatus() == 5) {
+            holder.tv_exit_order.setVisibility(View.GONE);
+            holder.tv_go_pay.setVisibility(View.GONE);
+        } else if  (selfOrderBeans.get(position).getOrderStatus() == 6) {
             holder.tv_exit_order.setVisibility(View.GONE);
             holder.tv_go_pay.setVisibility(View.GONE);
         }
@@ -116,17 +127,33 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
             @Override
             public void onClick(View v) {
                 if (!ButtonUtils.isFastDoubleClick()) {
-                    new AlertDialog.Builder(context).setMessage("确认取消此订单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            onItemClick.exit_order(selfOrderBeans.get(position).getOrderSn());
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+
+                    if (selfOrderBeans.get(position).getOrderStatus() == 0) {
+
+                        new AlertDialog.Builder(context).setMessage("确认取消此订单").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                onItemClick.exit_order(selfOrderBeans.get(position).getOrderSn());
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }else {
+                        new AlertDialog.Builder(context).setMessage("您确定要申请退款？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                onItemClick.cancelOrder(selfOrderBeans.get(position).getOrderSn());
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }
                 }
 
             }
@@ -239,6 +266,8 @@ public class SelfOrderAdapter extends RecyclerView.Adapter<SelfOrderAdapter.View
         public void go_pay(SelfOrderBean orderId);
 
         public void sureReceipt(String orderId);
+
+        public void cancelOrder(String orderId);
 
         public void getQrcode(String orderId);
     }

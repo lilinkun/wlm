@@ -137,6 +137,16 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     }
 
     @Override
+    public void cancelOrderSuccess(String collectDeleteBean) {
+
+    }
+
+    @Override
+    public void cancelOrderFail(String smg) {
+
+    }
+
+    @Override
     public void exit_order(String orderId) {
         this.orderId = orderId;
         selfOrderPresenter.exitOrder(orderId, ProApplication.SESSIONID(getActivity()));
@@ -151,6 +161,13 @@ public class WaitPayFragment extends BasePagerFragment implements SelfOrderContr
     public void sureReceipt(String orderId) {
         iPayOrderClickListener.SureReceive(orderId);
     }
+
+
+    @Override
+    public void cancelOrder(String orderId) {
+        selfOrderPresenter.cancelOrder(orderId, ProApplication.SESSIONID(getActivity()));
+    }
+
 
     @Override
     public void getQrcode(String orderId) {

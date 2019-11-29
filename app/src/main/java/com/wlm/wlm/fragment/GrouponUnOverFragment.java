@@ -70,6 +70,7 @@ public class GrouponUnOverFragment extends BaseFragment implements MyGrouponCont
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(WlmUtil.TEAMID, grouponListBeans.get(position).getTeamId() + "");
+        bundle.putBoolean("over",false);
         UiHelper.launcherBundle(getActivity(), GrouponDetailActivity.class, bundle);
     }
 
@@ -81,7 +82,7 @@ public class GrouponUnOverFragment extends BaseFragment implements MyGrouponCont
         }
 
         if (myGrouponAdapter == null) {
-            myGrouponAdapter = new MyGrouponAdapter(getActivity(), grouponListBeans);
+            myGrouponAdapter = new MyGrouponAdapter(getActivity(), grouponListBeans,isEnd);
             rv_all_groupon.setAdapter(myGrouponAdapter);
             myGrouponAdapter.setItemClickListener(this);
         } else {

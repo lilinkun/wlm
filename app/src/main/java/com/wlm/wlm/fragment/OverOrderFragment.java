@@ -118,6 +118,16 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
     }
 
     @Override
+    public void cancelOrderSuccess(String collectDeleteBean) {
+
+    }
+
+    @Override
+    public void cancelOrderFail(String smg) {
+
+    }
+
+    @Override
     public void exit_order(String orderId) {
 
     }
@@ -131,6 +141,11 @@ public class OverOrderFragment extends BaseFragment implements SelfOrderContract
     public void sureReceipt(String orderId) {
 
     }
+
+    @Override
+    public void cancelOrder(String orderId) {
+    }
+
 
     @Override
     public void getQrcode(String orderId) {

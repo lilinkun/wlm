@@ -28,10 +28,12 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
     private ArrayList<GrouponListBean> grouponListBeans;
     private OnItemClickListener mItemClickListener;
     IWXAPI iwxapi = null;
+    private String isEnd;
 
-    public MyGrouponAdapter(Context context, ArrayList<GrouponListBean> grouponListBeans) {
+    public MyGrouponAdapter(Context context, ArrayList<GrouponListBean> grouponListBeans,String isEnd) {
         this.context = context;
         this.grouponListBeans = grouponListBeans;
+        this.isEnd = isEnd;
 
         iwxapi = WXAPIFactory.createWXAPI(context, WlmUtil.APP_ID, true);
         iwxapi.registerApp(WlmUtil.APP_ID);
@@ -69,6 +71,12 @@ public class MyGrouponAdapter extends RecyclerView.Adapter<MyGrouponAdapter.View
         }
 
         Picasso.with(context).load(ProApplication.HEADIMG + grouponListBeans.get(position).getGoodsImg()).into(holder.iv_goods_pic);
+
+        if (isEnd.equals("1")){
+            holder.tv_exit_order.setText("拼团已经完成");
+            holder.tv_exit_order.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.tv_exit_order.setBackground(context.getResources().getDrawable(R.drawable.ic_groupon_over_bg));
+        }
 
         /*holder.tv_exit_order.setOnClickListener(new View.OnClickListener() {
             @Override

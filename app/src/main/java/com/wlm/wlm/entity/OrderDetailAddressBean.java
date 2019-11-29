@@ -33,7 +33,7 @@ public class OrderDetailAddressBean {
     private int Road;
     private int District;
     private int MemberLevel;
-    private int Zip;
+    private String Zip;
     private String ShippingDate;
     private String EffectivePaymentDate;
     private ArrayList<SelfOrderInfoBean> orderDetail;
@@ -256,11 +256,11 @@ public class OrderDetailAddressBean {
         MemberLevel = memberLevel;
     }
 
-    public int getZip() {
+    public String getZip() {
         return Zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         Zip = zip;
     }
 

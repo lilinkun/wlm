@@ -133,6 +133,24 @@ public class WaitReceiveFragment extends BasePagerFragment implements SelfOrderC
     }
 
     @Override
+    public void cancelOrderSuccess(String collectDeleteBean) {
+
+        for (int i = 0; i < selfOrderBeans.size(); i++) {
+            if (selfOrderBeans.get(i).getOrderSn().equals(orderId)) {
+                selfOrderBeans.remove(i);
+                if (selfOrderAdapter != null) {
+                    selfOrderAdapter.setData(selfOrderBeans);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void cancelOrderFail(String smg) {
+
+    }
+
+    @Override
     public void exit_order(String orderId) {
         this.orderId = orderId;
         selfOrderPresenter.exitOrder(orderId, ProApplication.SESSIONID(getActivity()));
@@ -145,6 +163,14 @@ public class WaitReceiveFragment extends BasePagerFragment implements SelfOrderC
     @Override
     public void sureReceipt(String orderId) {
     }
+
+
+    @Override
+    public void cancelOrder(String orderId) {
+        this.orderId = orderId;
+        selfOrderPresenter.cancelOrder(orderId, ProApplication.SESSIONID(getActivity()));
+    }
+
 
     @Override
     public void getQrcode(String orderId) {

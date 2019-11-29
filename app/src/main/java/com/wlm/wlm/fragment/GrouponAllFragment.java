@@ -81,7 +81,7 @@ public class GrouponAllFragment extends BaseFragment implements MyGrouponAdapter
         }
 
         if (myGrouponAdapter == null) {
-            myGrouponAdapter = new MyGrouponAdapter(getActivity(), grouponListBeans);
+            myGrouponAdapter = new MyGrouponAdapter(getActivity(), grouponListBeans,"0");
             rv_all_groupon.setAdapter(myGrouponAdapter);
             myGrouponAdapter.setItemClickListener(this);
         } else {

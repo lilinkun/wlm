@@ -50,7 +50,7 @@ public class MyGrouponPresenter extends BasePresenter {
         params.put("fun", "GoodsTeamPublishVipList");
         params.put("PageIndex", PageIndex);
         params.put("PageCount", PageCount);
-        params.put("IsEnd", IsEnd);
+        params.put("IsEnd", "0");
         params.put("SessionId", SessionId);
         mCompositeSubscription.add(manager.getMyGrouponData(params)
                 .subscribeOn(Schedulers.io())

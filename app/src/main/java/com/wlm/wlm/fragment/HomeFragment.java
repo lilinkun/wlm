@@ -156,6 +156,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ProApplication.BANNERIMG = sharedPreferences.getString(WlmUtil.BANNERIMG, "");
         ProApplication.CUSTOMERIMG = sharedPreferences.getString(WlmUtil.CUSTOMER, "");
         ProApplication.SHAREDIMG = sharedPreferences.getString(WlmUtil.SHAREDIMG, "");
+        ProApplication.SHAREDMEIMG = sharedPreferences.getString(WlmUtil.SHAREDMEIMG, "");
 
         homePresenter.onCreate(getActivity(), this);
         homePresenter.getUrl(ProApplication.SESSIONID(getActivity()));
@@ -377,12 +378,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
+            ProApplication.SHAREDMEIMG = urlBean.getShareImg();
 //            homePresenter.setFlash("1");
 //            homePresenter.getGoodsList("1");
             homePresenter.getHomeData(ProApplication.SESSIONID(getActivity()));
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
             sharedPreferences.edit().putString(WlmUtil.IMG, ProApplication.HEADIMG).putString(WlmUtil.BANNERIMG, ProApplication.BANNERIMG)
-                    .putString(WlmUtil.CUSTOMER, ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG, ProApplication.SHAREDIMG).commit();
+                    .putString(WlmUtil.CUSTOMER, ProApplication.CUSTOMERIMG).putString(WlmUtil.SHAREDIMG, ProApplication.SHAREDIMG)
+                    .putString(WlmUtil.SHAREDMEIMG,"").commit();
         }
 
     }
