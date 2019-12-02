@@ -23,7 +23,10 @@ import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.wlm.wlm.R;
@@ -105,7 +108,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @BindView(R.id.rv_home)
     RecyclerView rv_home;
     @BindView(R.id.rv_home_commodities)
-    RecyclerView rv_home_commodities;
+    XRecyclerView rv_home_commodities;
     @BindView(R.id.tv_rush_time)
     CountdownView tv_rush_time;
     @BindView(R.id.big_1)
@@ -116,7 +119,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     ImageView iv_vip_icon2;
 
     private PopupWindow popupWindow;
-    private int PAGE_INDEX = 1;
     int mAlpha = 0;
     private ArrayList<GoodsListBean> hotHomeBeans;
     private HomeFragmentAdapter homeFragmentAdapter;
@@ -179,6 +181,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         rv_home_commodities.setLayoutManager(linearLayoutManager);
         rv_home_commodities.setHasFixedSize(true);
         rv_home_commodities.setNestedScrollingEnabled(false);
+
 //        mBanner.setImageLoader(new PicassoImageLoader());
 //        mBanner.setImages();
 
@@ -273,17 +276,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 case R.id.iv_vip_icon1:
 
-                    Bundle bundle = new Bundle();
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("goodsid", hotHomeBeans.get(0).getGoodsId());
-                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle);*/
+                    UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
 
                     break;
 
                 case R.id.iv_vip_icon2:
 
-                    Bundle bundle1 = new Bundle();
+                    /*Bundle bundle1 = new Bundle();
                     bundle1.putString("goodsid", hotHomeBeans.get(1).getGoodsId());
-                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle1);
+                    UiHelper.launcherBundle(getActivity(), SelfGoodsDetailActivity.class, bundle1);*/
+                    UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
 
                     break;
             }
@@ -477,10 +482,29 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.hotHomeBeans = goodsListBeans;
-
-        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(), goodsListBeans);
+        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(), hotHomeBeans);
         rv_home_commodities.setAdapter(homeHotAdapter);
         homeHotAdapter.setItemClickListener(this);
+
+        rv_home_commodities.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (getActivity() != null){
+                        Glide.with(getActivity()).resumeRequests();//恢复Glide加载图片
+                    }
+                }else {
+                    if (getActivity() != null){
+                        Glide.with(getActivity()).pauseRequests();//禁止Glide加载图片
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
         // 外部对RecyclerView设置监听
 //        rv_home_commodities.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -514,9 +538,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
 //        Picasso.with(getActivity()).load("http://wlmimg.mmibb.net:99/imgdb/91d03296ead1417bbb9e59979bad40f4.png").transform(transformation).error(R.mipmap.banner_1).into(big_1);
         Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getFlashVip().get(0).getFlashPic()).transform(transformation).error(R.mipmap.banner_1).into(big_1);
-        Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getVipList().get(0).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
-        if (homeBean.getVipList().size() >= 2) {
-            Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getVipList().get(1).getGoodsIndexImg()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
+        Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getFlashVip9().get(0).getFlashPic()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon1);
+        if (homeBean.getFlashVip9().size() >= 2) {
+            Picasso.with(getActivity()).load(ProApplication.BANNERIMG + homeBean.getFlashVip9().get(1).getFlashPic()).transform(transformation1).error(R.mipmap.banner_2).into(iv_vip_icon2);
         }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -533,7 +557,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void getHomeDataFail(String msg) {
-        UToast.show(getActivity(), msg);
+//        UToast.show(getActivity(), msg);
     }
 
 

@@ -89,7 +89,7 @@
                         app:suffixGravity="center"
                         app:suffixTextColor="@color/white"
                         app:suffixTextSize="11sp"
-                        app:suffixDay=":"
+                        app:suffixDay="天"
                         app:suffixHour=":"
                         app:suffixMinute=":"/>
 

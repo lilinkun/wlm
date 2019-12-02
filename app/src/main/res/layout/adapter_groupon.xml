@@ -107,19 +107,19 @@
                 app:suffixGravity="center"
                 app:suffixTextColor="@color/point_red"
                 app:suffixTextSize="11sp"
-                app:suffixDay=":"
+                app:suffixDay="天"
                 app:suffixHour=":"
                 app:suffixMinute=":"
                 app:suffixSecond=""/>
 
-            <!--<com.wlm.wlm.ui.CountdownView
+            <com.wlm.wlm.ui.CountdownView
                 android:id="@+id/tv_rush_time_flash_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/margin_5"
                 android:visibility="gone"
                 app:isHideTimeBackground="false"
-                app:timeBgColor="@color/point_red"
+                app:timeBgColor="@color/setting_title_color"
                 app:timeBgSize="@dimen/textsize16"
                 app:timeBgRadius="2dp"
                 app:isShowDay="true"
@@ -130,12 +130,12 @@
                 app:timeTextSize="11sp"
                 app:isTimeTextBold="true"
                 app:suffixGravity="center"
-                app:suffixTextColor="@color/point_red"
+                app:suffixTextColor="@color/setting_title_color"
                 app:suffixTextSize="11sp"
-                app:suffixDay=":"
+                app:suffixDay="天"
                 app:suffixHour=":"
                 app:suffixMinute=":"
-                app:suffixSecond=""/>-->
+                app:suffixSecond=""/>
 
             <TextView
                 android:id="@+id/tv_end_time"

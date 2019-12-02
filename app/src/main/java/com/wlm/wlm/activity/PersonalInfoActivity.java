@@ -162,7 +162,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnTitleBarClic
         }
 
         nickName.setText(sharedPreferences.getString(WlmUtil.ACCOUNT, ""));
-        tv_phone.setText(PhoneFormatCheckUtils.phoneAddress(sharedPreferences.getString(WlmUtil.TELEPHONE, "")));
+        tv_phone.setText(sharedPreferences.getString(WlmUtil.TELEPHONE, ""));
         // 监听下载进度
         BGAUpgradeUtil.getDownloadProgressEventObservable()
                 .compose(this.<BGADownloadProgressEvent>bindToLifecycle())

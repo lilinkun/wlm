@@ -76,7 +76,7 @@
 
         </LinearLayout>
 
-        
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -145,8 +145,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textsize18"
             android:text="邀请好友参团"/>
-        
-        
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"

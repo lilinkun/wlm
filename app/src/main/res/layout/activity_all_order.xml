@@ -256,6 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_10">
         <TextView
@@ -304,6 +305,7 @@
                 android:textSize="@dimen/textsize14"
                 android:paddingLeft="@dimen/padding_15"
                 android:paddingRight="@dimen/padding_15"
+                android:layout_marginRight="@dimen/margin_10"
                 android:gravity="center"/>
 
             <TextView
@@ -316,7 +318,6 @@
                 android:textSize="@dimen/textsize14"
                 android:paddingLeft="@dimen/padding_10"
                 android:paddingRight="@dimen/padding_10"
-                android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginRight="@dimen/margin_10"
                 android:text="付款"/>
 

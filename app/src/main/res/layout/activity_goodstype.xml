@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lzy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,11 +10,11 @@
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        lzy:img_left="@mipmap/ic_back_white"
-        lzy:text_color="@color/white"
-        lzy:text_title="@string/homepage_good_thing_list"
-        lzy:img_right="@mipmap/ic_search_bg"
-        lzy:title_color="@color/setting_title_color"></com.wlm.wlm.ui.CustomTitleBar>
+        app:img_left="@mipmap/ic_back_white"
+        app:text_color="@color/white"
+        app:text_title="@string/homepage_good_thing_list"
+        app:img_right="@mipmap/ic_search_bg"
+        app:title_color="@color/setting_title_color"></com.wlm.wlm.ui.CustomTitleBar>
 
     <com.wlm.wlm.ui.PagerSlidingTabStrip
         android:id="@+id/tab_strip"

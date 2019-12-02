@@ -99,6 +99,8 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
     LinearLayout ll_me_vip;
     @BindView(R.id.mPtrframe)
     CusPtrClassicFrameLayout mPtrFrame;
+    @BindView(R.id.tv_username)
+    TextView tv_username;
 
 
     private int result_int = 0x2121;
@@ -137,6 +139,9 @@ public class MeFragment extends BaseFragment implements OnScrollChangedListener,
         if (!sharedPreferences.getString(WlmUtil.HEADIMGURL, "").isEmpty()) {
             Picasso.with(getActivity()).load(sharedPreferences.getString(WlmUtil.HEADIMGURL, "")).error(R.mipmap.ic_adapter_error).into(roundImageView);
         }
+
+        tv_username.setText(sharedPreferences.getString(WlmUtil.USERNAME, ""));
+
 //        BadgeView badgeView = new BadgeView(getActivity());
 //        badgeView.set
     }

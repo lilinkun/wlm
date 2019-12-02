@@ -132,7 +132,7 @@
                                 app:suffixGravity="center"
                                 app:suffixTextColor="#ffeae9"
                                 app:suffixTextSize="13sp"
-                                app:suffixDay=":"
+                                app:suffixDay="天"
                                 app:suffixHour=":"
                                 app:suffixMinute=":"
                                 app:suffixSecond=""/>

@@ -133,7 +133,7 @@
                 android:textSize="@dimen/textsize15"
                 android:textColor="@color/login_title_text"
                 android:background="@drawable/order_self_black_btn"/>
-            
+
 
             <TextView
                 android:id="@+id/tv_exit_order"

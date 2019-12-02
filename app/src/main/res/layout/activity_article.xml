@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,35 +7,35 @@
     <RelativeLayout
         android:id="@+id/rl_head_title"
         style="@style/headtop_styles">
-    <LinearLayout
-        android:id="@+id/ll_back"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/margin_15"
-        android:paddingRight="@dimen/margin_20">
-        <ImageView
-            android:id="@+id/iv_head_left"
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_20">
+
+            <ImageView
+                android:id="@+id/iv_head_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_back" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_headtop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_back"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_headtop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_333333"
-        android:textSize="@dimen/text_size_headtop"
-        android:layout_centerInParent="true"
-        />
+            android:layout_centerInParent="true"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_headtop" />
     </RelativeLayout>
 
     <WebView
         android:id="@+id/web_article"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

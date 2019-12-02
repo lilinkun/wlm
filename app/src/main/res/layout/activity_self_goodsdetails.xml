@@ -186,7 +186,7 @@
                                 app:suffixGravity="center"
                                 app:suffixTextColor="#ffeae9"
                                 app:suffixTextSize="13sp"
-                                app:suffixDay=":"
+                                app:suffixDay="天"
                                 app:suffixHour=":"
                                 app:suffixMinute=":"
                                 app:suffixSecond=""/>
@@ -342,7 +342,7 @@
                                 app:suffixGravity="center"
                                 app:suffixTextColor="@color/red_price"
                                 app:suffixTextSize="11sp"
-                                app:suffixDay=":"
+                                app:suffixDay="天"
                                 app:suffixHour=":"
                                 app:suffixMinute=":"
                                 app:suffixSecond=""/>
@@ -651,17 +651,33 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/ll_bottom"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/iv_shared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_4"
+        android:layout_above="@+id/iv_turn_top"
+        android:layout_marginBottom="@dimen/margin_15"
+        android:src="@mipmap/ic_goods_share"/>
+
 
     <ImageView
         android:id="@+id/iv_turn_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/margin_10"
-        android:layout_above="@+id/ll_bottom"
-        android:layout_marginBottom="@dimen/margin_50"
-        android:visibility="gone"
+        android:layout_marginBottom="@dimen/margin_15"
+        android:visibility="invisible"
         android:src="@mipmap/ic_turn_top"/>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_bg"

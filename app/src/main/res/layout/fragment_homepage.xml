@@ -92,8 +92,8 @@
                         />
 
                 </LinearLayout>
-                
-                
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="33dp"
@@ -148,13 +148,20 @@
                 </LinearLayout>
 
 
-                <android.support.v7.widget.RecyclerView
+                <!--<android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_home_commodities"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/textsize12"
+                    />-->
+
+
+                <com.jcodecraeer.xrecyclerview.XRecyclerView
                     android:id="@+id/rv_home_commodities"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/textsize12"
                     />
-
 
 
             </LinearLayout>

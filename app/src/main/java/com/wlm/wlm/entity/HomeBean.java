@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class HomeBean {
     private ArrayList<GoodsListBean> GoodsList;
     private ArrayList<FlashBean> flash;
-    private ArrayList<HomeVipListBean> vipList;
+    private ArrayList<FlashBean> flashVip9;
     private String Time;
     private ArrayList<HomeFlashVipBean> flashVip;
 
@@ -36,12 +36,12 @@ public class HomeBean {
         Time = time;
     }
 
-    public ArrayList<HomeVipListBean> getVipList() {
-        return vipList;
+    public ArrayList<FlashBean> getFlashVip9() {
+        return flashVip9;
     }
 
-    public void setVipList(ArrayList<HomeVipListBean> vipList) {
-        this.vipList = vipList;
+    public void setFlashVip9(ArrayList<FlashBean> flashVip9) {
+        this.flashVip9 = flashVip9;
     }
 
     public ArrayList<HomeFlashVipBean> getFlashVip() {

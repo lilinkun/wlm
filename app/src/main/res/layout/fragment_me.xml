@@ -142,8 +142,17 @@
                         android:layout_marginRight="2dp"
                         />
 
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/setting_title_color"
+                        android:textSize="@dimen/textsize12"
+                        android:layout_marginLeft="@dimen/margin_5"
+                        />
 
                 </LinearLayout>
+
 
             </LinearLayout>
 

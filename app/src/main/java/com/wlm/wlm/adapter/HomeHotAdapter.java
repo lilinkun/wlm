@@ -1,11 +1,15 @@
 package com.wlm.wlm.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +23,10 @@ import com.wlm.wlm.util.HomeGridRvEnum;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
+
+import me.samlss.broccoli.Broccoli;
+import me.samlss.broccoli.BroccoliGradientDrawable;
+import me.samlss.broccoli.PlaceholderParameter;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.RESULT;
 
@@ -72,6 +80,9 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setTag(position);
 
+        Broccoli broccoli = new Broccoli();
+
+
         if (hotHomeBeans != null) {
 
             homeBean = hotHomeBeans.get(position);
@@ -116,11 +127,13 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
                 holder.tv_hot.setText("VIP");
             }
 
+
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
 
 //                Picasso.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
 
-                Glide.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).diskCacheStrategy(RESULT).into(holder.goodsPicImg);
+                 Glide.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).diskCacheStrategy(RESULT).into(holder.goodsPicImg);
+
             }
         }
     }
@@ -176,6 +189,23 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 
             isNum = goodsPicImg.getWidth();
         }
+    }
+
+
+    //在不加载图片情况下获取图片大小
+    public static int[] getImageWidthHeight(String path)
+    {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        /**
+         * 最关键在此，把options.inJustDecodeBounds = true;
+         * 这里再decodeFile()，返回的bitmap为空，但此时调用options.outHeight时，已经包含了图片的高了
+         */
+        options.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options); // 此时返回的bitmap为null
+        /**
+         *options.outHeight为原始图片的高
+         */
+        return new int[]{options.outWidth,options.outHeight};
     }
 
 
