@@ -118,7 +118,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
             if (shared.equals("group")){
                 grouponDetailBean = (GrouponDetailBean) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.GOODS);
                 Picasso.with(this).load(ProApplication.HEADIMG + grouponDetailBean.getGoodsImg()).into(criv_shared);
-                tv_goods_price.setText("￥" + grouponDetailBean.getPrice());
+                tv_goods_price.setText("¥" + grouponDetailBean.getPrice());
                 tv_goods_title.setText(grouponDetailBean.getGoodsName());
 
                 String groupShareStr = ProApplication.SHAREDIMG + "Erm/Team?TeamId=" + grouponDetailBean.getTeamId()
@@ -136,7 +136,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                 goodsDetailBean = (GoodsDetailInfoBean<ArrayList<GoodsChooseBean>>) getIntent().getBundleExtra(WlmUtil.TYPEID).getSerializable(WlmUtil.GOODS);
 
                 Picasso.with(this).load(ProApplication.HEADIMG + goodsDetailBean.getGoodsImg()).into(criv_shared);
-                tv_goods_price.setText("￥" + goodsDetailBean.getPrice());
+                tv_goods_price.setText("¥" + goodsDetailBean.getPrice());
                 tv_goods_title.setText(goodsDetailBean.getGoodsName());
 
                 String goodsShareStr = ProApplication.SHAREDIMG + "Erm/Goods?GoodsId=" + goodsDetailBean.getGoodsId()
