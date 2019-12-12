@@ -68,7 +68,7 @@ public class RetrofitHelper {
 
 
         mRetrofit = new Retrofit.Builder()
-                //.baseUrl("https://api.douban.com/v2/")0
+                //.baseUrl("https://api.douban.com/v2/")
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(factory)

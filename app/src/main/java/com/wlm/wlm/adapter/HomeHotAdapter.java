@@ -3,18 +3,15 @@ package com.wlm.wlm.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.entity.GoodsListBean;
@@ -23,10 +20,6 @@ import com.wlm.wlm.util.HomeGridRvEnum;
 import com.wlm.wlm.util.WlmUtil;
 
 import java.util.ArrayList;
-
-import me.samlss.broccoli.Broccoli;
-import me.samlss.broccoli.BroccoliGradientDrawable;
-import me.samlss.broccoli.PlaceholderParameter;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.RESULT;
 
@@ -41,6 +34,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     private GoodsListBean homeBean;
     private boolean isAdd_Integral = false;
     private int isNum = 0;
+    private int isShowNum = 0;
 
     protected boolean isScrolling = false;
 
@@ -50,13 +44,19 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     }
 
 
-    public HomeHotAdapter(Context context, ArrayList<GoodsListBean> homeHeadBean) {
+    public HomeHotAdapter(Context context, ArrayList<GoodsListBean> homeHeadBean,int num) {
         this.hotHomeBeans = homeHeadBean;
         this.context = context;
+        isShowNum = num;
     }
 
     public void setData(ArrayList<GoodsListBean> hotHomeBeans) {
         this.hotHomeBeans = hotHomeBeans;
+        notifyDataSetChanged();
+    }
+
+    public void setShowNum(int showNum){
+        isShowNum = showNum;
         notifyDataSetChanged();
     }
 
@@ -79,9 +79,6 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setTag(position);
-
-        Broccoli broccoli = new Broccoli();
-
 
         if (hotHomeBeans != null) {
 
@@ -131,16 +128,20 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             if (homeBean.getGoodsImg() != null && !homeBean.getGoodsImg().isEmpty()) {
 
 //                Picasso.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).into(holder.goodsPicImg);
-
-                 Glide.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).diskCacheStrategy(RESULT).into(holder.goodsPicImg);
-
+//                if (position < 5) {
+                    Glide.with(context).load(ProApplication.BANNERIMG + homeBean.getGoodsIndexImg()).error(R.mipmap.ic_adapter_error).diskCacheStrategy(RESULT).into(holder.goodsPicImg);
+//                }
             }
         }
     }
 
     @Override
     public int getItemCount() {
-        return hotHomeBeans != null ? hotHomeBeans.size() : 0;
+        if (isShowNum == 0) {
+            return hotHomeBeans != null ? hotHomeBeans.size() : 0;
+        }else {
+            return isShowNum;
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginRight="@dimen/margin_10"
-                lzy:cardBackgroundColor="@android:color/background_dark"
+                lzy:cardBackgroundColor="@android:color/white"
                 lzy:cardCornerRadius="5dp">
 
             <com.wlm.wlm.ui.CustomRoundAngleImageView

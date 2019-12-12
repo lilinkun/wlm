@@ -48,41 +48,6 @@ public class PersonalInfoPresenter extends BasePresenter {
         }
     }
 
-    public void modifyInfo(String account, String session) {
-    }
-
-    /**
-     * 获取个人信息
-     *
-     * @param session
-     */
-    public void getInfo(String session) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "UserBase");
-        params.put("fun", "UserBasedetailById");
-        params.put("SessionId", session);
-        mCompositeSubscription.add(manager.getInfo(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<PersonalInfoBean, Object>() {
-
-                    @Override
-                    public void onResponse(PersonalInfoBean loginBean, String status, Object page) {
-                        personalInfoContract.getInfoSuccess(loginBean);
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResultBean<PersonalInfoBean, Object> o) {
-                        super.onNext(o);
-                    }
-
-                }));
-    }
 
     public void uploadImage(String HeadPic, String SessionId) {
         HashMap<String, String> params = new HashMap<>();
@@ -104,13 +69,6 @@ public class PersonalInfoPresenter extends BasePresenter {
                         personalInfoContract.uploadImageFail(msg);
                     }
                 }));
-    }
-
-    public void modifyInfo(String session) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("cls", "UserBase");
-        params.put("fun", "UserBasedetailById");
-        params.put("SessionId", session);
     }
 
     public void LoginOut(String SessionId) {
@@ -149,35 +107,6 @@ public class PersonalInfoPresenter extends BasePresenter {
         );
     }
 
-    /*public void update(String sessionid){
-        HashMap<String, String> params = new HashMap<>();
-        params.put("fun", "Update");
-        params.put("cls", "Home");
-        params.put("SessionId", sessionid);
-        mCompositeSubscription.add(manager.update(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HttpResultCallBack<DownloadBean , Object>() {
-
-                    @Override
-                    public void onResponse(DownloadBean downloadBean, String status,Object pageBean) {
-                        settingView.updateSuccess(downloadBean);
-                    }
-
-                    @Override
-                    public void onErr(String msg, String status) {
-                        settingView.updateFail(msg);
-                    }
-
-
-                    @Override
-                    public void onNext(ResultBean resultBean) {
-                        super.onNext(resultBean);
-                    }
-                })
-        );
-
-    }*/
 
 
 }

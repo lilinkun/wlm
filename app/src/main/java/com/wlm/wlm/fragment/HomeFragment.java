@@ -108,7 +108,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @BindView(R.id.rv_home)
     RecyclerView rv_home;
     @BindView(R.id.rv_home_commodities)
-    XRecyclerView rv_home_commodities;
+    RecyclerView rv_home_commodities;
     @BindView(R.id.tv_rush_time)
     CountdownView tv_rush_time;
     @BindView(R.id.big_1)
@@ -124,6 +124,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private HomeFragmentAdapter homeFragmentAdapter;
     private ArrayList<FlashBean> flashBeans;
     private HomeBean homeBean;
+    private HomeHotAdapter homeHotAdapter;
 
     /*
      * 下载文件权限请求码
@@ -137,6 +138,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private DownloadingDialog mDownloadingDialog;
     private String mNewVersion = "2";
+    private int reNum = 0;
 
     @Override
     public int getlayoutId() {
@@ -348,6 +350,16 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void loadMore() {
+
+        if (hotHomeBeans.size() > reNum) {
+            reNum = reNum + 10;
+
+            if (reNum > hotHomeBeans.size()){
+                reNum = hotHomeBeans.size();
+            }
+
+            homeHotAdapter.setShowNum(reNum);
+        }
     }
 
 
@@ -482,7 +494,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onGoodsListSuccess(ArrayList<GoodsListBean> goodsListBeans) {
         this.hotHomeBeans = goodsListBeans;
-        final HomeHotAdapter homeHotAdapter = new HomeHotAdapter(getActivity(), hotHomeBeans);
+        if(hotHomeBeans.size() > 10){
+            reNum = 10;
+        }
+        homeHotAdapter = new HomeHotAdapter(getActivity(), hotHomeBeans,reNum);
         rv_home_commodities.setAdapter(homeHotAdapter);
         homeHotAdapter.setItemClickListener(this);
 

@@ -22,8 +22,7 @@
         android:id="@+id/tsv_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:fillViewport="true">
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -148,20 +147,20 @@
                 </LinearLayout>
 
 
-                <!--<android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_home_commodities"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/textsize12"
-                    />-->
-
-
-                <com.jcodecraeer.xrecyclerview.XRecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_home_commodities"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/textsize12"
                     />
+
+
+                <!--<com.jcodecraeer.xrecyclerview.XRecyclerView
+                    android:id="@+id/rv_home_commodities"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/textsize12"
+                    />-->
 
 
             </LinearLayout>
