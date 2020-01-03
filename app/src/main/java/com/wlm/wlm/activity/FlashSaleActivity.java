@@ -64,7 +64,7 @@ public class FlashSaleActivity extends BaseActivity implements FlashSaleContract
 
         Eyes.setStatusBarColor1(this, getResources().getColor(R.color.point_red));
         flashSalePresenter.onCreate(this, this);
-        flashSalePresenter.setFlash("3");
+        flashSalePresenter.setFlash("5");
         flashSalePresenter.getData(pageIndex + "", WlmUtil.PAGE_COUNT, goodstype + "", orderby, true);
         ll_top.setListener(this);
         ActivityUtil.addHomeActivity(this);

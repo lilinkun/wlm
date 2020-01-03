@@ -78,6 +78,8 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
     TextView tv_goods_title;
     @BindView(R.id.iv_qrcode_goods)
     ImageView iv_qrcode_goods;
+    @BindView(R.id.ll_friend)
+    LinearLayout ll_friend;
 
     IWXAPI iwxapi = null;
 
@@ -88,6 +90,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
     private GrouponDetailBean grouponDetailBean = null;
     String path = "";
     String goodsname = "";
+    String teamid = "";
 
     @Override
     public int getLayoutId() {
@@ -120,7 +123,7 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                 Picasso.with(this).load(ProApplication.HEADIMG + grouponDetailBean.getGoodsImg()).into(criv_shared);
                 tv_goods_price.setText("¥" + grouponDetailBean.getPrice());
                 tv_goods_title.setText(grouponDetailBean.getGoodsName());
-
+                teamid = getIntent().getBundleExtra(WlmUtil.TYPEID).getString("teamid","");
                 String groupShareStr = ProApplication.SHAREDIMG + "Erm/Team?TeamId=" + grouponDetailBean.getTeamId()
                         + "&UserName=" + sharedPreferences.getString(WlmUtil.USERNAME, "");
                 final String encodedURL;
@@ -150,6 +153,8 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                 }
                 Picasso.with(this).load(url).into(iv_qrcode_goods);
             }
+        }else {
+            ll_friend.setVisibility(View.GONE);
         }
         myQrCodePresenter.onCreate(this, this);
         myQrCodePresenter.getUpdataData(ProApplication.SESSIONID(this));
@@ -279,8 +284,13 @@ public class MyQrCodeActivity extends BaseActivity implements MyQrCodeContract {
                         Bitmap thumbBmp1 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shared_wx);
                         ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
                         thumbBmp1.compress(Bitmap.CompressFormat.JPEG, 50, baos1);
+                        String path1 = "";
+                        if (shared.equals("group")) {
+                            path1 = ProApplication.SHAREDIMG + "shop/TeamGoodsDetail?TeamId=" + teamid + "&UserName=" + sharedPreferences1.getString(WlmUtil.USERNAME, "");
+                        }else {
+                            path1 = ProApplication.SHAREDIMG + "shop/item/" + goodsDetailBean.getGoodsId() + "?UserName=" + sharedPreferences1.getString(WlmUtil.USERNAME, "");
+                        }
 
-                        String path1 = "/pages/index/index?scene=" + sharedPreferences1.getString(WlmUtil.USERNAME, "");
                         WlmUtil.setShared1(iwxapi, path1, "唯乐美商城", "唯乐美商城", baos1.toByteArray(),1);
 
                     }

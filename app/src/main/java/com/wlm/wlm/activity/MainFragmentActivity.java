@@ -323,6 +323,7 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
         if (!ProApplication.HEADIMG.equals(urlBean + ProApplication.IMG_SMALL) || !ProApplication.BANNERIMG.equals(urlBean + ProApplication.IMG_BIG)) {
             ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
             ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+            ProApplication.HOMEADDRESS = urlBean.getImgUrl() + ProApplication.IMG_HOME_ADDRESS;
             ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
             ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
             SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);

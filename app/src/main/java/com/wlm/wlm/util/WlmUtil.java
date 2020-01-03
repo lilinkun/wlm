@@ -368,7 +368,7 @@ public class WlmUtil {
         miniProgramObj.path = path;*/
 
         WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = ProApplication.SHAREDIMG;
+        webpage.webpageUrl = path;
 
         //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
         WXMediaMessage msg = new WXMediaMessage(webpage);

@@ -164,6 +164,7 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
         ProApplication.HEADIMG = urlBean.getImgUrl() + ProApplication.IMG_SMALL;
         ProApplication.BANNERIMG = urlBean.getImgUrl() + ProApplication.IMG_BIG;
+        ProApplication.HOMEADDRESS = urlBean.getImgUrl() + ProApplication.IMG_HOME_ADDRESS;
         ProApplication.CUSTOMERIMG = urlBean.getServiesUrl();
         ProApplication.SHAREDIMG = urlBean.getSharedWebUrl();
         ProApplication.REGISTERREQUIREMENTS = urlBean.getRegisterRequirements();

@@ -164,6 +164,7 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
 
                     Bundle bundle = new Bundle();
                     bundle.putString("shared", "group");
+                    bundle.putString("teamid",teamId);
                     bundle.putSerializable(WlmUtil.GOODS, grouponDetailBean);
                     UiHelper.launcherBundle(this, MyQrCodeActivity.class, bundle);
                 }

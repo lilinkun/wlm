@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
+import com.wlm.wlm.base.ProApplication;
 import com.wlm.wlm.util.HomeGridRvEnum;
+import com.wlm.wlm.util.WlmUtil;
 
 /**
  * Created by LG on 2019/10/28.
@@ -42,7 +45,10 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
 
         HomeGridRvEnum homeGridRvEnum = HomeGridRvEnum.values()[position];
 
-        holder.iv_home_grid.setImageResource(homeGridRvEnum.getSrcmsg());
+//        holder.iv_home_grid.setImageResource(homeGridRvEnum.getSrcmsg());
+
+        Picasso.with(context).load(ProApplication.HOMEADDRESS + homeGridRvEnum.getMsgAddress()).into(holder.iv_home_grid);
+
         holder.tv_home_grid.setText(homeGridRvEnum.getStatusMsg());
 
     }
