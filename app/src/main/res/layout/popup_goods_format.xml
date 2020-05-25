@@ -195,7 +195,6 @@
                 android:minHeight="25dp"
                 android:padding="5dp"
                 app:labelBackground="@drawable/label_bg"
-                app:unLabelBackground="@drawable/label_unclick_bg"
                 app:labelTextColor="@drawable/label_text_color"
                 app:unLabelTextColor="@color/bg_list"
                 app:labelTextPaddingBottom="5dp"

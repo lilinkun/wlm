@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
+import com.facebook.stetho.Stetho;
 import com.wlm.wlm.util.DeviceData;
 
 import java.lang.reflect.Field;
@@ -25,6 +26,9 @@ public class ProApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+
+        Stetho.initializeWithDefaults(this);
+
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         displayMetrics.scaledDensity = displayMetrics.density;
         disableAPIDialog();
@@ -83,8 +87,8 @@ public class ProApplication extends Application {
 
 
     public static String SESSIONID(Context mContext) {
-//      return  "wlm06afbb052494856945c98f32d8be2c45";
-        return "wlm" + DeviceData.getUniqueId(mContext);
+      return  "uihxp1el51ygggixaa413zps";
+//        return "wlm" + DeviceData.getUniqueId(mContext);
     }
 
     public static String HEADIMG = "";

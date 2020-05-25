@@ -231,6 +231,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/shape_groupon_info"
                                 android:textColor="@color/groupon_text"
+                                android:layout_marginBottom="@dimen/margin_2"
                                 android:textSize="11sp" />
 
 
@@ -243,7 +244,7 @@
                             android:orientation="horizontal"
                             android:visibility="gone"
                             android:layout_marginLeft="@dimen/margin_10"
-                            android:layout_marginTop="@dimen/margin_15"
+                            android:layout_marginTop="@dimen/margin_10"
                             android:gravity="center_vertical">
 
                             <LinearLayout

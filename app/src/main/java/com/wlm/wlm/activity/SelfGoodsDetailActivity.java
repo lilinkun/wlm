@@ -451,7 +451,6 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
         } else if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON || goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_SECKILL) {
             ll_groupon_time.setVisibility(View.VISIBLE);
             ll_groupon_info.setVisibility(View.VISIBLE);
-            ll_groupon_play.setVisibility(View.VISIBLE);
             tv_grounon_info.setText(goodsDetailBean.getGoodsSmallName());
             ll_sale.setVisibility(View.GONE);
             rl_add_cart.setVisibility(View.GONE);
@@ -460,6 +459,7 @@ public class SelfGoodsDetailActivity extends BaseGoodsActivity implements SelfGo
             ll_goods_layout.setVisibility(View.GONE);
             if (goodsDetailBean.getGoodsType() == WlmUtil.GOODSTYPE_GROUPON) {
                 tx_tikey.setText(R.string.groupon_now);
+                ll_groupon_play.setVisibility(View.VISIBLE);
             } else {
                 tx_tikey.setText(R.string.right_now_flash_sale);
                 if (goodsDetailBean.getUserLevel() > ProApplication.USERLEVEL) {
