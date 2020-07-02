@@ -198,9 +198,9 @@ public class GrouponDetailActivity extends BaseActivity implements GrouponDetail
         }
 
         if (goodsListBean.getTeamType() == 1) {
-            tv_rule.setText("三人团：团长佣金获得规则为25%-35%-40%");
+//            tv_rule.setText("三人团：团长佣金获得规则为25%-35%-40%");
         } else if (goodsListBean.getTeamType() == 2) {
-            tv_rule.setText("五人团：团长佣金获得规则为10%-20%-20-25%-25%");
+//            tv_rule.setText("五人团：团长佣金获得规则为10%-20%-20-25%-25%");
         }
 
         if (goodsListBean.getListUser() != null) {
