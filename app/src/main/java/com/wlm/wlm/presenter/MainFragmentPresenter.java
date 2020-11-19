@@ -86,6 +86,8 @@ public class MainFragmentPresenter extends BasePresenter {
         HashMap<String, String> params = new HashMap<>();
         params.put("cls", "UserBase");
         params.put("fun", "WxLogin");
+//        params.put("openid", "o-Pjfv7ZCRp1NaQamoaKgDxqZFRs");
+//        params.put("unionid", "obdLtwllDsCeXXVRuLXCq4uEIY4w");
         params.put("openid", openid);
         params.put("unionid", unionid);
         params.put("SessionId", sessionId);

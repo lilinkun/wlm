@@ -52,6 +52,7 @@ import com.wlm.wlm.entity.CheckBean;
 import com.wlm.wlm.entity.FlashBean;
 import com.wlm.wlm.entity.GoodsListBean;
 import com.wlm.wlm.entity.HomeBean;
+import com.wlm.wlm.entity.TitleIconBean;
 import com.wlm.wlm.entity.UrlBean;
 import com.wlm.wlm.interf.OnScrollChangedListener;
 import com.wlm.wlm.presenter.HomePresenter;
@@ -125,6 +126,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ArrayList<FlashBean> flashBeans;
     private HomeBean homeBean;
     private HomeHotAdapter homeHotAdapter;
+    private GridHomeAdapter gridHomeAdapter;
 
     /*
      * 下载文件权限请求码
@@ -221,39 +223,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
 
         rv_home.setLayoutManager(gridLayoutManager);
-
-        GridHomeAdapter gridHomeAdapter = new GridHomeAdapter(getActivity());
-
-        gridHomeAdapter.setItemClickListener(new GridHomeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if (position == 0) {
-                    UiHelper.launcher(getActivity(), PointActivity.class);
-                } else if (position == 1) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(WlmUtil.TYPE, "4");
-                    UiHelper.launcherBundle(getActivity(), WebViewActivity.class, bundle);
-                } else if (position == 2) {
-                    UiHelper.launcher(getActivity(), GrouponActivity.class);
-                } else if (position == 3) {
-                    UiHelper.launcher(getActivity(), FlashSaleActivity.class);
-                } else if (position == 4) {
-//                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
-//                }else if (position == 5){
-                    UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
-                } else if (position == 5) {
-                    UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
-                } else if (position == 6) {
-                    UiHelper.launcher(getActivity(), WlmBuyActivity.class);
-                } else if (position == 7) {
-                    UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
-//                }else if (position == 9){
-                }
-            }
-
-        });
-
-        rv_home.setAdapter(gridHomeAdapter);
 
 
     }
@@ -545,7 +514,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void getHomeDataSuccess(HomeBean homeBean) {
+    public void getHomeDataSuccess(final HomeBean homeBean) {
 
         this.homeBean = homeBean;
 
@@ -568,6 +537,49 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        if (gridHomeAdapter == null) {
+            gridHomeAdapter = new GridHomeAdapter(getActivity(),homeBean.getIndexIcon());
+            rv_home.setAdapter(gridHomeAdapter);
+        }else {
+            gridHomeAdapter.setData(homeBean.getIndexIcon());
+        }
+
+        gridHomeAdapter.setItemClickListener(new GridHomeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                if (homeBean.getIndexIcon().get(position).getType() == 1) {
+                    TitleIconBean titleIconBean = homeBean.getIndexIcon().get(position);
+                    if (titleIconBean.getUrl().equals("wlmc01")) {
+                        UiHelper.launcher(getActivity(), PointActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc02")) {
+                        UiHelper.launcher(getActivity(), GrouponActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc03")) {
+                        UiHelper.launcher(getActivity(), FlashSaleActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc04")) {
+//                    UiHelper.launcher(getActivity(), CrowdFundingActivity.class);
+//                }else if (position == 5){
+                        UiHelper.launcher(getActivity(), ManufactureStoreActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc05")) {
+                        UiHelper.launcher(getActivity(), IntegralStoreActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc06")) {
+                        UiHelper.launcher(getActivity(), WlmBuyActivity.class);
+                    } else if (titleIconBean.getUrl().equals("wlmc07")) {
+                        UiHelper.launcher(getActivity(), BeautyHealthActivity.class);
+//                }else if (position == 9){
+                    }
+                }else{
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WlmUtil.TYPE, "4");
+                    UiHelper.launcherBundle(getActivity(), WebViewActivity.class, bundle);
+
+                }
+            }
+
+        });
+
 
     }
 

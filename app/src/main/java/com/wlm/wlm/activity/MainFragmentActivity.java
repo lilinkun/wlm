@@ -421,12 +421,14 @@ public class MainFragmentActivity extends BaseActivity implements MainFragmentCo
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case RC_PERMISSION_DOWNLOAD:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    downNewApk();
-                } else if (grantResults[0] == RC_PERMISSION_DELETE) {
-                    // 删除之前升级时下载的老的 apk 文件
-                    BGAUpgradeUtil.deleteOldApk();
-                }
+//                if(grantResults.length > 0) {
+//                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        downNewApk();
+                    /*} else if (grantResults[0] == RC_PERMISSION_DELETE) {
+                        // 删除之前升级时下载的老的 apk 文件
+                        BGAUpgradeUtil.deleteOldApk();
+                    }*/
+//                }
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);

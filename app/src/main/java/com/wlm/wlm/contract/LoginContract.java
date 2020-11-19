@@ -11,7 +11,7 @@ import com.wlm.wlm.mvp.IView;
 public interface LoginContract extends IView {
     public void onLoginSuccess(LoginBean loginBean);
 
-    public void onLoginFail(String msg);
+    public void onLoginFail(String msg,String status);
 
     public void showPromptMessage(int str);
 

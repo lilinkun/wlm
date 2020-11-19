@@ -31,7 +31,11 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
             String code = result.getStatus();
             if (code.equals("success")) {
                 return gson.fromJson(response, type);
-            } else {
+            } else if (result.getCode() != null  && result.getCode().equals("2")){
+                Log.d("HttpManager1", "返回err==：" + response);
+                ResultBean errResponse = gson.fromJson(response, ResultBean.class);
+                throw new ResultException(errResponse.getDesc(), result.getCode());
+            } else{
                 Log.d("HttpManager", "返回err==：" + response);
                 ResultBean errResponse = gson.fromJson(response, ResultBean.class);
                 if (code.equals("error")) {

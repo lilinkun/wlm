@@ -56,9 +56,7 @@ public class ModifyPayActivity extends BaseActivity implements ModifyPayPsdContr
 
         modifyPayPsdPresenter.onCreate(this, this);
 
-
         titleBar.setTileName("修改支付密码");
-
 
         SharedPreferences sharedPreferences = getSharedPreferences(WlmUtil.LOGIN, MODE_PRIVATE);
         String loginInfo = sharedPreferences.getString(WlmUtil.TELEPHONE, "");

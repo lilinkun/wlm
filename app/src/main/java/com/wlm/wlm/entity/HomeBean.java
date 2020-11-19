@@ -11,6 +11,15 @@ public class HomeBean {
     private ArrayList<FlashBean> flashVip9;
     private String Time;
     private ArrayList<HomeFlashVipBean> flashVip;
+    private ArrayList<TitleIconBean> IndexIcon;
+
+    public ArrayList<TitleIconBean> getIndexIcon() {
+        return IndexIcon;
+    }
+
+    public void setIndexIcon(ArrayList<TitleIconBean> indexIcon) {
+        IndexIcon = indexIcon;
+    }
 
     public ArrayList<GoodsListBean> getGoodsList() {
         return GoodsList;

@@ -91,8 +91,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.BindCardActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.StrategyActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activity.PayActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MyQrCodeActivity"
@@ -145,6 +143,15 @@
         <activity android:name=".activity.HaiWeiLoginActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".crash.DefaultErrorActivity"
+            android:process=":error_activity" />
+
+        <provider
+            android:name=".crash.CaocInitProvider"
+            android:authorities="${applicationId}.customactivityoncrashinitprovider"
+            android:exported="false"
+            android:initOrder="101" />
 
         <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>

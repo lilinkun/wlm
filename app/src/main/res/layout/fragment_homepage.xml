@@ -40,8 +40,6 @@
                     app:indicator_width="10dp"
                     app:indicator_height="10dp"
                     app:indicator_margin="5dp"
-                    app:indicator_drawable_selected="@drawable/ic_home_circle_banner_click"
-                    app:indicator_drawable_unselected="@drawable/ic_home_circle_banner_unclick"
                     />
 
                 <android.support.v7.widget.RecyclerView

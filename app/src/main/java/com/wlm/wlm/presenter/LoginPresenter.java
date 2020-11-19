@@ -85,7 +85,7 @@ public class LoginPresenter extends BasePresenter {
 
                     @Override
                     public void onErr(String msg, String status) {
-                        mLoginView.onLoginFail(msg);
+                        mLoginView.onLoginFail(msg,status);
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }

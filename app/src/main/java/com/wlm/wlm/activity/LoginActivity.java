@@ -141,16 +141,20 @@ public class LoginActivity extends BaseActivity implements LoginContract, IWxLog
 
 
     @Override
-    public void onLoginFail(String msg) {
+    public void onLoginFail(String msg,String code) {
         if (wxUserInfo == null) {
             final SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             req.state = "wechat_sdk_微信登录";
             iwxapi.sendReq(req);
         } else {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("wxinfo", wxUserInfo);
-            UiHelper.launcherForResultBundle(this, RegisterActivity.class, 0x1233, bundle);
+            if (code.equals("2")){
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("wxinfo", wxUserInfo);
+                UiHelper.launcherForResultBundle(this, RegisterActivity.class, 0x1233, bundle);
+            }else {
+                toast(msg);
+            }
         }
     }
 

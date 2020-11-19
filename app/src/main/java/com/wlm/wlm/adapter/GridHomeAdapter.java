@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wlm.wlm.R;
 import com.wlm.wlm.base.ProApplication;
+import com.wlm.wlm.entity.TitleIconBean;
 import com.wlm.wlm.util.HomeGridRvEnum;
 import com.wlm.wlm.util.WlmUtil;
+
+import java.util.ArrayList;
 
 /**
  * Created by LG on 2019/10/28.
@@ -21,9 +24,16 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
 
     private Context context;
     private OnItemClickListener mItemClickListener;
+    private ArrayList<TitleIconBean> titleIconBeans;
 
-    public GridHomeAdapter(Context context) {
+    public GridHomeAdapter(Context context, ArrayList<TitleIconBean> titleIconBeans) {
         this.context = context;
+        this.titleIconBeans = titleIconBeans;
+    }
+
+    public void setData(ArrayList<TitleIconBean> titleIconBeans){
+        this.titleIconBeans = titleIconBeans;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,15 +57,16 @@ public class GridHomeAdapter extends RecyclerView.Adapter<GridHomeAdapter.ViewHo
 
 //        holder.iv_home_grid.setImageResource(homeGridRvEnum.getSrcmsg());
 
-        Picasso.with(context).load(ProApplication.HOMEADDRESS + homeGridRvEnum.getMsgAddress()).into(holder.iv_home_grid);
+        Picasso.with(context).load(titleIconBeans.get(position).getImg()).into(holder.iv_home_grid);
 
-        holder.tv_home_grid.setText(homeGridRvEnum.getStatusMsg());
+        holder.tv_home_grid.setText(titleIconBeans.get(position).getName());
+
 
     }
 
     @Override
     public int getItemCount() {
-        return HomeGridRvEnum.values().length;
+        return titleIconBeans.size();
     }
 
     @Override
